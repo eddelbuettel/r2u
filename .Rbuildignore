@@ -1,0 +1,4 @@
+^.git$
+^.*\.Rproj$
+^\.Rproj\.user$
+^local

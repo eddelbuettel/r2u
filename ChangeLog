@@ -1,0 +1,3 @@
+2022-04-10  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/init.R: Initial version, leaning on c2d
