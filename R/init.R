@@ -1,7 +1,8 @@
 
 .pkgenv <- new.env(parent=emptyenv())
 
-debug <- FALSE
+debug <- FALSE #TRUE
+.debug_message <- function(...) if (debug) message(..., appendLF=FALSE)
 
 .defaultConfigFile <- function() {
     if (getRversion() >= "4.0.0") {
@@ -27,7 +28,7 @@ debug <- FALSE
                 return(fname)
             }
         } else {
-            message("No package config dir")
+            .debug_message("No package config dir")
         }
     }
     return("")
@@ -35,14 +36,15 @@ debug <- FALSE
 
 .loadConfig <- function() {
     if (is.na(match("config_file", names(.pkgenv)))) {
-        if (debug) cat("Reading config\n")
+        .debug_message("Reading config\n")
         cfgfile <- .defaultConfigFile()
         if (cfgfile != "") {
             cfg <- read.dcf(cfgfile)
             .pkgenv[["config_file"]] <- cfgfile
-            .pkgenv[["user"]] <- cfg[1, "user"]
+            #.pkgenv[["user"]] <- cfg[1, "user"]
             .pkgenv[["maintainer"]] <- cfg[1, "maintainer"]
             .pkgenv[["distribution"]] <- cfg[1, "distribution"]
+            .pkgenv[["distribution_name"]] <- cfg[1, "distribution_name"]
             .pkgenv[["debhelper_compat"]] <- cfg[1, "debhelper_compat"]
             .pkgenv[["minimum_r_version"]] <- cfg[1, "minimum_r_version"]
             .pkgenv[["debian_policy_version"]] <- cfg[1, "debian_policy_version"]
@@ -50,12 +52,13 @@ debug <- FALSE
             if (is.finite(match("optional_cran_mirror", colnames(cfg)))) {
                 .pkgenv[["optional_cran_mirror"]] <- cfg[1, "optional_cran_mirror"]
             }
+            .pkgenv[["package_cache"]] <- cfg[1, "package_cache"]
         } else {
-            message("No config file")
+            .debug_message("No config file")
             .pkgenv[["config_file"]] <- ""
         }
     } else {
-        if (debug) cat("Have config\n")
+        .debug_message("Already have config\n")
     }
 }
 
@@ -69,7 +72,7 @@ debug <- FALSE
 
 .loadDB <- function() {
     if (is.na(match("db", names(.pkgenv)))) {
-        if (debug) cat("Reading db\n")
+        .debug_message("Reading db\n")
         dbfile <- .defaultCRANDBFile()
         hrs <- .pkgenv[["cache_age_hours_cran_db"]]
         if (file.exists(dbfile) &&
@@ -83,7 +86,7 @@ debug <- FALSE
         }
         .pkgenv[["db"]] <- db
     } else {
-        if (debug) cat("Have db\n")
+        .debug_message("Have db\n")
     }
 }
 
