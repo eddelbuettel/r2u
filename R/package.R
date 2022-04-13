@@ -17,7 +17,7 @@
 buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE) {
     if (missing(db)) db <- .pkgenv[["db"]]
     stopifnot(`db must be data.frame`=inherits(db, "data.frame"))
-    repo <- tolower(match.arg(repo))
+    repol <- tolower(match.arg(repo))
     if (!inherits(db, "data.table")) setDT(db)
     ind <- match(pkg, db[,Package])
     if (is.na(ind)) stop("Package '", pkg, "' not known to package database.", call. = FALSE)
@@ -26,5 +26,30 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE) {
     D <- db[ind,]
     if (debug) print(D)
 
-    .get_package_file(D[["Package"]], D[["Version"]])
+    pkgname <- paste0("r-", repol, "-", tolower(pkg)) 			# aka r-cran-namehere
+    file <- .get_package_file(D[["Package"]], D[["Version"]]) 		# rspm file, possibly cached
+
+    build_dir <- .getConfig("build_directory")
+    if (!dir.exists(build_dir)) stop("Build directory '", build_dir, "' does not exist")
+    setwd(build_dir)
+
+    if (!dir.exists(pkg)) dir.create(pkg) 				# namehere inside build
+    setwd(pkg)
+
+    if (!dir.exists("debian")) dir.create("debian") 			# debian/
+    setwd("debian")
+    writeControl(pkg, db, repo)
+    writeChangelog(pkg, db, repo)
+    writeRules(pkg, repo)
+    writeCopyright(pkg, D[, License])
+
+    if (dir.exists(file.path(pkgname, "usr"))) unlink(file.path(pkgname, "usr"), recursive=TRUE)
+    if (dir.exists(file.path(pkgname, "DEBIAN"))) unlink(file.path(pkgname, "DEBIAN"), recursive=TRUE)
+
+    instdir <- file.path(pkgname, "usr", "lib", "R", "site-library") 	# unpackaged binary
+    if (!dir.exists(instdir)) dir.create(instdir, recursive=TRUE)
+
+    untar(file, exdir=instdir)
+
+    invisible()
 }

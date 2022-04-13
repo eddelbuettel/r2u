@@ -2,12 +2,12 @@
 .addDepends <- function(dt, con) {
     if (is.na(dt[,Depends])) return(invisible(NULL))
     dep <- dt[,Depends]
-    dep <- gsub("R \\(.*\\)(, )+", "", dep, perl=TRUE)
+    dep <- gsub("R \\(.*\\)(, )*", "", dep, perl=TRUE)
     if (nchar(dep) == 0) return(invisible(NULL))
     deps <- strsplit(dep, ",")[[1]]
     for (i in deps) {
         i <- gsub("^ ", "", i)
-        if (i %in% c("utils", "methods", "stats")) next
+        if (i %in% c("utils", "methods", "stats", "graphics")) next
         cat(", r-cran-", tolower(i), sep="", file=con, append=TRUE)
     }
 }
@@ -18,7 +18,7 @@
     imps <- strsplit(imp, ",")[[1]]
     for (i in imps) {
         i <- gsub("^ ", "", i)
-        if (i %in% c("utils", "methods", "stats")) next
+        if (i %in% c("utils", "methods", "stats", "graphics", "grDevices")) next
         cat(", r-cran-", tolower(i), sep="", file=con, append=TRUE)
     }
 }
@@ -43,7 +43,7 @@
     for (i in sggs) {
         i <- gsub("^ ", "", i)
         i <- gsub("\\n", "", i)
-        if (!first) cat(", ")
+        if (!first) cat(", ", file=con, append=TRUE)
         cat("r-cran-", tolower(i), sep="", file=con, append=TRUE)
         first <- FALSE
     }
@@ -78,7 +78,7 @@ writeControl <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE) {
 
     binary <- D[,NeedsCompilation] == "yes"
 
-    con <- file("debian.control", "wt")
+    con <- file("control", "wt")
     cat("Source: r-", repo, "-", lp, "\n",
         "Section: gnu-r\n",
         "Priority: optional\n",
@@ -99,8 +99,8 @@ writeControl <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE) {
     .addLinkingTo(D, con)
     cat("\nSuggests: ", file=con)
     .addSuggests(D, con)
-    cat("\nDescription: CRAN Package '", pkg, "' (", D[,Title], ")\n ", D[,Description],
-        sep="", file=con)
+    cat("\nDescription: CRAN Package '", pkg, "' (", D[,Title], ")\n ",
+        gsub("   ", "", D[,Description]), sep="", file=con)
     cat("\n", file=con)
     close(con)
 }
@@ -171,30 +171,47 @@ writeChangelog <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE) {
     maint <- .getConfig("maintainer")
     dhcompat <- .getConfig("debhelper_compat")
     distribution <- .getConfig("distribution")
+    distribution_name <- .getConfig("distribution_name")
 
     rel <- paste0("r-", repo, "-", lp)
-    ver <- paste0(D[,Version], "-1.obs.1")
+    ver <- paste0(D[,Version], "-1.ca", gsub("\\.", "", distribution), ".1")
     date <- system("date -R", intern=TRUE)
-    con <- file("debian.changelog", "wt")
-    cat(rel, " (", ver, ") ", distribution, "; urgency=medium\n\n",
-        "  * OBS build\n\n",
+    con <- file("changelog", "wt")
+    cat(rel, " (", ver, ") ", distribution_name, "; urgency=medium\n\n",
+        "  * CRANapt build\n\n",
         " -- ", maint, "  ", date, "\n", sep="", file=con)
     close(con)
 }
 
 #writeRules <- function(pkg, db) {
-writeRules <- function() {
-    ## if (missing(db)) db <- .pkgenv[["db"]]
-    ## stopifnot(`db must be data.frame`=inherits(db, "data.frame"))
-    ## if (!inherits(db, "data.table")) setDT(db)
-    ## ind <- match(pkg, db[,Package])
-    ## if (is.na(ind)) stop("Package '", pkg, "' not known to package database.", call. = FALSE)
-
-    con <- file("debian.rules", "wt")
+writeRules <- function(pkg, repo=c("CRAN", "Bioc")) {
+    repo <- tolower(match.arg(repo))
+    con <- file("rules", "wt")
     cat("#!/usr/bin/make -f\n",
+        "\n",
+        "override_dh_prep:\n",
+	"\t@echo \"Skipping dh_prep\"\n",
+        "\n",
+        "override_dh_clean:\n",
+	"\t@echo \"Skipping dh_clean\"\n",
+        "\n",
+        "override_dh_auto_install:\n",
+	"\t@echo \"R:Depends=r-base-core (>= ", .getConfig("minimum_r_version"), "), r-api-", .getConfig("r_api_version"), "\" >> debian/r-", repo, "-", tolower(pkg), ".substvars\n",
+        "\n",
+        "override_dh_auto_build:\n",
+	"\t@echo \"Skipping dh_auto_build\"\n",
         "\n",
         "%:\n",
         "\tdh $@ --buildsystem R\n",
+        sep="", file=con)
+    close(con)
+}
+
+writeCopyright <- function(pkg, license) {
+    con <- file("copyright", "wt")
+    cat("This is a binary build of CRAN package '", pkg, "'.\n\n",
+        "Its original license is '", license, "'.\n\n",
+        "See the included file 'DESCRIPTION' for more details.\n",
         sep="", file=con)
     close(con)
 }

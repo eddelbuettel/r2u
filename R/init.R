@@ -47,12 +47,14 @@ debug <- FALSE #TRUE
             .pkgenv[["distribution_name"]] <- cfg[1, "distribution_name"]
             .pkgenv[["debhelper_compat"]] <- cfg[1, "debhelper_compat"]
             .pkgenv[["minimum_r_version"]] <- cfg[1, "minimum_r_version"]
+            .pkgenv[["r_api_version"]] <- cfg[1, "r_api_version"]
             .pkgenv[["debian_policy_version"]] <- cfg[1, "debian_policy_version"]
             .pkgenv[["cache_age_hours_cran_db"]] <- cfg[1, "cache_age_hours_cran_db"]
             if (is.finite(match("optional_cran_mirror", colnames(cfg)))) {
                 .pkgenv[["optional_cran_mirror"]] <- cfg[1, "optional_cran_mirror"]
             }
             .pkgenv[["package_cache"]] <- cfg[1, "package_cache"]
+            .pkgenv[["build_directory"]] <- cfg[1, "build_directory"]
         } else {
             .debug_message("No config file")
             .pkgenv[["config_file"]] <- ""
