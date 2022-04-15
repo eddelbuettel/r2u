@@ -18,17 +18,31 @@ debug <- FALSE #TRUE
     return("")
 }
 
-.defaultCRANDBFile <- function() {
+.defaultCRANDBFile <- function(force=FALSE) {
     if (getRversion() >= "4.0.0") {
         ## ~/.local/share/R/ + package
         pkgdir <- tools::R_user_dir(packageName())
         if (dir.exists(pkgdir)) {
             fname <- file.path(pkgdir, "crandb.rds")
-            if (file.exists(fname)) {
+            if (file.exists(fname) || force) {
                 return(fname)
             }
         } else {
             .debug_message("No package config dir")
+        }
+    }
+    return("")
+}
+
+.defaultBuildDependsFile <- function() {
+    if (getRversion() >= "4.0.0") {
+        ## ~/.local/share/R/ + package
+        pkgdir <- tools::R_user_dir(packageName())
+        if (dir.exists(pkgdir)) {
+            fname <- file.path(pkgdir, "depends.dcf")
+            if (file.exists(fname)) {
+                return(fname)
+            }
         }
     }
     return("")
@@ -65,7 +79,7 @@ debug <- FALSE #TRUE
 }
 
 .checkSystem <- function() {
-    bins <- c("osc", "md5sum", "sha1sum", "sha256sum")
+    bins <- c("docker", "md5sum", "sha1sum", "sha256sum")
     res <- Sys.which(bins)
     if (any(res==""))
         stop("Missing binaries for '", paste(names(res[res==""]), collapse=", "), "'.", call. = FALSE)
@@ -80,11 +94,13 @@ debug <- FALSE #TRUE
         if (file.exists(dbfile) &&
             as.numeric(difftime(Sys.time(), file.info(dbfile)$ctime, units="hours")) < hrs) {
             db <- readRDS(dbfile)
+            .debug_message("Cached db\n")
         } else {
+            .debug_message("Fresh db\n")
             db <- tools::CRAN_package_db()
-            if (dbfile != "") {
-                saveRDS(db, dbfile)
-            }
+            dbfile <- .defaultCRANDBFile(TRUE)
+            saveRDS(db, dbfile)
+            .debug_message("Written db\n")
         }
         .pkgenv[["db"]] <- db
     } else {
@@ -92,14 +108,26 @@ debug <- FALSE #TRUE
     }
 }
 
+.loadBuildDepends <- function() {
+    depfile <- .defaultBuildDependsFile()
+    if (depfile == "") {
+        .pkgenv[["builddeps"]] <- character()
+    } else {
+        deps <- read.dcf(depfile)
+        .pkgenv[["builddeps"]] <- deps[1,,drop=TRUE]
+    }
+}
+
 .onLoad <- function(libname, pkgname) {
     .loadConfig()
     .checkSystem()
     .loadDB()
+    .loadBuildDepends()
 }
 
 .onAttach <- function(libname, pkgname) {
     .loadConfig()
     .checkSystem()
     .loadDB()
+    .loadBuildDepends()
 }

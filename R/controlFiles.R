@@ -1,31 +1,31 @@
 
 .addDepends <- function(dt, con) {
     if (is.na(dt[,Depends])) return(invisible(NULL))
-    dep <- dt[,Depends]
-    dep <- gsub("R \\(.*\\)(, )*", "", dep, perl=TRUE)
+    dep <- gsub("\\n", "", dt[,Depends])
+    dep <- gsub("R \\(.*?\\), ", "", dep, perl=TRUE)
     if (nchar(dep) == 0) return(invisible(NULL))
     deps <- strsplit(dep, ",")[[1]]
     for (i in deps) {
         i <- gsub("^ ", "", i)
-        if (i %in% c("utils", "methods", "stats", "graphics")) next
+        if (i %in% c("utils", "methods", "stats", "graphics", "tools", "stats")) next
         cat(", r-cran-", tolower(i), sep="", file=con, append=TRUE)
     }
 }
 
 .addImports <- function(dt, con) {
     if (is.na(dt[,Imports])) return(invisible(NULL))
-    imp <- dt[,Imports]
+    imp <- gsub("\\n", "", dt[,Imports])
     imps <- strsplit(imp, ",")[[1]]
     for (i in imps) {
         i <- gsub("^ ", "", i)
-        if (i %in% c("utils", "methods", "stats", "graphics", "grDevices")) next
+        if (i %in% c("utils", "methods", "stats", "graphics", "grDevices", "tools", "stats")) next
         cat(", r-cran-", tolower(i), sep="", file=con, append=TRUE)
     }
 }
 
 .addLinkingTo <- function(dt, con) {
     if (is.na(dt[,LinkingTo])) return(invisible(NULL))
-    lto <- dt[,LinkingTo]
+    lto <- gsub("\\n", "", dt[,LinkingTo])
     ltos <- strsplit(lto, ",")[[1]]
     for (i in ltos) {
         i <- gsub("^ ", "", i)
@@ -37,7 +37,7 @@
 
 .addSuggests <- function(dt, con) {
     if (is.na(dt[,Suggests])) return(invisible(NULL))
-    sgg <- dt[,Suggests]
+    sgg <- gsub("\\n", "", dt[,Suggests])
     sggs <- strsplit(sgg, ",")[[1]]
     first <- TRUE
     for (i in sggs) {
@@ -99,8 +99,8 @@ writeControl <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE) {
     .addLinkingTo(D, con)
     cat("\nSuggests: ", file=con)
     .addSuggests(D, con)
-    cat("\nDescription: CRAN Package '", pkg, "' (", D[,Title], ")\n ",
-        gsub("   ", "", D[,Description]), sep="", file=con)
+    cat("\nDescription: CRAN Package '", pkg, "' (", gsub("\\n", "", D[,Title]), ")\n ", sep="", file=con)
+    sapply(strwrap(trimws(D[, Description]), 78, indent=0, exdent=1), cat, "\n", sep="", file=con)
     cat("\n", file=con)
     close(con)
 }

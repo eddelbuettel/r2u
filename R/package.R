@@ -2,14 +2,15 @@
 .get_package_file <- function(pkg, ver) {
     cachedir <- .getConfig("package_cache")
     path <- file.path(cachedir, paste0(pkg, "_", ver, ".tar.gz"))
-    #print(path)
-    #if (file.exists(path)) message("yes") else message("no")
     if (!file.exists(path)) {
         repo <- paste0("https://packagemanager.rstudio.com/all/__linux__/", .getConfig("distribution_name"), "/latest")
         rv <- R.version
         agent <- sprintf("R/%s R (%s)", getRversion(), paste(getRversion(), rv$platform, rv$arch, rv$os))
         options(HTTPUserAgent = agent)
-        download.packages(pkg, cachedir, repos=repo)
+        download.packages(pkg, cachedir, repos = repo, quiet = TRUE)
+        cat(green("[downloaded] "))
+    } else {
+        cat(green("[cached] "))
     }
     path
 }
@@ -25,6 +26,8 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE) {
     ## todo: check license and all that
     D <- db[ind,]
     if (debug) print(D)
+
+    cat(pkg, "\t")
 
     pkgname <- paste0("r-", repol, "-", tolower(pkg)) 			# aka r-cran-namehere
     file <- .get_package_file(D[["Package"]], D[["Version"]]) 		# rspm file, possibly cached
@@ -50,6 +53,16 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE) {
     if (!dir.exists(instdir)) dir.create(instdir, recursive=TRUE)
 
     untar(file, exdir=instdir)
+
+    setwd(build_dir)
+    container <- paste0("eddelbuettel/r2u:", .getConfig("distribution_name"))
+    deps <- if (pkg %in% names(.getConfig("builddeps"))) .getConfig("builddeps")[pkg] else ""
+    cmd <- paste0("docker run --rm -ti -v ", getwd(), ":/mnt -w /mnt/", pkg, " ",
+                  container, " debBuild.sh ", pkg, " ", deps)
+    #print(cmd)
+    rc <- system(cmd, ignore.stdout=TRUE)
+    if (rc == 0) cat(green("[built] ")) else cat(red("[error", rc, "] "))
+    cat("\n")
 
     invisible()
 }

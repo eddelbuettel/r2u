@@ -2,5 +2,6 @@
 ## (but allow for private functions whose name starts with a dot).name <- function(...)
 exportPattern("^[[:alpha:]]+")
 
-import(data.table)
-importFrom(utils, packageName)
+import("data.table")
+importFrom("utils", "packageName")
+importFrom("crayon", "red", "green", "blue")
