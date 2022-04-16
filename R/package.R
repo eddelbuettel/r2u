@@ -26,8 +26,8 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE) {
     ## todo: check license and all that
     D <- db[ind,]
     if (debug) print(D)
-
-    cat(blue(sprintf("%-16s ", pkg)))   				# start console log with pkg
+    ver <- D[["Version"]]
+    cat(blue(sprintf("%-16s %-10s", pkg, ver))) 			# start console log with pkg
 
     pkgname <- paste0("r-", repol, "-", tolower(pkg)) 			# aka r-cran-namehere
     file <- .get_package_file(D[["Package"]], D[["Version"]]) 		# rspm file, possibly cached

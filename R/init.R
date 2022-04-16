@@ -1,7 +1,7 @@
 
 .pkgenv <- new.env(parent=emptyenv())
 
-debug <- FALSE #TRUE
+debug <- FALSE #TRUE #
 .debug_message <- function(...) if (debug) message(..., appendLF=FALSE)
 
 .defaultConfigFile <- function() {
@@ -24,6 +24,22 @@ debug <- FALSE #TRUE
         pkgdir <- tools::R_user_dir(packageName())
         if (dir.exists(pkgdir)) {
             fname <- file.path(pkgdir, "crandb.rds")
+            if (file.exists(fname) || force) {
+                return(fname)
+            }
+        } else {
+            .debug_message("No package config dir")
+        }
+    }
+    return("")
+}
+
+.defaultAPFile <- function(force=FALSE) {
+    if (getRversion() >= "4.0.0") {
+        ## ~/.local/share/R/ + package
+        pkgdir <- tools::R_user_dir(packageName())
+        if (dir.exists(pkgdir)) {
+            fname <- file.path(pkgdir, "availablepackages.rds")
             if (file.exists(fname) || force) {
                 return(fname)
             }
@@ -108,6 +124,29 @@ debug <- FALSE #TRUE
     }
 }
 
+.loadAP <- function() {
+    if (is.na(match("ap", names(.pkgenv)))) {
+        .debug_message("Getting ap\n")
+        apfile <- .defaultAPFile()
+        hrs <- .pkgenv[["cache_age_hours_cran_db"]]
+        if (file.exists(apfile) &&
+            as.numeric(difftime(Sys.time(), file.info(apfile)$ctime, units="hours")) < hrs) {
+            ap <- readRDS(apfile)
+            .debug_message("Cached ap\n")
+        } else {
+            .debug_message("Fresh ap\n")
+            repo <- paste0("https://packagemanager.rstudio.com/all/__linux__/", .getConfig("distribution_name"), "/latest")
+            ap <- available.packages(repo=repo)
+            apfile <- .defaultAPFile(TRUE)
+            saveRDS(ap, apfile)
+            .debug_message("Written ap\n")
+        }
+        .pkgenv[["ap"]] <- ap
+    } else {
+        .debug_message("Have ap\n")
+    }
+}
+
 .loadBuildDepends <- function() {
     depfile <- .defaultBuildDependsFile()
     if (depfile == "") {
@@ -122,6 +161,7 @@ debug <- FALSE #TRUE
     .loadConfig()
     .checkSystem()
     .loadDB()
+    .loadAP()
     .loadBuildDepends()
 }
 
@@ -129,5 +169,6 @@ debug <- FALSE #TRUE
     .loadConfig()
     .checkSystem()
     .loadDB()
+    .loadAP()
     .loadBuildDepends()
 }
