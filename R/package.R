@@ -57,7 +57,10 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE) {
     setwd(build_dir)
     container <- paste0("eddelbuettel/r2u:", .getConfig("distribution_name"))
     deps <- if (pkg %in% names(.getConfig("builddeps"))) .getConfig("builddeps")[pkg] else ""
-    cmd <- paste0("docker run --rm -ti -v ", getwd(), ":/mnt -w /mnt/", pkg, " ",
+    cmd <- paste0("docker run --rm -ti ",
+                  "-v ", getwd(), "/../deb:/deb ",
+                  "-v ", getwd(), ":/mnt ",
+                  "-w /mnt/", pkg, " ",
                   container, " debBuild.sh ", pkg, " ", deps)
     #print(cmd)
     rc <- system(cmd, ignore.stdout=TRUE)

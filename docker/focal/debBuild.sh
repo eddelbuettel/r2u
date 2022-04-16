@@ -21,3 +21,5 @@ dpkg-buildpackage -us -us -d
 cd ..
 chown docker:staff *"${lcpkg}"*
 chown -R docker:staff ${pkg}
+
+mv r-cran-${lcpkg}_*.deb /deb/
