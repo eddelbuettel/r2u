@@ -27,7 +27,7 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE) {
     D <- db[ind,]
     if (debug) print(D)
 
-    cat(pkg, "\t")
+    cat(blue(sprintf("%-16s ", pkg)))   				# start console log with pkg
 
     pkgname <- paste0("r-", repol, "-", tolower(pkg)) 			# aka r-cran-namehere
     file <- .get_package_file(D[["Package"]], D[["Version"]]) 		# rspm file, possibly cached
