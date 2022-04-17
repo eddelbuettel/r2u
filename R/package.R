@@ -20,7 +20,7 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE) {
     if (missing(db)) db <- .pkgenv[["db"]]
     stopifnot("db must be data.frame" = inherits(db, "data.frame"))
     repol <- tolower(match.arg(repo))
-    if (pkg %in% c("utils", "methods", "stats", "graphics", "grDevices", "grid", "parallel", "tools", "stats")) return(invisible())
+    if (pkg %in% c("graphics", "grDevices", "grid", "methods", "parallel", "splines", "stats", "stats4", "tools", "utils")) return(invisible())
     ind <- match(pkg, db[,Package])
     if (is.na(ind)) stop("Package '", pkg, "' not known to package database.", call. = FALSE)
     ap <- .pkgenv[["ap"]]
@@ -33,7 +33,7 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE) {
     if (debug) print(D)
     ver <- D[, Version]
     aver <- AP[, Version]
-    cat(blue(sprintf("%-16s %-9s %-9s", pkg, ver, aver))) 		# start console log with pkg
+    cat(blue(sprintf("%-16s %-11s %-11s", pkg, ver, aver))) 		# start console log with pkg
     if (ver != aver) {
         cat(red("... not yet available, skipping\n"))
         return(invisible())
