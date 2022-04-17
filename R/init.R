@@ -85,6 +85,7 @@ debug <- FALSE #TRUE #
             }
             .pkgenv[["package_cache"]] <- cfg[1, "package_cache"]
             .pkgenv[["build_directory"]] <- cfg[1, "build_directory"]
+            .pkgenv[["deb_directory"]] <- cfg[1, "deb_directory"]
         } else {
             .debug_message("No config file")
             .pkgenv[["config_file"]] <- ""
@@ -118,7 +119,7 @@ debug <- FALSE #TRUE #
             saveRDS(db, dbfile)
             .debug_message("Written db\n")
         }
-        .pkgenv[["db"]] <- db
+        .pkgenv[["db"]] <- setDT(as.data.frame(db))
     } else {
         .debug_message("Have db\n")
     }
@@ -141,10 +142,21 @@ debug <- FALSE #TRUE #
             saveRDS(ap, apfile)
             .debug_message("Written ap\n")
         }
-        .pkgenv[["ap"]] <- ap
+        .pkgenv[["ap"]] <- setDT(as.data.frame(ap))
     } else {
         .debug_message("Have ap\n")
     }
+}
+
+.loadBuilds <- function() {
+    dd <- .pkgenv[["deb_directory"]]
+    cwd <- getwd()
+    setwd(dd)
+    fls <- list.files(".", pattern="\\.deb$", full.names=FALSE)
+    n1 <- tools::file_path_sans_ext(fls)
+    n2 <- gsub("-\\d+.ca2004.\\d+_(all|amd64)$", "", n1) 		# TODO: take out 'ca2004'
+    B <- data.table(name=fls, pkgver=n2, file.info(fls))
+    .pkgenv[["builds"]] <- B
 }
 
 .loadBuildDepends <- function() {
@@ -162,6 +174,7 @@ debug <- FALSE #TRUE #
     .checkSystem()
     .loadDB()
     .loadAP()
+    .loadBuilds()
     .loadBuildDepends()
 }
 
@@ -170,5 +183,6 @@ debug <- FALSE #TRUE #
     .checkSystem()
     .loadDB()
     .loadAP()
+    .loadBuilds()
     .loadBuildDepends()
 }
