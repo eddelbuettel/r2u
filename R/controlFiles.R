@@ -105,56 +105,6 @@ writeControl <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE) {
     close(con)
 }
 
-writeDsc <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE) {
-    if (missing(db)) db <- .pkgenv[["db"]]
-    stopifnot(`db must be data.frame`=inherits(db, "data.frame"))
-    repo <- tolower(match.arg(repo))
-    if (!inherits(db, "data.table")) setDT(db)
-    ind <- match(pkg, db[,Package])
-    if (is.na(ind)) stop("Package '", pkg, "' not known to package database.", call. = FALSE)
-
-    ## todo: check license and all that
-    D <- db[ind,]
-    if (debug) print(D)
-
-    srcfile <- paste0(pkg, "_", D[,Version], ".tar.gz")
-    targz <- file.path("/home/edd/cranberries/sources/", srcfile)  ## TODO: archive
-    stopifnot(file.exists(targz))
-
-    lp <- tolower(pkg)
-    maint <- .getConfig("maintainer")
-    dhcompat <- .getConfig("debhelper_compat")
-    rdevver <- .getConfig("minimum_r_version")
-    stdver <- .getConfig("debian_policy_version")
-
-    binary <- D[,NeedsCompilation] == "yes"
-
-    nam <- paste0("r-", repo, "-", lp)
-    con <- file(paste0(nam, ".dsc"), "wt")
-    cat("Format: 1.0\n",
-        "Source: ", nam, "\n",
-        "Version: ", D[,Version], "-1.obs.1\n",
-        "Binary: r-", repo, "-", lp, "\n",
-        "Maintainer: ", maint, "\n",
-        "Architecture: ", if (binary) "any" else "all", "\n",
-        "Homepage: https://cran.r-project.org/package=", pkg, "\n",
-        "Standards-Version: ", stdver, "\n",
-        "Build-Depends: debhelper-compat (= ", dhcompat, "), r-base-dev (>= ", rdevver, "), dh-r",
-        sep="", file=con)
-    .addDepends(D, con)
-    .addImports(D, con)
-    .addLinkingTo(D, con)
-    sz <- file.info(targz)$size
-    md5sum <- system(paste("md5sum", targz, "| cut -f1 -d' '"), intern=TRUE)
-    sha1sum <- system(paste("sha1sum", targz, "| cut -f1 -d' '"), intern=TRUE)
-    sha256sum <- system(paste("sha256sum", targz, "| cut -f1 -d' '"), intern=TRUE)
-    cat("\nFiles:\n ", md5sum, " ", sz, " ", srcfile, "\n",
-        "CheckSums-Sha1:\n ", sha1sum, " ", sz, " ", srcfile, "\n",
-        "CheckSums-Sha256:\n ", sha256sum, " ", sz, " ", srcfile, "\n",
-        sep="", file=con, append=TRUE)
-    close(con)
-}
-
 writeChangelog <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE) {
     if (missing(db)) db <- .pkgenv[["db"]]
     stopifnot(`db must be data.frame`=inherits(db, "data.frame"))
