@@ -35,13 +35,13 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE) {
     aver <- AP[, Version]
     cat(blue(sprintf("%-16s %-11s %-11s", pkg, ver, aver))) 		# start console log with pkg
     if (ver != aver) {
-        cat(red("... not yet available, skipping\n"))
+        cat(red("[not yet available - skipping]\n"))
         return(invisible())
     }
     pkgname <- paste0("r-", repol, "-", tolower(pkg)) 			# aka r-cran-namehere
     cand <- paste0(pkgname, "_", ver)
     if (is.finite(match(cand, builds[, pkgver]))) {
-        cat(green("... already built, skipping\n"))
+        cat(green("[already built - skipping]\n"))
         return(invisible)
     }
     ## so we're building one
@@ -91,7 +91,16 @@ buildAll <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE) {
     if (missing(db)) db <- .pkgenv[["db"]]
     stopifnot("db must be data.frame" = inherits(db, "data.frame"))
     deps <- tools::package_dependencies(pkg, db=db, recursive=TRUE)
-    vec <- unique(sort(unname(do.call(c, deps))))
+    vec <- unique(sort(c(pkg, unname(do.call(c, deps)))))
     ignoredres <- sapply(vec, buildPackage, db, repo, debug)
     invisible()
+}
+
+
+# L0416 <- data.table::fread("http://cran-logs.rstudio.com/2022/2022-04-16.csv.gz")
+
+topN <- function(npkg, date=Sys.Date() - 1, from=1L) {
+    url <- strftime(date, "http://cran-logs.rstudio.com/%Y/%Y-%m-%d.csv.gz")
+    D <- data.table::fread(url)
+    D[, .N, keyby=package][order(N,decreasing=TRUE)][seq(from, from+npkg-1L)][,package]
 }
