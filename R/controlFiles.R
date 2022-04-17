@@ -99,8 +99,8 @@ writeControl <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE) {
     .addLinkingTo(D, con)
     cat("\nSuggests: ", file=con)
     .addSuggests(D, con)
-    cat("\nDescription: CRAN Package '", pkg, "' (", gsub("\\n", "", D[,Title]), ")\n ", sep="", file=con)
-    sapply(strwrap(trimws(D[, Description]), 78, indent=0, exdent=1), cat, "\n", sep="", file=con)
+    cat("\nDescription: CRAN Package '", pkg, "' (", gsub("\\n", "", D[,Title]), ")\n", sep="", file=con)
+    sapply(Filter(function(x) x != "", strwrap(trimws(D[, Description]), 78, indent=1, exdent=1)), cat, "\n", sep="", file=con)
     cat("\n", file=con)
     close(con)
 }
