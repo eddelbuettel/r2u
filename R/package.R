@@ -2,6 +2,7 @@
 ## downloader from RSPM
 .get_package_file <- function(pkg, ver) {
     cachedir <- .getConfig("package_cache")
+    if (!dir.exists(cachedir)) dir.create(cachedir, recursive=TRUE)
     path <- file.path(cachedir, paste0(pkg, "_", ver, ".tar.gz"))
     if (!file.exists(path)) {
         repo <- paste0("https://packagemanager.rstudio.com/all/__linux__/", .getConfig("distribution_name"), "/latest")
@@ -103,10 +104,14 @@ buildAll <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE) {
 }
 
 
-# L0416 <- data.table::fread("http://cran-logs.rstudio.com/2022/2022-04-16.csv.gz")
-
 topN <- function(npkg, date=Sys.Date() - 1, from=1L) {
-    url <- strftime(date, "http://cran-logs.rstudio.com/%Y/%Y-%m-%d.csv.gz")
-    D <- data.table::fread(url)
+    cachedir <- .getConfig("package_cache")
+    if (!dir.exists(cachedir)) dir.create(cachedir, recursive=TRUE)
+    cachedfile <- file.path(cachedir, strftime(date, "cranlogs-%Y-%m-%d.csv.gz"))
+    if (!file.exists(cachedfile)) {
+        url <- strftime(date, "http://cran-logs.rstudio.com/%Y/%Y-%m-%d.csv.gz")
+        download.file(url, cachedfile, quiet=TRUE)
+    }
+    D <- data.table::fread(cachedfile)
     D[, .N, keyby=package][order(N,decreasing=TRUE)][seq(from, from+npkg-1L)][,package]
 }
