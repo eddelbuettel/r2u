@@ -16,11 +16,11 @@
     path
 }
 
-buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE) {
+buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE, verbose=FALSE) {
     if (missing(db)) db <- .pkgenv[["db"]]
     stopifnot("db must be data.frame" = inherits(db, "data.frame"))
     repol <- tolower(match.arg(repo))
-    if (pkg %in% c("base", "datasets", "graphics", "grDevices", "grid", "methods", "parallel", "splines", "stats", "stats4", "tcltk", "tools", "utils")) return(invisible())
+    if (pkg %in% c("base", "compiler", "datasets", "graphics", "grDevices", "grid", "methods", "parallel", "splines", "stats", "stats4", "tcltk", "tools", "utils")) return(invisible())
     ind <- match(pkg, db[,Package])
     if (is.na(ind)) {
         message(red(paste0("Package '", pkg, "' not known to package database.")))
@@ -36,18 +36,21 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE) {
     if (debug) print(D)
     ver <- D[, Version]
     aver <- AP[, Version]
-    cat(blue(sprintf("%-22s %-11s %-11s", pkg, ver, aver))) 		# start console log with pkg
     if (ver != aver) {
-        cat(red("[not yet available - skipping]\n"))
+        if (verbose) cat(blue(sprintf("%-22s %-11s %-11s", pkg, ver, aver))) 		# start console log with pkg
+        if (verbose) cat(red("[not yet available - skipping]\n"))
         return(invisible())
     }
     pkgname <- paste0("r-", repol, "-", tolower(pkg)) 			# aka r-cran-namehere
     cand <- paste0(pkgname, "_", ver)
     if (is.finite(match(cand, builds[, pkgver]))) {
-        cat(green("[already built - skipping]\n"))
+        if (verbose) cat(blue(sprintf("%-22s %-11s %-11s", pkg, ver, aver))) 		# start console log with pkg
+        if (verbose) cat(green("[already built - skipping]\n"))
         return(invisible)
     }
+
     ## so we're building one
+    cat(blue(sprintf("%-22s %-11s %-11s", pkg, ver, aver))) 		# start console log with pkg
 
     file <- .get_package_file(D[,Package], D[,Version]) 		# rspm file, possibly cached
 

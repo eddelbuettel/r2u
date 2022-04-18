@@ -43,6 +43,7 @@
     for (i in sggs) {
         i <- gsub("^ ", "", i)
         i <- gsub("\\n", "", i)
+        i <- gsub("== ", "= ", i)
         if (!first) cat(", ", file=con, append=TRUE)
         cat("r-cran-", tolower(i), sep="", file=con, append=TRUE)
         first <- FALSE
@@ -151,7 +152,13 @@ writeRules <- function(pkg, repo=c("CRAN", "Bioc")) {
         "override_dh_auto_build:\n",
 	"\t@echo \"Skipping dh_auto_build\"\n",
         "\n",
-        "%:\n",
+        sep="", file=con)
+    if (pkg == "h2o")
+        cat("override_dh_auto_build:\n",
+	    "\t@echo \"Skipping dh_auto_build\"\n",
+            "\n",
+            sep="", file=con)
+    cat("%:\n",
         "\tdh $@ --buildsystem R\n",
         sep="", file=con)
     close(con)
