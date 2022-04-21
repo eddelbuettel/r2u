@@ -86,18 +86,22 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE, verbose=F
     instdir <- file.path("debian", pkgname, "usr", "lib", "R", "site-library") 	# unpackaged binary
     if (!dir.exists(instdir)) dir.create(instdir, recursive=TRUE)
 
-    print(file); stop(file)
-    untar(file, exdir=instdir)
+    if (repo == "CRAN") {
+        untar(file, exdir=instdir)
+    } else {
+        if (!dir.exists("src")) dir.create("src")
+        untar(file, exdir="src")
+    }
 
     setwd("debian")
+
+    if (dir.exists(file.path(pkgname, "usr"))) unlink(file.path(pkgname, "usr"), recursive=TRUE)
+    if (dir.exists(file.path(pkgname, "DEBIAN"))) unlink(file.path(pkgname, "DEBIAN"), recursive=TRUE)
 
     writeControl(pkg, db, repo)
     writeChangelog(pkg, db, repo)
     writeRules(pkg, repo)
     writeCopyright(pkg, D[, License])
-
-    #if (dir.exists(file.path(pkgname, "usr"))) unlink(file.path(pkgname, "usr"), recursive=TRUE)
-    if (dir.exists(file.path(pkgname, "DEBIAN"))) unlink(file.path(pkgname, "DEBIAN"), recursive=TRUE)
 
     setwd(build_dir)
     container <- paste0("eddelbuettel/r2u:", .getConfig("distribution_name"))

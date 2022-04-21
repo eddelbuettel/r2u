@@ -74,7 +74,7 @@ writeControl <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE) {
     lp <- tolower(pkg)
 
     if (! "Title" %in% names(D)) {
-        cf <- read.dcf(file.path(paste0("r-", repo, "-", lp), "usr", "lib", "R", "site-library", pkg, "DESCRIPTION"))
+        cf <- read.dcf(file.path("..", "src", pkg, "DESCRIPTION"))
         newD <- data.table(Package = cf[1, "Package"], Title = cf[1, "Title"], Description = cf[1, "Description"])
         D <- D[newD, on="Package"]
     }
