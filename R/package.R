@@ -17,17 +17,34 @@
     path
 }
 
+## downloader from bioc
+.get_source_file <- function(pkg, ver, ap) {
+    cachedir <- .getConfig("package_cache")
+    if (!dir.exists(cachedir)) dir.create(cachedir, recursive=TRUE)
+    path <- file.path(cachedir, paste0(pkg, "_", ver, ".tar.gz"))
+    if (!file.exists(path)) {
+        remotefile <- file.path(repos=ap[,Repository], paste0(pkg, "_", ver, ".tar.gz"))
+        print(remotefile)
+        download.file(remotefile, destfile=path, quiet=TRUE)
+        cat(green("[downloaded] "))
+    } else {
+        cat(green("[cached] "))
+    }
+    path
+}
+
 buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE, verbose=FALSE) {
     if (missing(db)) db <- .pkgenv[["db"]]
     stopifnot("db must be data.frame" = inherits(db, "data.frame"))
-    repol <- tolower(match.arg(repo))
+    repo <- match.arg(repo)
+    repol <- tolower(repo)
     if (pkg %in% c("base", "compiler", "datasets", "graphics", "grDevices", "grid", "methods", "parallel", "splines", "stats", "stats4", "tcltk", "tools", "utils")) return(invisible())
     ind <- match(pkg, db[,Package])
     if (is.na(ind)) {
         message(red(paste0("Package '", pkg, "' not known to package database.")))
         return(invisible())
     }
-    ap <- .pkgenv[["ap"]]
+    ap <- if (repo == "CRAN") .pkgenv[["ap"]] else .pkgenv[["bioc"]]
     aind <- match(pkg, ap[,Package])
     builds <- .pkgenv[["builds"]]
 
@@ -53,7 +70,11 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE, verbose=F
     ## so we're building one
     cat(blue(sprintf("%-22s %-11s %-11s", pkg, ver, aver))) 		# start console log with pkg
 
-    file <- .get_package_file(D[,Package], D[,Version]) 		# rspm file, possibly cached
+    file <- if (repo == "CRAN") {
+                .get_package_file(D[,Package], D[,Version]) 		# rspm file, possibly cached
+            } else {
+                .get_source_file(D[, Package], D[, Version], AP)
+            }
 
     build_dir <- .getConfig("build_directory")
     if (!dir.exists(build_dir)) stop("Build directory '", build_dir, "' does not exist")
@@ -62,20 +83,21 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE, verbose=F
     if (!dir.exists(pkg)) dir.create(pkg) 				# namehere inside build
     setwd(pkg)
 
-    if (!dir.exists("debian")) dir.create("debian") 			# debian/
+    instdir <- file.path("debian", pkgname, "usr", "lib", "R", "site-library") 	# unpackaged binary
+    if (!dir.exists(instdir)) dir.create(instdir, recursive=TRUE)
+
+    print(file); stop(file)
+    untar(file, exdir=instdir)
+
     setwd("debian")
+
     writeControl(pkg, db, repo)
     writeChangelog(pkg, db, repo)
     writeRules(pkg, repo)
     writeCopyright(pkg, D[, License])
 
-    if (dir.exists(file.path(pkgname, "usr"))) unlink(file.path(pkgname, "usr"), recursive=TRUE)
+    #if (dir.exists(file.path(pkgname, "usr"))) unlink(file.path(pkgname, "usr"), recursive=TRUE)
     if (dir.exists(file.path(pkgname, "DEBIAN"))) unlink(file.path(pkgname, "DEBIAN"), recursive=TRUE)
-
-    instdir <- file.path(pkgname, "usr", "lib", "R", "site-library") 	# unpackaged binary
-    if (!dir.exists(instdir)) dir.create(instdir, recursive=TRUE)
-
-    untar(file, exdir=instdir)
 
     setwd(build_dir)
     container <- paste0("eddelbuettel/r2u:", .getConfig("distribution_name"))

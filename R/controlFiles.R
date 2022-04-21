@@ -72,6 +72,13 @@ writeControl <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE) {
     if (debug) print(D)
 
     lp <- tolower(pkg)
+
+    if (! "Title" %in% names(D)) {
+        cf <- read.dcf(file.path(paste0("r-", repo, "-", lp), "usr", "lib", "R", "site-library", pkg, "DESCRIPTION"))
+        newD <- data.table(Package = cf[1, "Package"], Title = cf[1, "Title"], Description = cf[1, "Description"])
+        D <- D[newD, on="Package"]
+    }
+
     maint <- .getConfig("maintainer")
     dhcompat <- .getConfig("debhelper_compat")
     rdevver <- .getConfig("minimum_r_version")

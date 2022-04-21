@@ -1,13 +1,12 @@
 
 .pkgenv <- new.env(parent=emptyenv())
 
-debug <- FALSE #TRUE #
+debug <- FALSE #TRUE
 .debug_message <- function(...) if (debug) message(..., appendLF=FALSE)
 
 .defaultConfigFile <- function() {
     if (getRversion() >= "4.0.0") {
-        ## ~/.local/share/R/ + package
-        pkgdir <- tools::R_user_dir(packageName())
+        pkgdir <- tools::R_user_dir(packageName())      # ~/.local/share/R/ + package
         if (dir.exists(pkgdir)) {
             fname <- file.path(pkgdir, "config.dcf")
             if (file.exists(fname)) {
@@ -20,8 +19,7 @@ debug <- FALSE #TRUE #
 
 .defaultCRANDBFile <- function(force=FALSE) {
     if (getRversion() >= "4.0.0") {
-        ## ~/.local/share/R/ + package
-        pkgdir <- tools::R_user_dir(packageName())
+        pkgdir <- tools::R_user_dir(packageName())      # ~/.local/share/R/ + package
         if (dir.exists(pkgdir)) {
             fname <- file.path(pkgdir, "crandb.rds")
             if (file.exists(fname) || force) {
@@ -36,8 +34,7 @@ debug <- FALSE #TRUE #
 
 .defaultAPFile <- function(force=FALSE) {
     if (getRversion() >= "4.0.0") {
-        ## ~/.local/share/R/ + package
-        pkgdir <- tools::R_user_dir(packageName())
+        pkgdir <- tools::R_user_dir(packageName()) 	# ~/.local/share/R/ + package
         if (dir.exists(pkgdir)) {
             fname <- file.path(pkgdir, "availablepackages.rds")
             if (file.exists(fname) || force) {
@@ -50,10 +47,24 @@ debug <- FALSE #TRUE #
     return("")
 }
 
+.defaultBioCFile <- function(force=FALSE) {
+    if (getRversion() >= "4.0.0") {
+        pkgdir <- tools::R_user_dir(packageName()) 	# ~/.local/share/R/ + package
+        if (dir.exists(pkgdir)) {
+            fname <- file.path(pkgdir, "bioc_available_packages.rds")
+            if (file.exists(fname) || force) {
+                return(fname)
+            }
+        } else {
+            .debug_message("No package config dir")
+        }
+    }
+    return("")
+}
+
 .defaultBuildDependsFile <- function() {
     if (getRversion() >= "4.0.0") {
-        ## ~/.local/share/R/ + package
-        pkgdir <- tools::R_user_dir(packageName())
+        pkgdir <- tools::R_user_dir(packageName())	# ~/.local/share/R/ + package
         if (dir.exists(pkgdir)) {
             fname <- file.path(pkgdir, "depends.dcf")
             if (file.exists(fname)) {
@@ -119,7 +130,7 @@ debug <- FALSE #TRUE #
             saveRDS(db, dbfile)
             .debug_message("Written db\n")
         }
-        .pkgenv[["db"]] <- setDT(as.data.frame(db))
+        .pkgenv[["db"]] <- data.table(as.data.frame(db))
     } else {
         .debug_message("Have db\n")
     }
@@ -142,9 +153,32 @@ debug <- FALSE #TRUE #
             saveRDS(ap, apfile)
             .debug_message("Written ap\n")
         }
-        .pkgenv[["ap"]] <- setDT(as.data.frame(ap))
+        .pkgenv[["ap"]] <- data.table(as.data.frame(ap))
     } else {
         .debug_message("Have ap\n")
+    }
+}
+
+.loadBioC <- function() {
+    if (is.na(match("bioc", names(.pkgenv)))) {
+        .debug_message("Getting bioc\n")
+        biocfile <- .defaultBioCFile()
+        hrs <- .pkgenv[["cache_age_hours_cran_db"]]
+        if (file.exists(biocfile) &&
+            as.numeric(difftime(Sys.time(), file.info(biocfile)$ctime, units="hours")) < hrs) {
+            bioc <- readRDS(biocfile)
+            .debug_message("Cached bioc\n")
+        } else {
+            .debug_message("Fresh ap\n")
+            repo <- "https://bioconductor.org/packages/3.14/bioc"
+            bioc <- available.packages(repo=repo)
+            biocfile <- .defaultBioCFile(TRUE)
+            saveRDS(bioc, biocfile)
+            .debug_message("Written bioc\n")
+        }
+        .pkgenv[["bioc"]] <- data.table(as.data.frame(bioc))
+    } else {
+        .debug_message("Have bioc\n")
     }
 }
 
@@ -174,6 +208,7 @@ debug <- FALSE #TRUE #
     .checkSystem()
     .loadDB()
     .loadAP()
+    .loadBioC()
     .loadBuilds()
     .loadBuildDepends()
 }
@@ -183,6 +218,7 @@ debug <- FALSE #TRUE #
     .checkSystem()
     .loadDB()
     .loadAP()
+    .loadBioC()
     .loadBuilds()
     .loadBuildDepends()
 }
