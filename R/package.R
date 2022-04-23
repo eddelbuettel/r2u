@@ -89,14 +89,16 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE, verbose=F
     if (repo == "CRAN") {
         untar(file, exdir=instdir)
     } else {
+        ## for BioC install from source
         if (!dir.exists("src")) dir.create("src")
         untar(file, exdir="src")
+        ## need to run #R CMD INSTALL BiocGenerics/ -l ../debian/r-bioc-biocgenerics/usr/lib/R/site-library/
     }
 
     setwd("debian")
 
-    if (dir.exists(file.path(pkgname, "usr"))) unlink(file.path(pkgname, "usr"), recursive=TRUE)
-    if (dir.exists(file.path(pkgname, "DEBIAN"))) unlink(file.path(pkgname, "DEBIAN"), recursive=TRUE)
+    #if (dir.exists(file.path(pkgname, "usr"))) unlink(file.path(pkgname, "usr"), recursive=TRUE)
+    #if (dir.exists(file.path(pkgname, "DEBIAN"))) unlink(file.path(pkgname, "DEBIAN"), recursive=TRUE)
 
     writeControl(pkg, db, repo)
     writeChangelog(pkg, db, repo)
@@ -105,12 +107,14 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE, verbose=F
 
     setwd(build_dir)
     container <- paste0("eddelbuettel/r2u:", .getConfig("distribution_name"))
-    deps <- if (pkg %in% names(.getConfig("builddeps"))) .getConfig("builddeps")[pkg] else ""
+    deps <- if (pkg %in% names(.getConfig("builddeps"))) paste0("-a '", .getConfig("builddeps")[pkg], "' ") else " "
     cmd <- paste0("docker run --rm -ti ",
-                  "-v ", getwd(), "/../deb:/deb ",
                   "-v ", getwd(), ":/mnt ",
-                  "-w /mnt/", pkg, " ",
-                  container, " debBuild.sh ", pkg, " ", deps)
+                  "-w /mnt/build/", pkg, " ",
+                  container, " debBuild.sh ",
+                  if (repo == "Bioc") "-b -s " else " ",
+                  deps,
+                  pkg)
     #print(cmd)
     rc <- system(cmd, ignore.stdout=TRUE)
     if (rc == 0) cat(green("[built] ")) else cat(red("[error", rc, "] "))

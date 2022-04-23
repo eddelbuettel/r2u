@@ -89,6 +89,7 @@ debug <- FALSE #TRUE
             .pkgenv[["debhelper_compat"]] <- cfg[1, "debhelper_compat"]
             .pkgenv[["minimum_r_version"]] <- cfg[1, "minimum_r_version"]
             .pkgenv[["r_api_version"]] <- cfg[1, "r_api_version"]
+            .pkgenv[["bioc_version"]] <- cfg[1, "bioc_version"]
             .pkgenv[["debian_policy_version"]] <- cfg[1, "debian_policy_version"]
             .pkgenv[["cache_age_hours_cran_db"]] <- cfg[1, "cache_age_hours_cran_db"]
             if (is.finite(match("optional_cran_mirror", colnames(cfg)))) {
