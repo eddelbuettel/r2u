@@ -96,6 +96,7 @@ debug <- FALSE #TRUE
                 .pkgenv[["optional_cran_mirror"]] <- cfg[1, "optional_cran_mirror"]
             }
             .pkgenv[["package_cache"]] <- cfg[1, "package_cache"]
+            .pkgenv[["r2u_directory"]] <- cfg[1, "r2u_directory"]
             .pkgenv[["build_directory"]] <- cfg[1, "build_directory"]
             .pkgenv[["deb_directory"]] <- cfg[1, "deb_directory"]
         } else {
@@ -148,8 +149,16 @@ debug <- FALSE #TRUE
             .debug_message("Cached ap\n")
         } else {
             .debug_message("Fresh ap\n")
-            repo <- paste0("https://packagemanager.rstudio.com/all/__linux__/", .getConfig("distribution_name"), "/latest")
-            ap <- available.packages(repo=repo)
+
+            biocrepo <- paste0("https://bioconductor.org/packages/", .getConfig("bioc_version"), "/bioc")
+            apBIOC <- data.table(ap="Bioc", as.data.frame(available.packages(repos=biocrepo)))
+
+            rspmrepo <- paste0("https://packagemanager.rstudio.com/all/__linux__/", .getConfig("distribution_name"), "/latest")
+            apRSPM <- data.table(ap="CRAN", as.data.frame(available.packages(repos=rspmrepo)))
+
+            ap <- merge(apRSPM, apBIOC, all=TRUE)
+            ap[, deb := paste0("r-", tolower(ap), "-", tolower(Package))]
+
             apfile <- .defaultAPFile(TRUE)
             saveRDS(ap, apfile)
             .debug_message("Written ap\n")
@@ -160,28 +169,28 @@ debug <- FALSE #TRUE
     }
 }
 
-.loadBioC <- function() {
-    if (is.na(match("bioc", names(.pkgenv)))) {
-        .debug_message("Getting bioc\n")
-        biocfile <- .defaultBioCFile()
-        hrs <- .pkgenv[["cache_age_hours_cran_db"]]
-        if (file.exists(biocfile) &&
-            as.numeric(difftime(Sys.time(), file.info(biocfile)$ctime, units="hours")) < hrs) {
-            bioc <- readRDS(biocfile)
-            .debug_message("Cached bioc\n")
-        } else {
-            .debug_message("Fresh ap\n")
-            repo <- "https://bioconductor.org/packages/3.14/bioc"
-            bioc <- available.packages(repo=repo)
-            biocfile <- .defaultBioCFile(TRUE)
-            saveRDS(bioc, biocfile)
-            .debug_message("Written bioc\n")
-        }
-        .pkgenv[["bioc"]] <- data.table(as.data.frame(bioc))
-    } else {
-        .debug_message("Have bioc\n")
-    }
-}
+## .loadBioC <- function() {
+##     if (is.na(match("bioc", names(.pkgenv)))) {
+##         .debug_message("Getting bioc\n")
+##         biocfile <- .defaultBioCFile()
+##         hrs <- .pkgenv[["cache_age_hours_cran_db"]]
+##         if (file.exists(biocfile) &&
+##             as.numeric(difftime(Sys.time(), file.info(biocfile)$ctime, units="hours")) < hrs) {
+##             bioc <- readRDS(biocfile)
+##             .debug_message("Cached bioc\n")
+##         } else {
+##             .debug_message("Fresh ap\n")
+##             repo <- "https://bioconductor.org/packages/3.14/bioc"
+##             bioc <- available.packages(repo=repo)
+##             biocfile <- .defaultBioCFile(TRUE)
+##             saveRDS(bioc, biocfile)
+##             .debug_message("Written bioc\n")
+##         }
+##         .pkgenv[["bioc"]] <- data.table(as.data.frame(bioc))
+##     } else {
+##         .debug_message("Have bioc\n")
+##     }
+## }
 
 .loadBuilds <- function() {
     dd <- .pkgenv[["deb_directory"]]
@@ -209,7 +218,6 @@ debug <- FALSE #TRUE
     .checkSystem()
     .loadDB()
     .loadAP()
-    .loadBioC()
     .loadBuilds()
     .loadBuildDepends()
 }
@@ -219,7 +227,6 @@ debug <- FALSE #TRUE
     .checkSystem()
     .loadDB()
     .loadAP()
-    .loadBioC()
     .loadBuilds()
     .loadBuildDepends()
 }

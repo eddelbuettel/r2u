@@ -59,18 +59,20 @@
     .pkgenv[[key]]
 }
 
-writeControl <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE) {
+writeControl <- function(pkg, db, ap, repo=c("CRAN", "Bioc"), debug=FALSE) {
     if (missing(db)) db <- .pkgenv[["db"]]
-    stopifnot(`db must be data.frame`=inherits(db, "data.frame"))
-    repo <- tolower(match.arg(repo))
+    stopifnot("db must be data.frame" = inherits(db, "data.frame"))
+    repol <- tolower(match.arg(repo))
     if (!inherits(db, "data.table")) setDT(db)
     ind <- match(pkg, db[,Package])
-    if (is.na(ind)) stop("Package '", pkg, "' not known to package database.", call. = FALSE)
+    aind <- match(pkg, ap[,Package])
+
+    if (repo == "CRAN" && is.na(ind)) stop("Package '", pkg, "' not known to package database.", call. = FALSE)
 
     ## todo: check license and all that
-    D <- db[ind,]
+    #D <- db[ind,]
+    D <- ap[aind,]
     if (debug) print(D)
-
     lp <- tolower(pkg)
 
     if (! "Title" %in% names(D)) {
@@ -87,7 +89,7 @@ writeControl <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE) {
     binary <- D[,NeedsCompilation] == "yes"
 
     con <- file("control", "wt")
-    cat("Source: r-", repo, "-", lp, "\n",
+    cat("Source: r-", repol, "-", lp, "\n",
         "Section: gnu-r\n",
         "Priority: optional\n",
         "Maintainer: ", maint, "\n",
@@ -98,7 +100,7 @@ writeControl <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE) {
     .addLinkingTo(D, con)
     cat("\nStandards-Version: ", stdver, "\n",
         "Homepage: https://cran.r-project.org/package=", pkg, "\n\n",
-        "Package: r-", repo, "-", lp, "\n",
+        "Package: r-", repol, "-", lp, "\n",
         "Architecture: ", if (binary) "any" else "all", "\n",
         "Depends: ", if (binary) "${shlibs:Depends}, " else "", "${misc:Depends}, ${R:Depends}",
         sep="", file=con)
@@ -113,16 +115,19 @@ writeControl <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE) {
     close(con)
 }
 
-writeChangelog <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE) {
+writeChangelog <- function(pkg, db, ap, repo=c("CRAN", "Bioc"), debug=FALSE) {
     if (missing(db)) db <- .pkgenv[["db"]]
-    stopifnot(`db must be data.frame`=inherits(db, "data.frame"))
+    stopifnot("db must be data.frame" = inherits(db, "data.frame"))
     repo <- tolower(match.arg(repo))
     if (!inherits(db, "data.table")) setDT(db)
     ind <- match(pkg, db[,Package])
-    if (is.na(ind)) stop("Package '", pkg, "' not known to package database.", call. = FALSE)
+    aind <- match(pkg, ap[,Package])
+
+    if (repo == "CRAN" && is.na(ind)) stop("Package '", pkg, "' not known to package database.", call. = FALSE)
 
     ## todo: check license and all that
-    D <- db[ind,]
+    #D <- db[ind,]
+    D <- ap[aind,]
     if (debug) print(D)
 
     lp <- tolower(pkg)
@@ -194,7 +199,7 @@ writeFiles <- function(pkg, repo=c("CRAN", "Bioc")) {
 
 .getField <- function(pkg, field, db, repo=c("CRAN", "Bioc")) {
     if (missing(db)) db <- .pkgenv[["db"]]
-    stopifnot(`db must be data.frame`=inherits(db, "data.frame"))
+    stopifnot("db must be data.frame" = inherits(db, "data.frame"))
     if (!inherits(db, "data.table")) setDT(db)
     ind <- match(pkg, db[,Package])
     if (any(is.na(ind))) stop("Package '", pkg, "' not known to package database.", call. = FALSE)

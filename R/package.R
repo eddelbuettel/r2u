@@ -24,7 +24,6 @@
     path <- file.path(cachedir, paste0(pkg, "_", ver, ".tar.gz"))
     if (!file.exists(path)) {
         remotefile <- file.path(repos=ap[,Repository], paste0(pkg, "_", ver, ".tar.gz"))
-        print(remotefile)
         download.file(remotefile, destfile=path, quiet=TRUE)
         cat(green("[downloaded] "))
     } else {
@@ -40,11 +39,11 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE, verbose=F
     repol <- tolower(repo)
     if (pkg %in% c("base", "compiler", "datasets", "graphics", "grDevices", "grid", "methods", "parallel", "splines", "stats", "stats4", "tcltk", "tools", "utils")) return(invisible())
     ind <- match(pkg, db[,Package])
-    if (is.na(ind)) {
-        message(red(paste0("Package '", pkg, "' not known to package database.")))
+    if (is.na(ind) && repo=="CRAN") {
+        message(red(paste0("Package '", pkg, "' not known to current CRAN package database.")))
         return(invisible())
     }
-    ap <- if (repo == "CRAN") .pkgenv[["ap"]] else .pkgenv[["bioc"]]
+    ap <- .pkgenv[["ap"]]
     aind <- match(pkg, ap[,Package])
     builds <- .pkgenv[["builds"]]
 
@@ -54,10 +53,12 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE, verbose=F
     if (debug) print(D)
     ver <- D[, Version]
     aver <- AP[, Version]
-    if (ver != aver) {
+    if (repo=="CRAN" && isFALSE(ver == aver)) {
         if (verbose) cat(blue(sprintf("%-22s %-11s %-11s", pkg, ver, aver))) 		# start console log with pkg
         if (verbose) cat(red("[not yet available - skipping]\n"))
         return(invisible())
+    } else {
+        ver <- aver
     }
     pkgname <- paste0("r-", repol, "-", tolower(pkg)) 			# aka r-cran-namehere
     cand <- paste0(pkgname, "_", ver)
@@ -71,9 +72,9 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE, verbose=F
     cat(blue(sprintf("%-22s %-11s %-11s", pkg, ver, aver))) 		# start console log with pkg
 
     file <- if (repo == "CRAN") {
-                .get_package_file(D[,Package], D[,Version]) 		# rspm file, possibly cached
+                .get_package_file(D[,Package], D[, Version]) 		# rspm file, possibly cached
             } else {
-                .get_source_file(D[, Package], D[, Version], AP)
+                .get_source_file(AP[, Package], AP[, Version], AP)
             }
 
     build_dir <- .getConfig("build_directory")
@@ -92,7 +93,6 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE, verbose=F
         ## for BioC install from source
         if (!dir.exists("src")) dir.create("src")
         untar(file, exdir="src")
-        ## need to run #R CMD INSTALL BiocGenerics/ -l ../debian/r-bioc-biocgenerics/usr/lib/R/site-library/
     }
 
     setwd("debian")
@@ -100,12 +100,13 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE, verbose=F
     #if (dir.exists(file.path(pkgname, "usr"))) unlink(file.path(pkgname, "usr"), recursive=TRUE)
     #if (dir.exists(file.path(pkgname, "DEBIAN"))) unlink(file.path(pkgname, "DEBIAN"), recursive=TRUE)
 
-    writeControl(pkg, db, repo)
-    writeChangelog(pkg, db, repo)
+    writeControl(pkg, db, ap, repo)
+    writeChangelog(pkg, db, ap, repo)
     writeRules(pkg, repo)
     writeCopyright(pkg, D[, License])
 
-    setwd(build_dir)
+    r2u_dir <- .getConfig("r2u_directory")
+    setwd(r2u_dir)
     container <- paste0("eddelbuettel/r2u:", .getConfig("distribution_name"))
     deps <- if (pkg %in% names(.getConfig("builddeps"))) paste0("-a '", .getConfig("builddeps")[pkg], "' ") else " "
     cmd <- paste0("docker run --rm -ti ",
@@ -115,7 +116,7 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE, verbose=F
                   if (repo == "Bioc") "-b -s " else " ",
                   deps,
                   pkg)
-    #print(cmd)
+    if (debug) print(cmd)
     rc <- system(cmd, ignore.stdout=TRUE)
     if (rc == 0) cat(green("[built] ")) else cat(red("[error", rc, "] "))
     cat("\n")
