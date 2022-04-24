@@ -46,7 +46,7 @@ fi
 if [ "${source}" = "yes" ]; then
     cd /mnt/build/${pkg}/src
     R CMD INSTALL -l ../../${pkg}/debian/r-${repo}-${lcpkg}/usr/lib/R/site-library ${pkg}
-    ## could cd .. and remove src/ now
+    cd .. && rm -rf src
 fi
 
 cd /mnt/build/${pkg}

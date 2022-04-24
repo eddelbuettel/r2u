@@ -27,5 +27,6 @@ RUN apt update -qq \
            dh-r
 
 COPY debBuild.sh /usr/local/bin
+COPY cranapt.list /etc/apt/sources.list.d
 
 CMD ["bash"]

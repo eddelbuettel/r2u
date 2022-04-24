@@ -1,0 +1,2 @@
+#deb [trusted=yes] https://dirk.eddelbuettel.com/cranapt focal main
+deb [trusted=yes] file:///mnt/ubuntu focal main
