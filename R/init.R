@@ -75,6 +75,21 @@ debug <- FALSE #TRUE
     return("")
 }
 
+.defaultBlacklistFile <- function(force=FALSE) {
+    if (getRversion() >= "4.0.0") {
+        pkgdir <- tools::R_user_dir(packageName())      # ~/.local/share/R/ + package
+        if (dir.exists(pkgdir)) {
+            fname <- file.path(pkgdir, "blacklist.txt")
+            if (file.exists(fname) || force) {
+                return(fname)
+            }
+        } else {
+            .debug_message("No package config dir")
+        }
+    }
+    return("")
+}
+
 .loadConfig <- function() {
     if (is.na(match("config_file", names(.pkgenv)))) {
         .debug_message("Reading config\n")
@@ -219,6 +234,18 @@ debug <- FALSE #TRUE
     }
 }
 
+.loadBlacklist <- function() {
+    blacklistfile <- .defaultBlacklistFile()
+    if (blacklistfile == "") {
+        .pkgenv[["blacklist"]] <- character()
+    } else {
+        skipped <- readLines(blacklistfile)
+        .pkgenv[["blacklist"]] <- skipped
+    }
+}
+
+.defaultBlacklistFile
+
 .onLoad <- function(libname, pkgname) {
     .loadConfig()
     .checkSystem()
@@ -226,6 +253,7 @@ debug <- FALSE #TRUE
     .loadAP()
     .loadBuilds()
     .loadBuildDepends()
+    .loadBlacklist()
 }
 
 .onAttach <- function(libname, pkgname) {
@@ -235,4 +263,5 @@ debug <- FALSE #TRUE
     .loadAP()
     .loadBuilds()
     .loadBuildDepends()
+    .loadBlacklist()
 }
