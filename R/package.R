@@ -54,10 +54,25 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE, verbose=F
     ver <- D[, Version]
     aver <- AP[, Version]
     effrepo <- AP[, ap]
+    pkgname <- paste0("r-", tolower(effrepo), "-", tolower(pkg)) 			# aka r-cran-namehere
+    cand <- paste0(pkgname, "_", ver)
     if (effrepo == "CRAN" && isFALSE(ver == aver)) {
         if (verbose) cat(blue(sprintf("%-22s %-11s %-11s", pkg, ver, aver))) 		# start console log with pkg
         if (verbose) cat(red("[not yet available - skipping]\n"))
         return(invisible())
+    } else if (effrepo == "Bioc") {# && isTRUE(ver == aver)) {
+        cand <- paste0(pkgname, "_", aver)
+        if (is.finite(match(cand, builds[, pkgver]))) {
+            if (verbose) {
+                cat(blue(sprintf("%-22s %-11s %-11s", pkg, ver, aver))) 		# start console log with pkg
+                cat(green("[already built - skipping]\n"))
+            }
+            return(invisible())
+        } else {
+            #cat(blue(sprintf("%-22s %-11s %-11s", pkg, ver, aver))) 		# start console log with pkg
+            #cat(red("[building BioC package]\n"))
+            repo <- "Bioc"
+        }
     } else {
         ver <- aver
     }
@@ -71,6 +86,10 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE, verbose=F
 
     ## so we're building one
     cat(blue(sprintf("%-22s %-11s %-11s", pkg, ver, aver))) 		# start console log with pkg
+    if (is.finite(match(pkg, .pkgenv[["blacklist"]]))) {
+        cat(red("[blacklisted, skipping]\n"))
+        return(invisible)
+    }
 
     file <- if (repo == "CRAN") {
                 .get_package_file(D[,Package], D[, Version]) 		# rspm file, possibly cached
