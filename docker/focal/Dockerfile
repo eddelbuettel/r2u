@@ -21,10 +21,16 @@ ENV DEBIAN_FRONTEND noninteractive
 #         && chgrp 1000 /usr/local/lib/R/site-library \
 #         && install.r remotes
 
+
 RUN apt update -qq \
     && apt upgrade --yes \
-    && apt install --no-install-recommends --yes \
-           dh-r
+    && apt install --yes --no-install-recommends dh-r gpg-agent \
+    && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A1489FE2AB99A21A 67C2D66C4B1D4339
+
+## Add our repo for R 4.2.0
+COPY edd-misc.list /etc/apt/sources.list.d
+
+RUN apt update -qq && apt upgrade --yes
 
 COPY debBuild.sh /usr/local/bin
 COPY cranapt.list /etc/apt/sources.list.d
