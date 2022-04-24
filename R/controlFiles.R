@@ -1,5 +1,5 @@
 
-.addDepends <- function(dt, con) {
+.addDepends <- function(dt, ap, con) {
     if (is.na(dt[,Depends])) return(invisible(NULL))
     dep <- gsub("\\n", "", dt[,Depends])
     dep <- gsub("R \\(.*?\\), ", "", dep, perl=TRUE)
@@ -7,23 +7,27 @@
     deps <- strsplit(dep, ",")[[1]]
     for (i in deps) {
         i <- gsub("^ ", "", i)
-        if (i %in% c("utils", "methods", "stats", "graphics", "tools", "stats")) next
-        cat(", r-cran-", tolower(i), sep="", file=con, append=TRUE)
+        if (i %in% c("utils", "methods", "stats", "graphics", "tools", "stats", "stats4")) next
+        j <- gsub(" \\(.*?\\)", "", i)
+        p <- ap[Package==j, deb]
+        cat(", ", p ,sep="", file=con, append=TRUE)
     }
 }
 
-.addImports <- function(dt, con) {
+.addImports <- function(dt, ap, con) {
     if (is.na(dt[,Imports])) return(invisible(NULL))
     imp <- gsub("\\n", "", dt[,Imports])
     imps <- strsplit(imp, ",")[[1]]
     for (i in imps) {
         i <- gsub("^ ", "", i)
         if (i %in% c("utils", "methods", "stats", "graphics", "grDevices", "tools", "stats")) next
-        cat(", r-cran-", tolower(i), sep="", file=con, append=TRUE)
+        j <- gsub(" \\(.*?\\)", "", i)
+        p <- ap[Package==j, deb]
+        cat(", ", p ,sep="", file=con, append=TRUE)
     }
 }
 
-.addLinkingTo <- function(dt, con) {
+.addLinkingTo <- function(dt, ap, con) {
     if (is.na(dt[,LinkingTo])) return(invisible(NULL))
     lto <- gsub("\\n", "", dt[,LinkingTo])
     ltos <- strsplit(lto, ",")[[1]]
@@ -31,11 +35,13 @@
         i <- gsub("^ ", "", i)
         i <- gsub("\\n", "", i)
         if ("Rcpp" == i && grepl("Rcpp", dt[,Imports])) next 	# already covered
-        cat(", r-cran-", tolower(i), sep="", file=con, append=TRUE)
+        j <- gsub(" \\(.*?\\)", "", i)
+        p <- ap[Package==j, deb]
+        cat(", ", p ,sep="", file=con, append=TRUE)
     }
 }
 
-.addSuggests <- function(dt, con) {
+.addSuggests <- function(dt, ap, con) {
     if (is.na(dt[,Suggests])) return(invisible(NULL))
     sgg <- gsub("\\n", "", dt[,Suggests])
     sggs <- strsplit(sgg, ",")[[1]]
@@ -45,7 +51,9 @@
         i <- gsub("\\n", "", i)
         i <- gsub("== ", "= ", i)
         if (!first) cat(", ", file=con, append=TRUE)
-        cat("r-cran-", tolower(i), sep="", file=con, append=TRUE)
+        j <- gsub(" \\(.*?\\)", "", i)
+        p <- ap[Package==j, deb]
+        cat(", ", p ,sep="", file=con, append=TRUE)
         first <- FALSE
     }
 }
@@ -70,8 +78,7 @@ writeControl <- function(pkg, db, ap, repo=c("CRAN", "Bioc"), debug=FALSE) {
     if (repo == "CRAN" && is.na(ind)) stop("Package '", pkg, "' not known to package database.", call. = FALSE)
 
     ## todo: check license and all that
-    #D <- db[ind,]
-    D <- ap[aind,]
+    D <- if (repo == "CRAN") db[ind,] else ap[aind,]
     if (debug) print(D)
     lp <- tolower(pkg)
 
@@ -95,20 +102,20 @@ writeControl <- function(pkg, db, ap, repo=c("CRAN", "Bioc"), debug=FALSE) {
         "Maintainer: ", maint, "\n",
         "Build-Depends: debhelper-compat (= ", dhcompat, "), r-base-dev (>= ", rdevver, "), dh-r",
         sep="", file=con)
-    .addDepends(D, con)
-    .addImports(D, con)
-    .addLinkingTo(D, con)
+    .addDepends(D, ap, con)
+    .addImports(D, ap, con)
+    .addLinkingTo(D, ap, con)
     cat("\nStandards-Version: ", stdver, "\n",
         "Homepage: https://cran.r-project.org/package=", pkg, "\n\n",
         "Package: r-", repol, "-", lp, "\n",
         "Architecture: ", if (binary) "any" else "all", "\n",
         "Depends: ", if (binary) "${shlibs:Depends}, " else "", "${misc:Depends}, ${R:Depends}",
         sep="", file=con)
-    .addDepends(D, con)
-    .addImports(D, con)
-    .addLinkingTo(D, con)
+    .addDepends(D, ap, con)
+    .addImports(D, ap, con)
+    .addLinkingTo(D, ap, con)
     cat("\nSuggests: ", file=con)
-    .addSuggests(D, con)
+    .addSuggests(D, ap, con)
     cat("\nDescription: CRAN Package '", pkg, "' (", gsub("\\n", "", D[,Title]), ")\n", sep="", file=con)
     sapply(Filter(function(x) x != "", strwrap(trimws(D[, Description]), 78, indent=1, exdent=1)), cat, "\n", sep="", file=con)
     cat("\n", file=con)

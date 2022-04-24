@@ -39,28 +39,29 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE, verbose=F
     repol <- tolower(repo)
     if (pkg %in% c("base", "compiler", "datasets", "graphics", "grDevices", "grid", "methods", "parallel", "splines", "stats", "stats4", "tcltk", "tools", "utils")) return(invisible())
     ind <- match(pkg, db[,Package])
-    if (is.na(ind) && repo=="CRAN") {
+    ap <- .pkgenv[["ap"]]
+    aind <- match(pkg, ap[,Package])
+    if (is.na(ind) && is.na(aind)) {
         message(red(paste0("Package '", pkg, "' not known to current CRAN package database.")))
         return(invisible())
     }
-    ap <- .pkgenv[["ap"]]
-    aind <- match(pkg, ap[,Package])
     builds <- .pkgenv[["builds"]]
 
     ## todo: check license and all that
     D <- db[ind,]
     AP <- ap[aind,]
-    if (debug) print(D)
+    if (debug) if (repo == "CRAN") print(D) else print(AP)
     ver <- D[, Version]
     aver <- AP[, Version]
-    if (repo=="CRAN" && isFALSE(ver == aver)) {
+    effrepo <- AP[, ap]
+    if (effrepo == "CRAN" && isFALSE(ver == aver)) {
         if (verbose) cat(blue(sprintf("%-22s %-11s %-11s", pkg, ver, aver))) 		# start console log with pkg
         if (verbose) cat(red("[not yet available - skipping]\n"))
         return(invisible())
     } else {
         ver <- aver
     }
-    pkgname <- paste0("r-", repol, "-", tolower(pkg)) 			# aka r-cran-namehere
+    pkgname <- paste0("r-", tolower(effrepo), "-", tolower(pkg)) 			# aka r-cran-namehere
     cand <- paste0(pkgname, "_", ver)
     if (is.finite(match(cand, builds[, pkgver]))) {
         if (verbose) cat(blue(sprintf("%-22s %-11s %-11s", pkg, ver, aver))) 		# start console log with pkg
@@ -104,7 +105,6 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE, verbose=F
     writeChangelog(pkg, db, ap, repo)
     writeRules(pkg, repo)
     writeCopyright(pkg, D[, License])
-
     r2u_dir <- .getConfig("r2u_directory")
     setwd(r2u_dir)
     container <- paste0("eddelbuettel/r2u:", .getConfig("distribution_name"))
@@ -117,7 +117,7 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE, verbose=F
                   deps,
                   pkg)
     if (debug) print(cmd)
-    rc <- system(cmd, ignore.stdout=TRUE)
+    rc <- system(cmd, ignore.stdout=!debug)
     if (rc == 0) cat(green("[built] ")) else cat(red("[error", rc, "] "))
     cat("\n")
 

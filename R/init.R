@@ -150,8 +150,14 @@ debug <- FALSE #TRUE
         } else {
             .debug_message("Fresh ap\n")
 
+            ## cf  contrib.url(BiocManager::repositories())
+            ##     [1] "https://bioconductor.org/packages/3.14/bioc/src/contrib"
+            ##     [2] "https://bioconductor.org/packages/3.14/data/annotation/src/contrib"
             biocrepo <- paste0("https://bioconductor.org/packages/", .getConfig("bioc_version"), "/bioc")
             apBIOC <- data.table(ap="Bioc", as.data.frame(available.packages(repos=biocrepo)))
+            biocdatarepo <- paste0("https://bioconductor.org/packages/", .getConfig("bioc_version"), "/data/annotations")
+            apBIOCdata <- data.table(ap="Bioc", as.data.frame(available.packages(repos=biocrepo)))
+            apBIOC <- merge(apBIOC, apBIOCdata, all=TRUE)
 
             rspmrepo <- paste0("https://packagemanager.rstudio.com/all/__linux__/", .getConfig("distribution_name"), "/latest")
             apRSPM <- data.table(ap="CRAN", as.data.frame(available.packages(repos=rspmrepo)))
