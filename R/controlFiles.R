@@ -2,7 +2,7 @@
 .addDepends <- function(dt, ap, con) {
     if (is.na(dt[,Depends])) return(invisible(NULL))
     dep <- gsub("\\n", "", dt[,Depends])
-    dep <- gsub("R \\(.*?\\), ", "", dep, perl=TRUE)
+    dep <- gsub("R \\(.*?\\)[, ]*", "", dep, perl=TRUE)
     if (nchar(dep) == 0) return(invisible(NULL))
     deps <- strsplit(dep, ",")[[1]]
     for (i in deps) {
@@ -53,7 +53,7 @@
         if (!first) cat(", ", file=con, append=TRUE)
         j <- gsub(" \\(.*?\\)", "", i)
         p <- ap[Package==j, deb]
-        cat(", ", p ,sep="", file=con, append=TRUE)
+        cat(p ,sep="", file=con, append=TRUE)
         first <- FALSE
     }
 }
@@ -172,11 +172,16 @@ writeRules <- function(pkg, repo=c("CRAN", "Bioc")) {
 	"\t@echo \"Skipping dh_auto_build\"\n",
         "\n",
         sep="", file=con)
-    if (pkg == "h2o")
+    if (pkg %in% c("h2o", "XLConnect")) {
         cat("override_dh_auto_build:\n",
 	    "\t@echo \"Skipping dh_auto_build\"\n",
             "\n",
             sep="", file=con)
+        cat("override_dh_strip_nondeterminism:\n",
+	    "\t@echo \"Skipping dh_strip_nondeterminism\"\n",
+            "\n",
+            sep="", file=con)
+    }
     cat("%:\n",
         "\tdh $@ --buildsystem R\n",
         sep="", file=con)
