@@ -72,6 +72,10 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE, verbose=F
 
     #repo <- match.arg(repo)
     repo <- ap[aind, ap]
+    if (is.na(repo)) {
+        message("skipping ", pkg, " as unknown")
+        return(invisible())
+    }
     repo <- match.arg(repo)
     repol <- tolower(repo)
 
@@ -187,8 +191,7 @@ buildAll <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE) {
     invisible()
 }
 
-
-topN <- function(npkg, date=Sys.Date() - 1, from=1L) {
+.getCachedDLLogsFile <- function(date=Sys.Date() - 1) {
     cachedir <- .getConfig("package_cache")
     if (!dir.exists(cachedir)) dir.create(cachedir, recursive=TRUE)
     cachedfile <- file.path(cachedir, strftime(date, "cranlogs-%Y-%m-%d.csv.gz"))
@@ -196,6 +199,19 @@ topN <- function(npkg, date=Sys.Date() - 1, from=1L) {
         url <- strftime(date, "http://cran-logs.rstudio.com/%Y/%Y-%m-%d.csv.gz")
         download.file(url, cachedfile, quiet=TRUE)
     }
-    D <- data.table::fread(cachedfile)
+    cachedfile
+}
+
+topN <- function(npkg, date=Sys.Date() - 1, from=1L) {
+    D <- data.table::fread(.getCachedDLLogsFile(date))
     D[, .N, keyby=package][order(N,decreasing=TRUE)][seq(from, from+npkg-1L)][,package]
+}
+
+topNCompiled <- function(npkg, db, date=Sys.Date() - 1, from=1L) {
+    if (missing(db)) db <- .pkgenv[["db"]]
+    D <- data.table::fread(.getCachedDLLogsFile(date))
+    DN <- D[, .N, keyby=package][order(N,decreasing=TRUE)]
+    setnames(DN, "package", "Package")
+    CP <- db[NeedsCompilation != "no", Package]
+    DN[CP, on="Package"][order(N, decreasing=TRUE)][seq(from, from+npkg-1L)][,Package]
 }
