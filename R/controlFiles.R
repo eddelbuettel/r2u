@@ -7,7 +7,7 @@
     deps <- strsplit(dep, ",")[[1]]
     for (i in deps) {
         i <- gsub("^ ", "", i)
-        if (i %in% c("utils", "methods", "stats", "graphics", "tools", "stats", "stats4")) next
+        if (i %in% c("utils", "methods", "graphics", "tools", "stats", "stats4")) next
         j <- gsub(" \\(.*?\\)", "", i)
         p <- ap[Package==j, deb]
         cat(", ", p ,sep="", file=con, append=TRUE)
@@ -20,7 +20,7 @@
     imps <- strsplit(imp, ",")[[1]]
     for (i in imps) {
         i <- gsub("^ ", "", i)
-        if (i %in% c("utils", "methods", "stats", "graphics", "grDevices", "tools", "stats")) next
+        if (i %in% c("utils", "methods", "graphics", "grDevices", "tools", "stats")) next
         j <- gsub(" \\(.*?\\)", "", i)
         p <- ap[Package==j, deb]
         cat(", ", p ,sep="", file=con, append=TRUE)
