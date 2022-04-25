@@ -32,11 +32,34 @@
     path
 }
 
+.filterAndMapPackage <- function(p, AP) {
+    if (is.finite(match(p, c("graphics", "grDevices", "grid", "methods", "parallel", "tools", "splines", "stats", "stats4", "utils"))))
+        return("")
+
+    n <- match(p, AP$Package)
+    if (!is.finite(n)) {
+        message("Unknown:", p)
+        return("")
+    }
+
+    ap <- AP[n, ]
+    if (!is.na(ap$Priority) && (ap$Priority == "recommended"))
+        return("")
+
+    ap$deb
+}
+
+filterAndMapBuildDepends <- function(pkg, ap) {
+    pkgvec <- tools::package_dependencies(pkg, db=ap, recursive=TRUE)[[1]]
+    res <- sapply(pkgvec, .filterAndMapPackage, ap, USE.NAMES=FALSE)
+    res <- Filter(Negate(function(x) x==""), res)
+    if (length(res) > 0) res <- sort(res)
+    res
+}
+
 buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE, verbose=FALSE) {
     if (missing(db)) db <- .pkgenv[["db"]]
     stopifnot("db must be data.frame" = inherits(db, "data.frame"))
-    repo <- match.arg(repo)
-    repol <- tolower(repo)
     if (pkg %in% c("base", "compiler", "datasets", "graphics", "grDevices", "grid", "methods", "parallel", "splines", "stats", "stats4", "tcltk", "tools", "utils")) return(invisible())
     ind <- match(pkg, db[,Package])
     ap <- .pkgenv[["ap"]]
@@ -47,6 +70,11 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE, verbose=F
     }
     builds <- .pkgenv[["builds"]]
 
+    #repo <- match.arg(repo)
+    repo <- ap[aind, ap]
+    repo <- match.arg(repo)
+    repol <- tolower(repo)
+
     ## todo: check license and all that
     D <- db[ind,]
     AP <- ap[aind,]
@@ -54,6 +82,10 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE, verbose=F
     ver <- D[, Version]
     aver <- AP[, Version]
     effrepo <- AP[, ap]
+    if (is.na(effrepo)) {
+        cat(pkg, "missing, skipping\n")
+        return(invisible())
+    }
     pkgname <- paste0("r-", tolower(effrepo), "-", tolower(pkg)) 			# aka r-cran-namehere
     cand <- paste0(pkgname, "_", ver)
     if (effrepo == "CRAN" && isFALSE(ver == aver)) {
@@ -71,7 +103,7 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE, verbose=F
         } else {
             #cat(blue(sprintf("%-22s %-11s %-11s", pkg, ver, aver))) 		# start console log with pkg
             #cat(red("[building BioC package]\n"))
-            repo <- "Bioc"
+            #repo <- "Bioc"
         }
     } else {
         ver <- aver
@@ -127,13 +159,15 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE, verbose=F
     r2u_dir <- .getConfig("r2u_directory")
     setwd(r2u_dir)
     container <- paste0("eddelbuettel/r2u:", .getConfig("distribution_name"))
-    deps <- if (pkg %in% names(.getConfig("builddeps"))) paste0("-a '", .getConfig("builddeps")[pkg], "' ") else " "
+    deps <- if (pkg %in% names(.getConfig("builddeps"))) .getConfig("builddeps")[pkg] else ""
+    added_deps <- if (repo == "Bioc") paste(filterAndMapBuildDepends(pkg, ap), collapse=" ") else ""
+    depstr <- if (nchar(deps) + nchar(added_deps) > 0) paste0("-a '", deps, " ", added_deps, "' ") else " "
     cmd <- paste0("docker run --rm -ti ",
                   "-v ", getwd(), ":/mnt ",
                   "-w /mnt/build/", pkg, " ",
                   container, " debBuild.sh ",
                   if (repo == "Bioc") "-b -s " else " ",
-                  deps,
+                  depstr,
                   pkg)
     if (debug) print(cmd)
     rc <- system(cmd, ignore.stdout=!debug)
