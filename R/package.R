@@ -204,7 +204,8 @@ buildAll <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE) {
 
 topN <- function(npkg, date=Sys.Date() - 1, from=1L) {
     D <- data.table::fread(.getCachedDLLogsFile(date))
-    D[, .N, keyby=package][order(N,decreasing=TRUE)][seq(from, from+npkg-1L)][,package]
+    D <- D[, .N, keyby=package][order(N,decreasing=TRUE)]
+    D[seq(from, min(from+npkg-1L, nrow(D))),package]
 }
 
 topNCompiled <- function(npkg, db, date=Sys.Date() - 1, from=1L) {
@@ -213,5 +214,6 @@ topNCompiled <- function(npkg, db, date=Sys.Date() - 1, from=1L) {
     DN <- D[, .N, keyby=package][order(N,decreasing=TRUE)]
     setnames(DN, "package", "Package")
     CP <- db[NeedsCompilation != "no", Package]
-    DN[CP, on="Package"][order(N, decreasing=TRUE)][seq(from, from+npkg-1L)][,Package]
+    DN <- DN[CP, on="Package"][order(N, decreasing=TRUE)]
+    DN[seq(from, min(from+npkg-1L, nrow(DN))),Package]
 }
