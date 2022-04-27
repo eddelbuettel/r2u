@@ -1,4 +1,9 @@
 
+.isBasePackage <- function(pkg) {
+    pkg %in% c("base", "compiler", "datasets", "graphics", "grDevices", "grid", "methods", "parallel",
+               "profile", "splines", "stats", "stats4", "tcltk", "tools", "translations", "utils")
+}
+
 .addDepends <- function(dt, ap, con) {
     if (is.na(dt[,Depends])) return(invisible(NULL))
     dep <- gsub("\\n", "", dt[,Depends])
@@ -7,7 +12,7 @@
     deps <- strsplit(dep, ",")[[1]]
     for (i in deps) {
         i <- gsub("^ ", "", i)
-        if (i %in% c("utils", "methods", "graphics", "tools", "stats", "stats4")) next
+        if (.isBasePackage(i)) next
         j <- gsub(" \\(.*?\\)", "", i)
         p <- ap[Package==j, deb]
         cat(", ", p ,sep="", file=con, append=TRUE)
@@ -20,7 +25,7 @@
     imps <- strsplit(imp, ",")[[1]]
     for (i in imps) {
         i <- gsub("^ ", "", i)
-        if (i %in% c("utils", "methods", "graphics", "grDevices", "tools", "stats")) next
+        if (.isBasePackage(i)) next
         j <- gsub(" \\(.*?\\)", "", i)
         p <- ap[Package==j, deb]
         cat(", ", p ,sep="", file=con, append=TRUE)
