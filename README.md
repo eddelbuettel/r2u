@@ -34,14 +34,15 @@ most-downloaded packages, along with their dependencies from BioConductor.
 half the total downloads: a very skewed distribution.)
 
 In this first stage, we cover 
-- the top eight thousand (or just over 40% of) CRAN packages (by downloads) 
+- the top nine thousand (or about 50% of) CRAN packages (by downloads) 
 - as well as 100% of the ~ 4500 CRAN packages needing compilation 
 - and whichever many BioConductor package are implied by these (and build). 
 
-As there is overlap between the set, we currently have around 11400 binary
-packages, or about 60% of the total of CRAN packages.
+There is overlap between the sets, and the download rankings fluctuating. We
+currently have around 12390 binary packages, or about 65% of the total of
+CRAN packages.
 
-### What is Based on?
+### What is it Based on?
 
 For the CRAN binaries we repackage RSPM builds, and add full dependency
 resolution and integration with the system.
@@ -56,20 +57,27 @@ proper `apt` repo with a signed Release file.
 
 To use the repo, first (and this is optional) add the repository key
 
-    apt install gpg-agent                        		# to add the key
+    apt install --yes --no-install-recommends gpg-agent  	# to add the key
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A1489FE2AB99A21A
     
 Second, add the repository itself to the `apt` registry:
 
-    echo "deb [arch=amd64] https://dirk.eddelbuettel.com/cranpt focal main" > /etc/apt/sources.list.d/cranapt.list
+    echo "deb [arch=amd64] https://dirk.eddelbuettel.com/cranapt focal main" > /etc/apt/sources.list.d/cranapt.list
     apt update
 
+and if you need R 4.2.0 also run these two lines
+
+    echo "deb [arch=amd64] http://ppa.launchpad.net/edd/misc/ubuntu focal main" > /etc/apt/sources.list.d/edd-misc.list 
+    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 67C2D66C4B1D4339
+ 
 After that the package are known (under their `r-cran-*` and `r-bioc-*`
 names).  You can install them on the command-line using `apt` and `apt-get`,
 via `aptitude` as well as other front-ends.
 
 If you add and enable [bspm](https://cloud.r-project.org/package=bspm)
 they become available via `install.packages()` and `update.packages()`.
+
+See the next section on Pinning though to ensure 'CRANapt' sorts high.
 
 ### Pinning
 
@@ -79,7 +87,7 @@ package builds in the distribution itself may appear (to `apt`) to be
 newer. A case in point was package `gtable` whose version in Ubuntu was
 `0.3.0+dfsg-1` which accidentally sorts higher than the rebuild we made under
 a newer and more consistent version number `0.3.0-1.ca2004.1`.  One possible
-fix is 'apt pinning'. Place a file `/etc/apt/preferences.d/99cranpt` with content
+fix is 'apt pinning'. Place a file `/etc/apt/preferences.d/99cranapt` with content
 
     Package: *
     Pin: origin "dirk.eddelbuettel.com"
@@ -97,6 +105,9 @@ As of late April:
 
 - The BioConductor release is still at 3.14 and should be upgraded to the
   now-current 3.15. 
+
+- The littler package reflects build-time configuration, the RSPM binary is
+  then expecting a different R location so it needs a binary rebuild
 
 ### Author
 
