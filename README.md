@@ -39,7 +39,7 @@ In this first stage, we cover
 - and whichever many BioConductor package are implied by these (and build). 
 
 There is overlap between the sets, and the download rankings fluctuating. We
-currently have around 12390 binary packages, or about 65% of the total of
+currently have around 13490 binary packages, or about 71% of the total of
 CRAN packages.
 
 ### What is it Based on?
@@ -107,7 +107,12 @@ As of late April:
   now-current 3.15. 
 
 - The littler package reflects build-time configuration, the RSPM binary is
-  then expecting a different R location so it needs a binary rebuild
+  then expecting a different R location so it needs a binary rebuild. Added a
+  'force' flag, may need a list similar to the blacklist to always compiled.
+  
+- A few packages appear to ship from RSPM as source. We need to catch those
+  and/or use the force list to build them. It appears to affect about 240 out
+  4400 compiled packages.
 
 ### Author
 
