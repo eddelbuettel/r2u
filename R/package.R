@@ -33,12 +33,11 @@
 }
 
 .filterAndMapPackage <- function(p, AP) {
-    if (is.finite(match(p, c("graphics", "grDevices", "grid", "methods", "parallel", "tools", "splines", "stats", "stats4", "utils"))))
+    if (.isBasePackage(p))
         return("")
-
     n <- match(p, AP$Package)
     if (!is.finite(n)) {
-        message("Unknown:", p)
+        cat(red("Unknown: ", p))
         return("")
     }
 
@@ -57,10 +56,10 @@ filterAndMapBuildDepends <- function(pkg, ap) {
     res
 }
 
-buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE, verbose=FALSE) {
+buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE, verbose=FALSE, force=FALSE) {
     if (missing(db)) db <- .pkgenv[["db"]]
     stopifnot("db must be data.frame" = inherits(db, "data.frame"))
-    if (pkg %in% c("base", "compiler", "datasets", "graphics", "grDevices", "grid", "methods", "parallel", "splines", "stats", "stats4", "tcltk", "tools", "utils")) return(invisible())
+    if (.isBasePackage(pkg)) return(invisible())
     ind <- match(pkg, db[,Package])
     ap <- .pkgenv[["ap"]]
     aind <- match(pkg, ap[,Package])
@@ -98,7 +97,7 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE, verbose=F
         return(invisible())
     } else if (effrepo == "Bioc") {# && isTRUE(ver == aver)) {
         cand <- paste0(pkgname, "_", aver)
-        if (is.finite(match(cand, builds[, pkgver]))) {
+        if (is.finite(match(cand, builds[, pkgver])) && isFALSE(force)) {
             if (verbose) {
                 cat(blue(sprintf("%-22s %-11s %-11s", pkg, ver, aver))) 		# start console log with pkg
                 cat(green("[already built - skipping]\n"))
@@ -114,7 +113,7 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE, verbose=F
     }
     pkgname <- paste0("r-", tolower(effrepo), "-", tolower(pkg)) 			# aka r-cran-namehere
     cand <- paste0(pkgname, "_", ver)
-    if (is.finite(match(cand, builds[, pkgver]))) {
+    if (is.finite(match(cand, builds[, pkgver])) && isFALSE(force)) {
         if (verbose) cat(blue(sprintf("%-22s %-11s %-11s", pkg, ver, aver))) 		# start console log with pkg
         if (verbose) cat(green("[already built - skipping]\n"))
         return(invisible)
@@ -127,7 +126,7 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE, verbose=F
         return(invisible)
     }
 
-    file <- if (repo == "CRAN") {
+    file <- if (repo == "CRAN" && isFALSE(force)) {
                 .get_package_file(D[,Package], D[, Version]) 		# rspm file, possibly cached
             } else {
                 .get_source_file(AP[, Package], AP[, Version], AP)
@@ -143,10 +142,9 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE, verbose=F
     instdir <- file.path("debian", pkgname, "usr", "lib", "R", "site-library") 	# unpackaged binary
     if (!dir.exists(instdir)) dir.create(instdir, recursive=TRUE)
 
-    if (repo == "CRAN") {
+    if (repo == "CRAN" && isFALSE(force)) {
         untar(file, exdir=instdir)
     } else {
-        ## for BioC install from source
         if (!dir.exists("src")) dir.create("src")
         untar(file, exdir="src")
     }
@@ -170,7 +168,8 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE, verbose=F
                   "-v ", getwd(), ":/mnt ",
                   "-w /mnt/build/", pkg, " ",
                   container, " debBuild.sh ",
-                  if (repo == "Bioc") "-b -s " else " ",
+                  if (repo == "Bioc") "-b " else " ",
+                  if (repo == "Bioc" || isTRUE(force)) "-s " else " ",
                   depstr,
                   pkg)
     if (debug) print(cmd)
