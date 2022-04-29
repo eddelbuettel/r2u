@@ -174,7 +174,7 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE, verbose=F
     writeCopyright(pkg, D[, License])
     r2u_dir <- .getConfig("r2u_directory")
     setwd(r2u_dir)
-    container <- paste0("eddelbuettel/r2u:", .getConfig("distribution_name"))
+    container <- paste0("eddelbuettel/r2u_build:", .getConfig("distribution_name"))
     deps <- if (pkg %in% names(.getConfig("builddeps"))) .getConfig("builddeps")[pkg] else ""
     added_deps <- if (repo == "Bioc") paste(filterAndMapBuildDepends(pkg, ap), collapse=" ") else ""
     depstr <- if (nchar(deps) + nchar(added_deps) > 0) paste0("-a '", deps, " ", added_deps, "' ") else " "
