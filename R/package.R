@@ -127,7 +127,8 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE, verbose=F
     }
 
     file <- if (repo == "CRAN" && isFALSE(force)) {
-                .get_package_file(D[,Package], D[, Version]) 		# rspm file, possibly cached
+                #.get_package_file(D[,Package], D[, Version]) 		# rspm file, possibly cached
+                .get_package_file(pkg, ver) 				# rspm file, possibly cached
             } else {
                 .get_source_file(AP[, Package], AP[, Version], AP)
             }
@@ -153,6 +154,19 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE, verbose=F
 
     #if (dir.exists(file.path(pkgname, "usr"))) unlink(file.path(pkgname, "usr"), recursive=TRUE)
     #if (dir.exists(file.path(pkgname, "DEBIAN"))) unlink(file.path(pkgname, "DEBIAN"), recursive=TRUE)
+
+
+    if (missing(db)) db <- .pkgenv[["db"]]
+    stopifnot("db must be data.frame" = inherits(db, "data.frame"))
+    repol <- tolower(match.arg(repo))
+    if (!inherits(db, "data.table")) setDT(db)
+    ind <- match(pkg, db[,Package])
+    aind <- match(pkg, ap[,Package])
+
+    if (repo == "CRAN" && is.na(match(pkg, db[,Package]))) {
+        cat(red("[skipping as not in current CRAN db]\n"))
+        return(invisible())
+    }
 
     writeControl(pkg, db, ap, repo)
     writeChangelog(pkg, db, ap, repo)

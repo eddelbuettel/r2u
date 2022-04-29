@@ -207,7 +207,8 @@ writeFiles <- function(pkg, repo=c("CRAN", "Bioc")) {
     repo <- match.arg(repo)
 
     db <- setDT(.pkgenv[["db"]])
-    .downloadTarGz(pkg, db, repo)
+    res <- .downloadTarGz(pkg, db, repo)
+    if (isFALSE(res)) return(invisible())
     writeControl(pkg, db=db, repo=repo)
     writeChangelog(pkg, db=db, repo=repo)
     writeRules() #pkg, db=db)
@@ -234,12 +235,14 @@ getVersion <- function(pkg, db, repo=c("CRAN", "Bioc")) {
     repo <- tolower(match.arg(repo))
     if (!inherits(db, "data.table")) setDT(db)
     ind <- match(pkg, db[,Package])
-    if (is.na(ind)) stop("Package '", pkg, "' not known to package database.", call. = FALSE)
-
+    if (is.na(ind)) {
+        message("Package '", pkg, "' not known to package database.")
+        return(FALSE)
+    }
     ver <- getVersion(pkg, db, repo)
     dst <- paste0(pkg, "_", ver, ".tar.gz")
     if (file.exists(dst))
-        return(invisible)
+        return(TRUE)
     if (repo == "cran") {
         if (.hasConfigField("optional_cran_mirror")) {
             src <- file.path(.getConfig("optional_cran_mirror"), dst)
@@ -248,7 +251,9 @@ getVersion <- function(pkg, db, repo=c("CRAN", "Bioc")) {
         } else {
             download.packages(pkg, ".")
         }
+        return(TRUE)
     }
+    return(FALSE)
 }
 
 ## full cycle:
