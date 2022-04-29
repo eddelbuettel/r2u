@@ -14,7 +14,7 @@ Key features:
   
 - **Installations are fast, automated and reversible** thanks to package
   management layer
-
+  
 ### What is Covered ?
 
 We currently support amd64 (_i.e._ standard Intel/AMD cpus) for the _focal_
@@ -25,6 +25,8 @@ unlikely due to a lack of (additional hardware) resources and time.
 
 Support for other distributions is possible but unlikely right now (due to a lack
 of resources and time). We hope to cover Debian ar some point.
+
+R 4.2.0 is used, and BioConductor 3.15 packages provided as implied by CRAN packages.
 
 ### What is Selected ?
 
@@ -39,15 +41,16 @@ In this first stage, we cover
 - and whichever many BioConductor package are implied by these (and build). 
 
 There is overlap between the sets, and the download rankings fluctuating. We
-currently have around 13490 binary packages, or about 71% of the total of
-CRAN packages.
+currently have around 14365 binary packages, or about 75% of the total of
+CRAN packages. It also includes about 110 BioConductor packages from the 3.15
+release.
 
 ### What is it Based on?
 
 For the CRAN binaries we repackage RSPM builds, and add full dependency
 resolution and integration with the system.
 
-The BioConductor packages are built natively.
+The BioConductor 3.15 packages are built natively.
 
 Everything is provided as `.deb` binary files with proper dependency using a
 proper `apt` repo with a signed Release file.
@@ -55,29 +58,35 @@ proper `apt` repo with a signed Release file.
 
 ### Usage 
 
-To use the repo, first (and this is optional) add the repository key
+First add the repository key so that `apt` knows it (this is optional but recommended) 
 
     apt install --yes --no-install-recommends gpg-agent  	# to add the key
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A1489FE2AB99A21A
     
-Second, add the repository itself to the `apt` registry:
+Second, add the repository to the `apt` registry:
 
     echo "deb [arch=amd64] https://dirk.eddelbuettel.com/cranapt focal main" > /etc/apt/sources.list.d/cranapt.list
     apt update
 
-and if you need R 4.2.0 also run these two lines
+Third, if you do not yet have R 4.2.0 also run these two lines (or use the
+standard CRAN repo)
 
     echo "deb [arch=amd64] http://ppa.launchpad.net/edd/misc/ubuntu focal main" > /etc/apt/sources.list.d/edd-misc.list 
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 67C2D66C4B1D4339
- 
+
+Fourth, add repository 'pinning' as `apt` might get confused by some older
+packages (in the Ubuntu distro) which accidentally appear with a higher
+version number. See the next section to ensure 'CRANapt' sorts highest.
+
 After that the package are known (under their `r-cran-*` and `r-bioc-*`
 names).  You can install them on the command-line using `apt` and `apt-get`,
 via `aptitude` as well as other front-ends.
 
-If you add and enable [bspm](https://cloud.r-project.org/package=bspm)
-they become available via `install.packages()` and `update.packages()`.
+Fifth, and also optional, install and enable the
+[bspm](https://cloud.r-project.org/package=bspm) package so that CRANapt and
+other packages become available via `install.packages()` and
+`update.packages()`.
 
-See the next section on Pinning though to ensure 'CRANapt' sorts high.
 
 ### Pinning
 
@@ -103,9 +112,6 @@ As of late April:
 - Some geospatial packages do not currently install, adding the UbuntuGIS PPA
   as a base may help
 
-- The BioConductor release is still at 3.14 and should be upgraded to the
-  now-current 3.15. 
-
 - The littler package reflects build-time configuration, the RSPM binary is
   then expecting a different R location so it needs a binary rebuild. Added a
   'force' flag, may need a list similar to the blacklist to always compiled.
@@ -114,13 +120,21 @@ As of late April:
   and/or use the force list to build them. It appears to affect about 240 out
   4400 compiled packages.
 
+### Fixed Issues
+
+- [DONE] The BioConductor release is still at 3.14 and should be upgraded to the
+  now-current 3.15. 
+
+
 ### Author
 
 Dirk Eddelbuettel
 
 ### License
 
-All CRAN packages are released under their respective licenses.
+The repository-building code in this package is released under the GPL (>= 2).
+
+All CRAN and BioConductor packages are released under their respective licenses.
 
 ### Acknowledgment
 
