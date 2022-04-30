@@ -36,12 +36,12 @@ most-downloaded packages, along with their dependencies from BioConductor.
 half the total downloads: a very skewed distribution.)
 
 In this first stage, we cover 
-- the top nine thousand (or about 50% of) CRAN packages (by downloads) 
+- the top ten thousand (or over 50% of) CRAN packages (by downloads) 
 - as well as 100% of the ~ 4500 CRAN packages needing compilation 
 - and whichever many BioConductor package are implied by these (and build). 
 
 There is overlap between the sets, and the download rankings fluctuating. We
-currently have around 14365 binary packages, or about 75% of the total of
+currently have around 15155 binary packages, or about 80% of the total of
 CRAN packages. It also includes about 110 BioConductor packages from the 3.15
 release.
 
