@@ -97,12 +97,12 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE, verbose=F
         return(invisible())
     } else if (effrepo == "Bioc") {# && isTRUE(ver == aver)) {
         cand <- paste0(pkgname, "_", aver)
-        if (is.finite(match(cand, builds[, pkgver])) && isFALSE(force)) {
+        if (is.finite(match(cand, builds[, pkgver])) && isFALSE(force)) { 		# if already built
             if (verbose) {
-                cat(blue(sprintf("%-22s %-11s %-11s", pkg, ver, aver))) 		# start console log with pkg
+                cat(blue(sprintf("%-22s %-11s %-11s", pkg, ver, aver)))
                 cat(green("[already built - skipping]\n"))
             }
-            return(invisible())
+            return(invisible())         						# exit
         } else {
             #cat(blue(sprintf("%-22s %-11s %-11s", pkg, ver, aver))) 		# start console log with pkg
             #cat(red("[building BioC package]\n"))
@@ -152,10 +152,6 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE, verbose=F
 
     setwd("debian")
 
-    #if (dir.exists(file.path(pkgname, "usr"))) unlink(file.path(pkgname, "usr"), recursive=TRUE)
-    #if (dir.exists(file.path(pkgname, "DEBIAN"))) unlink(file.path(pkgname, "DEBIAN"), recursive=TRUE)
-
-
     if (missing(db)) db <- .pkgenv[["db"]]
     stopifnot("db must be data.frame" = inherits(db, "data.frame"))
     repol <- tolower(match.arg(repo))
@@ -177,7 +173,7 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE, verbose=F
     setwd(r2u_dir)
     container <- paste0("eddelbuettel/r2u_build:", .getConfig("distribution_name"))
     deps <- if (pkg %in% names(.getConfig("builddeps"))) .getConfig("builddeps")[pkg] else ""
-    added_deps <- if (repo == "Bioc") paste(filterAndMapBuildDepends(pkg, ap), collapse=" ") else ""
+    added_deps <- if (repo == "Bioc" || isTRUE(force)) paste(filterAndMapBuildDepends(pkg, ap), collapse=" ") else ""
     depstr <- if (nchar(deps) + nchar(added_deps) > 0) paste0("-a '", deps, " ", added_deps, "' ") else " "
     cmd <- paste0("docker run --rm -ti ",
                   "-v ", getwd(), ":/mnt ",
