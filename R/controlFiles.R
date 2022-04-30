@@ -202,18 +202,15 @@ writeCopyright <- function(pkg, license) {
     close(con)
 }
 
-writeFiles <- function(pkg, repo=c("CRAN", "Bioc")) {
-    stopifnot(`missing db`=is.finite(match("db", names(.pkgenv))))
-    repo <- match.arg(repo)
-
-    db <- setDT(.pkgenv[["db"]])
-    res <- .downloadTarGz(pkg, db, repo)
-    if (isFALSE(res)) return(invisible())
-    writeControl(pkg, db=db, repo=repo)
-    writeChangelog(pkg, db=db, repo=repo)
-    writeRules() #pkg, db=db)
-    writeDsc(pkg, db=db, repo=repo)
+writeSourceFormat <- function(pkg) {
+    srcfmtdir <- "source"
+    if (!dir.exists(srcfmtdir)) dir.create(srcfmtdir)
+    con <- file("source/format", "wt")
+    ## cat("3.0 (quilt)", file=con)  # requires source tarball
+    cat("1.0", file=con)
+    close(con)
 }
+
 
 .getField <- function(pkg, field, db, repo=c("CRAN", "Bioc")) {
     if (missing(db)) db <- .pkgenv[["db"]]

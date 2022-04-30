@@ -172,6 +172,7 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE, verbose=F
     writeChangelog(pkg, db, ap, repo)
     writeRules(pkg, repo)
     writeCopyright(pkg, D[, License])
+    writeSourceFormat(pkg)
     r2u_dir <- .getConfig("r2u_directory")
     setwd(r2u_dir)
     container <- paste0("eddelbuettel/r2u_build:", .getConfig("distribution_name"))
