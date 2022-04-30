@@ -22,6 +22,12 @@ COPY 99cranapt /etc/apt/preferences.d
 RUN apt update -qq \
     && apt upgrade --yes \
     && dpkg --purge r-cran-littler littler \
-    && Rscript -e 'bspm::disable(); install.packages("littler", type="source")'
+    && Rscript -e 'bspm::disable(); install.packages("littler", type="source")' \
+    && cd /usr/local/bin \
+    && ln -s /usr/local/lib/R/site-library/littler/bin/r . \
+    && ln -sf /usr/local/lib/R/site-library/littler/examples/install.r . \
+    && ln -sf /usr/local/lib/R/site-library/littler/examples/install2.r . \
+    && ln -sf /usr/local/lib/R/site-library/littler/examples/installGithub.r . \
+    && ln -sf /usr/local/lib/R/site-library/littler/examples/update.r .
 
 CMD ["bash"]
