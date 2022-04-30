@@ -1,6 +1,8 @@
 
 ## r2u:  R Binaries for Ubuntu
 
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/eddelbuettel/r2u)
+
 Key features:
 
 - **Full integration with `apt`** as every binary resolves _all_ dependencies: No
