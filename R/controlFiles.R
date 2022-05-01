@@ -13,7 +13,7 @@
     for (i in deps) {
         i <- gsub("^ ", "", i)
         if (.isBasePackage(i)) next
-        j <- gsub(" \\(.*?\\)", "", i)
+        j <- gsub(" ?\\(.*?\\)", "", i)
         p <- ap[Package==j, deb]
         cat(", ", p ,sep="", file=con, append=TRUE)
     }
@@ -26,7 +26,7 @@
     for (i in imps) {
         i <- gsub("^ ", "", i)
         if (.isBasePackage(i)) next
-        j <- gsub(" \\(.*?\\)", "", i)
+        j <- gsub(" ?\\(.*?\\)", "", i)
         p <- ap[Package==j, deb]
         cat(", ", p ,sep="", file=con, append=TRUE)
     }
@@ -40,7 +40,7 @@
         i <- gsub("^ ", "", i)
         i <- gsub("\\n", "", i)
         if ("Rcpp" == i && grepl("Rcpp", dt[,Imports])) next 	# already covered
-        j <- gsub(" \\(.*?\\)", "", i)
+        j <- gsub(" ?\\(.*?\\)", "", i)
         p <- ap[Package==j, deb]
         cat(", ", p ,sep="", file=con, append=TRUE)
     }
@@ -56,7 +56,7 @@
         i <- gsub("\\n", "", i)
         i <- gsub("== ", "= ", i)
         if (!first) cat(", ", file=con, append=TRUE)
-        j <- gsub(" \\(.*?\\)", "", i)
+        j <- gsub(" ?\\(.*?\\)", "", i)
         p <- ap[Package==j, deb]
         cat(p ,sep="", file=con, append=TRUE)
         first <- FALSE
@@ -127,7 +127,7 @@ writeControl <- function(pkg, db, ap, repo=c("CRAN", "Bioc"), debug=FALSE) {
     close(con)
 }
 
-writeChangelog <- function(pkg, db, ap, repo=c("CRAN", "Bioc"), debug=FALSE) {
+writeChangelog <- function(pkg, db, ap, repo=c("CRAN", "Bioc"), debug=FALSE, suffix=".1") {
     if (missing(db)) db <- .pkgenv[["db"]]
     stopifnot("db must be data.frame" = inherits(db, "data.frame"))
     repo <- tolower(match.arg(repo))
@@ -149,7 +149,7 @@ writeChangelog <- function(pkg, db, ap, repo=c("CRAN", "Bioc"), debug=FALSE) {
     distribution_name <- .getConfig("distribution_name")
 
     rel <- paste0("r-", repo, "-", lp)
-    ver <- paste0(D[,Version], "-1.ca", gsub("\\.", "", distribution), ".1")
+    ver <- paste0(D[,Version], "-1.ca", gsub("\\.", "", distribution), suffix)
     date <- system("date -R", intern=TRUE)
     con <- file("changelog", "wt")
     cat(rel, " (", ver, ") ", distribution_name, "; urgency=medium\n\n",
