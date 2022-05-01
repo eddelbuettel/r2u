@@ -56,7 +56,9 @@ filterAndMapBuildDepends <- function(pkg, ap) {
     res
 }
 
-buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE, verbose=FALSE, force=FALSE) {
+buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"),
+                         debug=FALSE, verbose=FALSE, force=FALSE,
+                         suffix=".1") {
     if (missing(db)) db <- .pkgenv[["db"]]
     stopifnot("db must be data.frame" = inherits(db, "data.frame"))
     if (.isBasePackage(pkg)) return(invisible())
@@ -165,7 +167,7 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE, verbose=F
     }
 
     writeControl(pkg, db, ap, repo)
-    writeChangelog(pkg, db, ap, repo)
+    writeChangelog(pkg, db, ap, repo, suffix=suffix)
     writeRules(pkg, repo)
     writeCopyright(pkg, D[, License])
     writeSourceFormat(pkg)
@@ -179,6 +181,7 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE, verbose=F
                   "-v ", getwd(), ":/mnt ",
                   "-w /mnt/build/", pkg, " ",
                   container, " debBuild.sh ",
+                  if (grepl("(tcltk|tkrplot)", depstr)) "-x " else " ",
                   if (repo == "Bioc") "-b " else " ",
                   if (repo == "Bioc" || isTRUE(force)) "-s " else " ",
                   depstr,
@@ -226,4 +229,20 @@ topNCompiled <- function(npkg, db, date=Sys.Date() - 1, from=1L) {
     CP <- db[NeedsCompilation != "no", Package]
     DN <- DN[CP, on="Package"][order(N, decreasing=TRUE)]
     DN[seq(from, min(from+npkg-1L, nrow(DN))),Package]
+}
+
+.deb2pkg <- function(debpkgname, verbose=FALSE) {
+    ap <- db <- .pkgenv[["ap"]]
+    pkg <- ap[deb==debpkgname,Package]
+    if (verbose) cat(blue("[", pkg,"] ", sep=""))
+    pkg
+}
+
+catchup <- function() {
+    pkgs <- read.table("/var/local/r2u/incorrectlyBuiltPackages.txt", header=FALSE)
+    debs <- gsub("(r-[a-z]+-.*?)_.*", "\\1", pkgs[, 2])
+    for (d in debs) {
+        p <- .deb2pkg(d)
+        try(buildPackage(p, force=TRUE))
+    }
 }
