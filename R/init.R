@@ -107,9 +107,6 @@ debug <- FALSE #TRUE
             .pkgenv[["bioc_version"]] <- cfg[1, "bioc_version"]
             .pkgenv[["debian_policy_version"]] <- cfg[1, "debian_policy_version"]
             .pkgenv[["cache_age_hours_cran_db"]] <- cfg[1, "cache_age_hours_cran_db"]
-            if (is.finite(match("optional_cran_mirror", colnames(cfg)))) {
-                .pkgenv[["optional_cran_mirror"]] <- cfg[1, "optional_cran_mirror"]
-            }
             .pkgenv[["package_cache"]] <- cfg[1, "package_cache"]
             .pkgenv[["r2u_directory"]] <- cfg[1, "r2u_directory"]
             .pkgenv[["build_directory"]] <- cfg[1, "build_directory"]
@@ -168,11 +165,15 @@ debug <- FALSE #TRUE
             ## cf  contrib.url(BiocManager::repositories())
             ##     [1] "https://bioconductor.org/packages/3.14/bioc/src/contrib"
             ##     [2] "https://bioconductor.org/packages/3.14/data/annotation/src/contrib"
+            ##     [3] "https://bioconductor.org/packages/3.14/data/experiment/src/contrib"
             biocrepo <- paste0("https://bioconductor.org/packages/", .getConfig("bioc_version"), "/bioc")
             apBIOC <- data.table(ap="Bioc", as.data.frame(available.packages(repos=biocrepo)))
-            biocdatarepo <- paste0("https://bioconductor.org/packages/", .getConfig("bioc_version"), "/data/annotation")
-            apBIOCdata <- data.table(ap="Bioc", as.data.frame(available.packages(repos=biocdatarepo)))
-            apBIOC <- merge(apBIOC, apBIOCdata, all=TRUE)
+            biocdataannrepo <- paste0("https://bioconductor.org/packages/", .getConfig("bioc_version"), "/data/annotation")
+            apBIOCdataann <- data.table(ap="Bioc", as.data.frame(available.packages(repos=biocdataannrepo)))
+            apBIOC <- merge(apBIOC, apBIOCdataann, all=TRUE)
+            biocdataexprepo <- paste0("https://bioconductor.org/packages/", .getConfig("bioc_version"), "/data/experiment")
+            apBIOCdataexp <- data.table(ap="Bioc", as.data.frame(available.packages(repos=biocdataexprepo)))
+            apBIOC <- merge(apBIOC, apBIOCdataexp, all=TRUE)
 
             rspmrepo <- paste0("https://packagemanager.rstudio.com/all/__linux__/", .getConfig("distribution_name"), "/latest")
             apRSPM <- data.table(ap="CRAN", as.data.frame(available.packages(repos=rspmrepo)))

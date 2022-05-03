@@ -57,7 +57,7 @@ filterAndMapBuildDepends <- function(pkg, ap) {
 }
 
 buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"),
-                         debug=FALSE, verbose=FALSE, force=FALSE,
+                         debug=FALSE, verbose=FALSE, force=FALSE, xvfb=FALSE,
                          suffix=".1") {
     if (missing(db)) db <- .pkgenv[["db"]]
     stopifnot("db must be data.frame" = inherits(db, "data.frame"))
@@ -66,7 +66,7 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"),
     ap <- .pkgenv[["ap"]]
     aind <- match(pkg, ap[,Package])
     if (is.na(ind) && is.na(aind)) {
-        message(red(paste0("Package '", pkg, "' not known to current CRAN package database.")))
+        if (verbose) message(paste0("Package '", pkg, "' not known to current CRAN package database."))
         return(invisible())
     }
     builds <- .pkgenv[["builds"]]
@@ -74,7 +74,7 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"),
     #repo <- match.arg(repo)
     repo <- ap[aind, ap]
     if (is.na(repo)) {
-        message("skipping ", pkg, " as unknown")
+        if (verbose) message("skipping ", pkg, " as unknown")
         return(invisible())
     }
     repo <- match.arg(repo)
@@ -129,7 +129,6 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"),
     }
 
     file <- if (repo == "CRAN" && isFALSE(force)) {
-                #.get_package_file(D[,Package], D[, Version]) 		# rspm file, possibly cached
                 .get_package_file(pkg, ver) 				# rspm file, possibly cached
             } else {
                 .get_source_file(AP[, Package], AP[, Version], AP)
@@ -147,6 +146,11 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"),
 
     if (repo == "CRAN" && isFALSE(force)) {
         untar(file, exdir=instdir)
+        if (!file.exists(file.path(instdir, pkg, "Meta", "package.rds"))) {
+            cat(red("[not prebuilt, forcing source build]\n"))
+            buildPackage(pkg, db, repo, debug, version, force=TRUE, xvfb, suffix)
+            return(invisible())
+        }
     } else {
         if (!dir.exists("src")) dir.create("src")
         untar(file, exdir="src")
@@ -155,7 +159,6 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"),
     setwd("debian")
 
     if (missing(db)) db <- .pkgenv[["db"]]
-    stopifnot("db must be data.frame" = inherits(db, "data.frame"))
     repol <- tolower(match.arg(repo))
     if (!inherits(db, "data.table")) setDT(db)
     ind <- match(pkg, db[,Package])
@@ -181,7 +184,7 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"),
                   "-v ", getwd(), ":/mnt ",
                   "-w /mnt/build/", pkg, " ",
                   container, " debBuild.sh ",
-                  if (grepl("(tcltk|tkrplot)", depstr)) "-x " else " ",
+                  if (isTRUE(xvfb) || grepl("(tcltk|tkrplot)", depstr)) "-x " else " ",
                   if (repo == "Bioc") "-b " else " ",
                   if (repo == "Bioc" || isTRUE(force)) "-s " else " ",
                   depstr,
@@ -195,7 +198,6 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"),
 }
 
 buildAll <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE) {
-    #stopifnot("expect single package (for now)" = length(pkg) == 1)
     if (missing(db)) db <- .pkgenv[["db"]]
     stopifnot("db must be data.frame" = inherits(db, "data.frame"))
     deps <- tools::package_dependencies(pkg, db=db, recursive=TRUE)

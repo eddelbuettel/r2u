@@ -241,22 +241,8 @@ getVersion <- function(pkg, db, repo=c("CRAN", "Bioc")) {
     if (file.exists(dst))
         return(TRUE)
     if (repo == "cran") {
-        if (.hasConfigField("optional_cran_mirror")) {
-            src <- file.path(.getConfig("optional_cran_mirror"), dst)
-            stopifnot(`source file expected but not found`=file.exists(src))
-            file.copy(src, dst, overwrite=TRUE, copy.date=TRUE)
-        } else {
-            download.packages(pkg, ".")
-        }
+        download.packages(pkg, ".")
         return(TRUE)
     }
     return(FALSE)
 }
-
-## full cycle:
-##   osc mkpac pkgname
-##   cd pkgname
-##   c2d::writeFiles(pkgname, repo="CRAN")
-##   osc add debian.* *.tar.gz *.dsc
-##   osc build --local-package
-##   osc commit -m'r-cran-pkgname version'
