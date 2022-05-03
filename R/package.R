@@ -48,7 +48,7 @@
     ap$deb
 }
 
-filterAndMapBuildDepends <- function(pkg, ap) {
+.filterAndMapBuildDepends <- function(pkg, ap) {
     pkgvec <- tools::package_dependencies(pkg, db=ap, recursive=TRUE)[[1]]
     res <- sapply(pkgvec, .filterAndMapPackage, ap, USE.NAMES=FALSE)
     res <- Filter(Negate(function(x) x==""), res)
@@ -57,8 +57,7 @@ filterAndMapBuildDepends <- function(pkg, ap) {
 }
 
 buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"),
-                         debug=FALSE, verbose=FALSE, force=FALSE, xvfb=FALSE,
-                         suffix=".1") {
+                         debug=FALSE, verbose=FALSE, force=FALSE, xvfb=FALSE, suffix=".1") {
     if (missing(db)) db <- .pkgenv[["db"]]
     stopifnot("db must be data.frame" = inherits(db, "data.frame"))
     if (.isBasePackage(pkg)) return(invisible())
@@ -169,16 +168,16 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"),
         return(invisible())
     }
 
-    writeControl(pkg, db, ap, repo)
-    writeChangelog(pkg, db, ap, repo, suffix=suffix)
-    writeRules(pkg, repo)
-    writeCopyright(pkg, D[, License])
-    writeSourceFormat(pkg)
+    .writeControl(pkg, db, ap, repo)
+    .writeChangelog(pkg, db, ap, repo, suffix=suffix)
+    .writeRules(pkg, repo)
+    .writeCopyright(pkg, D[, License])
+    .writeSourceFormat(pkg)
     r2u_dir <- .getConfig("r2u_directory")
     setwd(r2u_dir)
     container <- paste0("eddelbuettel/r2u_build:", .getConfig("distribution_name"))
     deps <- if (pkg %in% names(.getConfig("builddeps"))) .getConfig("builddeps")[pkg] else ""
-    added_deps <- if (repo == "Bioc" || isTRUE(force)) paste(filterAndMapBuildDepends(pkg, ap), collapse=" ") else ""
+    added_deps <- if (repo == "Bioc" || isTRUE(force)) paste(.filterAndMapBuildDepends(pkg, ap), collapse=" ") else ""
     depstr <- if (nchar(deps) + nchar(added_deps) > 0) paste0("-a '", deps, " ", added_deps, "' ") else " "
     cmd <- paste0("docker run --rm -ti ",
                   "-v ", getwd(), ":/mnt ",
@@ -240,11 +239,3 @@ topNCompiled <- function(npkg, db, date=Sys.Date() - 1, from=1L) {
     pkg
 }
 
-catchup <- function() {
-    pkgs <- read.table("/var/local/r2u/incorrectlyBuiltPackages.txt", header=FALSE)
-    debs <- gsub("(r-[a-z]+-.*?)_.*", "\\1", pkgs[, 2])
-    for (d in debs) {
-        p <- .deb2pkg(d)
-        try(buildPackage(p, force=TRUE))
-    }
-}

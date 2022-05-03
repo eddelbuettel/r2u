@@ -72,7 +72,7 @@
     .pkgenv[[key]]
 }
 
-writeControl <- function(pkg, db, ap, repo=c("CRAN", "Bioc"), debug=FALSE) {
+.writeControl <- function(pkg, db, ap, repo=c("CRAN", "Bioc"), debug=FALSE) {
     if (missing(db)) db <- .pkgenv[["db"]]
     stopifnot("db must be data.frame" = inherits(db, "data.frame"))
     repol <- tolower(match.arg(repo))
@@ -127,7 +127,7 @@ writeControl <- function(pkg, db, ap, repo=c("CRAN", "Bioc"), debug=FALSE) {
     close(con)
 }
 
-writeChangelog <- function(pkg, db, ap, repo=c("CRAN", "Bioc"), debug=FALSE, suffix=".1") {
+.writeChangelog <- function(pkg, db, ap, repo=c("CRAN", "Bioc"), debug=FALSE, suffix=".1") {
     if (missing(db)) db <- .pkgenv[["db"]]
     stopifnot("db must be data.frame" = inherits(db, "data.frame"))
     repo <- tolower(match.arg(repo))
@@ -158,8 +158,7 @@ writeChangelog <- function(pkg, db, ap, repo=c("CRAN", "Bioc"), debug=FALSE, suf
     close(con)
 }
 
-#writeRules <- function(pkg, db) {
-writeRules <- function(pkg, repo=c("CRAN", "Bioc")) {
+.writeRules <- function(pkg, repo=c("CRAN", "Bioc")) {
     repo <- tolower(match.arg(repo))
     con <- file("rules", "wt")
     cat("#!/usr/bin/make -f\n",
@@ -193,7 +192,7 @@ writeRules <- function(pkg, repo=c("CRAN", "Bioc")) {
     close(con)
 }
 
-writeCopyright <- function(pkg, license) {
+.writeCopyright <- function(pkg, license) {
     con <- file("copyright", "wt")
     cat("This is a binary build of CRAN package '", pkg, "'.\n\n",
         "Its original license is '", license, "'.\n\n",
@@ -202,7 +201,7 @@ writeCopyright <- function(pkg, license) {
     close(con)
 }
 
-writeSourceFormat <- function(pkg) {
+.writeSourceFormat <- function(pkg) {
     srcfmtdir <- "source"
     if (!dir.exists(srcfmtdir)) dir.create(srcfmtdir)
     con <- file("source/format", "wt")
@@ -222,7 +221,7 @@ writeSourceFormat <- function(pkg) {
     db[ind, ..field][[1]]
 }
 
-getVersion <- function(pkg, db, repo=c("CRAN", "Bioc")) {
+.getVersion <- function(pkg, db, repo=c("CRAN", "Bioc")) {
     .getField(pkg, "Version", db, repo)
 }
 
@@ -236,7 +235,7 @@ getVersion <- function(pkg, db, repo=c("CRAN", "Bioc")) {
         message("Package '", pkg, "' not known to package database.")
         return(FALSE)
     }
-    ver <- getVersion(pkg, db, repo)
+    ver <- .getVersion(pkg, db, repo)
     dst <- paste0(pkg, "_", ver, ".tar.gz")
     if (file.exists(dst))
         return(TRUE)
