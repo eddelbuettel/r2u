@@ -20,10 +20,9 @@ Key features:
 ### What is Covered ?
 
 We currently support amd64 (_i.e._ standard Intel/AMD cpus) for the _focal_
-20.04 LTS release.  An update to 22.04 is planned.
-
-Support for other cpu architectures is certainly possible but somewhat
-unlikely due to a lack of (additional hardware) resources and time.
+20.04 LTS release.  An update to 22.04 is planned.  Support for other cpu
+architectures is certainly possible but somewhat unlikely due to a lack of
+(additional hardware) resources and time.
 
 Support for other distributions is possible but unlikely right now (due to a lack
 of resources and time). We hope to cover Debian ar some point.
@@ -38,21 +37,21 @@ most-downloaded packages, along with their dependencies from BioConductor.
 half the total downloads: a very skewed distribution.)
 
 In this first stage, we cover 
-- the top ten thousand (or over 50% of) CRAN packages (by downloads) 
+- the top eleven thousand (or over 50% of) CRAN packages (by downloads) 
 - as well as 100% of the ~ 4500 CRAN packages needing compilation 
 - and whichever many BioConductor package are implied by these (and build). 
 
 There is overlap between the sets, and the download rankings fluctuating. We
-currently have around 15155 binary packages, or about 80% of the total of
-CRAN packages. It also includes about 110 BioConductor packages from the 3.15
+currently have around 16183 binary packages, or about 85.7% of the total of
+CRAN packages. It also includes over 150 BioConductor packages from the 3.15
 release.
 
 ### What is it Based on?
 
-For the CRAN binaries we repackage RSPM builds, and add full dependency
-resolution and integration with the system.
-
-The BioConductor 3.15 packages are built natively.
+For the CRAN binaries we either repackage RSPM builds (where available) or
+build natively. The selected BioConductor 3.15 packages are built natively.
+For all these, full dependency resolution and integration with the system is
+a key feature.
 
 Everything is provided as `.deb` binary files with proper dependency using a
 proper `apt` repo with a signed Release file.
@@ -107,20 +106,30 @@ fix is 'apt pinning'. Place a file `/etc/apt/preferences.d/99cranapt` with conte
 which will now give packages from this repo a higher default priority of 700
 overriding the standard value of 500.
 
+
+## Docker
+
+There is also a Docker container [eddelbuettel/r2u:focal](https://hub.docker.com/repository/docker/eddelbuettel/r2u)
+that has the above, including pinning and [bspm](https://cran.r-project.org/package=bspm) support, already set up.
+
+
 ### Known Issues
 
-As of late April:
+As of early May:
 
 - Some geospatial packages do not currently install, adding the UbuntuGIS PPA
-  as a base may help
+  as a base may help as should basing builds on 22.04
 
 - The littler package reflects build-time configuration, the RSPM binary is
   then expecting a different R location so it needs a binary rebuild. Added a
   'force' flag, may need a list similar to the blacklist to always compiled.
   
-- A few packages appear to ship from RSPM as source. We need to catch those
-  and/or use the force list to build them. It appears to affect about 240 out
-  4400 compiled packages.
+- A number of packages ship from RSPM as source. We catch those and/or use
+  the force list to build them. 
+  
+- A small number of packages do not build for lack required components.
+  Examples are ROracle and Rcplex.  They, and their reverse dependencies, are
+  missing. Hence, a small number of packages are blacklisted and are not built.
 
 ### Fixed Issues
 
