@@ -3,7 +3,8 @@
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/eddelbuettel/r2u)
 
-Key features:
+
+### Key features
 
 - **Full integration with `apt`** as every binary resolves _all_ dependencies: No
   more installations (of pre-built archives) only to discover that a shared
@@ -16,7 +17,8 @@ Key features:
   
 - **Installations are fast, automated and reversible** thanks to package
   management layer
-  
+
+
 ### What is Covered ?
 
 We currently support amd64 (_i.e._ standard Intel/AMD cpus) for the _focal_
@@ -29,22 +31,23 @@ of resources and time). We hope to cover Debian ar some point.
 
 R 4.2.0 is used, and BioConductor 3.15 packages provided as implied by CRAN packages.
 
+
 ### What is Selected ?
 
 We use [cran-logs](https://cran-logs.rstudio.com/) and pick the _N_
 most-downloaded packages, along with their dependencies from BioConductor.
-(It should be noted that the first 100 packages account for approximately
-half the total downloads: a very skewed distribution.)
+(It should be noted that for example the first 100 packages already account
+for approximately half the total downloads: a very skewed distribution.)
 
-In this first stage, we cover 
-- the top eleven thousand (or over 50% of) CRAN packages (by downloads) 
-- as well as 100% of the ~ 4500 CRAN packages needing compilation 
-- and whichever many BioConductor package are implied by these (and build). 
+In now we cover 
+- all CRAN packages (modulo a handful of blacklisted ones)
+- all ~ 4500 CRAN packages needing compilation 
+- alnd BioConductor package are implied by these (and build). 
 
 There is overlap between the sets, and the download rankings fluctuating. We
-currently have around 16183 binary packages, or about 85.7% of the total of
-CRAN packages. It also includes over 150 BioConductor packages from the 3.15
-release.
+currently have 18954 binary packages from CRAN. We also include 177
+BioConductor packages from the 3.15 release.
+
 
 ### What is it Based on?
 
@@ -69,8 +72,8 @@ Second, add the repository to the `apt` registry:
     echo "deb [arch=amd64] https://dirk.eddelbuettel.com/cranapt focal main" > /etc/apt/sources.list.d/cranapt.list
     apt update
 
-Third, if you do not yet have R 4.2.0 also run these two lines (or use the
-standard CRAN repo)
+Third, and optionally, if you do not yet have R 4.2.0 run these two lines (or
+use the [standard CRAN repo setup](https://cloud.r-project.org/bin/linux/ubuntu/))
 
     echo "deb [arch=amd64] http://ppa.launchpad.net/edd/misc/ubuntu focal main" > /etc/apt/sources.list.d/edd-misc.list 
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 67C2D66C4B1D4339
@@ -127,9 +130,9 @@ As of early May:
 - A number of packages ship from RSPM as source. We catch those and/or use
   the force list to build them. 
   
-- A small number of packages do not build for lack required components.
-  Examples are ROracle and Rcplex.  They, and their reverse dependencies, are
-  missing. Hence, a small number of packages are blacklisted and are not built.
+- A small number of packages do not build for lack required components;
+  examples are ROracle and Rcplex.  They, and their reverse dependencies, are
+  are blacklisted and not built.
 
 ### Fixed Issues
 
