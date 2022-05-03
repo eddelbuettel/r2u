@@ -2,12 +2,11 @@ maintainer: Dirk Eddelbuettel <edd@debian.org>
 debhelper_compat: 11
 minimum_r_version: 4.1.3
 r_api_version: 4.0
-bioc_version: 3.14
+bioc_version: 3.15
 debian_policy_version: 4.6.0
 distribution: 20.04
 distribution_name: focal
 cache_age_hours_cran_db: 3
-optional_cran_mirror: /home/edd/cranberries/sources
 package_cache: /var/local/r2u/cache
 r2u_directory: /var/local/r2u
 build_directory: /var/local/r2u/build
