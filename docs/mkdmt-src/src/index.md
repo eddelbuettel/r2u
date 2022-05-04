@@ -24,7 +24,7 @@ The gif shows how _one `install.packages("tidyverse")` command_ on an Ubuntu
 20.04 system _installs all packages as binaries in 18 seconds_ (by passing the
 R package installation to `apt` using [bspm](https://cloud.r-project.org/package=bspm)). 
 
-![](https://eddelbuettel.github.io/r2u/misc/tidyverse_from_r2u_2022-05-04_17-09.gif)
+![](https://eddelbuettel.github.io/r2u/assets/tidyverse_from_r2u_2022-05-04_17-09.gif)
 
 This uses the Docker container referenced below, which has been set up with
 the five easy setup steps detailed here.
@@ -124,7 +124,7 @@ which will now give packages from this repo a higher default priority of 700
 overriding the standard value of 500.
 
 
-## Docker
+### Docker
 
 There is also a Docker container [eddelbuettel/r2u:focal](https://hub.docker.com/repository/docker/eddelbuettel/r2u)
 that has the above, including pinning and [bspm](https://cran.r-project.org/package=bspm) support, already set up.
