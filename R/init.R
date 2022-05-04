@@ -97,10 +97,7 @@
         if (cfgfile != "") {
             cfg <- read.dcf(cfgfile)
             .pkgenv[["config_file"]] <- cfgfile
-            #.pkgenv[["user"]] <- cfg[1, "user"]
             .pkgenv[["maintainer"]] <- cfg[1, "maintainer"]
-            .pkgenv[["distribution"]] <- cfg[1, "distribution"]
-            .pkgenv[["distribution_name"]] <- cfg[1, "distribution_name"]
             .pkgenv[["debhelper_compat"]] <- cfg[1, "debhelper_compat"]
             .pkgenv[["minimum_r_version"]] <- cfg[1, "minimum_r_version"]
             .pkgenv[["r_api_version"]] <- cfg[1, "r_api_version"]
@@ -120,8 +117,20 @@
     }
 }
 
+.checkTarget <- function(tgt) {
+    if (tgt == "20.04" || tgt == "focal") {
+        .pkgenv[["distribution"]] <- "20.04"
+        .pkgenv[["distribution_name"]] <- "focal"
+    } else if (tgt == "22.04" || tgt == "jammy") {
+        .pkgenv[["distribution"]] <- "22.04"
+        .pkgenv[["distribution_name"]] <- "jammy"
+    } else {
+        stop("Unknown build target: ", tgt, call. = FALSE)
+    }
+}
+
 .checkSystem <- function() {
-    bins <- c("docker", "md5sum", "sha1sum", "sha256sum")
+    bins <- c("docker", "apt", "dpkg", "md5sum", "sha1sum", "sha256sum")
     res <- Sys.which(bins)
     if (any(res==""))
         stop("Missing binaries for '", paste(names(res[res==""]), collapse=", "), "'.", call. = FALSE)
@@ -175,10 +184,13 @@
             apBIOCdataexp <- data.table(ap="Bioc", as.data.frame(available.packages(repos=biocdataexprepo)))
             apBIOC <- merge(apBIOC, apBIOCdataexp, all=TRUE)
 
-            rspmrepo <- paste0("https://packagemanager.rstudio.com/all/__linux__/", .getConfig("distribution_name"), "/latest")
-            apRSPM <- data.table(ap="CRAN", as.data.frame(available.packages(repos=rspmrepo)))
+            #rspmfocalrepo <- paste0("https://packagemanager.rstudio.com/all/__linux__/focal/latest")
+            #apRSPMfocal <- data.table(ap="CRAN", as.data.frame(available.packages(repos=rspmfocalrepo)))
+            #ap <- merge(apRSPMfocal, apBIOC, all=TRUE)
+            rspmjammyrepo <- paste0("https://packagemanager.rstudio.com/all/__linux__/jammy/latest")
+            apRSPMjammy <- data.table(ap="CRAN", as.data.frame(available.packages(repos=rspmjammyrepo)))
+            ap <- merge(apRSPMjammy, apBIOC, all=TRUE)
 
-            ap <- merge(apRSPM, apBIOC, all=TRUE)
             ap[, deb := paste0("r-", tolower(ap), "-", tolower(Package))]
 
             apfile <- .defaultAPFile(TRUE)
@@ -191,37 +203,15 @@
     }
 }
 
-## .loadBioC <- function() {
-##     if (is.na(match("bioc", names(.pkgenv)))) {
-##         .debug_message("Getting bioc\n")
-##         biocfile <- .defaultBioCFile()
-##         hrs <- .pkgenv[["cache_age_hours_cran_db"]]
-##         if (file.exists(biocfile) &&
-##             as.numeric(difftime(Sys.time(), file.info(biocfile)$ctime, units="hours")) < hrs) {
-##             bioc <- readRDS(biocfile)
-##             .debug_message("Cached bioc\n")
-##         } else {
-##             .debug_message("Fresh ap\n")
-##             repo <- "https://bioconductor.org/packages/3.14/bioc"
-##             bioc <- available.packages(repo=repo)
-##             biocfile <- .defaultBioCFile(TRUE)
-##             saveRDS(bioc, biocfile)
-##             .debug_message("Written bioc\n")
-##         }
-##         .pkgenv[["bioc"]] <- data.table(as.data.frame(bioc))
-##     } else {
-##         .debug_message("Have bioc\n")
-##     }
-## }
-
 .loadBuilds <- function() {
     dd <- .pkgenv[["deb_directory"]]
     cwd <- getwd()
     setwd(dd)
     fls <- list.files(".", pattern="\\.deb$", full.names=FALSE)
     n1 <- tools::file_path_sans_ext(fls)
-    n2 <- gsub("-\\d+.ca2004.\\d+_(all|amd64)$", "", n1) 		# TODO: take out 'ca2004'
-    B <- data.table(name=fls, pkgver=n2, file.info(fls))
+    n2 <- gsub("-\\d+.ca(20|22)04.\\d+_(all|amd64)$", "", n1)
+    n3 <- gsub(".*-\\d+.ca(\\d{4}).\\d+_.*", "\\1", n1)
+    B <- data.table(name=fls, pkgver=n2, file.info(fls), tgt=n3)
     .pkgenv[["builds"]] <- B
 }
 
@@ -244,8 +234,6 @@
         .pkgenv[["blacklist"]] <- skipped
     }
 }
-
-.defaultBlacklistFile
 
 .onLoad <- function(libname, pkgname) {
     .loadConfig()

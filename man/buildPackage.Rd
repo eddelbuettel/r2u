@@ -7,10 +7,10 @@
 \alias{topNCompiled}
 \title{Build a Package}
 \usage{
-buildPackage(pkg, debug = FALSE, verbose = FALSE, force = FALSE,
+buildPackage(pkg, tgt, debug = FALSE, verbose = FALSE, force = FALSE,
   xvfb = FALSE, suffix = ".1")
 
-buildAll(pkg, debug = FALSE)
+buildAll(pkg, tgt, debug = FALSE)
 
 topN(npkg, date = Sys.Date() - 1, from = 1L)
 
@@ -18,6 +18,9 @@ topNCompiled(npkg, date = Sys.Date() - 1, from = 1L)
 }
 \arguments{
 \item{pkg}{character Name of the CRAN or BioConductor package to build}
+
+\item{tgt}{character Name (or version) of the build target distribution, this is restricted
+to either \dQuote{20.04} or \dQuote{22.04} (or their names \dQuote{focal} or \dQuote{jammy})}
 
 \item{debug}{logical Optional value to show more debugging output, default is \sQuote{FALSE}}
 
@@ -46,6 +49,10 @@ built packages.
 The \code{buildPackage} function builds the given package. The \code{buildAll} package applies
 to all elements in the supplied vector of packages. The \code{topN} and \code{topNCompiled} helpers
 select \sQuote{N} among all (or all compiled) packages.
+
+Note that this build process is still somewhat tailored to the build setup use by the author and
+is not (yet ?) meant to be universally transferable. It should be with a little care and possible
+examination of the code. If interested, please get in touch.
 }
 \author{
 Dirk Eddelbuettel

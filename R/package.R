@@ -63,8 +63,14 @@
 ##' to all elements in the supplied vector of packages. The \code{topN} and \code{topNCompiled} helpers
 ##' select \sQuote{N} among all (or all compiled) packages.
 ##'
+##' Note that this build process is still somewhat tailored to the build setup use by the author and
+##' is not (yet ?) meant to be universally transferable. It should be with a little care and possible
+##' examination of the code. If interested, please get in touch.
+##'
 ##' @title Build a Package
 ##' @param pkg character Name of the CRAN or BioConductor package to build
+##' @param tgt character Name (or version) of the build target distribution, this is restricted
+##' to either \dQuote{20.04} or \dQuote{22.04} (or their names \dQuote{focal} or \dQuote{jammy})
 ##' @param debug logical Optional value to show more debugging output, default is \sQuote{FALSE}
 ##' @param verbose logical Optional value show more verbose progress output, default is \sQuote{FALSE}
 ##' @param force logical Optional value to force package build from source, default is \sQuote{FALSE}
@@ -72,9 +78,10 @@
 ##' @param suffix character Optional value to override default of \sQuote{.1} affixed to package version
 ##' @return Nothing as the function is invoked for the side effect of building binary packages
 ##' @author Dirk Eddelbuettel
-buildPackage <- function(pkg, debug=FALSE, verbose=FALSE, force=FALSE, xvfb=FALSE, suffix=".1") {
+buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb=FALSE, suffix=".1") {
     db <- .pkgenv[["db"]]
     stopifnot("db must be data.frame" = inherits(db, "data.frame"))
+    .checkTarget(tgt)
     if (.isBasePackage(pkg)) return(invisible())
     ind <- match(pkg, db[,Package])
     ap <- .pkgenv[["ap"]]
@@ -83,7 +90,8 @@ buildPackage <- function(pkg, debug=FALSE, verbose=FALSE, force=FALSE, xvfb=FALS
         if (verbose) message(paste0("Package '", pkg, "' not known to current CRAN package database."))
         return(invisible())
     }
-    builds <- .pkgenv[["builds"]]
+    tgtdist <- gsub(".", "", .pkgenv[["distribution"]])   ## NB this will not work for Debian testing
+    builds <- .pkgenv[["builds"]][tgt == tgtdist,]
 
     repo <- ap[aind, ap]
     if (is.na(repo) || is.na(match(repo, c("CRAN", "Bioc")))) {
@@ -95,7 +103,7 @@ buildPackage <- function(pkg, debug=FALSE, verbose=FALSE, force=FALSE, xvfb=FALS
     ## todo: check license and all that
     D <- db[ind,]
     AP <- ap[aind,]
-    if (debug) if (repo == "CRAN") print(D) else print(AP)
+    #if (debug) if (repo == "CRAN") print(D) else print(AP)
     ver <- D[, Version]
     aver <- AP[, Version]
     effrepo <- AP[, ap]
@@ -109,7 +117,7 @@ buildPackage <- function(pkg, debug=FALSE, verbose=FALSE, force=FALSE, xvfb=FALS
         if (verbose) cat(blue(sprintf("%-22s %-11s %-11s", pkg, ver, aver))) 		# start console log with pkg
         if (verbose) cat(red("[not yet available - skipping]\n"))
         return(invisible())
-    } else if (effrepo == "Bioc") {# && isTRUE(ver == aver)) {
+    } else if (effrepo == "Bioc") {
         cand <- paste0(pkgname, "_", aver)
         if (is.finite(match(cand, builds[, pkgver])) && isFALSE(force)) { 		# if already built
             if (verbose) {
@@ -117,10 +125,6 @@ buildPackage <- function(pkg, debug=FALSE, verbose=FALSE, force=FALSE, xvfb=FALS
                 cat(green("[already built - skipping]\n"))
             }
             return(invisible())         						# exit
-        } else {
-            #cat(blue(sprintf("%-22s %-11s %-11s", pkg, ver, aver))) 		# start console log with pkg
-            #cat(red("[building BioC package]\n"))
-            #repo <- "Bioc"
         }
     } else {
         ver <- aver
@@ -204,12 +208,13 @@ buildPackage <- function(pkg, debug=FALSE, verbose=FALSE, force=FALSE, xvfb=FALS
 }
 
 #' @rdname buildPackage
-buildAll <- function(pkg, debug=FALSE) {
+buildAll <- function(pkg, tgt, debug=FALSE) {
     db <- .pkgenv[["db"]]
     stopifnot("db must be data.frame" = inherits(db, "data.frame"))
+    .checkTarget(tgt)
     deps <- tools::package_dependencies(pkg, db=db, recursive=TRUE)
     vec <- unique(sort(c(pkg, unname(do.call(c, deps)))))
-    ignoredres <- sapply(vec, buildPackage, debug)
+    ignoredres <- sapply(vec, buildPackage, tgt, debug)
     invisible()
 }
 
