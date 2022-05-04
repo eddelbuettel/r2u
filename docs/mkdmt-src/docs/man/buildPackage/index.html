@@ -659,14 +659,14 @@
 <p>Builds a package considering the repository information, dependencies
 and already built packages.</p>
 <h3 id="usage">Usage</h3>
-<pre><code class="language-R">buildPackage(pkg, db, repo = c(&quot;CRAN&quot;, &quot;Bioc&quot;), debug = FALSE,
-  verbose = FALSE, force = FALSE, xvfb = FALSE, suffix = &quot;.1&quot;)
+<pre><code class="language-R">buildPackage(pkg, tgt, debug = FALSE, verbose = FALSE, force = FALSE,
+  xvfb = FALSE, suffix = &quot;.1&quot;)
 
-buildAll(pkg, db, repo = c(&quot;CRAN&quot;, &quot;Bioc&quot;), debug = FALSE)
+buildAll(pkg, tgt, debug = FALSE)
 
 topN(npkg, date = Sys.Date() - 1, from = 1L)
 
-topNCompiled(npkg, db, date = Sys.Date() - 1, from = 1L)
+topNCompiled(npkg, date = Sys.Date() - 1, from = 1L)
 </code></pre>
 <h3 id="arguments">Arguments</h3>
 <table>
@@ -682,12 +682,8 @@ topNCompiled(npkg, db, date = Sys.Date() - 1, from = 1L)
 <td>character Name of the CRAN or BioConductor package to build</td>
 </tr>
 <tr>
-<td><code>db</code></td>
-<td>data.frame Optional repository information now taken from information loaded at startup</td>
-</tr>
-<tr>
-<td><code>repo</code></td>
-<td>character Optional value either ‘CRAN’ or ‘Bioc’ now also in <code>db</code> loaded</td>
+<td><code>tgt</code></td>
+<td>character Name (or version) of the build target distribution, this is restricted to either “20.04” or “22.04” (or their names “focal” or “jammy”)</td>
 </tr>
 <tr>
 <td><code>debug</code></td>
@@ -728,6 +724,10 @@ topNCompiled(npkg, db, date = Sys.Date() - 1, from = 1L)
 package applies to all elements in the supplied vector of packages. The
 <code>topN</code> and <code>topNCompiled</code> helpers select ‘N’ among all (or all compiled)
 packages.</p>
+<p>Note that this build process is still somewhat tailored to the build
+setup use by the author and is not (yet ?) meant to be universally
+transferable. It should be with a little care and possible examination
+of the code. If interested, please get in touch.</p>
 <h3 id="value">Value</h3>
 <p>Nothing as the function is invoked for the side effect of building
 binary packages</p>

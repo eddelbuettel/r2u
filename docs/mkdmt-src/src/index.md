@@ -61,8 +61,7 @@ resolution by using a proper `apt` repo which also has a signed Release file.
 
 ### Usage 
 
-(You could use [this script `setup_r2u.sh`](inst/scripts/setup_r2u.sh) to
-facilitate the setup but you may prefer to execute the steps outlined here by
+(You could use [this script `add_cranapt.sh`](https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/add_cranapt.sh) to facilitate the setup but you may prefer to execute the steps outlined here by
 hand.)
 
 First add the repository key so that `apt` knows it (this is optional but recommended) 
