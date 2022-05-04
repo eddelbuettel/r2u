@@ -65,8 +65,6 @@
 ##'
 ##' @title Build a Package
 ##' @param pkg character Name of the CRAN or BioConductor package to build
-##' @param db data.frame Optional repository information now taken from information loaded at startup
-##' @param repo character Optional value either \sQuote{CRAN} or \sQuote{Bioc} now also in \code{db} loaded
 ##' @param debug logical Optional value to show more debugging output, default is \sQuote{FALSE}
 ##' @param verbose logical Optional value show more verbose progress output, default is \sQuote{FALSE}
 ##' @param force logical Optional value to force package build from source, default is \sQuote{FALSE}
@@ -74,9 +72,8 @@
 ##' @param suffix character Optional value to override default of \sQuote{.1} affixed to package version
 ##' @return Nothing as the function is invoked for the side effect of building binary packages
 ##' @author Dirk Eddelbuettel
-buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"),
-                         debug=FALSE, verbose=FALSE, force=FALSE, xvfb=FALSE, suffix=".1") {
-    if (missing(db)) db <- .pkgenv[["db"]]
+buildPackage <- function(pkg, debug=FALSE, verbose=FALSE, force=FALSE, xvfb=FALSE, suffix=".1") {
+    db <- .pkgenv[["db"]]
     stopifnot("db must be data.frame" = inherits(db, "data.frame"))
     if (.isBasePackage(pkg)) return(invisible())
     ind <- match(pkg, db[,Package])
@@ -88,13 +85,11 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"),
     }
     builds <- .pkgenv[["builds"]]
 
-    #repo <- match.arg(repo)
     repo <- ap[aind, ap]
-    if (is.na(repo)) {
+    if (is.na(repo) || is.na(match(repo, c("CRAN", "Bioc")))) {
         if (verbose) message("skipping ", pkg, " as unknown")
         return(invisible())
     }
-    repo <- match.arg(repo)
     repol <- tolower(repo)
 
     ## todo: check license and all that
@@ -165,7 +160,7 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"),
         untar(file, exdir=instdir)
         if (!file.exists(file.path(instdir, pkg, "Meta", "package.rds"))) {
             cat(red("[not prebuilt, forcing source build]\n"))
-            buildPackage(pkg, db, repo, debug, version, force=TRUE, xvfb, suffix)
+            buildPackage(pkg, debug, version, force=TRUE, xvfb, suffix)
             return(invisible())
         }
     } else {
@@ -174,12 +169,6 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"),
     }
 
     setwd("debian")
-
-    if (missing(db)) db <- .pkgenv[["db"]]
-    repol <- tolower(match.arg(repo))
-    if (!inherits(db, "data.table")) setDT(db)
-    ind <- match(pkg, db[,Package])
-    aind <- match(pkg, ap[,Package])
 
     if (repo == "CRAN" && is.na(match(pkg, db[,Package]))) {
         cat(red("[skipping as not in current CRAN db]\n"))
@@ -215,12 +204,12 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"),
 }
 
 #' @rdname buildPackage
-buildAll <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE) {
-    if (missing(db)) db <- .pkgenv[["db"]]
+buildAll <- function(pkg, debug=FALSE) {
+    db <- .pkgenv[["db"]]
     stopifnot("db must be data.frame" = inherits(db, "data.frame"))
     deps <- tools::package_dependencies(pkg, db=db, recursive=TRUE)
     vec <- unique(sort(c(pkg, unname(do.call(c, deps)))))
-    ignoredres <- sapply(vec, buildPackage, db, repo, debug)
+    ignoredres <- sapply(vec, buildPackage, debug)
     invisible()
 }
 
@@ -246,8 +235,8 @@ topN <- function(npkg, date=Sys.Date() - 1, from=1L) {
 }
 
 #' @rdname buildPackage
-topNCompiled <- function(npkg, db, date=Sys.Date() - 1, from=1L) {
-    if (missing(db)) db <- .pkgenv[["db"]]
+topNCompiled <- function(npkg, date=Sys.Date() - 1, from=1L) {
+    db <- .pkgenv[["db"]]
     D <- data.table::fread(.getCachedDLLogsFile(date))
     DN <- D[, .N, keyby=package][order(N,decreasing=TRUE)]
     setnames(DN, "package", "Package")

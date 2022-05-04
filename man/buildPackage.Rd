@@ -7,21 +7,17 @@
 \alias{topNCompiled}
 \title{Build a Package}
 \usage{
-buildPackage(pkg, db, repo = c("CRAN", "Bioc"), debug = FALSE,
-  verbose = FALSE, force = FALSE, xvfb = FALSE, suffix = ".1")
+buildPackage(pkg, debug = FALSE, verbose = FALSE, force = FALSE,
+  xvfb = FALSE, suffix = ".1")
 
-buildAll(pkg, db, repo = c("CRAN", "Bioc"), debug = FALSE)
+buildAll(pkg, debug = FALSE)
 
 topN(npkg, date = Sys.Date() - 1, from = 1L)
 
-topNCompiled(npkg, db, date = Sys.Date() - 1, from = 1L)
+topNCompiled(npkg, date = Sys.Date() - 1, from = 1L)
 }
 \arguments{
 \item{pkg}{character Name of the CRAN or BioConductor package to build}
-
-\item{db}{data.frame Optional repository information now taken from information loaded at startup}
-
-\item{repo}{character Optional value either \sQuote{CRAN} or \sQuote{Bioc} now also in \code{db} loaded}
 
 \item{debug}{logical Optional value to show more debugging output, default is \sQuote{FALSE}}
 
