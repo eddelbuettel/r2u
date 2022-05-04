@@ -1,0 +1,993 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="canonical" href="https://github.com/eddelbuettel/r2u/">
+      
+      <link rel="icon" href="assets/Rlogo.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.0.7">
+    
+    
+      
+        <title>Index - r2u</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.c772ddf0.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.7fa14f5b.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700%7C&display=fallback">
+        <style>:root{--md-text-font-family:"Lato";--md-code-font-family:""}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="assets/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+      
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#r2u-r-binaries-for-ubuntu" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="." title="r2u" class="md-header__button md-logo" aria-label="r2u" data-md-component="logo">
+      
+  <img src="assets/Rlogo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            r2u
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Index
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="md-header__options">
+      
+    </div>
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="." class="md-tabs__link md-tabs__link--active">
+        Home
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="man/buildPackage/" class="md-tabs__link">
+        Reference
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="vignettes/FAQ/" class="md-tabs__link">
+        Articles
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="news/" class="md-tabs__link">
+        News
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="changelog/" class="md-tabs__link">
+        Changelog
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="r2u" class="md-nav__button md-logo" aria-label="r2u" data-md-component="logo">
+      
+  <img src="assets/Rlogo.svg" alt="logo">
+
+    </a>
+    r2u
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" checked>
+      
+      <label class="md-nav__link" for="__nav_1">
+        Home
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Home" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Home
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Index
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="." class="md-nav__link md-nav__link--active">
+        Index
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#r2u-r-binaries-for-ubuntu" class="md-nav__link">
+    r2u:  R Binaries for Ubuntu
+  </a>
+  
+    <nav class="md-nav" aria-label="r2u:  R Binaries for Ubuntu">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-features" class="md-nav__link">
+    Key features
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-is-covered" class="md-nav__link">
+    What is Covered ?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-is-selected" class="md-nav__link">
+    What is Selected ?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-is-it-based-on" class="md-nav__link">
+    What is it Based on?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pinning" class="md-nav__link">
+    Pinning
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker" class="md-nav__link">
+    Docker
+  </a>
+  
+    <nav class="md-nav" aria-label="Docker">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#known-issues" class="md-nav__link">
+    Known Issues
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixed-issues" class="md-nav__link">
+    Fixed Issues
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#author" class="md-nav__link">
+    Author
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#license" class="md-nav__link">
+    License
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acknowledgment" class="md-nav__link">
+    Acknowledgment
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      <label class="md-nav__link" for="__nav_2">
+        Reference
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="man/buildPackage/" class="md-nav__link">
+        buildPackage
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="man/r2u-package/" class="md-nav__link">
+        R2u package
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      <label class="md-nav__link" for="__nav_3">
+        Articles
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Articles" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Articles
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="vignettes/FAQ/" class="md-nav__link">
+        FAQ
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      <label class="md-nav__link" for="__nav_4">
+        News
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="News" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          News
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="news/" class="md-nav__link">
+        News
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      <label class="md-nav__link" for="__nav_5">
+        Changelog
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Changelog" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Changelog
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="changelog/" class="md-nav__link">
+        Changelog
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#r2u-r-binaries-for-ubuntu" class="md-nav__link">
+    r2u:  R Binaries for Ubuntu
+  </a>
+  
+    <nav class="md-nav" aria-label="r2u:  R Binaries for Ubuntu">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-features" class="md-nav__link">
+    Key features
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-is-covered" class="md-nav__link">
+    What is Covered ?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-is-selected" class="md-nav__link">
+    What is Selected ?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-is-it-based-on" class="md-nav__link">
+    What is it Based on?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pinning" class="md-nav__link">
+    Pinning
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker" class="md-nav__link">
+    Docker
+  </a>
+  
+    <nav class="md-nav" aria-label="Docker">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#known-issues" class="md-nav__link">
+    Known Issues
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixed-issues" class="md-nav__link">
+    Fixed Issues
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#author" class="md-nav__link">
+    Author
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#license" class="md-nav__link">
+    License
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acknowledgment" class="md-nav__link">
+    Acknowledgment
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  <h1>Index</h1>
+                
+                <h2 id="r2u-r-binaries-for-ubuntu">r2u:  R Binaries for Ubuntu</h2>
+<p><a href="https://gitpod.io/#https://github.com/eddelbuettel/r2u"><img alt="Open in Gitpod" src="https://gitpod.io/button/open-in-gitpod.svg" /></a></p>
+<h3 id="key-features">Key features</h3>
+<ul>
+<li>
+<p><strong>Full integration with <code>apt</code></strong> as every binary resolves <em>all</em> dependencies: No
+  more installations (of pre-built archives) only to discover that a shared
+  library is missing. No more surprises.</p>
+</li>
+<li>
+<p><strong>Full integration with <code>apt</code></strong> so that an update of a system library
+  cannot break an R package: if a (shared) library is used by a CRAN, the
+  package manager knows and will not remove it.  No more (R package) breakage
+  from (system) library updates.</p>
+</li>
+<li>
+<p><strong>Installations are fast, automated and reversible</strong> thanks to package
+  management layer</p>
+</li>
+</ul>
+<h3 id="what-is-covered">What is Covered ?</h3>
+<p>We currently support amd64 (<em>i.e.</em> standard Intel/AMD cpus) for the 'focal'
+20.04 LTS release.  An update to 22.04 is planned.  Support for other cpu
+architectures is certainly possible but somewhat unlikely due to a lack of
+(additional hardware) resources and time.</p>
+<p>Support for other distributions is possible but unlikely right now (due to a lack
+of resources and time). We hope to cover Debian ar some point.</p>
+<p>R 4.2.0 is used, and BioConductor 3.15 packages are provided as required by CRAN packages.</p>
+<h3 id="what-is-selected">What is Selected ?</h3>
+<p>We use <a href="https://cran-logs.rstudio.com/">cran-logs</a> and started by picking the <em>N</em>
+most-downloaded packages, along with their dependencies from BioConductor.
+(It should be noted that for example the first 100 packages already account
+for approximately half the total downloads: a very skewed distribution.) We
+iterated, and have now full coverage of CRAN.</p>
+<p>So we now cover 
+- *all CRAN packages( (modulo a handful of blacklisted ones) including all ~ 4500 CRAN packages needing compilation 
+- all BioConductor package that are implied by these (and build for us). </p>
+<p>This currently resuls in 18954 binary packages from CRAN, and 177
+BioConductor packages from the 3.15 release.</p>
+<h3 id="what-is-it-based-on">What is it Based on?</h3>
+<p>For the CRAN binaries we either repackage RSPM builds (where available) or
+build natively. All selected BioConductor 3.15 packages are built natively.
+For all of these, full dependency resolution and integration with the system
+is a key feature.</p>
+<p>Everything is provided as <code>.deb</code> binary files with proper dependency
+resolution by using a proper <code>apt</code> repo which also has a signed Release file.</p>
+<h3 id="usage">Usage</h3>
+<p>(You could use <a href="inst/scripts/setup_r2u.sh">this script <code>setup_r2u.sh</code></a> to
+facilitate the setup but you may prefer to execute the steps outlined here by
+hand.)</p>
+<p>First add the repository key so that <code>apt</code> knows it (this is optional but recommended) </p>
+<pre><code>apt install --yes --no-install-recommends gpg-agent     # to add the key
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A1489FE2AB99A21A
+</code></pre>
+<p>Second, add the repository to the <code>apt</code> registry:</p>
+<pre><code>echo "deb [arch=amd64] https://dirk.eddelbuettel.com/cranapt focal main" &gt; /etc/apt/sources.list.d/cranapt.list
+apt update
+</code></pre>
+<p>Third, and optionally, if you do not yet have R 4.2.0 run these two lines (or
+use the <a href="https://cloud.r-project.org/bin/linux/ubuntu/">standard CRAN repo setup</a>)</p>
+<pre><code>echo "deb [arch=amd64] http://ppa.launchpad.net/edd/misc/ubuntu focal main" &gt; /etc/apt/sources.list.d/edd-misc.list 
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 67C2D66C4B1D4339
+</code></pre>
+<p>Fourth, add repository 'pinning' as <code>apt</code> might get confused by some older
+packages (in the Ubuntu distro) which accidentally appear with a higher
+version number. See the next section to ensure 'CRANapt' sorts highest.</p>
+<p>After that the package are known (under their <code>r-cran-*</code> and <code>r-bioc-*</code>
+names).  You can install them on the command-line using <code>apt</code> and <code>apt-get</code>,
+via <code>aptitude</code> as well as other front-ends.</p>
+<p>Fifth, and also optional, install and enable the
+<a href="https://cloud.r-project.org/package=bspm">bspm</a> package so that CRANapt and
+other packages become available via <code>install.packages()</code> and
+<code>update.packages()</code>.</p>
+<h3 id="pinning">Pinning</h3>
+<p>Because we let <code>apt</code> (and related tools) pick the packages, we have to ensure
+that that the CRANapt repo sorts higher than the default repo as (older)
+package builds in the distribution itself may appear (to <code>apt</code>) to be
+newer. A case in point was package <code>gtable</code> whose version in Ubuntu was
+<code>0.3.0+dfsg-1</code> which accidentally sorts higher than the rebuild we made under
+a newer and more consistent version number <code>0.3.0-1.ca2004.1</code>.  One possible
+fix is 'apt pinning'. Place a file <code>/etc/apt/preferences.d/99cranapt</code> with content</p>
+<pre><code>Package: *
+Pin: origin "dirk.eddelbuettel.com"
+Pin-Priority: 700
+</code></pre>
+<p>which will now give packages from this repo a higher default priority of 700
+overriding the standard value of 500.</p>
+<h2 id="docker">Docker</h2>
+<p>There is also a Docker container <a href="https://hub.docker.com/repository/docker/eddelbuettel/r2u">eddelbuettel/r2u:focal</a>
+that has the above, including pinning and <a href="https://cran.r-project.org/package=bspm">bspm</a> support, already set up.</p>
+<h3 id="known-issues">Known Issues</h3>
+<p>As of early May:</p>
+<ul>
+<li>
+<p>Some geospatial packages do not currently install, adding the UbuntuGIS PPA
+  as a base may help as should basing builds on 22.04</p>
+</li>
+<li>
+<p>The littler package reflects build-time configuration, the RSPM binary is
+  then expecting a different R location so it needs a binary rebuild. Added a
+  'force' flag, may need a list similar to the blacklist to always compiled.</p>
+</li>
+<li>
+<p>A number of packages ship from RSPM as source. We catch those and/or use
+  the force list to build them. </p>
+</li>
+<li>
+<p>A small number of packages do not build for lack required components;
+  examples are ROracle and Rcplex.  They, and their reverse dependencies, are
+  are blacklisted and not built.</p>
+</li>
+</ul>
+<h3 id="fixed-issues">Fixed Issues</h3>
+<ul>
+<li>[DONE] The BioConductor release is still at 3.14 and should be upgraded to the
+  now-current 3.15. </li>
+</ul>
+<h3 id="author">Author</h3>
+<p>Dirk Eddelbuettel</p>
+<h3 id="license">License</h3>
+<p>The repository-building code in this package is released under the GPL (&gt;= 2).</p>
+<p>All CRAN and BioConductor packages are released under their respective licenses.</p>
+<h3 id="acknowledgment">Acknowledgment</h3>
+<p>This was made possible by the generous support of endless coffee thanks to my
+<a href="https://github.com/sponsors/eddelbuettel">GitHub Sponsors</a>.</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        <!--
+  Copyright (c) 2016-2020 Martin Donath <martin.donath@squidfunk.com>
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+
+
+<!-- Application footer -->
+<footer class="md-footer">
+
+  <!-- Link to previous and/or next page -->
+  
+    <div class="md-footer-nav">
+      <nav
+        class="md-footer-nav__inner md-grid"
+        aria-label="Footer"
+      >
+
+        <!-- Link to previous page -->
+        
+
+        <!-- Link to next page -->
+        
+          <a
+            href="man/buildPackage/"
+            title="buildPackage"
+            class="md-footer-nav__link md-footer-nav__link--next"
+            rel="next"
+          >
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                buildPackage
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+
+  <!-- Further information -->
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+
+      <!-- Copyright and theme information -->
+      <div class="md-footer-copyright">
+        
+          Documentation for <a href="https://github.com/eddelbuettel/r2u">r2u</a>
+          made by <a href="https://dirk.eddelbuettel.com">Dirk Eddelbuettel</a>
+          using some <a href="https://www.R-Project.org">R</a> scripts and
+          <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">Material for MkDocs </a>
+      </div>
+
+      <!-- Social links -->
+      
+  <div class="md-footer-social">
+    
+      
+      
+        
+        
+      
+      <a href="https://github.com/eddelbuettel/r2u" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.tabs", "navigation.instant"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "assets/javascripts/workers/search.fe42c31b.min.js", "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.65ce87ac.min.js"></script>
+      
+    
+  </body>
+</html>
