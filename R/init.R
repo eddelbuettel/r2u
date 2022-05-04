@@ -1,8 +1,8 @@
 
 .pkgenv <- new.env(parent=emptyenv())
 
-debug <- FALSE #TRUE
-.debug_message <- function(...) if (debug) message(..., appendLF=FALSE)
+.debug <- FALSE #TRUE
+.debug_message <- function(...) if (.debug) message(..., appendLF=FALSE)
 
 .defaultConfigFile <- function() {
     if (getRversion() >= "4.0.0") {

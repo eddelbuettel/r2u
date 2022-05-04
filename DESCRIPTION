@@ -9,3 +9,4 @@ Description: RSPM binary packages are turned into Ubuntu packages containing
  proper system dependency information.
 License: GPL (>= 2)
 Imports: data.table, crayon, utils
+RoxygenNote: 6.0.1

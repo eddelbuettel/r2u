@@ -56,6 +56,24 @@
     res
 }
 
+##' Builds a package considering the repository information, dependencies and already
+##' built packages.
+##'
+##' The \code{buildPackage} function builds the given package. The \code{buildAll} package applies
+##' to all elements in the supplied vector of packages. The \code{topN} and \code{topNCompiled} helpers
+##' select \sQuote{N} among all (or all compiled) packages.
+##'
+##' @title Build a Package
+##' @param pkg character Name of the CRAN or BioConductor package to build
+##' @param db data.frame Optional repository information now taken from information loaded at startup
+##' @param repo character Optional value either \sQuote{CRAN} or \sQuote{Bioc} now also in \code{db} loaded
+##' @param debug logical Optional value to show more debugging output, default is \sQuote{FALSE}
+##' @param verbose logical Optional value show more verbose progress output, default is \sQuote{FALSE}
+##' @param force logical Optional value to force package build from source, default is \sQuote{FALSE}
+##' @param xvfb logical Optional value to build under \code{xvfb-run}, default is \sQuote{FALSE}
+##' @param suffix character Optional value to override default of \sQuote{.1} affixed to package version
+##' @return Nothing as the function is invoked for the side effect of building binary packages
+##' @author Dirk Eddelbuettel
 buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"),
                          debug=FALSE, verbose=FALSE, force=FALSE, xvfb=FALSE, suffix=".1") {
     if (missing(db)) db <- .pkgenv[["db"]]
@@ -196,6 +214,7 @@ buildPackage <- function(pkg, db, repo=c("CRAN", "Bioc"),
     invisible()
 }
 
+#' @rdname buildPackage
 buildAll <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE) {
     if (missing(db)) db <- .pkgenv[["db"]]
     stopifnot("db must be data.frame" = inherits(db, "data.frame"))
@@ -216,12 +235,17 @@ buildAll <- function(pkg, db, repo=c("CRAN", "Bioc"), debug=FALSE) {
     cachedfile
 }
 
+#' @rdname buildPackage
+#' @param npkg integer Number of packages to build
+#' @param date Date Relevant date for cranlog download stats
+#' @param from integer Optional applied as offset to \code{npkg} to shift the selection
 topN <- function(npkg, date=Sys.Date() - 1, from=1L) {
     D <- data.table::fread(.getCachedDLLogsFile(date))
     D <- D[, .N, keyby=package][order(N,decreasing=TRUE)]
     D[seq(from, min(from+npkg-1L, nrow(D))),package]
 }
 
+#' @rdname buildPackage
 topNCompiled <- function(npkg, db, date=Sys.Date() - 1, from=1L) {
     if (missing(db)) db <- .pkgenv[["db"]]
     D <- data.table::fread(.getCachedDLLogsFile(date))
