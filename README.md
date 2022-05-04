@@ -21,7 +21,7 @@
 
 ### What is Covered ?
 
-We currently support amd64 (_i.e._ standard Intel/AMD cpus) for the _focal_
+We currently support amd64 (_i.e._ standard Intel/AMD cpus) for the 'focal'
 20.04 LTS release.  An update to 22.04 is planned.  Support for other cpu
 architectures is certainly possible but somewhat unlikely due to a lack of
 (additional hardware) resources and time.
@@ -29,38 +29,40 @@ architectures is certainly possible but somewhat unlikely due to a lack of
 Support for other distributions is possible but unlikely right now (due to a lack
 of resources and time). We hope to cover Debian ar some point.
 
-R 4.2.0 is used, and BioConductor 3.15 packages provided as implied by CRAN packages.
+R 4.2.0 is used, and BioConductor 3.15 packages are provided as required by CRAN packages.
 
 
 ### What is Selected ?
 
-We use [cran-logs](https://cran-logs.rstudio.com/) and pick the _N_
+We use [cran-logs](https://cran-logs.rstudio.com/) and started by picking the _N_
 most-downloaded packages, along with their dependencies from BioConductor.
 (It should be noted that for example the first 100 packages already account
-for approximately half the total downloads: a very skewed distribution.)
+for approximately half the total downloads: a very skewed distribution.) We
+iterated, and have now full coverage of CRAN.
 
-In now we cover 
-- all CRAN packages (modulo a handful of blacklisted ones)
-- all ~ 4500 CRAN packages needing compilation 
-- alnd BioConductor package are implied by these (and build). 
+So we now cover 
+- *all CRAN packages( (modulo a handful of blacklisted ones) including all ~ 4500 CRAN packages needing compilation 
+- all BioConductor package that are implied by these (and build for us). 
 
-There is overlap between the sets, and the download rankings fluctuating. We
-currently have 18954 binary packages from CRAN. We also include 177
+This currently resuls in 18954 binary packages from CRAN, and 177
 BioConductor packages from the 3.15 release.
 
 
 ### What is it Based on?
 
 For the CRAN binaries we either repackage RSPM builds (where available) or
-build natively. The selected BioConductor 3.15 packages are built natively.
-For all these, full dependency resolution and integration with the system is
-a key feature.
+build natively. All selected BioConductor 3.15 packages are built natively.
+For all of these, full dependency resolution and integration with the system
+is a key feature.
 
-Everything is provided as `.deb` binary files with proper dependency using a
-proper `apt` repo with a signed Release file.
+Everything is provided as `.deb` binary files with proper dependency
+resolution by using a proper `apt` repo which also has a signed Release file.
 
 
 ### Usage 
+
+(You could use [this script `setup_r2u.sh`](https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/setup_r2u.sh) to facilitate the setup but you may prefer to execute the steps outlined here by
+hand.)
 
 First add the repository key so that `apt` knows it (this is optional but recommended) 
 
@@ -90,6 +92,7 @@ Fifth, and also optional, install and enable the
 [bspm](https://cloud.r-project.org/package=bspm) package so that CRANapt and
 other packages become available via `install.packages()` and
 `update.packages()`.
+
 
 
 ### Pinning
