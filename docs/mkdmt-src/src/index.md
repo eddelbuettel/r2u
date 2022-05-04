@@ -18,6 +18,17 @@
 - **Installations are fast, automated and reversible** thanks to package
   management layer
 
+### Brief Demo
+
+The gif shows how _one `install.packages("tidyverse")` command_ on an Ubuntu
+20.04 system _installs all packages as binaries in 18 seconds_ (by passing the
+R package installation to `apt` using [bspm](https://cloud.r-project.org/package=bspm)). 
+
+![](https://eddelbuettel.github.io/r2u/misc/tidyverse_from_r2u_2022-05-04_17-09.gif)
+
+This uses the Docker container referenced below, which has been set up with
+the five easy setup steps detailed here.
+
 
 ### What is Covered ?
 

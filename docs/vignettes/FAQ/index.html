@@ -438,6 +438,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#what-is-the-relationship-with-the-c2d4u-ppa" class="md-nav__link">
+    What is the relationship with the c2d4u PPA ?
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -619,6 +626,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#what-is-the-relationship-with-the-c2d4u-ppa" class="md-nav__link">
+    What is the relationship with the c2d4u PPA ?
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -676,11 +690,20 @@ is the first instance.</p>
 <p>We think of the 'n' as silent so you can always say "oh I just crapted these
 packages onto my system".</p>
 <h3 id="a-package-reports-it-is-uninstallable">A package reports it is uninstallable</h3>
-<p>Make sure you follow the 'Pinnning' section of the README.md.  Some (older)
-builds in the (main) Ubuntu distribution appear to sort higher and would
-block an installation of the freshly made binary (under a consistent naming
-scheme). The <code>apt</code> feature of 'pinning' is what we want here to have an
-entire repository sort higher.</p>
+<p>Make sure you follow the 'Pinnning' section of the README.md and the <a href="https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/add_cranapt.sh">setup
+script</a>.
+Some (older) builds in the (main) Ubuntu distribution appear to sort higher
+and would block an installation of the freshly made binary (under a
+consistent naming scheme). The <code>apt</code> feature of 'pinning' is what we want
+here to have an entire repository sort higher.</p>
+<h3 id="what-is-the-relationship-with-the-c2d4u-ppa">What is the relationship with the c2d4u PPA ?</h3>
+<p>We are huge fans of the c2d4u repository and have used it for a decade or
+longer. It uses the proper build process, and sits on a very solid Launchpad
+infrastructure supported by Canonical.  However, this also makes it a little
+less nimble and precludes for example use of external build resources.
+Overall it also still at a fraction of CRAN packages. So we created this repo
+as an experiment to see if we could scale a simple and direct approach, and
+in the hopes it can complement the c2d4u PPA and offer additional packages</p>
 <h2 id="bspm">bspm</h2>
 <h3 id="should-i-install-bspm">Should I install bspm?</h3>
 <p>We find it helpful. It allows you to use <code>install.packages()</code> in R, or script
