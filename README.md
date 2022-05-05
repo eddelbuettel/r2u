@@ -1,9 +1,6 @@
 
 ## r2u:  R Binaries for Ubuntu
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/eddelbuettel/r2u)
-
-
 ### Key features
 
 - **Full integration with `apt`** as every binary resolves _all_ dependencies: No
@@ -16,7 +13,10 @@
   from (system) library updates.
   
 - **Installations are fast, automated and reversible** thanks to package
-  management layer
+  management layer.
+
+- **Complete coverage** with (currently) ~ 19,000 CRAN packages
+  (and 170+ from BioConductor).
 
 ### Brief Demo
 
@@ -52,7 +52,8 @@ for approximately half the total downloads: a very skewed distribution.) We
 iterated, and have now full coverage of CRAN.
 
 So we now cover 
-- *all CRAN packages( (modulo a handful of blacklisted ones) including all ~ 4500 CRAN packages needing compilation 
+
+- *all CRAN packages* (modulo a handful of blacklisted ones) including all packages needing compilation 
 - all BioConductor package that are implied by these (and build for us). 
 
 This currently resuls in 18954 binary packages from CRAN, and 177
@@ -82,13 +83,15 @@ First add the repository key so that `apt` knows it (this is optional but recomm
     
 Second, add the repository to the `apt` registry:
 
-    echo "deb [arch=amd64] https://dirk.eddelbuettel.com/cranapt focal main" > /etc/apt/sources.list.d/cranapt.list
+    echo "deb [arch=amd64] https://dirk.eddelbuettel.com/cranapt focal main" \
+        > /etc/apt/sources.list.d/cranapt.list
     apt update
 
 Third, and optionally, if you do not yet have R 4.2.0 run these two lines (or
 use the [standard CRAN repo setup](https://cloud.r-project.org/bin/linux/ubuntu/))
 
-    echo "deb [arch=amd64] http://ppa.launchpad.net/edd/misc/ubuntu focal main" > /etc/apt/sources.list.d/edd-misc.list 
+    echo "deb [arch=amd64] http://ppa.launchpad.net/edd/misc/ubuntu focal main" \
+        > /etc/apt/sources.list.d/edd-misc.list 
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 67C2D66C4B1D4339
 
 Fourth, add repository 'pinning' as `apt` might get confused by some older
@@ -129,6 +132,17 @@ overriding the standard value of 500.
 There is also a Docker container [eddelbuettel/r2u:focal](https://hub.docker.com/repository/docker/eddelbuettel/r2u)
 that has the above, including pinning and [bspm](https://cran.r-project.org/package=bspm) support, already set up.
 
+
+### Try It
+
+Use this link below (after possibly signing up for
+[gitpod.io](https://gitpod.io/) first) 
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/eddelbuettel/r2u)
+
+and run [one of the three example
+scripts](https://github.com/eddelbuettel/r2u/tree/master/inst/examples), or
+just start R in the terminal window.
 
 ### Known Issues
 

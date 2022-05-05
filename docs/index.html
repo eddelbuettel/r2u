@@ -378,6 +378,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#try-it" class="md-nav__link">
+    Try It
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#known-issues" class="md-nav__link">
     Known Issues
   </a>
@@ -698,6 +705,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#try-it" class="md-nav__link">
+    Try It
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#known-issues" class="md-nav__link">
     Known Issues
   </a>
@@ -753,7 +767,6 @@
                   <h1>Index</h1>
                 
                 <h2 id="r2u-r-binaries-for-ubuntu">r2u:  R Binaries for Ubuntu</h2>
-<p><a href="https://gitpod.io/#https://github.com/eddelbuettel/r2u"><img alt="Open in Gitpod" src="https://gitpod.io/button/open-in-gitpod.svg" /></a></p>
 <h3 id="key-features">Key features</h3>
 <ul>
 <li>
@@ -769,7 +782,11 @@
 </li>
 <li>
 <p><strong>Installations are fast, automated and reversible</strong> thanks to package
-  management layer</p>
+  management layer.</p>
+</li>
+<li>
+<p><strong>Complete coverage</strong> with (currently) ~ 19,000 CRAN packages
+  (and 170+ from BioConductor).</p>
 </li>
 </ul>
 <h3 id="brief-demo">Brief Demo</h3>
@@ -793,9 +810,11 @@ most-downloaded packages, along with their dependencies from BioConductor.
 (It should be noted that for example the first 100 packages already account
 for approximately half the total downloads: a very skewed distribution.) We
 iterated, and have now full coverage of CRAN.</p>
-<p>So we now cover 
-- *all CRAN packages( (modulo a handful of blacklisted ones) including all ~ 4500 CRAN packages needing compilation 
-- all BioConductor package that are implied by these (and build for us). </p>
+<p>So we now cover </p>
+<ul>
+<li><em>all CRAN packages</em> (modulo a handful of blacklisted ones) including all packages needing compilation </li>
+<li>all BioConductor package that are implied by these (and build for us). </li>
+</ul>
 <p>This currently resuls in 18954 binary packages from CRAN, and 177
 BioConductor packages from the 3.15 release.</p>
 <h3 id="what-is-it-based-on">What is it Based on?</h3>
@@ -813,12 +832,14 @@ hand.)</p>
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A1489FE2AB99A21A
 </code></pre>
 <p>Second, add the repository to the <code>apt</code> registry:</p>
-<pre><code>echo "deb [arch=amd64] https://dirk.eddelbuettel.com/cranapt focal main" &gt; /etc/apt/sources.list.d/cranapt.list
+<pre><code>echo "deb [arch=amd64] https://dirk.eddelbuettel.com/cranapt focal main" \
+    &gt; /etc/apt/sources.list.d/cranapt.list
 apt update
 </code></pre>
 <p>Third, and optionally, if you do not yet have R 4.2.0 run these two lines (or
 use the <a href="https://cloud.r-project.org/bin/linux/ubuntu/">standard CRAN repo setup</a>)</p>
-<pre><code>echo "deb [arch=amd64] http://ppa.launchpad.net/edd/misc/ubuntu focal main" &gt; /etc/apt/sources.list.d/edd-misc.list 
+<pre><code>echo "deb [arch=amd64] http://ppa.launchpad.net/edd/misc/ubuntu focal main" \
+    &gt; /etc/apt/sources.list.d/edd-misc.list 
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 67C2D66C4B1D4339
 </code></pre>
 <p>Fourth, add repository 'pinning' as <code>apt</code> might get confused by some older
@@ -848,6 +869,13 @@ overriding the standard value of 500.</p>
 <h3 id="docker">Docker</h3>
 <p>There is also a Docker container <a href="https://hub.docker.com/repository/docker/eddelbuettel/r2u">eddelbuettel/r2u:focal</a>
 that has the above, including pinning and <a href="https://cran.r-project.org/package=bspm">bspm</a> support, already set up.</p>
+<h3 id="try-it">Try It</h3>
+<p>Use this link below (after possibly signing up for
+<a href="https://gitpod.io/">gitpod.io</a> first) </p>
+<p><a href="https://gitpod.io/#https://github.com/eddelbuettel/r2u"><img alt="Open in Gitpod" src="https://gitpod.io/button/open-in-gitpod.svg" /></a></p>
+<p>and run <a href="https://github.com/eddelbuettel/r2u/tree/master/inst/examples">one of the three example
+scripts</a>, or
+just start R in the terminal window.</p>
 <h3 id="known-issues">Known Issues</h3>
 <p>As of early May:</p>
 <ul>
