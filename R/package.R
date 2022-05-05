@@ -90,7 +90,7 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
         if (verbose) message(paste0("Package '", pkg, "' not known to current CRAN package database."))
         return(invisible())
     }
-    tgtdist <- gsub(".", "", .pkgenv[["distribution"]])   ## NB this will not work for Debian testing
+    tgtdist <- gsub("\\.", "", .pkgenv[["distribution"]])   ## NB this will not work for Debian testing
     builds <- .pkgenv[["builds"]][tgt == tgtdist,]
 
     repo <- ap[aind, ap]
@@ -164,7 +164,7 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
         untar(file, exdir=instdir)
         if (!file.exists(file.path(instdir, pkg, "Meta", "package.rds"))) {
             cat(red("[not prebuilt, forcing source build]\n"))
-            buildPackage(pkg, debug, version, force=TRUE, xvfb, suffix)
+            buildPackage(pkg, tgt, debug, version, force=TRUE, xvfb, suffix)
             return(invisible())
         }
     } else {
