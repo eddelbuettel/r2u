@@ -82,6 +82,7 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
     db <- .pkgenv[["db"]]
     stopifnot("db must be data.frame" = inherits(db, "data.frame"))
     .checkTarget(tgt)
+    .loadBuilds()                       # need to this again once target is reflected
     if (.isBasePackage(pkg)) return(invisible())
     ind <- match(pkg, db[,Package])
     ap <- .pkgenv[["ap"]]
@@ -257,3 +258,8 @@ topNCompiled <- function(npkg, date=Sys.Date() - 1, from=1L) {
     pkg
 }
 
+#' @rdname buildPackage
+nDeps <- function(ndeps) {
+    db <- .pkgenv[["db"]]
+    db[adjdep == ndeps, Package]
+}

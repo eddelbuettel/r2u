@@ -108,6 +108,11 @@
             .pkgenv[["r2u_directory"]] <- cfg[1, "r2u_directory"]
             .pkgenv[["build_directory"]] <- cfg[1, "build_directory"]
             .pkgenv[["deb_directory"]] <- cfg[1, "deb_directory"]
+
+            ## fallbacks, overriden when 'tgt' specified
+            .pkgenv[["distribution"]] <- "20.04"
+            .pkgenv[["distribution_name"]] <- "focal"
+
         } else {
             .debug_message("No config file")
             .pkgenv[["config_file"]] <- ""
@@ -148,7 +153,20 @@
             .debug_message("Cached db\n")
         } else {
             .debug_message("Fresh db\n")
-            db <- tools::CRAN_package_db()
+            db <- data.table(as.data.frame(tools::CRAN_package_db()))
+
+            #message("Expanding CRAN database. One moment...")
+            p <- tools::package_dependencies(db[, Package], db=db, recursive=TRUE)
+            pp <- lapply(p, length)
+            ppp <- sapply(pp, `[`)
+            np <- data.table(Package=names(ppp), ndep=ppp)
+            db <- db[np, on="Package"]
+
+            ## adjust out the base packages
+            baserevs <- tools::package_dependencies(.basePkgs, db=db, reverse=TRUE)
+            db[, adjdep := ndep]
+            for (br in names(baserevs)) db[Package %in% baserevs[[br]], adjdep := adjdep - 1]
+
             dbfile <- .defaultCRANDBFile(TRUE)
             saveRDS(db, dbfile)
             .debug_message("Written db\n")
@@ -157,6 +175,12 @@
     } else {
         .debug_message("Have db\n")
     }
+}
+
+.adjustDB <- function() {
+    dbfile <- .defaultCRANDBFile()
+    db <- readRDS(dbfile)
+    db
 }
 
 .loadAP <- function() {
@@ -184,12 +208,10 @@
             apBIOCdataexp <- data.table(ap="Bioc", as.data.frame(available.packages(repos=biocdataexprepo)))
             apBIOC <- merge(apBIOC, apBIOCdataexp, all=TRUE)
 
-            #rspmfocalrepo <- paste0("https://packagemanager.rstudio.com/all/__linux__/focal/latest")
-            #apRSPMfocal <- data.table(ap="CRAN", as.data.frame(available.packages(repos=rspmfocalrepo)))
-            #ap <- merge(apRSPMfocal, apBIOC, all=TRUE)
-            rspmjammyrepo <- paste0("https://packagemanager.rstudio.com/all/__linux__/jammy/latest")
-            apRSPMjammy <- data.table(ap="CRAN", as.data.frame(available.packages(repos=rspmjammyrepo)))
-            ap <- merge(apRSPMjammy, apBIOC, all=TRUE)
+            ## the returned set is tools::CRAN_package_db() and _not_ dependent on the distribution name
+            rspmrepo <- paste0("https://packagemanager.rstudio.com/all/__linux__/jammy/latest")
+            apRSPM <- data.table(ap="CRAN", as.data.frame(available.packages(repos=rspmrepo)))
+            ap <- merge(apRSPM, apBIOC, all=TRUE)
 
             ap[, deb := paste0("r-", tolower(ap), "-", tolower(Package))]
 
@@ -204,7 +226,7 @@
 }
 
 .loadBuilds <- function() {
-    dd <- .pkgenv[["deb_directory"]]
+    dd <- file.path(.pkgenv[["deb_directory"]], "dists", .pkgenv[["distribution_name"]], "main")
     cwd <- getwd()
     setwd(dd)
     fls <- list.files(".", pattern="\\.deb$", full.names=FALSE)

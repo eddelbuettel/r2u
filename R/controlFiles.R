@@ -1,7 +1,9 @@
 
-.isBasePackage <- function(pkg) {
-    pkg %in% c("base", "compiler", "datasets", "graphics", "grDevices", "grid", "methods", "parallel",
+.basePkgs <- c("base", "compiler", "datasets", "graphics", "grDevices", "grid", "methods", "parallel",
                "profile", "splines", "stats", "stats4", "tcltk", "tools", "translations", "utils")
+
+.isBasePackage <- function(pkg) {
+    pkg %in% .basePkgs
 }
 
 .addDepends <- function(dt, ap, con) {
