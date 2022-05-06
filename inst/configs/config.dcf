@@ -10,4 +10,4 @@ cache_age_hours_cran_db: 3
 package_cache: /var/local/r2u/cache
 r2u_directory: /var/local/r2u
 build_directory: /var/local/r2u/build
-deb_directory: /var/local/r2u/ubuntu/pool/main
+deb_directory: /var/local/r2u/ubuntu/pool/dists/focal/main

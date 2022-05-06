@@ -64,7 +64,7 @@ chown docker:staff *"${lcpkg}"*
 chown -R docker:staff ${pkg}
 
 ## TODO: install into pool/ dir
-mv -v r-${repo}-${lcpkg}_*.deb ../ubuntu/pool/main
+mv -v r-${repo}-${lcpkg}_*.deb ../ubuntu/pool/dists/jammy/main/
 
 ## TODO: update index
 cd ..
