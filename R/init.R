@@ -5,87 +5,79 @@
 .debug_message <- function(...) if (.debug) message(..., appendLF=FALSE)
 
 .defaultConfigFile <- function() {
-    if (getRversion() >= "4.0.0") {
-        pkgdir <- tools::R_user_dir(packageName())      # ~/.local/share/R/ + package
-        if (dir.exists(pkgdir)) {
-            fname <- file.path(pkgdir, "config.dcf")
-            if (file.exists(fname)) {
-                return(fname)
-            }
+    pkgdir <- tools::R_user_dir(packageName())      # ~/.local/share/R/ + package
+    if (dir.exists(pkgdir)) {
+        fname <- file.path(pkgdir, "config.dcf")
+        if (file.exists(fname)) {
+            return(fname)
         }
     }
     return("")
 }
 
 .defaultCRANDBFile <- function(force=FALSE) {
-    if (getRversion() >= "4.0.0") {
-        pkgdir <- tools::R_user_dir(packageName())      # ~/.local/share/R/ + package
-        if (dir.exists(pkgdir)) {
-            fname <- file.path(pkgdir, "crandb.rds")
-            if (file.exists(fname) || force) {
-                return(fname)
-            }
-        } else {
-            .debug_message("No package config dir")
+    pkgdir <- tools::R_user_dir(packageName())      # ~/.local/share/R/ + package
+    if (dir.exists(pkgdir)) {
+        fname <- file.path(pkgdir, "crandb.rds")
+        if (file.exists(fname) || force) {
+            return(fname)
         }
+    } else {
+        .debug_message("No package config dir")
     }
     return("")
 }
 
 .defaultAPFile <- function(force=FALSE) {
-    if (getRversion() >= "4.0.0") {
-        pkgdir <- tools::R_user_dir(packageName()) 	# ~/.local/share/R/ + package
-        if (dir.exists(pkgdir)) {
-            fname <- file.path(pkgdir, "availablepackages.rds")
-            if (file.exists(fname) || force) {
-                return(fname)
-            }
-        } else {
-            .debug_message("No package config dir")
+    pkgdir <- tools::R_user_dir(packageName()) 	# ~/.local/share/R/ + package
+    if (dir.exists(pkgdir)) {
+        fname <- file.path(pkgdir, "availablepackages.rds")
+        if (file.exists(fname) || force) {
+            return(fname)
         }
+    } else {
+        .debug_message("No package config dir")
     }
     return("")
 }
 
 .defaultBioCFile <- function(force=FALSE) {
-    if (getRversion() >= "4.0.0") {
-        pkgdir <- tools::R_user_dir(packageName()) 	# ~/.local/share/R/ + package
-        if (dir.exists(pkgdir)) {
-            fname <- file.path(pkgdir, "bioc_available_packages.rds")
-            if (file.exists(fname) || force) {
-                return(fname)
-            }
-        } else {
-            .debug_message("No package config dir")
+    pkgdir <- tools::R_user_dir(packageName()) 	# ~/.local/share/R/ + package
+    if (dir.exists(pkgdir)) {
+        fname <- file.path(pkgdir, "bioc_available_packages.rds")
+        if (file.exists(fname) || force) {
+            return(fname)
         }
+    } else {
+        .debug_message("No package config dir")
     }
     return("")
 }
 
-.defaultBuildDependsFile <- function() {
-    if (getRversion() >= "4.0.0") {
-        pkgdir <- tools::R_user_dir(packageName())	# ~/.local/share/R/ + package
-        if (dir.exists(pkgdir)) {
+.defaultBuildDependsFile <- function(dist = "") {
+    pkgdir <- tools::R_user_dir(packageName())	# ~/.local/share/R/ + package
+    if (dir.exists(pkgdir)) {
+        if (dist == "") {
             fname <- file.path(pkgdir, "depends.dcf")
-            if (file.exists(fname)) {
-                return(fname)
-            }
+        } else {
+            fname <- file.path(pkgdir, paste0("depends.", dist, ".dcf"))
+        }
+        if (file.exists(fname)) {
+            return(fname)
         }
     }
     return("")
 }
 
 .defaultBlacklistFile <- function(force=FALSE) {
-    if (getRversion() >= "4.0.0") {
-        pkgdir <- tools::R_user_dir(packageName())      # ~/.local/share/R/ + package
-        if (dir.exists(pkgdir)) {
-            fname <- file.path(pkgdir, "blacklist.txt")
-            if (file.exists(fname) || force) {
-                return(fname)
-            }
-        } else {
-            .debug_message("No package config dir")
+    pkgdir <- tools::R_user_dir(packageName())      # ~/.local/share/R/ + package
+    if (dir.exists(pkgdir)) {
+        fname <- file.path(pkgdir, "blacklist.txt")
+        if (file.exists(fname) || force) {
+            return(fname)
         }
+    } else {
+        .debug_message("No package config dir")
     }
     return("")
 }
