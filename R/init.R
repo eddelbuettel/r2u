@@ -239,6 +239,17 @@
     }
 }
 
+.addBuildDepends <- function(dist) {
+    depfile <- .defaultBuildDependsFile(dist)
+    if (depfile == "") {
+        .pkgenv[["builddeps"]] <- character()
+    } else {
+        deps <- read.dcf(depfile)
+        .pkgenv[["builddeps"]] <- c(.pkgenv[["builddeps"]], deps[1,,drop=TRUE])
+    }
+}
+
+
 .loadBlacklist <- function() {
     blacklistfile <- .defaultBlacklistFile()
     if (blacklistfile == "") {

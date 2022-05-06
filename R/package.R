@@ -83,6 +83,7 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
     stopifnot("db must be data.frame" = inherits(db, "data.frame"))
     .checkTarget(tgt)
     .loadBuilds()                       # need to this again once target is reflected
+    .addBuildDepends(tgt)               # add distro-release versioned depends
     if (.isBasePackage(pkg)) return(invisible())
     ind <- match(pkg, db[,Package])
     ap <- .pkgenv[["ap"]]
@@ -164,7 +165,7 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
     if (repo == "CRAN" && isFALSE(force)) {
         untar(file, exdir=instdir)
         if (!file.exists(file.path(instdir, pkg, "Meta", "package.rds"))) {
-            cat(red("[not prebuilt, forcing source build]\n"))
+            cat("[forcing source build]\n")
             buildPackage(pkg, tgt, debug, version, force=TRUE, xvfb, suffix)
             return(invisible())
         }
