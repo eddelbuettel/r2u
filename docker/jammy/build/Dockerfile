@@ -14,9 +14,13 @@ RUN apt update -qq \
     && apt install --yes --no-install-recommends dh-r gpg-agent xvfb \
     && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A1489FE2AB99A21A 67C2D66C4B1D4339
 
-RUN apt update -qq && apt upgrade --yes
-
 COPY debBuild.sh /usr/local/bin
 COPY cranapt.list /etc/apt/sources.list.d
+COPY 99cranapt /etc/apt/preferences.d
+
+RUN echo "192.168.1.114  dirk.eddelbuettel.com" >> /etc/hosts \
+    && apt update -qq \
+    && apt upgrade --yes
+
 
 CMD ["bash"]

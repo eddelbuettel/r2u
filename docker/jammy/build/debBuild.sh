@@ -42,6 +42,7 @@ pkg="$1"
 lcpkg=$(echo "${pkg}" | tr '[A-Z]' '[a-z]')
 
 if [ "${aptpkgs}" != "" ]; then
+    echo "192.168.1.114 dirk.eddelbuettel.com" >> /etc/hosts
     apt update -qq
     apt install --yes --no-install-recommends ${aptpkgs}
 fi
@@ -57,7 +58,7 @@ if [ "${source}" = "yes" ]; then
 fi
 
 cd /mnt/build/${pkg}
-dpkg-buildpackage -us -uc -d
+dpkg-buildpackage -us -uc -d -b
 
 cd ..
 chown docker:staff *"${lcpkg}"*
