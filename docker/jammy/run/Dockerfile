@@ -11,12 +11,14 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN rm -f /etc/apt/sources.list.save /etc/apt/sources.list.d/{c2d4u*,edd*,*.save} \
     && apt update -qq \
-    && apt upgrade --yes \
-    && apt install --yes --no-install-recommends gpg-agent \
-    && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A1489FE2AB99A21A
+    && apt upgrade --yes
+
+# && apt install --yes --no-install-recommends gpg-agent \
+# && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A1489FE2AB99A21A
 
 COPY cranapt.list /etc/apt/sources.list.d
 COPY 99cranapt /etc/apt/preferences.d
+COPY dirk_eddelbuettel_key.asc /etc/apt/trusted.gpg.d/
 
 #    && apt upgrade --yes \
 #    && dpkg --purge r-cran-littler littler \

@@ -2,6 +2,8 @@
 
 	* R/package.R: Add nDeps
 
+	* docker/jammy/run/Dockerfile: Use asc key file
+
 	* .gitpod.Dockerfile: Switch to 22.04
 
 2022-05-07  Dirk Eddelbuettel  <edd@debian.org>
