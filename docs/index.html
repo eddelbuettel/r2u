@@ -788,6 +788,9 @@
 <p><strong>Complete coverage</strong> with (currently) ~ 19,000 CRAN packages
   (and 170+ from BioConductor).</p>
 </li>
+<li>
+<p>Complete support for both Ubuntu 20.04 ("focal") and Ubuntu 22.04 ("jammy").</p>
+</li>
 </ul>
 <h3 id="brief-demo">Brief Demo</h3>
 <p>The gif shows how <em>one <code>install.packages("tidyverse")</code> command</em> on an Ubuntu
@@ -797,12 +800,11 @@ R package installation to <code>apt</code> using <a href="https://cloud.r-projec
 <p>This uses the Docker container referenced below, which has been set up with
 the five easy setup steps detailed here.</p>
 <h3 id="what-is-covered">What is Covered ?</h3>
-<p>We currently support amd64 (<em>i.e.</em> standard Intel/AMD cpus) for the 'focal'
-20.04 LTS release.  An update to 22.04 is planned.  Support for other cpu
-architectures is certainly possible but somewhat unlikely due to a lack of
-(additional hardware) resources and time.</p>
-<p>Support for other distributions is possible but unlikely right now (due to a lack
-of resources and time). We hope to cover Debian ar some point.</p>
+<p>We currently support amd64 (<em>i.e.</em> standard Intel/AMD cpus) for both the 'focal' 20.04 LTS and
+'jammy' 22.04 LTS releases.  Support for other cpu architectures is certainly possible but somewhat
+unlikely due to a lack of (additional hardware) resources and time.</p>
+<p>Support for other distributions is possible but unlikely right now (due to a lack of resources and
+time). We hope to cover Debian ar some point.</p>
 <p>R 4.2.0 is used, and BioConductor 3.15 packages are provided as required by CRAN packages.</p>
 <h3 id="what-is-selected">What is Selected ?</h3>
 <p>We use <a href="https://cran-logs.rstudio.com/">cran-logs</a> and started by picking the <em>N</em>
@@ -825,8 +827,12 @@ is a key feature.</p>
 <p>Everything is provided as <code>.deb</code> binary files with proper dependency
 resolution by using a proper <code>apt</code> repo which also has a signed Release file.</p>
 <h3 id="usage">Usage</h3>
-<p>(You could use <a href="https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/add_cranapt.sh">this script <code>add_cranapt.sh</code></a> to facilitate the setup but you may prefer to execute the steps outlined here by
-hand.)</p>
+<p>(You could use <a href="https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/add_cranapt_focal.sh">this script
+<code>add_cranapt_focal.sh</code></a>
+or the <a href="https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/add_cranapt_jammy.sh">variant for
+jammy</a>
+to facilitate the setup but you may prefer to execute the steps outlined here
+by hand.)</p>
 <p>First add the repository key so that <code>apt</code> knows it (this is optional but recommended) </p>
 <pre><code>apt install --yes --no-install-recommends gpg-agent     # to add the key
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A1489FE2AB99A21A
@@ -836,12 +842,14 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A1489FE2AB99A21A
     &gt; /etc/apt/sources.list.d/cranapt.list
 apt update
 </code></pre>
+<p>(Replace <code>focal</code> with <code>jammy</code> for use with Ubuntu 22.04.)</p>
 <p>Third, and optionally, if you do not yet have R 4.2.0 run these two lines (or
 use the <a href="https://cloud.r-project.org/bin/linux/ubuntu/">standard CRAN repo setup</a>)</p>
 <pre><code>echo "deb [arch=amd64] http://ppa.launchpad.net/edd/misc/ubuntu focal main" \
     &gt; /etc/apt/sources.list.d/edd-misc.list 
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 67C2D66C4B1D4339
 </code></pre>
+<p>(Again, replace <code>focal</code> with <code>jammy</code> for use with Ubuntu 22.04.)</p>
 <p>Fourth, add repository 'pinning' as <code>apt</code> might get confused by some older
 packages (in the Ubuntu distro) which accidentally appear with a higher
 version number. See the next section to ensure 'CRANapt' sorts highest.</p>
@@ -867,8 +875,9 @@ Pin-Priority: 700
 <p>which will now give packages from this repo a higher default priority of 700
 overriding the standard value of 500.</p>
 <h3 id="docker">Docker</h3>
-<p>There is also a Docker container <a href="https://hub.docker.com/repository/docker/eddelbuettel/r2u">eddelbuettel/r2u:focal</a>
-that has the above, including pinning and <a href="https://cran.r-project.org/package=bspm">bspm</a> support, already set up.</p>
+<p>There are also two Docker containers for Ubuntu 20.04 'focal' and 22.04 'jammy', respectively, at
+<a href="https://hub.docker.com/repository/docker/eddelbuettel/r2u">eddelbuettel/r2u</a> that have the above,
+including pinning and <a href="https://cran.r-project.org/package=bspm">bspm</a> support, already set up.</p>
 <h3 id="try-it">Try It</h3>
 <p>Use this link below (after possibly signing up for
 <a href="https://gitpod.io/">gitpod.io</a> first) </p>
@@ -880,28 +889,28 @@ just start R in the terminal window.</p>
 <p>As of early May:</p>
 <ul>
 <li>
-<p>Some geospatial packages do not currently install, adding the UbuntuGIS PPA
-  as a base may help as should basing builds on 22.04</p>
+<p>Some geospatial packages do not currently install on 20.04, adding the UbuntuGIS PPA as a base may
+  help. This should be better on 22.04.</p>
 </li>
 <li>
-<p>The littler package reflects build-time configuration, the RSPM binary is
-  then expecting a different R location so it needs a binary rebuild. Added a
-  'force' flag, may need a list similar to the blacklist to always compiled.</p>
+<p>The littler package reflects build-time configuration, the RSPM binary is then expecting a
+  different R location so it needs a binary rebuild. Added a 'force' flag, may need a list similar
+  to the blacklist to always compiled.</p>
 </li>
 <li>
-<p>A number of packages ship from RSPM as source. We catch those and/or use
-  the force list to build them. </p>
-</li>
-<li>
-<p>A small number of packages do not build for lack required components;
-  examples are ROracle and Rcplex.  They, and their reverse dependencies, are
-  are blacklisted and not built.</p>
+<p>A small number of packages do not build for lack required components; examples are ROracle and
+  Rcplex.  They, and their reverse dependencies, are are blacklisted and not built.</p>
 </li>
 </ul>
 <h3 id="fixed-issues">Fixed Issues</h3>
 <ul>
-<li>[DONE] The BioConductor release is still at 3.14 and should be upgraded to the
-  now-current 3.15. </li>
+<li>
+<p>[DONE] The BioConductor release is still at 3.14 and should be upgraded to the
+  now-current 3.15. </p>
+</li>
+<li>
+<p>[DONE] Support for Ubuntu 22.04 has been added as well.</p>
+</li>
 </ul>
 <h3 id="author">Author</h3>
 <p>Dirk Eddelbuettel</p>

@@ -17,6 +17,8 @@
 
 - **Complete coverage** with (currently) ~ 19,000 CRAN packages
   (and 170+ from BioConductor).
+  
+- Complete support for both Ubuntu 20.04 ("focal") and Ubuntu 22.04 ("jammy").
 
 ### Brief Demo
 
@@ -32,13 +34,12 @@ the five easy setup steps detailed here.
 
 ### What is Covered ?
 
-We currently support amd64 (_i.e._ standard Intel/AMD cpus) for the 'focal'
-20.04 LTS release.  An update to 22.04 is planned.  Support for other cpu
-architectures is certainly possible but somewhat unlikely due to a lack of
-(additional hardware) resources and time.
+We currently support amd64 (_i.e._ standard Intel/AMD cpus) for both the 'focal' 20.04 LTS and
+'jammy' 22.04 LTS releases.  Support for other cpu architectures is certainly possible but somewhat
+unlikely due to a lack of (additional hardware) resources and time.
 
-Support for other distributions is possible but unlikely right now (due to a lack
-of resources and time). We hope to cover Debian ar some point.
+Support for other distributions is possible but unlikely right now (due to a lack of resources and
+time). We hope to cover Debian ar some point.
 
 R 4.2.0 is used, and BioConductor 3.15 packages are provided as required by CRAN packages.
 
@@ -73,8 +74,12 @@ resolution by using a proper `apt` repo which also has a signed Release file.
 
 ### Usage 
 
-(You could use [this script `add_cranapt.sh`](https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/add_cranapt.sh) to facilitate the setup but you may prefer to execute the steps outlined here by
-hand.)
+(You could use [this script
+`add_cranapt_focal.sh`](https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/add_cranapt_focal.sh)
+or the [variant for
+jammy](https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/add_cranapt_jammy.sh)
+to facilitate the setup but you may prefer to execute the steps outlined here
+by hand.)
 
 First add the repository key so that `apt` knows it (this is optional but recommended) 
 
@@ -87,12 +92,16 @@ Second, add the repository to the `apt` registry:
         > /etc/apt/sources.list.d/cranapt.list
     apt update
 
+(Replace `focal` with `jammy` for use with Ubuntu 22.04.)
+
 Third, and optionally, if you do not yet have R 4.2.0 run these two lines (or
 use the [standard CRAN repo setup](https://cloud.r-project.org/bin/linux/ubuntu/))
 
     echo "deb [arch=amd64] http://ppa.launchpad.net/edd/misc/ubuntu focal main" \
         > /etc/apt/sources.list.d/edd-misc.list 
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 67C2D66C4B1D4339
+
+(Again, replace `focal` with `jammy` for use with Ubuntu 22.04.)
 
 Fourth, add repository 'pinning' as `apt` might get confused by some older
 packages (in the Ubuntu distro) which accidentally appear with a higher
@@ -129,8 +138,9 @@ overriding the standard value of 500.
 
 ### Docker
 
-There is also a Docker container [eddelbuettel/r2u:focal](https://hub.docker.com/repository/docker/eddelbuettel/r2u)
-that has the above, including pinning and [bspm](https://cran.r-project.org/package=bspm) support, already set up.
+There are also two Docker containers for Ubuntu 20.04 'focal' and 22.04 'jammy', respectively, at
+[eddelbuettel/r2u](https://hub.docker.com/repository/docker/eddelbuettel/r2u) that have the above,
+including pinning and [bspm](https://cran.r-project.org/package=bspm) support, already set up.
 
 
 ### Try It
@@ -148,25 +158,22 @@ just start R in the terminal window.
 
 As of early May:
 
-- Some geospatial packages do not currently install, adding the UbuntuGIS PPA
-  as a base may help as should basing builds on 22.04
+- Some geospatial packages do not currently install on 20.04, adding the UbuntuGIS PPA as a base may
+  help. This should be better on 22.04.
 
-- The littler package reflects build-time configuration, the RSPM binary is
-  then expecting a different R location so it needs a binary rebuild. Added a
-  'force' flag, may need a list similar to the blacklist to always compiled.
+- The littler package reflects build-time configuration, the RSPM binary is then expecting a
+  different R location so it needs a binary rebuild. Added a 'force' flag, may need a list similar
+  to the blacklist to always compiled.
   
-- A number of packages ship from RSPM as source. We catch those and/or use
-  the force list to build them. 
-  
-- A small number of packages do not build for lack required components;
-  examples are ROracle and Rcplex.  They, and their reverse dependencies, are
-  are blacklisted and not built.
+- A small number of packages do not build for lack required components; examples are ROracle and
+  Rcplex.  They, and their reverse dependencies, are are blacklisted and not built.
 
 ### Fixed Issues
 
 - [DONE] The BioConductor release is still at 3.14 and should be upgraded to the
   now-current 3.15. 
 
+- [DONE] Support for Ubuntu 22.04 has been added as well.
 
 ### Author
 

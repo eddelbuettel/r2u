@@ -1,5 +1,8 @@
 2022-05-07  Dirk Eddelbuettel  <edd@debian.org>
 
+	* README.md: Updated docs
+	* docs/*: Idem
+
 	* docker/jamm/build/*: Use http instead of mount for pinning
 	* docker/jammy/build/debBuild.sh: Call dpkg-buildpackage with -b
 
