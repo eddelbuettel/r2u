@@ -61,7 +61,8 @@
 ##'
 ##' The \code{buildPackage} function builds the given package. The \code{buildAll} package applies
 ##' to all elements in the supplied vector of packages. The \code{topN} and \code{topNCompiled} helpers
-##' select \sQuote{N} among all (or all compiled) packages.
+##' select \sQuote{N} among all (or all compiled) packages. The \code{nDeps} function builds packages
+##' with a given (adjusted) build-dependency count.
 ##'
 ##' Note that this build process is still somewhat tailored to the build setup use by the author and
 ##' is not (yet ?) meant to be universally transferable. It should be with a little care and possible
@@ -75,7 +76,8 @@
 ##' @param verbose logical Optional value show more verbose progress output, default is \sQuote{FALSE}
 ##' @param force logical Optional value to force package build from source, default is \sQuote{FALSE}
 ##' @param xvfb logical Optional value to build under \code{xvfb-run}, default is \sQuote{FALSE}
-##' @param suffix character Optional value to override default of \sQuote{.1} affixed to package version
+##' @param suffix character Optional value to override default package version suffix of \sQuote{.1}
+##' @param ndeps integer Optional value for selected build-dependency count build via \code{nDeps}
 ##' @return Nothing as the function is invoked for the side effect of building binary packages
 ##' @author Dirk Eddelbuettel
 buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb=FALSE, suffix=".1") {
@@ -210,13 +212,13 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
 }
 
 #' @rdname buildPackage
-buildAll <- function(pkg, tgt, debug=FALSE) {
+buildAll <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb=FALSE) {
     db <- .pkgenv[["db"]]
     stopifnot("db must be data.frame" = inherits(db, "data.frame"))
     .checkTarget(tgt)
     deps <- tools::package_dependencies(pkg, db=db, recursive=TRUE)
     vec <- unique(sort(c(pkg, unname(do.call(c, deps)))))
-    ignoredres <- sapply(vec, buildPackage, tgt, debug)
+    ignoredres <- sapply(vec, buildPackage, tgt, debug, verbose, force, xvfb)
     invisible()
 }
 

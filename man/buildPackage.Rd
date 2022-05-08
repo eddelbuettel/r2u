@@ -5,16 +5,20 @@
 \alias{buildAll}
 \alias{topN}
 \alias{topNCompiled}
+\alias{nDeps}
 \title{Build a Package}
 \usage{
 buildPackage(pkg, tgt, debug = FALSE, verbose = FALSE, force = FALSE,
   xvfb = FALSE, suffix = ".1")
 
-buildAll(pkg, tgt, debug = FALSE)
+buildAll(pkg, tgt, debug = FALSE, verbose = FALSE, force = FALSE,
+  xvfb = FALSE)
 
 topN(npkg, date = Sys.Date() - 1, from = 1L)
 
 topNCompiled(npkg, date = Sys.Date() - 1, from = 1L)
+
+nDeps(ndeps)
 }
 \arguments{
 \item{pkg}{character Name of the CRAN or BioConductor package to build}
@@ -30,13 +34,15 @@ to either \dQuote{20.04} or \dQuote{22.04} (or their names \dQuote{focal} or \dQ
 
 \item{xvfb}{logical Optional value to build under \code{xvfb-run}, default is \sQuote{FALSE}}
 
-\item{suffix}{character Optional value to override default of \sQuote{.1} affixed to package version}
+\item{suffix}{character Optional value to override default package version suffix of \sQuote{.1}}
 
 \item{npkg}{integer Number of packages to build}
 
 \item{date}{Date Relevant date for cranlog download stats}
 
 \item{from}{integer Optional applied as offset to \code{npkg} to shift the selection}
+
+\item{ndeps}{integer Optional value for selected build-dependency count build via \code{nDeps}}
 }
 \value{
 Nothing as the function is invoked for the side effect of building binary packages
@@ -48,7 +54,8 @@ built packages.
 \details{
 The \code{buildPackage} function builds the given package. The \code{buildAll} package applies
 to all elements in the supplied vector of packages. The \code{topN} and \code{topNCompiled} helpers
-select \sQuote{N} among all (or all compiled) packages.
+select \sQuote{N} among all (or all compiled) packages. The \code{nDeps} function builds packages
+with a given (adjusted) build-dependency count.
 
 Note that this build process is still somewhat tailored to the build setup use by the author and
 is not (yet ?) meant to be universally transferable. It should be with a little care and possible
