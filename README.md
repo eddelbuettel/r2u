@@ -11,20 +11,20 @@
   cannot break an R package: if a (shared) library is used by a CRAN, the
   package manager knows and will not remove it.  No more (R package) breakage
   from (system) library updates.
-  
+
 - **Installations are fast, automated and reversible** thanks to package
   management layer.
 
 - **Complete coverage** with (currently) ~ 19,000 CRAN packages
   (and 170+ from BioConductor).
-  
+
 - Complete support for both Ubuntu 20.04 ("focal") and Ubuntu 22.04 ("jammy").
 
 ### Brief Demo
 
 The gif shows how _one `install.packages("tidyverse")` command_ on an Ubuntu
 20.04 system _installs all packages as binaries in 18 seconds_ (by passing the
-R package installation to `apt` using [bspm](https://cloud.r-project.org/package=bspm)). 
+R package installation to `apt` using [bspm](https://cloud.r-project.org/package=bspm)).
 
 ![](https://eddelbuettel.github.io/r2u/assets/tidyverse_from_r2u_2022-05-04_17-09.gif)
 
@@ -52,10 +52,10 @@ most-downloaded packages, along with their dependencies from BioConductor.
 for approximately half the total downloads: a very skewed distribution.) We
 iterated, and have now full coverage of CRAN.
 
-So we now cover 
+So we now cover
 
-- *all CRAN packages* (modulo a handful of blacklisted ones) including all packages needing compilation 
-- all BioConductor package that are implied by these (and build for us). 
+- *all CRAN packages* (modulo a handful of blacklisted ones) including all packages needing compilation
+- all BioConductor package that are implied by these (and build for us).
 
 This currently resuls in 18954 binary packages from CRAN, and 177
 BioConductor packages from the 3.15 release.
@@ -72,7 +72,7 @@ Everything is provided as `.deb` binary files with proper dependency
 resolution by using a proper `apt` repo which also has a signed Release file.
 
 
-### Usage 
+### Usage
 
 (You could use [this script
 `add_cranapt_focal.sh`](https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/add_cranapt_focal.sh)
@@ -81,11 +81,11 @@ jammy](https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/add_cranapt_
 to facilitate the setup but you may prefer to execute the steps outlined here
 by hand.)
 
-First add the repository key so that `apt` knows it (this is optional but recommended) 
+First add the repository key so that `apt` knows it (this is optional but recommended)
 
     apt install --yes --no-install-recommends gpg-agent  	# to add the key
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A1489FE2AB99A21A
-    
+
 Second, add the repository to the `apt` registry:
 
     echo "deb [arch=amd64] https://dirk.eddelbuettel.com/cranapt focal main" \
@@ -98,7 +98,7 @@ Third, and optionally, if you do not yet have R 4.2.0 run these two lines (or
 use the [standard CRAN repo setup](https://cloud.r-project.org/bin/linux/ubuntu/))
 
     echo "deb [arch=amd64] http://ppa.launchpad.net/edd/misc/ubuntu focal main" \
-        > /etc/apt/sources.list.d/edd-misc.list 
+        > /etc/apt/sources.list.d/edd-misc.list
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 67C2D66C4B1D4339
 
 (Again, replace `focal` with `jammy` for use with Ubuntu 22.04.)
@@ -146,32 +146,37 @@ including pinning and [bspm](https://cran.r-project.org/package=bspm) support, a
 ### Try It
 
 Use this link below (after possibly signing up for
-[gitpod.io](https://gitpod.io/) first) 
+[gitpod.io](https://gitpod.io/) first)
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/eddelbuettel/r2u)
 
 and run [one of the three example
 scripts](https://github.com/eddelbuettel/r2u/tree/master/inst/examples), or
-just start R in the terminal window.
+just start R in the terminal window.  The gif below display running one such example to install
+[brms](https://github.com/paul-buerkner/brms) from binaries in a few seconds.
+Using this requires only (free) [GitHub](https://github.com) and [GitPod](https://gitpod.io) accounts.
+
+![](https://eddelbuettel.github.io/r2u/assets/gitpod_brms_2022-05-08_11-21.gif)
+
 
 ### Known Issues
 
 As of early May:
 
 - Some geospatial packages do not currently install on 20.04, adding the UbuntuGIS PPA as a base may
-  help. This should be better on 22.04.
+  help. This in not an issue on 22.04.
 
 - The littler package reflects build-time configuration, the RSPM binary is then expecting a
   different R location so it needs a binary rebuild. Added a 'force' flag, may need a list similar
   to the blacklist to always compiled.
-  
+
 - A small number of packages do not build for lack required components; examples are ROracle and
   Rcplex.  They, and their reverse dependencies, are are blacklisted and not built.
 
 ### Fixed Issues
 
 - [DONE] The BioConductor release is still at 3.14 and should be upgraded to the
-  now-current 3.15. 
+  now-current 3.15.
 
 - [DONE] Support for Ubuntu 22.04 has been added as well.
 

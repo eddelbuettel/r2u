@@ -662,11 +662,14 @@ and already built packages.</p>
 <pre><code class="language-R">buildPackage(pkg, tgt, debug = FALSE, verbose = FALSE, force = FALSE,
   xvfb = FALSE, suffix = &quot;.1&quot;)
 
-buildAll(pkg, tgt, debug = FALSE)
+buildAll(pkg, tgt, debug = FALSE, verbose = FALSE, force = FALSE,
+  xvfb = FALSE)
 
 topN(npkg, date = Sys.Date() - 1, from = 1L)
 
 topNCompiled(npkg, date = Sys.Date() - 1, from = 1L)
+
+nDeps(ndeps)
 </code></pre>
 <h3 id="arguments">Arguments</h3>
 <table>
@@ -703,7 +706,7 @@ topNCompiled(npkg, date = Sys.Date() - 1, from = 1L)
 </tr>
 <tr>
 <td><code>suffix</code></td>
-<td>character Optional value to override default of ‘.1’ affixed to package version</td>
+<td>character Optional value to override default package version suffix of ‘.1’</td>
 </tr>
 <tr>
 <td><code>npkg</code></td>
@@ -717,13 +720,18 @@ topNCompiled(npkg, date = Sys.Date() - 1, from = 1L)
 <td><code>from</code></td>
 <td>integer Optional applied as offset to <code>npkg</code> to shift the selection</td>
 </tr>
+<tr>
+<td><code>ndeps</code></td>
+<td>integer Optional value for selected build-dependency count build via <code>nDeps</code></td>
+</tr>
 </tbody>
 </table>
 <h3 id="details">Details</h3>
 <p>The <code>buildPackage</code> function builds the given package. The <code>buildAll</code>
 package applies to all elements in the supplied vector of packages. The
 <code>topN</code> and <code>topNCompiled</code> helpers select ‘N’ among all (or all compiled)
-packages.</p>
+packages. The <code>nDeps</code> function builds packages with a given (adjusted)
+build-dependency count.</p>
 <p>Note that this build process is still somewhat tailored to the build
 setup use by the author and is not (yet ?) meant to be universally
 transferable. It should be with a little care and possible examination

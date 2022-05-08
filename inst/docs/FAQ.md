@@ -46,3 +46,11 @@ Docker image has `bspm` installed and enabled by default.
 
 You can wrap `suppressMessages()` around `bspm::enable()`.  We now do so in
 the Docker image.
+
+
+## Other errors
+
+### With the 22.04 "jammy" container I get errors
+
+We found that adding `--security-opt seccomp=unconfined` to the `docker`
+invocation silenced those on AWS hosts.  We did not seem to need them elsewhere.

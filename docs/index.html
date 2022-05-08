@@ -795,7 +795,7 @@
 <h3 id="brief-demo">Brief Demo</h3>
 <p>The gif shows how <em>one <code>install.packages("tidyverse")</code> command</em> on an Ubuntu
 20.04 system <em>installs all packages as binaries in 18 seconds</em> (by passing the
-R package installation to <code>apt</code> using <a href="https://cloud.r-project.org/package=bspm">bspm</a>). </p>
+R package installation to <code>apt</code> using <a href="https://cloud.r-project.org/package=bspm">bspm</a>).</p>
 <p><img alt="" src="https://eddelbuettel.github.io/r2u/assets/tidyverse_from_r2u_2022-05-04_17-09.gif" /></p>
 <p>This uses the Docker container referenced below, which has been set up with
 the five easy setup steps detailed here.</p>
@@ -812,10 +812,10 @@ most-downloaded packages, along with their dependencies from BioConductor.
 (It should be noted that for example the first 100 packages already account
 for approximately half the total downloads: a very skewed distribution.) We
 iterated, and have now full coverage of CRAN.</p>
-<p>So we now cover </p>
+<p>So we now cover</p>
 <ul>
-<li><em>all CRAN packages</em> (modulo a handful of blacklisted ones) including all packages needing compilation </li>
-<li>all BioConductor package that are implied by these (and build for us). </li>
+<li><em>all CRAN packages</em> (modulo a handful of blacklisted ones) including all packages needing compilation</li>
+<li>all BioConductor package that are implied by these (and build for us).</li>
 </ul>
 <p>This currently resuls in 18954 binary packages from CRAN, and 177
 BioConductor packages from the 3.15 release.</p>
@@ -833,7 +833,7 @@ or the <a href="https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/add
 jammy</a>
 to facilitate the setup but you may prefer to execute the steps outlined here
 by hand.)</p>
-<p>First add the repository key so that <code>apt</code> knows it (this is optional but recommended) </p>
+<p>First add the repository key so that <code>apt</code> knows it (this is optional but recommended)</p>
 <pre><code>apt install --yes --no-install-recommends gpg-agent     # to add the key
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A1489FE2AB99A21A
 </code></pre>
@@ -846,7 +846,7 @@ apt update
 <p>Third, and optionally, if you do not yet have R 4.2.0 run these two lines (or
 use the <a href="https://cloud.r-project.org/bin/linux/ubuntu/">standard CRAN repo setup</a>)</p>
 <pre><code>echo "deb [arch=amd64] http://ppa.launchpad.net/edd/misc/ubuntu focal main" \
-    &gt; /etc/apt/sources.list.d/edd-misc.list 
+    &gt; /etc/apt/sources.list.d/edd-misc.list
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 67C2D66C4B1D4339
 </code></pre>
 <p>(Again, replace <code>focal</code> with <code>jammy</code> for use with Ubuntu 22.04.)</p>
@@ -880,17 +880,20 @@ overriding the standard value of 500.</p>
 including pinning and <a href="https://cran.r-project.org/package=bspm">bspm</a> support, already set up.</p>
 <h3 id="try-it">Try It</h3>
 <p>Use this link below (after possibly signing up for
-<a href="https://gitpod.io/">gitpod.io</a> first) </p>
+<a href="https://gitpod.io/">gitpod.io</a> first)</p>
 <p><a href="https://gitpod.io/#https://github.com/eddelbuettel/r2u"><img alt="Open in Gitpod" src="https://gitpod.io/button/open-in-gitpod.svg" /></a></p>
 <p>and run <a href="https://github.com/eddelbuettel/r2u/tree/master/inst/examples">one of the three example
 scripts</a>, or
-just start R in the terminal window.</p>
+just start R in the terminal window.  The gif below display running one such example to install
+<a href="https://github.com/paul-buerkner/brms">brms</a> from binaries in a few seconds.
+Using this requires only (free) <a href="https://github.com">GitHub</a> and <a href="https://gitpod.io">GitPod</a> accounts.</p>
+<p><img alt="" src="https://eddelbuettel.github.io/r2u/assets/gitpod_brms_2022-05-08_11-21.gif" /></p>
 <h3 id="known-issues">Known Issues</h3>
 <p>As of early May:</p>
 <ul>
 <li>
 <p>Some geospatial packages do not currently install on 20.04, adding the UbuntuGIS PPA as a base may
-  help. This should be better on 22.04.</p>
+  help. This in not an issue on 22.04.</p>
 </li>
 <li>
 <p>The littler package reflects build-time configuration, the RSPM binary is then expecting a
@@ -906,7 +909,7 @@ just start R in the terminal window.</p>
 <ul>
 <li>
 <p>[DONE] The BioConductor release is still at 3.14 and should be upgraded to the
-  now-current 3.15. </p>
+  now-current 3.15.</p>
 </li>
 <li>
 <p>[DONE] Support for Ubuntu 22.04 has been added as well.</p>

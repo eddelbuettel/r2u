@@ -1,9 +1,23 @@
 ###  2022 
 
+2022-05-08  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * R/package.R: Add nDeps 
+ 
+        * docker/jammy/run/Dockerfile: Use asc key file 
+ 
+        * .gitpod.Dockerfile: Switch to 22.04 
+ 
 2022-05-07  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * README.md: Updated docs 
+        * docs/*: Idem 
  
         * docker/jamm/build/*: Use http instead of mount for pinning 
         * docker/jammy/build/debBuild.sh: Call dpkg-buildpackage with -b 
+ 
+        * inst/scripts/add_cranapt_focal.sh: Renamed from add_cranapt.sh 
+        * inst/scripts/add_cranapt_jammy.sh: Added 
  
 2022-05-06  Dirk Eddelbuettel  <edd@debian.org> 
  

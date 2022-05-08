@@ -12,11 +12,14 @@ and already built packages.
 buildPackage(pkg, tgt, debug = FALSE, verbose = FALSE, force = FALSE,
   xvfb = FALSE, suffix = ".1")
 
-buildAll(pkg, tgt, debug = FALSE)
+buildAll(pkg, tgt, debug = FALSE, verbose = FALSE, force = FALSE,
+  xvfb = FALSE)
 
 topN(npkg, date = Sys.Date() - 1, from = 1L)
 
 topNCompiled(npkg, date = Sys.Date() - 1, from = 1L)
+
+nDeps(ndeps)
 ```
 
 ### Arguments
@@ -29,17 +32,19 @@ topNCompiled(npkg, date = Sys.Date() - 1, from = 1L)
 | `verbose` | logical Optional value show more verbose progress output, default is ‘FALSE’                                                                      |
 | `force`   | logical Optional value to force package build from source, default is ‘FALSE’                                                                     |
 | `xvfb`    | logical Optional value to build under `xvfb-run`, default is ‘FALSE’                                                                              |
-| `suffix`  | character Optional value to override default of ‘.1’ affixed to package version                                                                   |
+| `suffix`  | character Optional value to override default package version suffix of ‘.1’                                                                       |
 | `npkg`    | integer Number of packages to build                                                                                                               |
 | `date`    | Date Relevant date for cranlog download stats                                                                                                     |
 | `from`    | integer Optional applied as offset to `npkg` to shift the selection                                                                               |
+| `ndeps`   | integer Optional value for selected build-dependency count build via `nDeps`                                                                      |
 
 ### Details
 
 The `buildPackage` function builds the given package. The `buildAll`
 package applies to all elements in the supplied vector of packages. The
 `topN` and `topNCompiled` helpers select ‘N’ among all (or all compiled)
-packages.
+packages. The `nDeps` function builds packages with a given (adjusted)
+build-dependency count.
 
 Note that this build process is still somewhat tailored to the build
 setup use by the author and is not (yet ?) meant to be universally
