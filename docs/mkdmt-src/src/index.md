@@ -39,7 +39,7 @@ We currently support amd64 (_i.e._ standard Intel/AMD cpus) for both the 'focal'
 unlikely due to a lack of (additional hardware) resources and time.
 
 Support for other distributions is possible but unlikely right now (due to a lack of resources and
-time). We hope to cover Debian ar some point.
+time). We hope to cover Debian at some point.
 
 R 4.2.0 is used, and BioConductor 3.15 packages are provided as required by CRAN packages.
 

@@ -477,10 +477,42 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#other-errors" class="md-nav__link">
+    Other errors
+  </a>
+  
+    <nav class="md-nav" aria-label="Other errors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#with-the-2204-jammy-container-i-get-errors" class="md-nav__link">
+    With the 22.04 "jammy" container I get errors
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
       
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Notes/" class="md-nav__link">
+        Notes
+      </a>
     </li>
   
 
@@ -665,6 +697,26 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#other-errors" class="md-nav__link">
+    Other errors
+  </a>
+  
+    <nav class="md-nav" aria-label="Other errors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#with-the-2204-jammy-container-i-get-errors" class="md-nav__link">
+    With the 22.04 "jammy" container I get errors
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -713,6 +765,10 @@ Docker image has <code>bspm</code> installed and enabled by default.</p>
 <h3 id="bspm-is-a-little-noisy">bspm is a little noisy</h3>
 <p>You can wrap <code>suppressMessages()</code> around <code>bspm::enable()</code>.  We now do so in
 the Docker image.</p>
+<h2 id="other-errors">Other errors</h2>
+<h3 id="with-the-2204-jammy-container-i-get-errors">With the 22.04 "jammy" container I get errors</h3>
+<p>We found that adding <code>--security-opt seccomp=unconfined</code> to the <code>docker</code>
+invocation silenced those on AWS hosts.  We did not seem to need them elsewhere.</p>
                 
               
               
@@ -782,8 +838,8 @@ the Docker image.</p>
         <!-- Link to next page -->
         
           <a
-            href="../../news/"
-            title="News"
+            href="../Notes/"
+            title="Notes"
             class="md-footer-nav__link md-footer-nav__link--next"
             rel="next"
           >
@@ -792,7 +848,7 @@ the Docker image.</p>
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                News
+                Notes
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">
