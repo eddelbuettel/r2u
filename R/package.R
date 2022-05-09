@@ -117,9 +117,9 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
     }
     pkgname <- paste0("r-", tolower(effrepo), "-", tolower(pkg)) 			# aka r-cran-namehere
     cand <- paste0(pkgname, "_", ver)
-    if (effrepo == "CRAN" && isFALSE(ver == aver)) {
+    if (effrepo == "CRAN" && isFALSE(ver == aver) && isFALSE(force)) {
         if (verbose) cat(blue(sprintf("%-22s %-11s %-11s", pkg, ver, aver))) 		# start console log with pkg
-        if (verbose) cat(red("[not yet available - skipping]\n"))
+        if (verbose) cat("[not yet available - skipping]\n")
         return(invisible())
     } else if (effrepo == "Bioc") {
         cand <- paste0(pkgname, "_", aver)
@@ -179,7 +179,7 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
     setwd("debian")
 
     if (repo == "CRAN" && is.na(match(pkg, db[,Package]))) {
-        cat(red("[skipping as not in current CRAN db]\n"))
+        cat("[skipping as not in current CRAN db]\n")
         return(invisible())
     }
 
@@ -205,8 +205,7 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
                   pkg)
     if (debug) print(cmd)
     rc <- system(cmd, ignore.stdout=!debug)
-    if (rc == 0) cat(green("[built] ")) else cat(red("[error", rc, "] "))
-    cat("\n")
+    if (rc == 0) cat(green("[built]\n")) else cat(red("[error ", rc, "]\n",sep=""))
 
     invisible()
 }
