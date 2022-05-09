@@ -1,7 +1,7 @@
 
 .pkgenv <- new.env(parent=emptyenv())
 
-.debug <- FALSE #TRUE
+.debug <- FALSE #TRUE#
 .debug_message <- function(...) if (.debug) message(..., appendLF=FALSE)
 
 .defaultConfigFile <- function() {
@@ -95,7 +95,7 @@
             .pkgenv[["r_api_version"]] <- cfg[1, "r_api_version"]
             .pkgenv[["bioc_version"]] <- cfg[1, "bioc_version"]
             .pkgenv[["debian_policy_version"]] <- cfg[1, "debian_policy_version"]
-            .pkgenv[["cache_age_hours_cran_db"]] <- cfg[1, "cache_age_hours_cran_db"]
+            .pkgenv[["cache_age_hours_cran_db"]] <- as.integer(cfg[1, "cache_age_hours_cran_db"])
             .pkgenv[["package_cache"]] <- cfg[1, "package_cache"]
             .pkgenv[["r2u_directory"]] <- cfg[1, "r2u_directory"]
             .pkgenv[["build_directory"]] <- cfg[1, "build_directory"]
@@ -139,8 +139,7 @@
         .debug_message("Reading db\n")
         dbfile <- .defaultCRANDBFile()
         hrs <- .pkgenv[["cache_age_hours_cran_db"]]
-        if (file.exists(dbfile) &&
-            as.numeric(difftime(Sys.time(), file.info(dbfile)$ctime, units="hours")) < hrs) {
+        if (file.exists(dbfile) && as.numeric(difftime(Sys.time(), file.info(dbfile)$ctime, units="hours")) < hrs) {
             db <- readRDS(dbfile)
             .debug_message("Cached db\n")
         } else {
