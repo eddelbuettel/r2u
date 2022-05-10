@@ -57,8 +57,8 @@ So we now cover
 - *all CRAN packages* (modulo a handful of blacklisted ones) including all packages needing compilation
 - all BioConductor package that are implied by these (and build for us).
 
-This currently resuls in 18954 binary packages from CRAN, and 177
-BioConductor packages from the 3.15 release.
+This currently resuls in 18997 and 18841 binary packages from CRAN in "focal" and "jammy",
+respectively, and 188 and 180 BioConductor packages, respectively, from the 3.15 release.
 
 
 ### What is it Based on?
@@ -121,7 +121,7 @@ other packages become available via `install.packages()` and
 ### Pinning
 
 Because we let `apt` (and related tools) pick the packages, we have to ensure
-that that the CRANapt repo sorts higher than the default repo as (older)
+that the CRANapt repo sorts higher than the default repo as (older)
 package builds in the distribution itself may appear (to `apt`) to be
 newer. A case in point was package `gtable` whose version in Ubuntu was
 `0.3.0+dfsg-1` which accidentally sorts higher than the rebuild we made under
@@ -152,11 +152,18 @@ Use this link below (after possibly signing up for
 
 and run [one of the three example
 scripts](https://github.com/eddelbuettel/r2u/tree/master/inst/examples), or
-just start R in the terminal window.  The gif below display running one such example to install
-[brms](https://github.com/paul-buerkner/brms) from binaries in a few seconds.
-Using this requires only (free) [GitHub](https://github.com) and [GitPod](https://gitpod.io) accounts.
+just start R in the terminal window.
 
 ![](https://eddelbuettel.github.io/r2u/assets/gitpod_brms_2022-05-08_11-21.gif)
+
+The gif below display running one such example to install
+[brms](https://github.com/paul-buerkner/brms) from binaries in a few seconds.  Using this requires
+only (free) [GitHub](https://github.com) and [GitPod](https://gitpod.io) accounts.
+
+
+### Support
+
+Please file issues at the [GitHub issues for r2u](https://github.com/eddelbuettel/r2u/issues).
 
 
 ### Known Issues
