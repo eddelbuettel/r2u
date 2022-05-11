@@ -860,8 +860,9 @@ jammy</a>
 to facilitate the setup but you may prefer to execute the steps outlined here
 by hand.)</p>
 <p>First add the repository key so that <code>apt</code> knows it (this is optional but recommended)</p>
-<pre><code>apt install --yes --no-install-recommends gpg-agent     # to add the key
-apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A1489FE2AB99A21A
+<pre><code>apt install --yes --no-install-recommends wget      # to add the key
+wget -q -O- https://eddelbuettel.github.io/r2u/assets/dirk_eddelbuettel_key.asc \
+    | tee -a /etc/apt/trusted.gpg.d/cranapt_key.asc
 </code></pre>
 <p>Second, add the repository to the <code>apt</code> registry:</p>
 <pre><code>echo "deb [arch=amd64] https://dirk.eddelbuettel.com/cranapt focal main" \
@@ -871,9 +872,10 @@ apt update
 <p>(Replace <code>focal</code> with <code>jammy</code> for use with Ubuntu 22.04.)</p>
 <p>Third, and optionally, if you do not yet have R 4.2.0 run these two lines (or
 use the <a href="https://cloud.r-project.org/bin/linux/ubuntu/">standard CRAN repo setup</a>)</p>
-<pre><code>echo "deb [arch=amd64] http://ppa.launchpad.net/edd/misc/ubuntu focal main" \
+<pre><code>wget -q -O- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc \
+    | tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
+echo "deb [arch=amd64] http://ppa.launchpad.net/edd/misc/ubuntu focal main" \
     &gt; /etc/apt/sources.list.d/edd-misc.list
-apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 67C2D66C4B1D4339
 </code></pre>
 <p>(Again, replace <code>focal</code> with <code>jammy</code> for use with Ubuntu 22.04.)</p>
 <p>Fourth, add repository 'pinning' as <code>apt</code> might get confused by some older

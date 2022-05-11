@@ -1,5 +1,10 @@
 ###  2022 
 
+2022-05-11  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * README.md: Switch instruction to downloading keys and storing in 
+        /etc/apt/trusted.gpg.d/ which is now preferred 
+ 
 2022-05-09  Dirk Eddelbuettel  <edd@debian.org> 
  
         * inst/scripts/add_cranapt_jammy.sh: Update key use 

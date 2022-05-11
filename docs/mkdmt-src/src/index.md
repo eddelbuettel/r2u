@@ -83,8 +83,9 @@ by hand.)
 
 First add the repository key so that `apt` knows it (this is optional but recommended)
 
-    apt install --yes --no-install-recommends gpg-agent  	# to add the key
-    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A1489FE2AB99A21A
+    apt install --yes --no-install-recommends wget  	# to add the key
+    wget -q -O- https://eddelbuettel.github.io/r2u/assets/dirk_eddelbuettel_key.asc \
+        | tee -a /etc/apt/trusted.gpg.d/cranapt_key.asc
 
 Second, add the repository to the `apt` registry:
 
@@ -97,9 +98,10 @@ Second, add the repository to the `apt` registry:
 Third, and optionally, if you do not yet have R 4.2.0 run these two lines (or
 use the [standard CRAN repo setup](https://cloud.r-project.org/bin/linux/ubuntu/))
 
+    wget -q -O- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc \
+        | tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
     echo "deb [arch=amd64] http://ppa.launchpad.net/edd/misc/ubuntu focal main" \
         > /etc/apt/sources.list.d/edd-misc.list
-    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 67C2D66C4B1D4339
 
 (Again, replace `focal` with `jammy` for use with Ubuntu 22.04.)
 
