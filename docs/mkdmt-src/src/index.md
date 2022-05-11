@@ -18,7 +18,12 @@
 - **Complete coverage** with (currently) ~ 19,000 CRAN packages
   (and 170+ from BioConductor).
 
-- Complete support for both Ubuntu 20.04 ("focal") and Ubuntu 22.04 ("jammy").
+- Complete support for both **Ubuntu 20.04** ("focal") **and Ubuntu 22.04** ("jammy").
+
+- Optional (but recommeded) use with [bspm](https://cloud.r-project.org/package=bspm) 
+  automagically connects R functions like `install.packages()` to `apt` for access to binaries 
+  _and_ dependencies.
+
 
 ### Brief Demo
 
