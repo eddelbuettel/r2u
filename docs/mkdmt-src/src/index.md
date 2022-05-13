@@ -16,7 +16,7 @@
   management layer.
 
 - **Complete coverage** with (currently) ~ 19,000 CRAN packages
-  (and 170+ from BioConductor).
+  (and 200+ from BioConductor).
 
 - Complete support for both **Ubuntu 20.04** ("focal") **and Ubuntu 22.04** ("jammy").
 
@@ -62,8 +62,8 @@ So we now cover
 - *all CRAN packages* (modulo a handful of blacklisted ones) including all packages needing compilation
 - all BioConductor package that are implied by these (and build for us).
 
-This currently resuls in 18997 and 18841 binary packages from CRAN in "focal" and "jammy",
-respectively, and 188 and 180 BioConductor packages, respectively, from the 3.15 release.
+This currently resuls in 19031 and 18881 binary packages from CRAN in "focal" and "jammy",
+respectively, and 206 and 214 BioConductor packages, respectively, from the 3.15 release.
 
 
 ### What is it Based on?
