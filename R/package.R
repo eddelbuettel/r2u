@@ -62,7 +62,8 @@
 ##' The \code{buildPackage} function builds the given package. The \code{buildAll} package applies
 ##' to all elements in the supplied vector of packages. The \code{topN} and \code{topNCompiled} helpers
 ##' select \sQuote{N} among all (or all compiled) packages. The \code{nDeps} function builds packages
-##' with a given (adjusted) build-dependency count.
+##' with a given (adjusted) build-dependency count. The \code{updatedPackages} function finds a set
+##' of available packages that are not yet built.
 ##'
 ##' Note that this build process is still somewhat tailored to the build setup use by the author and
 ##' is not (yet ?) meant to be universally transferable. It should be with a little care and possible
@@ -264,4 +265,25 @@ topNCompiled <- function(npkg, date=Sys.Date() - 1, from=1L) {
 nDeps <- function(ndeps) {
     db <- .pkgenv[["db"]]
     db[adjdep == ndeps, Package]
+}
+
+#' @rdname buildPackage
+buildUpdatedPackages <- function(tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb=FALSE) {
+    .checkTarget(tgt)
+
+    ## get available packages (which is updated on package load if older than cache age)
+    ap <- .pkgenv[["ap"]]
+    ap[, pkgver := paste(deb, Version, sep="_"), by=deb]
+
+    ## update list of builds for chosen target distribution and access
+    .loadBuilds(tgt)
+    bb <- .pkgenv[["builds"]]
+
+    ## find new available package_version pairs (from CRAN) that not yet built (ie in bb)
+    newpkgs <- setdiff(ap[ap=="CRAN",pkgver], bb[,pkgver])
+
+    ## get vector of packages to build
+    pkgs <- ap[newpkgs, Package, on="pkgver"]
+
+    buildAll(pkgs, tgt)
 }

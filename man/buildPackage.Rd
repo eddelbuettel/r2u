@@ -6,6 +6,7 @@
 \alias{topN}
 \alias{topNCompiled}
 \alias{nDeps}
+\alias{buildUpdatedPackages}
 \title{Build a Package}
 \usage{
 buildPackage(pkg, tgt, debug = FALSE, verbose = FALSE, force = FALSE,
@@ -19,6 +20,9 @@ topN(npkg, date = Sys.Date() - 1, from = 1L)
 topNCompiled(npkg, date = Sys.Date() - 1, from = 1L)
 
 nDeps(ndeps)
+
+buildUpdatedPackages(tgt, debug = FALSE, verbose = FALSE, force = FALSE,
+  xvfb = FALSE)
 }
 \arguments{
 \item{pkg}{character Name of the CRAN or BioConductor package to build}
@@ -55,7 +59,8 @@ built packages.
 The \code{buildPackage} function builds the given package. The \code{buildAll} package applies
 to all elements in the supplied vector of packages. The \code{topN} and \code{topNCompiled} helpers
 select \sQuote{N} among all (or all compiled) packages. The \code{nDeps} function builds packages
-with a given (adjusted) build-dependency count.
+with a given (adjusted) build-dependency count. The \code{updatedPackages} function finds a set
+of available packages that are not yet built.
 
 Note that this build process is still somewhat tailored to the build setup use by the author and
 is not (yet ?) meant to be universally transferable. It should be with a little care and possible

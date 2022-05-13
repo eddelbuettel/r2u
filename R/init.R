@@ -216,8 +216,9 @@
     }
 }
 
-.loadBuilds <- function() {
-    dd <- file.path(.pkgenv[["deb_directory"]], "dists", .pkgenv[["distribution_name"]], "main")
+.loadBuilds <- function(tgt) {
+    if (missing(tgt)) tgt <- .pkgenv[["distribution_name"]]
+    dd <- file.path(.pkgenv[["deb_directory"]], "dists", tgt, "main")
     cwd <- getwd()
     setwd(dd)
     fls <- list.files(".", pattern="\\.deb$", full.names=FALSE)
