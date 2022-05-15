@@ -1,6 +1,6 @@
 
 .basePkgs <- c("base", "compiler", "datasets", "graphics", "grDevices", "grid", "methods", "parallel",
-               "profile", "splines", "stats", "stats4", "tcltk", "tools", "translations", "utils")
+               "splines", "stats", "stats4", "tcltk", "tools", "translations", "utils")
 
 .isBasePackage <- function(pkg) {
     pkg %in% .basePkgs
