@@ -267,8 +267,7 @@ nDeps <- function(ndeps) {
     db[adjdep == ndeps, Package]
 }
 
-#' @rdname buildPackage
-buildUpdatedPackages <- function(tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb=FALSE) {
+.getUpdatedPackages <- function(tgt) {
     .checkTarget(tgt)
 
     ## get available packages (which is updated on package load if older than cache age)
@@ -285,5 +284,12 @@ buildUpdatedPackages <- function(tgt, debug=FALSE, verbose=FALSE, force=FALSE, x
     ## get vector of packages to build
     pkgs <- ap[newpkgs, Package, on="pkgver"]
 
-    buildAll(pkgs, tgt)
+    ## and diff against the blacklist
+    pkgs <- setdiff(pkgs, .pkgenv[["blacklist"]])
+}
+
+#' @rdname buildPackage
+buildUpdatedPackages <- function(tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb=FALSE) {
+    pkgs <- .getUpdatedPackages(tgt)
+    buildAll(pkgs, tgt, debug=debug, verbose=verbose, force=force, xvfb=xvfb)
 }
