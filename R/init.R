@@ -255,7 +255,7 @@
     if (blacklistfile == "") {
         .pkgenv[["blacklist"]] <- character()
     } else {
-        skipped <- readLines(blacklistfile)
+        skipped <- Filter(\(x) !grepl("^#", x),  readLines(blacklistfile))
         .pkgenv[["blacklist"]] <- skipped
     }
 }
