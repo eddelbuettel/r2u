@@ -62,8 +62,8 @@ So we now cover
 - *all CRAN packages* (modulo a handful of blacklisted ones) including all packages needing compilation
 - all BioConductor package that are implied by these (and build for us).
 
-This currently resuls in 19031 and 18881 binary packages from CRAN in "focal" and "jammy",
-respectively, and 206 and 214 BioConductor packages, respectively, from the 3.15 release.
+This currently resuls in 19066 and 18921 binary packages from CRAN in "focal" and "jammy",
+respectively, and 207 and 215 BioConductor packages, respectively, from the 3.15 release.
 
 
 ### What is it Based on?
