@@ -1,7 +1,7 @@
 
 ## downloader from RSPM
 .get_package_file <- function(pkg, ver) {
-    cachedir <- .getConfig("package_cache")
+    cachedir <- file.path(.getConfig("package_cache"), .getConfig("distribution_name"))
     if (!dir.exists(cachedir)) dir.create(cachedir, recursive=TRUE)
     path <- file.path(cachedir, paste0(pkg, "_", ver, ".tar.gz"))
     if (!file.exists(path)) {
@@ -19,7 +19,7 @@
 
 ## downloader from bioc
 .get_source_file <- function(pkg, ver, ap) {
-    cachedir <- .getConfig("package_cache")
+    cachedir <- file.path(.getConfig("package_cache"), .getConfig("distribution_name"))
     if (!dir.exists(cachedir)) dir.create(cachedir, recursive=TRUE)
     path <- file.path(cachedir, paste0(pkg, "_", ver, ".tar.gz"))
     if (!file.exists(path)) {
@@ -157,6 +157,8 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
 
     build_dir <- .getConfig("build_directory")
     if (!dir.exists(build_dir)) stop("Build directory '", build_dir, "' does not exist")
+    build_dir <- file.path(build_dir, .getConfig("distribution_name"))
+    if (!dir.exists(build_dir)) dir.create(build_dir, recursive=TRUE)
     setwd(build_dir)
 
     if (!dir.exists(pkg)) dir.create(pkg) 				# namehere inside build
@@ -191,20 +193,23 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
     .writeSourceFormat(pkg)
     r2u_dir <- .getConfig("r2u_directory")
     setwd(r2u_dir)
-    container <- paste0("eddelbuettel/r2u_build:", .getConfig("distribution_name"))
+    distname <- .getConfig("distribution_name")
+    container <- paste0("eddelbuettel/r2u_build:", distname)
     deps <- if (pkg %in% names(.getConfig("builddeps"))) .getConfig("builddeps")[pkg] else ""
     added_deps <- if (repo == "Bioc" || isTRUE(force)) paste(.filterAndMapBuildDepends(pkg, ap), collapse=" ") else ""
     depstr <- if (nchar(deps) + nchar(added_deps) > 0) paste0("-a '", deps, " ", added_deps, "' ") else " "
     cmd <- paste0("docker run --rm -ti ",
                   "-v ", getwd(), ":/mnt ",
-                  "-w /mnt/build/", pkg, " ",
+                  "-w /mnt/build/", distname, "/", pkg, " ",
                   container, " debBuild.sh ",
                   if (isTRUE(xvfb) || grepl("(tcltk|tkrplot)", depstr)) "-x " else " ",
                   if (repo == "Bioc") "-b " else " ",
                   if (repo == "Bioc" || isTRUE(force)) "-s " else " ",
+                  "-d ", distname, " ",
                   depstr,
                   pkg)
-    if (debug) print(cmd)
+    ##if (debug)
+    print(cmd)
     rc <- system(cmd, ignore.stdout=!debug)
     if (rc == 0) cat(green("[built]\n")) else cat(red("[error ", rc, "]\n",sep=""))
 

@@ -70,7 +70,7 @@
 }
 
 .getConfig <- function(key) {
-    stopifnot(`key is not present`=is.finite(match(key, names(.pkgenv))))
+    stopifnot("key is not present" = is.finite(match(key, names(.pkgenv))))
     .pkgenv[[key]]
 }
 
