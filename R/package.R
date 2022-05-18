@@ -208,8 +208,7 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
                   "-d ", distname, " ",
                   depstr,
                   pkg)
-    ##if (debug)
-    print(cmd)
+    if (debug) print(cmd)
     rc <- system(cmd, ignore.stdout=!debug)
     if (rc == 0) cat(green("[built]\n")) else cat(red("[error ", rc, "]\n",sep=""))
 
