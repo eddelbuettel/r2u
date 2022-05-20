@@ -123,7 +123,7 @@
     .addLinkingTo(D, ap, con)
     cat("\nSuggests: ", file=con)
     .addSuggests(D, ap, con)
-    cat("\nDescription: CRAN Package '", pkg, "' (", gsub("\\n", "", D[,Title]), ")\n", sep="", file=con)
+    cat("\nDescription: ", repo, " Package '", pkg, "' (", gsub("\\n", "", D[,Title]), ")\n", sep="", file=con)
     sapply(Filter(function(x) x != "", strwrap(trimws(D[, Description]), 78, indent=1, exdent=1)), cat, "\n", sep="", file=con)
     cat("\n", file=con)
     close(con)
