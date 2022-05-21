@@ -682,6 +682,9 @@ topN(npkg, date = Sys.Date() - 1, from = 1L)
 topNCompiled(npkg, date = Sys.Date() - 1, from = 1L)
 
 nDeps(ndeps)
+
+buildUpdatedPackages(tgt, debug = FALSE, verbose = FALSE, force = FALSE,
+  xvfb = FALSE)
 </code></pre>
 <h3 id="arguments">Arguments</h3>
 <table>
@@ -743,7 +746,8 @@ nDeps(ndeps)
 package applies to all elements in the supplied vector of packages. The
 <code>topN</code> and <code>topNCompiled</code> helpers select ‘N’ among all (or all compiled)
 packages. The <code>nDeps</code> function builds packages with a given (adjusted)
-build-dependency count.</p>
+build-dependency count. The <code>updatedPackages</code> function finds a set of
+available packages that are not yet built.</p>
 <p>Note that this build process is still somewhat tailored to the build
 setup use by the author and is not (yet ?) meant to be universally
 transferable. It should be with a little care and possible examination

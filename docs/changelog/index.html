@@ -571,9 +571,34 @@
                   <h1>Changelog</h1>
                 
                 <h3 id="2022">2022</h3>
+<p>2022-05-21  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * inst/scripts/add_cranapt_focal.sh: Use CRAN repo for R 
+    * README.md: Ditto
+</code></pre>
+<p>2022-05-20  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * R/controlFiles.R: Reflect repo in Description:
+</code></pre>
+<p>2022-05-17  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * R/controlFiles.R: Build and cache in per distro dir 
+    * R/package.R: Ditto 
+    * docker/*/build/debBuild.sh: Add dist argument 
+    * README.md: Update package numbers
+</code></pre>
+<p>2022-05-15  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * R/controlFiles.R: Correct base package list 
+    * R/init.R: Filter commented lines from blacklist 
+    * R/package.R: New helper to identify updated packages
+</code></pre>
+<p>2022-05-13  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
+<pre><code>    * R/package.R: New top-level function to build updated packages 
+    * R/init.R: Support 
+    * man/buildPackage.Rd: Docs
+
+    * README.md: Update package numbers
+</code></pre>
 <p>2022-05-11  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
 <pre><code>    * README.md: Switch instruction to downloading keys and storing in 
-    /etc/apt/trusted.gpg.d/ which is now preferred
+    /etc/apt/trusted.gpg.d/ which is now preferred, additional edits
 </code></pre>
 <p>2022-05-09  Dirk Eddelbuettel  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;">&#101;&#100;&#100;&#64;&#100;&#101;&#98;&#105;&#97;&#110;&#46;&#111;&#114;&#103;</a> </p>
 <pre><code>    * inst/scripts/add_cranapt_jammy.sh: Update key use
