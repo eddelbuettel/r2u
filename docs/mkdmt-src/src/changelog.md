@@ -1,5 +1,9 @@
 ###  2022 
 
+2022-05-22  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * README.md: Reword headline 
+ 
 2022-05-21  Dirk Eddelbuettel  <edd@debian.org> 
  
         * inst/scripts/add_cranapt_focal.sh: Use CRAN repo for R 

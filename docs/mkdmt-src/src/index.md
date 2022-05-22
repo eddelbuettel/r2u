@@ -1,5 +1,5 @@
 
-## r2u:  R Binaries for Ubuntu
+## r2u: CRAN as Ubuntu Binaries
 
 ### Key features
 
