@@ -1,5 +1,7 @@
 ## Emacs, make this -*- mode: sh; -*-
 
+## NB: one may need to add '--security-opt seccomp=unconfined' to the docker invocation
+
 FROM rocker/r-bspm:22.04
 
 LABEL org.label-schema.license="GPL-2.0" \
