@@ -251,7 +251,6 @@
         deps <- read.dcf(depfile)
         .pkgenv[["builddeps"]] <- c(.pkgenv[["builddeps"]], deps[1,,drop=TRUE])
     }
-    cat("BOTTOM:"); print(str(.pkgenv[["builddeps"]])); stop("DEBUG")
 }
 
 
