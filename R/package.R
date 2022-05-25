@@ -87,6 +87,7 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
     .checkTarget(tgt)
     .loadBuilds()                       # need to this again once target is reflected
     .addBuildDepends(tgt)               # add distro-release versioned depends
+    .addBlacklist(tgt)                  # add distro-release blacklist
     if (.isBasePackage(pkg)) return(invisible())
     ind <- match(pkg, db[,Package])
     ap <- .pkgenv[["ap"]]

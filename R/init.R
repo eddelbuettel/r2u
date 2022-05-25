@@ -65,14 +65,20 @@
         if (file.exists(fname)) {
             return(fname)
         }
+    } else {
+        .debug_message("No package config dir")
     }
     return("")
 }
 
-.defaultBlacklistFile <- function(force=FALSE) {
+.defaultBlacklistFile <- function(dist = "", force = FALSE) {
     pkgdir <- tools::R_user_dir(packageName())      # ~/.local/share/R/ + package
     if (dir.exists(pkgdir)) {
-        fname <- file.path(pkgdir, "blacklist.txt")
+        if (dist == "") {
+            fname <- file.path(pkgdir, "blacklist.txt")
+        } else {
+            fname <- file.path(pkgdir, paste0("blacklist.", dist, ".txt"))
+        }
         if (file.exists(fname) || force) {
             return(fname)
         }
@@ -241,12 +247,11 @@
 
 .addBuildDepends <- function(dist) {
     depfile <- .defaultBuildDependsFile(dist)
-    if (depfile == "") {
-        .pkgenv[["builddeps"]] <- character()
-    } else {
+    if (depfile != "") {
         deps <- read.dcf(depfile)
         .pkgenv[["builddeps"]] <- c(.pkgenv[["builddeps"]], deps[1,,drop=TRUE])
     }
+    cat("BOTTOM:"); print(str(.pkgenv[["builddeps"]])); stop("DEBUG")
 }
 
 
@@ -257,6 +262,14 @@
     } else {
         skipped <- Filter(\(x) !grepl("^#", x),  readLines(blacklistfile))
         .pkgenv[["blacklist"]] <- skipped
+    }
+}
+
+.addBlacklist <- function(dist) {
+    blacklistfile <- .defaultBlacklistFile(dist)
+    if (blacklistfile != "") {
+        skipped <- Filter(\(x) !grepl("^#", x),  readLines(blacklistfile))
+        .pkgenv[["blacklist"]] <- c(.pkgenv[["blacklist"]], skipped)
     }
 }
 
