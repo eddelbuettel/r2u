@@ -149,9 +149,13 @@
     dhcompat <- .getConfig("debhelper_compat")
     distribution <- .getConfig("distribution")
     distribution_name <- .getConfig("distribution_name")
+    upstreamversion <- D[,Version]
+    if (pkg == "nlme") {
+        upstreamversion <- gsub("-", ".", upstreamversion)
+    }
 
     rel <- paste0("r-", repo, "-", lp)
-    ver <- paste0(D[,Version], "-1.ca", gsub("\\.", "", distribution), suffix)
+    ver <- paste0(upstreamversion, "-1.ca", gsub("\\.", "", distribution), suffix)
     date <- system("date -R", intern=TRUE)
     con <- file("changelog", "wt")
     cat(rel, " (", ver, ") ", distribution_name, "; urgency=medium\n\n",
