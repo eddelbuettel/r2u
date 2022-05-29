@@ -140,14 +140,14 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
     if (is.finite(match(cand, builds[, pkgver])) && isFALSE(force)) {
         if (verbose) cat(blue(sprintf("%-22s %-11s %-11s", pkg, ver, aver))) 		# start console log with pkg
         if (verbose) cat(green("[already built - skipping]\n"))
-        return(invisible)
+        return(invisible())
     }
 
     ## so we're building one
     cat(blue(sprintf("%-22s %-11s %-11s", pkg, ver, aver))) 		# start console log with pkg
     if (is.finite(match(pkg, .pkgenv[["blacklist"]]))) {
         cat(red("[blacklisted, skipping]\n"))
-        return(invisible)
+        return(invisible())
     }
 
     file <- if (repo == "CRAN" && isFALSE(force)) {
