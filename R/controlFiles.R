@@ -150,7 +150,7 @@
     distribution <- .getConfig("distribution")
     distribution_name <- .getConfig("distribution_name")
     upstreamversion <- D[,Version]
-    if (pkg == "nlme") {
+    if (pkg %in% c("foreign", "nlme")) {
         upstreamversion <- gsub("-", ".", upstreamversion)
     }
 
