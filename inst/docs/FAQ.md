@@ -22,6 +22,16 @@ and would block an installation of the freshly made binary (under a
 consistent naming scheme). The `apt` feature of 'pinning' is what we want
 here to have an entire repository sort higher.
 
+There can also be other issues related to CRAN allowing a hyphen in version
+(_e.g._ [nlme](https://cran.r-project.org/package=nlme) is currently at
+3.1-157. But Debian and Ubuntu use a hyphen to split off the build iteration
+count so version numbers are sometimes standardised to 3.1.157 switching the
+hyphen to a dot. Sadly that leads to different sorting. (See [issue
+#7](https://github.com/eddelbuettel/r2u/issues/7) but more on an issue that
+was caused by this.)  In general we can not overcome this by pinning, and we
+thinking about a more comprehensive solution that is less invasive than
+changing all package numbers.
+
 ### What is the relationship with the c2d4u PPA ?
 
 We are huge fans of the c2d4u repository and have used it for a decade or
@@ -32,6 +42,14 @@ Overall it also still at a fraction of CRAN packages. So we created this repo
 as an experiment to see if we could scale a simple and direct approach, and
 in the hopes it can complement the c2d4u PPA and offer additional packages
 
+### Can I use (current) r2u with Debian?
+
+This question was asked in [issue
+#8](https://github.com/eddelbuettel/r2u/issues/8).  In general, it is _not_ a
+good idea to mix Debian and Ubuntu. The package management system works so
+well for either because it generally can rely on package version and
+relationships and mixing, while it may work in small isolated cases, is
+really no condusive to such setups. So we recommend against.
 
 ## bspm
 
