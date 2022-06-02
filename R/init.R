@@ -133,7 +133,7 @@
 }
 
 .checkSystem <- function() {
-    bins <- c("docker", "apt", "dpkg", "md5sum", "sha1sum", "sha256sum")
+    bins <- c("docker", "apt", "dpkg", "date", "md5sum", "sha1sum", "sha256sum")
     res <- Sys.which(bins)
     if (any(res==""))
         stop("Missing binaries for '", paste(names(res[res==""]), collapse=", "), "'.", call. = FALSE)

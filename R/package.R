@@ -112,6 +112,13 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
     #if (debug) if (repo == "CRAN") print(D) else print(AP)
     ver <- D[, Version]
     aver <- AP[, Version]
+
+    ## accomodate 'dash-to-dot' version change in Debian for some old 'recommended' packages
+    if (pkg %in% c("nlme", "foreign")) {
+        ver <- gsub("-", ".", ver)
+        aver <- gsub("-", ".", aver)
+    }
+
     effrepo <- AP[, ap]
     if (is.na(effrepo)) {
         cat(pkg, "missing, skipping\n")
