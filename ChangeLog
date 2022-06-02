@@ -1,3 +1,28 @@
+2022-06-01  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/controlFiles.R: Accomodate dash-to-dot in foreign version
+
+2022-05-31  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/docs/FAQ.md: Draft of two new entries
+
+2022-05-29  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/package.R: Correct two invisible calls
+	* R/controlFiles.R: Accomodate dash-to-dot in nlme version
+
+2022-05-28  Sergio Oller  <sergioller@gmail.com>
+
+	* README.md: Add missing double-quote in example
+
+2022-05-25  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/package.R: Support per-distribution blacklist
+	* R/init.R: Idem
+
+	* docker/focal/run/Dockerfile: Note '--security-opt
+	seccomp=unconfined' needed for bspm use
+
 2022-05-22  Dirk Eddelbuettel  <edd@debian.org>
 
 	* README.md: Reword headline
