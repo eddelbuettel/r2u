@@ -445,6 +445,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#can-i-use-current-r2u-with-debian" class="md-nav__link">
+    Can I use (current) r2u with Debian?
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -665,6 +672,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#can-i-use-current-r2u-with-debian" class="md-nav__link">
+    Can I use (current) r2u with Debian?
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -748,6 +762,15 @@ Some (older) builds in the (main) Ubuntu distribution appear to sort higher
 and would block an installation of the freshly made binary (under a
 consistent naming scheme). The <code>apt</code> feature of 'pinning' is what we want
 here to have an entire repository sort higher.</p>
+<p>There can also be other issues related to CRAN allowing a hyphen in version
+(<em>e.g.</em> <a href="https://cran.r-project.org/package=nlme">nlme</a> is currently at
+3.1-157. But Debian and Ubuntu use a hyphen to split off the build iteration
+count so version numbers are sometimes standardised to for example 3.1.157
+switching the hyphen to a dot. Sadly that leads to different sorting. (See
+<a href="https://github.com/eddelbuettel/r2u/issues/7">issue #7</a> for more on an issue
+that was caused by this.)  In general we can not overcome this by pinning,
+and we continue to try to find a more comprehensive solution that is less
+invasive than changing many package version numbers.</p>
 <h3 id="what-is-the-relationship-with-the-c2d4u-ppa">What is the relationship with the c2d4u PPA ?</h3>
 <p>We are huge fans of the c2d4u repository and have used it for a decade or
 longer. It uses the proper build process, and sits on a very solid Launchpad
@@ -756,6 +779,14 @@ less nimble and precludes for example use of external build resources.
 Overall it also still at a fraction of CRAN packages. So we created this repo
 as an experiment to see if we could scale a simple and direct approach, and
 in the hopes it can complement the c2d4u PPA and offer additional packages</p>
+<h3 id="can-i-use-current-r2u-with-debian">Can I use (current) r2u with Debian?</h3>
+<p>In general, it is <em>not</em> a good idea to mix packages from Debian and Ubuntu in
+the same installation. The package management system works so well for either
+because it generally can rely on proper package versions, dependencies, and
+relationships between packages. Mixing, while it may work in small isolated
+cases, is really not suitable to such setups. So we recommend against using
+(the current r2u setup which is Ubuntu-only) on Debian.  (This question was
+also asked in <a href="https://github.com/eddelbuettel/r2u/issues/8">issue #8</a>.)</p>
 <h2 id="bspm">bspm</h2>
 <h3 id="should-i-install-bspm">Should I install bspm?</h3>
 <p>We find it helpful. It allows you to use <code>install.packages()</code> in R, or script

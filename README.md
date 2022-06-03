@@ -196,7 +196,7 @@ As of early May:
 
 - [DONE] Package nlme needed special treatment because the Debian/Ubuntu
   binary changed the 'hyphenated' version to a 'dot-separated' one leading to
-  an inverted sorting order (see issue #7)
+  an inverted sorting order (see issue #7, as well as the FAQ, for more on this).
   
 ### Author
 

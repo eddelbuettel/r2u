@@ -879,7 +879,7 @@ apt update
 use the <a href="https://cloud.r-project.org/bin/linux/ubuntu/">standard CRAN repo setup</a>)</p>
 <pre><code>wget -q -O- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc \
     | tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
-echo "deb [arch=amd64] https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/ \
+echo "deb [arch=amd64] https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/" \
     &gt; /etc/apt/sources.list.d/cran-ubuntu.list
 </code></pre>
 <p>(Again, replace <code>focal</code> with <code>jammy</code> for use with Ubuntu 22.04.)</p>
@@ -929,7 +929,7 @@ only (free) <a href="https://github.com">GitHub</a> and <a href="https://gitpod.
 <ul>
 <li>
 <p>Some geospatial packages do not currently install on 20.04, adding the UbuntuGIS PPA as a base may
-  help. This in not an issue on 22.04.</p>
+  help. This is not an issue on 22.04.</p>
 </li>
 <li>
 <p>The littler package reflects build-time configuration, the RSPM binary is then expecting a
@@ -949,6 +949,11 @@ only (free) <a href="https://github.com">GitHub</a> and <a href="https://gitpod.
 </li>
 <li>
 <p>[DONE] Support for Ubuntu 22.04 has been added as well.</p>
+</li>
+<li>
+<p>[DONE] Package nlme needed special treatment because the Debian/Ubuntu
+  binary changed the 'hyphenated' version to a 'dot-separated' one leading to
+  an inverted sorting order (see issue #7, as well as the FAQ, for more on this).</p>
 </li>
 </ul>
 <h3 id="author">Author</h3>
