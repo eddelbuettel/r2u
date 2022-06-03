@@ -178,7 +178,7 @@ Please file issues at the [GitHub issues for r2u](https://github.com/eddelbuette
 As of early May:
 
 - Some geospatial packages do not currently install on 20.04, adding the UbuntuGIS PPA as a base may
-  help. This in not an issue on 22.04.
+  help. This is not an issue on 22.04.
 
 - The littler package reflects build-time configuration, the RSPM binary is then expecting a
   different R location so it needs a binary rebuild. Added a 'force' flag, may need a list similar
@@ -194,6 +194,10 @@ As of early May:
 
 - [DONE] Support for Ubuntu 22.04 has been added as well.
 
+- [DONE] Package nlme needed special treatment because the Debian/Ubuntu
+  binary changed the 'hyphenated' version to a 'dot-separated' one leading to
+  an inverted sorting order (see issue #7)
+  
 ### Author
 
 Dirk Eddelbuettel
