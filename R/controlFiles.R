@@ -153,6 +153,9 @@
     if (pkg %in% c("foreign", "nlme")) {
         upstreamversion <- gsub("-", ".", upstreamversion)
     }
+    if (pkg %in% c("sp")) {
+        upstreamversion <- paste0("1:", upstreamversion)
+    }
 
     rel <- paste0("r-", repo, "-", lp)
     ver <- paste0(upstreamversion, "-1.ca", gsub("\\.", "", distribution), suffix)
