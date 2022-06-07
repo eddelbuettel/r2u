@@ -1,5 +1,9 @@
 ###  2022 
 
+2022-06-06  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * R/controlFiles.R: Accomodate sp with epoch 
+ 
 2022-06-02  Dirk Eddelbuettel  <edd@debian.org> 
  
         * R/package.R: Accomodate dash-to-dot in nlme and foreign versions 
