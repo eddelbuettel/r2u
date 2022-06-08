@@ -67,9 +67,28 @@ You can wrap `suppressMessages()` around `bspm::enable()`.  We now do so in
 the Docker image.
 
 
-## Other errors
+## 'Cannot connect' errors
 
 ### With the 22.04 "jammy" container I get errors
 
 We found that adding `--security-opt seccomp=unconfined` to the `docker`
-invocation silenced those on AWS hosts.  We did not seem to need them elsewhere.
+invocation silenced those on AWS hosts and possibly other systems.
+
+## Can one use `r2u` with Singularity containers?
+
+Yes, as discussed [in this GitHub issue](https://github.com/eddelbuettel/r2u/issues/9).
+The key is that Singularity does not allow `root` access, yet we need to install packages
+via `bspm`.  The best answer is this to start from the base container, add packages as needed to
+create a new Docker container -- and transfer / transform that container for Singularity use.
+
+The running example in that issue is installing [Seurat](https://cloud.r-project.org/package=Seurat)
+and moderately complex and extended dependencies. Thanks to how `r2u` is set up a simpler Dockerfile
+such as
+
+    FROM eddelbuettel/r2u:22.04
+    RUN install.r Seurat
+
+which by using `install.r` (from [littler](https://github.com/eddelbuettel/littler) along with
+`bspm` turns this into a call to `apt`.  Call as, say, `docker build -t r2u_seurat:22.04 .`
+and enjoy the resulting container `r2u_seurat:22.04` (or give it any other suitable name) and build
+a suitable `.sif` from it as discussed in the issue.
