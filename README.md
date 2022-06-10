@@ -51,11 +51,13 @@ R 4.2.0 is used, and BioConductor 3.15 packages are provided as required by CRAN
 
 ### What is Selected ?
 
-We use [cran-logs](https://cran-logs.rstudio.com/) and started by picking the _N_
+Everything :)
+
+We started from [cran-logs](https://cran-logs.rstudio.com/) by picking the _N_
 most-downloaded packages, along with their dependencies from BioConductor.
 (It should be noted that for example the first 100 packages already account
-for approximately half the total downloads: a very skewed distribution.) We
-iterated, and have now full coverage of CRAN.
+for approximately half the total downloads: it is a very skewed distribution.) We
+iterated, and fairly soon arrived of full coverage of CRAN. 
 
 So we now cover
 
@@ -65,6 +67,9 @@ So we now cover
 This currently resuls in 19066 and 18921 binary packages from CRAN in "focal" and "jammy",
 respectively, and 207 and 215 BioConductor packages, respectively, from the 3.15 release.
 
+The sole exception are two packages we cannot build (as we do not have the
+required commercial software it accessess) plus less than a handful of 'odd
+build' that fail. 
 
 ### What is it Based on?
 
@@ -79,7 +84,7 @@ resolution by using a proper `apt` repo which also has a signed Release file.
 
 ### Usage
 
-(You could use [this script
+(Note that you could use [this script
 `add_cranapt_focal.sh`](https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/add_cranapt_focal.sh)
 or the [variant for
 jammy](https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/add_cranapt_jammy.sh)
