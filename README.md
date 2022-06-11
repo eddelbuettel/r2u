@@ -71,7 +71,7 @@ The sole exception are two packages we cannot build (as we do not have the
 required commercial software it accessess) plus less than a handful of 'odd
 build' that fail. 
 
-### What is it Based on?
+### What is it Based On?
 
 For the CRAN binaries we either repackage RSPM builds (where available) or
 build natively. All selected BioConductor 3.15 packages are built natively.

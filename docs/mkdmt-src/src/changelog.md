@@ -1,8 +1,13 @@
 ###  2022 
 
+2022-06-08  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/docs/FAQ.md: Add entry on Singularity 
+ 
 2022-06-06  Dirk Eddelbuettel  <edd@debian.org> 
  
         * R/controlFiles.R: Accomodate sp with epoch 
+        * README.md: Edits 
  
 2022-06-02  Dirk Eddelbuettel  <edd@debian.org> 
  

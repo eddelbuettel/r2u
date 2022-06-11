@@ -485,11 +485,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#other-errors" class="md-nav__link">
-    Other errors
+  <a href="#cannot-connect-errors" class="md-nav__link">
+    'Cannot connect' errors
   </a>
   
-    <nav class="md-nav" aria-label="Other errors">
+    <nav class="md-nav" aria-label="'Cannot connect' errors">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -501,6 +501,13 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#can-one-use-r2u-with-singularity-containers" class="md-nav__link">
+    Can one use r2u with Singularity containers?
+  </a>
   
 </li>
       
@@ -712,11 +719,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#other-errors" class="md-nav__link">
-    Other errors
+  <a href="#cannot-connect-errors" class="md-nav__link">
+    'Cannot connect' errors
   </a>
   
-    <nav class="md-nav" aria-label="Other errors">
+    <nav class="md-nav" aria-label="'Cannot connect' errors">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -728,6 +735,13 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#can-one-use-r2u-with-singularity-containers" class="md-nav__link">
+    Can one use r2u with Singularity containers?
+  </a>
   
 </li>
       
@@ -796,10 +810,25 @@ Docker image has <code>bspm</code> installed and enabled by default.</p>
 <h3 id="bspm-is-a-little-noisy">bspm is a little noisy</h3>
 <p>You can wrap <code>suppressMessages()</code> around <code>bspm::enable()</code>.  We now do so in
 the Docker image.</p>
-<h2 id="other-errors">Other errors</h2>
+<h2 id="cannot-connect-errors">'Cannot connect' errors</h2>
 <h3 id="with-the-2204-jammy-container-i-get-errors">With the 22.04 "jammy" container I get errors</h3>
 <p>We found that adding <code>--security-opt seccomp=unconfined</code> to the <code>docker</code>
-invocation silenced those on AWS hosts.  We did not seem to need them elsewhere.</p>
+invocation silenced those on AWS hosts and possibly other systems.</p>
+<h2 id="can-one-use-r2u-with-singularity-containers">Can one use <code>r2u</code> with Singularity containers?</h2>
+<p>Yes, as discussed <a href="https://github.com/eddelbuettel/r2u/issues/9">in this GitHub issue</a>.
+The key is that Singularity does not allow <code>root</code> access, yet we need to install packages
+via <code>bspm</code>.  The best answer is this to start from the base container, add packages as needed to
+create a new Docker container -- and transfer / transform that container for Singularity use.</p>
+<p>The running example in that issue is installing <a href="https://cloud.r-project.org/package=Seurat">Seurat</a>
+and moderately complex and extended dependencies. Thanks to how <code>r2u</code> is set up a simpler Dockerfile
+such as</p>
+<pre><code>FROM eddelbuettel/r2u:22.04
+RUN install.r Seurat
+</code></pre>
+<p>which by using <code>install.r</code> (from <a href="https://github.com/eddelbuettel/littler">littler</a> along with
+<code>bspm</code> turns this into a call to <code>apt</code>.  Call as, say, <code>docker build -t r2u_seurat:22.04 .</code>
+and enjoy the resulting container <code>r2u_seurat:22.04</code> (or give it any other suitable name) and build
+a suitable <code>.sif</code> from it as discussed in the issue.</p>
                 
               
               

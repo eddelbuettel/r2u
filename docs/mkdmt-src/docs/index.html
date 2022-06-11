@@ -351,7 +351,7 @@
         
           <li class="md-nav__item">
   <a href="#what-is-it-based-on" class="md-nav__link">
-    What is it Based on?
+    What is it Based On?
   </a>
   
 </li>
@@ -697,7 +697,7 @@
         
           <li class="md-nav__item">
   <a href="#what-is-it-based-on" class="md-nav__link">
-    What is it Based on?
+    What is it Based On?
   </a>
   
 </li>
@@ -838,11 +838,12 @@ unlikely due to a lack of (additional hardware) resources and time.</p>
 time). We hope to cover Debian at some point.</p>
 <p>R 4.2.0 is used, and BioConductor 3.15 packages are provided as required by CRAN packages.</p>
 <h3 id="what-is-selected">What is Selected ?</h3>
-<p>We use <a href="https://cran-logs.rstudio.com/">cran-logs</a> and started by picking the <em>N</em>
+<p>Everything :)</p>
+<p>We started from <a href="https://cran-logs.rstudio.com/">cran-logs</a> by picking the <em>N</em>
 most-downloaded packages, along with their dependencies from BioConductor.
 (It should be noted that for example the first 100 packages already account
-for approximately half the total downloads: a very skewed distribution.) We
-iterated, and have now full coverage of CRAN.</p>
+for approximately half the total downloads: it is a very skewed distribution.) We
+iterated, and fairly soon arrived of full coverage of CRAN. </p>
 <p>So we now cover</p>
 <ul>
 <li><em>all CRAN packages</em> (modulo a handful of blacklisted ones) including all packages needing compilation</li>
@@ -850,7 +851,10 @@ iterated, and have now full coverage of CRAN.</p>
 </ul>
 <p>This currently resuls in 19066 and 18921 binary packages from CRAN in "focal" and "jammy",
 respectively, and 207 and 215 BioConductor packages, respectively, from the 3.15 release.</p>
-<h3 id="what-is-it-based-on">What is it Based on?</h3>
+<p>The sole exception are two packages we cannot build (as we do not have the
+required commercial software it accessess) plus less than a handful of 'odd
+build' that fail. </p>
+<h3 id="what-is-it-based-on">What is it Based On?</h3>
 <p>For the CRAN binaries we either repackage RSPM builds (where available) or
 build natively. All selected BioConductor 3.15 packages are built natively.
 For all of these, full dependency resolution and integration with the system
@@ -858,7 +862,7 @@ is a key feature.</p>
 <p>Everything is provided as <code>.deb</code> binary files with proper dependency
 resolution by using a proper <code>apt</code> repo which also has a signed Release file.</p>
 <h3 id="usage">Usage</h3>
-<p>(You could use <a href="https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/add_cranapt_focal.sh">this script
+<p>(Note that you could use <a href="https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/add_cranapt_focal.sh">this script
 <code>add_cranapt_focal.sh</code></a>
 or the <a href="https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/add_cranapt_jammy.sh">variant for
 jammy</a>
