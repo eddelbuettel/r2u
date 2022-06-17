@@ -158,7 +158,7 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
     }
 
     file <- if (repo == "CRAN" && isFALSE(force)) {
-                .get_package_file(pkg, ver) 				# rspm file, possibly cached
+                .get_package_file(pkg, D[, Version]) 			# rspm file, possibly cached
             } else {
                 .get_source_file(AP[, Package], AP[, Version], AP)
             }

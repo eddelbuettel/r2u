@@ -1,3 +1,7 @@
+2022-06-17  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/package.R (buildPackage): Correct nlme and foreign download
+
 2022-06-08  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/docs/FAQ.md: Add entry on Singularity
