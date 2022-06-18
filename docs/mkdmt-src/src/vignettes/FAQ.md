@@ -52,6 +52,19 @@ cases, is really not suitable to such setups. So we recommend against using
 (the current r2u setup which is Ubuntu-only) on Debian.  (This question was
 also asked in [issue #8](https://github.com/eddelbuettel/r2u/issues/8).)
 
+### Can I install Bioconductor packages from Ubuntu not in r2u
+
+Ubuntu contains a number of Debian packages `r-bioc-*`. However, the
+distribution cutoff for the 'jammy' (22.04) cutoff was before Bioconductor 3.15
+was released so these packages have a dependency on the 'r-api-bioc-3.14'
+(virtual) package. To satisfy this with our r2u packages, which are based on
+the newer Bioconductor 3.15, we added a small [virtual package
+`bioc-api-package`](https://github.com/eddelbuettel/bioc-api-package) that we
+added to the repo. So after `sudo apt install bioc-api-package` installation of
+the addional Bioconductor packages in jammy can proceed. See [issue
+#11](https://github.com/eddelbuettel/r2u/issues/11) for more. 
+
+
 ## bspm
 
 ### Should I install bspm?
