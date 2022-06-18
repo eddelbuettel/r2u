@@ -1,5 +1,15 @@
 ###  2022 
 
+2022-06-18  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * README.md (Pinning): Refined setup with origin and label 
+        * inst/scripts/add_cranapt_{focal,jammy}.sh: Idem 
+        * docker/{focal,jammy}/{build,run}: Idem 
+ 
+2022-06-17  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * R/package.R (buildPackage): Correct nlme and foreign download 
+ 
 2022-06-08  Dirk Eddelbuettel  <edd@debian.org> 
  
         * inst/docs/FAQ.md: Add entry on Singularity 

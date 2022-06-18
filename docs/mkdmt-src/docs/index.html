@@ -906,7 +906,8 @@ newer. A case in point was package <code>gtable</code> whose version in Ubuntu w
 a newer and more consistent version number <code>0.3.0-1.ca2004.1</code>.  One possible
 fix is 'apt pinning'. Place a file <code>/etc/apt/preferences.d/99cranapt</code> with content</p>
 <pre><code>Package: *
-Pin: origin "dirk.eddelbuettel.com"
+Pin: release o=CRAN-Apt Project
+Pin: release l=CRAN-Apt Packages
 Pin-Priority: 700
 </code></pre>
 <p>which will now give packages from this repo a higher default priority of 700
