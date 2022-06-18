@@ -141,7 +141,8 @@ a newer and more consistent version number `0.3.0-1.ca2004.1`.  One possible
 fix is 'apt pinning'. Place a file `/etc/apt/preferences.d/99cranapt` with content
 
     Package: *
-    Pin: origin "dirk.eddelbuettel.com"
+    Pin: release o=CRAN-Apt Project
+    Pin: release l=CRAN-Apt Packages
     Pin-Priority: 700
 
 which will now give packages from this repo a higher default priority of 700

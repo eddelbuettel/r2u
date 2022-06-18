@@ -1,3 +1,4 @@
 Package: *
-Pin: origin "dirk.eddelbuettel.com"
+Pin: release o=CRAN-Apt Project
+Pin: release l=CRAN-Apt Packages
 Pin-Priority: 700

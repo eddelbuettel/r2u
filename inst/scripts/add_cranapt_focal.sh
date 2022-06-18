@@ -17,7 +17,8 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 67C2D66C4B1D4339
 
 ## Fourth: add pinning to ensure package sorting
 echo "Package: *" > /etc/apt/preferences.d/99cranapt
-echo "Pin: origin \"dirk.eddelbuettel.com\"" >> /etc/apt/preferences.d/99cranapt
+echo "Pin: release o=CRAN-Apt Project" >> /etc/apt/preferences.d/99cranapt
+echo "Pin: release l=CRAN-Apt Packages" >> /etc/apt/preferences.d/99cranapt
 echo "Pin-Priority: 700"  >> /etc/apt/preferences.d/99cranapt
 
 ## Fifth: install bspm and enable it

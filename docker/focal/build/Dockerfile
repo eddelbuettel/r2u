@@ -21,5 +21,6 @@ RUN apt update -qq && apt upgrade --yes
 
 COPY debBuild.sh /usr/local/bin
 COPY cranapt.list /etc/apt/sources.list.d
+COPY 99cranapt /etc/apt/preferences.d
 
 CMD ["bash"]

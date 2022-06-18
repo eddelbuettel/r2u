@@ -22,7 +22,8 @@ echo "deb [arch=amd64] https://cloud.r-project.org/bin/linux/ubuntu jammy-cran40
 
 ## Fourth: add pinning to ensure package sorting
 echo "Package: *" > /etc/apt/preferences.d/99cranapt
-echo "Pin: origin \"dirk.eddelbuettel.com\"" >> /etc/apt/preferences.d/99cranapt
+echo "Pin: release o=CRAN-Apt Project" >> /etc/apt/preferences.d/99cranapt
+echo "Pin: release l=CRAN-Apt Packages" >> /etc/apt/preferences.d/99cranapt
 echo "Pin-Priority: 700"  >> /etc/apt/preferences.d/99cranapt
 
 ## Fifth: install bspm and enable it
