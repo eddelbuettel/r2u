@@ -140,11 +140,10 @@
     invisible()
 }
 
-.loadDB <- function() {
+.loadDB <- function(hrs = .pkgenv[["cache_age_hours_cran_db"]]) {
     if (is.na(match("db", names(.pkgenv)))) {
         .debug_message("Reading db\n")
         dbfile <- .defaultCRANDBFile()
-        hrs <- .pkgenv[["cache_age_hours_cran_db"]]
         if (file.exists(dbfile) && as.numeric(difftime(Sys.time(), file.info(dbfile)$ctime, units="hours")) < hrs) {
             db <- readRDS(dbfile)
             .debug_message("Cached db\n")
@@ -180,11 +179,10 @@
     db
 }
 
-.loadAP <- function() {
+.loadAP <- function(hrs = .pkgenv[["cache_age_hours_cran_db"]]) {
     if (is.na(match("ap", names(.pkgenv)))) {
         .debug_message("Getting ap\n")
         apfile <- .defaultAPFile()
-        hrs <- .pkgenv[["cache_age_hours_cran_db"]]
         if (file.exists(apfile) &&
             as.numeric(difftime(Sys.time(), file.info(apfile)$ctime, units="hours")) < hrs) {
             ap <- readRDS(apfile)
