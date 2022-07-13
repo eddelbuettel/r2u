@@ -19,6 +19,9 @@
         p <- ap[Package==j, deb]
         cat(", ", p ,sep="", file=con, append=TRUE)
     }
+    if (dt[1,Package] == "rJava") {
+        cat(", default-jre", sep="", file=con, append=TRUE)
+    }
 }
 
 .addImports <- function(dt, ap, con) {
