@@ -155,6 +155,10 @@ There are also two Docker containers for Ubuntu 20.04 'focal' and 22.04 'jammy',
 [eddelbuettel/r2u](https://hub.docker.com/repository/docker/eddelbuettel/r2u) that have the above,
 including pinning and [bspm](https://cran.r-project.org/package=bspm) support, already set up.
 
+Note that with recent builds of Docker you may have to add the `--security-opt seccomp=unconfined`
+option to your Docker invocation to take advantage of bspm and the full system integration inside
+the container. This was already documented in the [FAQ](https://eddelbuettel.github.io/r2u/vignettes/FAQ/).
+
 
 ### Try It
 
@@ -181,11 +185,6 @@ Please file issues at the [GitHub issues for r2u](https://github.com/eddelbuette
 
 ### Known Issues
 
-As of early May:
-
-- Some geospatial packages do not currently install on 20.04, adding the UbuntuGIS PPA as a base may
-  help. This is not an issue on 22.04.
-
 - The littler package reflects build-time configuration, the RSPM binary is then expecting a
   different R location so it needs a binary rebuild. Added a 'force' flag, may need a list similar
   to the blacklist to always compiled.
@@ -193,20 +192,29 @@ As of early May:
 - A small number of packages do not build for lack required components; examples are ROracle and
   Rcplex.  They, and their reverse dependencies, are are blacklisted and not built.
 
+
 ### Fixed Issues
 
-- [DONE] The BioConductor release is still at 3.14 and should be upgraded to the
-  now-current 3.15.
+- [DONE] In May, some geospatial packages do not currently install on 20.04, adding the UbuntuGIS
+  PPA as a base may help. This is not an issue on 22.04. It also no longer appears to be an issue
+  with 20.04 now.
+
+- [DONE] The BioConductor release is still at 3.14 and should be upgraded to the now-current 3.15.
 
 - [DONE] Support for Ubuntu 22.04 has been added as well.
 
-- [DONE] Package nlme needed special treatment because the Debian/Ubuntu
-  binary changed the 'hyphenated' version to a 'dot-separated' one leading to
-  an inverted sorting order (see issue #7, as well as the FAQ, for more on this).
+- [DONE] Package nlme needed special treatment because the Debian/Ubuntu binary changed the
+  'hyphenated' version to a 'dot-separated' one leading to an inverted sorting order (see issue #7,
+  as well as the FAQ, for more on this).
   
+- Because Java is so special (and keeps its libraries 'elsewhere', the shared library dependence for
+  package rJava was not fully specified. We added a special treatment for it.
+
+
 ### Author
 
 Dirk Eddelbuettel
+
 
 ### License
 

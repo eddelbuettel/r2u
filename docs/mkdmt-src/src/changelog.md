@@ -1,5 +1,14 @@
 ###  2022 
 
+2022-07-12  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * R/controlFiles.R (.addDepends): Special-case 'rJava' which does not 
+        resolve its shared library given that Java libs are hidden 
+ 
+2022-07-07  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * R/init.R (.loadDB, .loadAP): Make cache age a function parameter 
+ 
 2022-06-18  Dirk Eddelbuettel  <edd@debian.org> 
  
         * README.md (Pinning): Refined setup with origin and label 

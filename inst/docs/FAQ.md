@@ -61,8 +61,8 @@ was released so these packages have a dependency on the 'r-api-bioc-3.14'
 the newer Bioconductor 3.15, we added a small [virtual package
 `bioc-api-package`](https://github.com/eddelbuettel/bioc-api-package) that we
 added to the repo. So after `sudo apt install bioc-api-package` installation of
-the addional Bioconductor packages in jammy can proceed. See [issue
-#11](https://github.com/eddelbuettel/r2u/issues/11) for more. 
+the addional Bioconductor packages in jammy can proceed. For more details see 
+[issue #11](https://github.com/eddelbuettel/r2u/issues/11). 
 
 
 ## bspm
@@ -105,3 +105,9 @@ which by using `install.r` (from [littler](https://github.com/eddelbuettel/littl
 `bspm` turns this into a call to `apt`.  Call as, say, `docker build -t r2u_seurat:22.04 .`
 and enjoy the resulting container `r2u_seurat:22.04` (or give it any other suitable name) and build
 a suitable `.sif` from it as discussed in the issue.
+
+
+## How can one know when it was updated
+
+We follow RSPM builds so their [update tracker](https://packagemanager.rstudio.com/client/#/repos/1/activity)
+there can be helpful. We currently have no 'lastBuilt' tag on the website but could add one if that helped.
