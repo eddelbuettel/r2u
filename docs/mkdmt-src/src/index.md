@@ -3,9 +3,9 @@
 
 ### Key features
 
-- **Full integration with `apt`** as every binary resolves _all_ dependencies: No
-  more installations (of pre-built archives) only to discover that a shared
-  library is missing. No more surprises.
+- **Full integration with `apt`** as every binary resolves _all_ its dependencies: No more
+  installations (of pre-built archives) only to discover that a shared library is missing. No more
+  surprises.
 
 - **Full integration with `apt`** so that an update of a system library
   cannot break an R package: if a (shared) library is used by a CRAN, the
@@ -15,20 +15,20 @@
 - **Installations are fast, automated and reversible** thanks to package
   management layer.
 
-- **Complete coverage** with (currently) ~ 19,000 CRAN packages
-  (and 200+ from BioConductor).
+- **Complete coverage** with (currently) ~ 19,300 CRAN packages
+  (and 220+ from BioConductor).
 
 - Complete support for both **Ubuntu 20.04** ("focal") **and Ubuntu 22.04** ("jammy").
 
-- Optional (but recommeded) use with [bspm](https://cloud.r-project.org/package=bspm) 
-  automagically connects R functions like `install.packages()` to `apt` for access to binaries 
+- Optional (but recommeded) [bspm](https://cloud.r-project.org/package=bspm) use
+  **automagically connects R functions like `install.packages()` to `apt`** for access to binaries 
   _and_ dependencies.
 
 
 ### Brief Demo
 
-The gif shows how _one `install.packages("tidyverse")` command_ on an Ubuntu
-20.04 system _installs all packages as binaries in 18 seconds_ (by passing the
+The gif below shows how _one `install.packages("tidyverse")` command_ on an Ubuntu
+20.04 system _installs all packages and dependencies as binaries in 18 seconds_ (by passing the
 R package installation to `apt` using [bspm](https://cloud.r-project.org/package=bspm)).
 
 ![](https://eddelbuettel.github.io/r2u/assets/tidyverse_from_r2u_2022-05-04_17-09.gif)
@@ -39,50 +39,50 @@ the five easy setup steps detailed here.
 
 ### What is Covered ?
 
-We currently support amd64 (_i.e._ standard Intel/AMD cpus) for both the 'focal' 20.04 LTS and
-'jammy' 22.04 LTS releases.  Support for other cpu architectures is certainly possible but somewhat
-unlikely due to a lack of (additional hardware) resources and time.
+We generally support amd64 (_i.e._ standard Intel/AMD cpus) for the Ubuntu LTS release and the
+predecessor release.  We use 'r-release' just like CRAN. So currently the 'focal' 20.04 LTS and
+'jammy' 22.04 LTS releases are fully supported.
 
-Support for other distributions is possible but unlikely right now (due to a lack of resources and
-time). We hope to cover Debian at some point.
+Support for other cpu architectures is certainly possible but somewhat unlikely due to a lack of
+(additional hardware) resources and time. Support for other distributions is possible but unlikely
+right now (due to a lack of resources and time). We hope to cover Debian at some point.
 
-R 4.2.0 is used, and BioConductor 3.15 packages are provided as required by CRAN packages.
+Current versions are R 4.2.1, and BioConductor release 3.15 packages are provided when required by
+CRAN packages.
 
 
 ### What is Selected ?
 
 Everything :)
 
-We started from [cran-logs](https://cran-logs.rstudio.com/) by picking the _N_
-most-downloaded packages, along with their dependencies from BioConductor.
-(It should be noted that for example the first 100 packages already account
-for approximately half the total downloads: it is a very skewed distribution.) We
-iterated, and fairly soon arrived of full coverage of CRAN. 
+Initially, we started from [cran-logs](https://cran-logs.rstudio.com/) by picking the _N_
+most-downloaded packages, along with their dependencies from BioConductor.  (It should be noted that
+for example the first 100 packages already account for approximately half the total downloads: it is
+a very skewed distribution.) We iterated, and fairly soon arrived of full coverage of CRAN.
 
 So we now cover
 
-- *all CRAN packages* (modulo a handful of blacklisted ones) including all packages needing compilation
+- *all CRAN packages* (modulo at best handful of blacklisted ones) including all packages needing
+  compilation
 - all BioConductor package that are implied by these (and build for us).
 
-This currently resuls in 19066 and 18921 binary packages from CRAN in "focal" and "jammy",
-respectively, and 207 and 215 BioConductor packages, respectively, from the 3.15 release.
+This currently resuls in 19504 and 19386 binary packages from CRAN in "focal" and "jammy",
+respectively, and 215 and 224 BioConductor packages, respectively, from the 3.15 release.
 
-The sole exception are two packages we cannot build (as we do not have the
-required commercial software it accessess) plus less than a handful of 'odd
-build' that fail. 
+The sole exception are two packages we cannot build (as we do not have the required commercial
+software it accessess) plus less than a handful of 'odd build' that fail.
 
 ### What is it Based On?
 
-For the CRAN binaries we either repackage RSPM builds (where available) or
-build natively. All selected BioConductor 3.15 packages are built natively.
-For all of these, full dependency resolution and integration with the system
-is a key feature.
+For the CRAN binaries we either repackage RSPM builds (where available) or build natively. All
+selected BioConductor 3.15 packages are built natively.  For all of these, full dependency
+resolution and integration with the system is a key feature.
 
 Everything is provided as `.deb` binary files with proper dependency
 resolution by using a proper `apt` repo which also has a signed Release file.
 
 
-### Usage
+### Usage and Setup
 
 (Note that you could use [this script
 `add_cranapt_focal.sh`](https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/add_cranapt_focal.sh)
@@ -126,7 +126,8 @@ via `aptitude` as well as other front-ends.
 Fifth, and also optional, install and enable the
 [bspm](https://cloud.r-project.org/package=bspm) package so that CRANapt and
 other packages become available via `install.packages()` and
-`update.packages()`.
+`update.packages()`. Note that you may need to install it directly from source via `sudo Rscript -e
+'install.packages("bspm")'` to ensure it integrates correctly with the packaging system.
 
 
 
@@ -207,14 +208,14 @@ Please file issues at the [GitHub issues for r2u](https://github.com/eddelbuette
   'hyphenated' version to a 'dot-separated' one leading to an inverted sorting order (see issue #7,
   as well as the FAQ, for more on this).
   
-- Because Java is so special (and keeps its libraries 'elsewhere', the shared library dependence for
+- [DONE] Because Java is so special (and keeps its libraries 'elsewhere', the shared library dependence for
   package rJava was not fully specified. We added a special treatment for it.
 
+- [DONE] Both `sf` and `terra` needed a dependency adjustment on 'focal' for their most recent versions.
 
 ### Author
 
 Dirk Eddelbuettel
-
 
 ### License
 

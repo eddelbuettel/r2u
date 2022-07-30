@@ -357,8 +357,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#usage" class="md-nav__link">
-    Usage
+  <a href="#usage-and-setup" class="md-nav__link">
+    Usage and Setup
   </a>
   
 </li>
@@ -703,8 +703,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#usage" class="md-nav__link">
-    Usage
+  <a href="#usage-and-setup" class="md-nav__link">
+    Usage and Setup
   </a>
   
 </li>
@@ -796,9 +796,9 @@
 <h3 id="key-features">Key features</h3>
 <ul>
 <li>
-<p><strong>Full integration with <code>apt</code></strong> as every binary resolves <em>all</em> dependencies: No
-  more installations (of pre-built archives) only to discover that a shared
-  library is missing. No more surprises.</p>
+<p><strong>Full integration with <code>apt</code></strong> as every binary resolves <em>all</em> its dependencies: No more
+  installations (of pre-built archives) only to discover that a shared library is missing. No more
+  surprises.</p>
 </li>
 <li>
 <p><strong>Full integration with <code>apt</code></strong> so that an update of a system library
@@ -811,57 +811,57 @@
   management layer.</p>
 </li>
 <li>
-<p><strong>Complete coverage</strong> with (currently) ~ 19,000 CRAN packages
-  (and 200+ from BioConductor).</p>
+<p><strong>Complete coverage</strong> with (currently) ~ 19,300 CRAN packages
+  (and 220+ from BioConductor).</p>
 </li>
 <li>
 <p>Complete support for both <strong>Ubuntu 20.04</strong> ("focal") <strong>and Ubuntu 22.04</strong> ("jammy").</p>
 </li>
 <li>
-<p>Optional (but recommeded) use with <a href="https://cloud.r-project.org/package=bspm">bspm</a> 
-  automagically connects R functions like <code>install.packages()</code> to <code>apt</code> for access to binaries 
+<p>Optional (but recommeded) <a href="https://cloud.r-project.org/package=bspm">bspm</a> use
+  <strong>automagically connects R functions like <code>install.packages()</code> to <code>apt</code></strong> for access to binaries 
   <em>and</em> dependencies.</p>
 </li>
 </ul>
 <h3 id="brief-demo">Brief Demo</h3>
-<p>The gif shows how <em>one <code>install.packages("tidyverse")</code> command</em> on an Ubuntu
-20.04 system <em>installs all packages as binaries in 18 seconds</em> (by passing the
+<p>The gif below shows how <em>one <code>install.packages("tidyverse")</code> command</em> on an Ubuntu
+20.04 system <em>installs all packages and dependencies as binaries in 18 seconds</em> (by passing the
 R package installation to <code>apt</code> using <a href="https://cloud.r-project.org/package=bspm">bspm</a>).</p>
 <p><img alt="" src="https://eddelbuettel.github.io/r2u/assets/tidyverse_from_r2u_2022-05-04_17-09.gif" /></p>
 <p>This uses the Docker container referenced below, which has been set up with
 the five easy setup steps detailed here.</p>
 <h3 id="what-is-covered">What is Covered ?</h3>
-<p>We currently support amd64 (<em>i.e.</em> standard Intel/AMD cpus) for both the 'focal' 20.04 LTS and
-'jammy' 22.04 LTS releases.  Support for other cpu architectures is certainly possible but somewhat
-unlikely due to a lack of (additional hardware) resources and time.</p>
-<p>Support for other distributions is possible but unlikely right now (due to a lack of resources and
-time). We hope to cover Debian at some point.</p>
-<p>R 4.2.0 is used, and BioConductor 3.15 packages are provided as required by CRAN packages.</p>
+<p>We generally support amd64 (<em>i.e.</em> standard Intel/AMD cpus) for the Ubuntu LTS release and the
+predecessor release.  We use 'r-release' just like CRAN. So currently the 'focal' 20.04 LTS and
+'jammy' 22.04 LTS releases are fully supported.</p>
+<p>Support for other cpu architectures is certainly possible but somewhat unlikely due to a lack of
+(additional hardware) resources and time. Support for other distributions is possible but unlikely
+right now (due to a lack of resources and time). We hope to cover Debian at some point.</p>
+<p>Current versions are R 4.2.1, and BioConductor release 3.15 packages are provided when required by
+CRAN packages.</p>
 <h3 id="what-is-selected">What is Selected ?</h3>
 <p>Everything :)</p>
-<p>We started from <a href="https://cran-logs.rstudio.com/">cran-logs</a> by picking the <em>N</em>
-most-downloaded packages, along with their dependencies from BioConductor.
-(It should be noted that for example the first 100 packages already account
-for approximately half the total downloads: it is a very skewed distribution.) We
-iterated, and fairly soon arrived of full coverage of CRAN. </p>
+<p>Initially, we started from <a href="https://cran-logs.rstudio.com/">cran-logs</a> by picking the <em>N</em>
+most-downloaded packages, along with their dependencies from BioConductor.  (It should be noted that
+for example the first 100 packages already account for approximately half the total downloads: it is
+a very skewed distribution.) We iterated, and fairly soon arrived of full coverage of CRAN.</p>
 <p>So we now cover</p>
 <ul>
-<li><em>all CRAN packages</em> (modulo a handful of blacklisted ones) including all packages needing compilation</li>
+<li><em>all CRAN packages</em> (modulo at best handful of blacklisted ones) including all packages needing
+  compilation</li>
 <li>all BioConductor package that are implied by these (and build for us).</li>
 </ul>
-<p>This currently resuls in 19066 and 18921 binary packages from CRAN in "focal" and "jammy",
-respectively, and 207 and 215 BioConductor packages, respectively, from the 3.15 release.</p>
-<p>The sole exception are two packages we cannot build (as we do not have the
-required commercial software it accessess) plus less than a handful of 'odd
-build' that fail. </p>
+<p>This currently resuls in 19504 and 19386 binary packages from CRAN in "focal" and "jammy",
+respectively, and 215 and 224 BioConductor packages, respectively, from the 3.15 release.</p>
+<p>The sole exception are two packages we cannot build (as we do not have the required commercial
+software it accessess) plus less than a handful of 'odd build' that fail.</p>
 <h3 id="what-is-it-based-on">What is it Based On?</h3>
-<p>For the CRAN binaries we either repackage RSPM builds (where available) or
-build natively. All selected BioConductor 3.15 packages are built natively.
-For all of these, full dependency resolution and integration with the system
-is a key feature.</p>
+<p>For the CRAN binaries we either repackage RSPM builds (where available) or build natively. All
+selected BioConductor 3.15 packages are built natively.  For all of these, full dependency
+resolution and integration with the system is a key feature.</p>
 <p>Everything is provided as <code>.deb</code> binary files with proper dependency
 resolution by using a proper <code>apt</code> repo which also has a signed Release file.</p>
-<h3 id="usage">Usage</h3>
+<h3 id="usage-and-setup">Usage and Setup</h3>
 <p>(Note that you could use <a href="https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/add_cranapt_focal.sh">this script
 <code>add_cranapt_focal.sh</code></a>
 or the <a href="https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/add_cranapt_jammy.sh">variant for
@@ -896,7 +896,8 @@ via <code>aptitude</code> as well as other front-ends.</p>
 <p>Fifth, and also optional, install and enable the
 <a href="https://cloud.r-project.org/package=bspm">bspm</a> package so that CRANapt and
 other packages become available via <code>install.packages()</code> and
-<code>update.packages()</code>.</p>
+<code>update.packages()</code>. Note that you may need to install it directly from source via <code>sudo Rscript -e
+'install.packages("bspm")'</code> to ensure it integrates correctly with the packaging system.</p>
 <h3 id="pinning">Pinning</h3>
 <p>Because we let <code>apt</code> (and related tools) pick the packages, we have to ensure
 that the CRANapt repo sorts higher than the default repo as (older)
@@ -963,8 +964,11 @@ only (free) <a href="https://github.com">GitHub</a> and <a href="https://gitpod.
   as well as the FAQ, for more on this).</p>
 </li>
 <li>
-<p>Because Java is so special (and keeps its libraries 'elsewhere', the shared library dependence for
+<p>[DONE] Because Java is so special (and keeps its libraries 'elsewhere', the shared library dependence for
   package rJava was not fully specified. We added a special treatment for it.</p>
+</li>
+<li>
+<p>[DONE] Both <code>sf</code> and <code>terra</code> needed a dependency adjustment on 'focal' for their most recent versions.</p>
 </li>
 </ul>
 <h3 id="author">Author</h3>
