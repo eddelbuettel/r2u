@@ -1,3 +1,8 @@
+2022-08-01  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/dockerize/Dockerfile: Add 'dockerize' example
+	* inst/dockerize/README.md: Short description
+
 2022-07-12  Dirk Eddelbuettel  <edd@debian.org>
 
 	* R/controlFiles.R (.addDepends): Special-case 'rJava' which does not
