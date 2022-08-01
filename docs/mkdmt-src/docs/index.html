@@ -944,6 +944,12 @@ only (free) <a href="https://github.com">GitHub</a> and <a href="https://gitpod.
 <p>A small number of packages do not build for lack required components; examples are ROracle and
   Rcplex.  They, and their reverse dependencies, are are blacklisted and not built.</p>
 </li>
+<li>
+<p>r2u is an <code>apt</code> repo, which via <code>bspm</code> becomes used "automagically" via standard R calls of
+  <code>install.packages()</code> and alike. That last part is important: package installations that do not use
+  <code>install.packages()</code> (such as the RStudio GUI, <code>renv</code>, <code>rig</code>, ...) do not benefit from
+  <code>install.packages()</code> calling <code>apt</code> for you, and cannot take advantage of r2u.</p>
+</li>
 </ul>
 <h3 id="fixed-issues">Fixed Issues</h3>
 <ul>
