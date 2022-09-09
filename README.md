@@ -15,8 +15,8 @@
 - **Installations are fast, automated and reversible** thanks to package
   management layer.
 
-- **Complete coverage** with (currently) ~ 19,300 CRAN packages
-  (and 220+ from BioConductor).
+- **Complete coverage** with (currently) ~ 19,700 CRAN packages
+  (and 230+ from BioConductor).
 
 - Complete support for both **Ubuntu 20.04** ("focal") **and Ubuntu 22.04** ("jammy").
 
@@ -66,8 +66,8 @@ So we now cover
   compilation
 - all BioConductor package that are implied by these (and build for us).
 
-This currently resuls in 19504 and 19386 binary packages from CRAN in "focal" and "jammy",
-respectively, and 215 and 224 BioConductor packages, respectively, from the 3.15 release.
+This currently resuls in 19772 and 19667 binary packages from CRAN in "focal" and "jammy",
+respectively, and 230 and 235 BioConductor packages, respectively, from the 3.15 release.
 
 The sole exception are two packages we cannot build (as we do not have the required commercial
 software it accessess) plus less than a handful of 'odd build' that fail.
