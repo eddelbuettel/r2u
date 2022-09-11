@@ -15,7 +15,7 @@ wget -q -O- https://eddelbuettel.github.io/r2u/assets/dirk_eddelbuettel_key.asc 
     | tee -a /etc/apt/trusted.gpg.d/cranapt_key.asc
 echo "deb [arch=amd64] https://dirk.eddelbuettel.com/cranapt jammy main" > /etc/apt/sources.list.d/cranapt.list
 
-## Third: ensure R 4.2.0 is used (could use Launchpad source or edd PPA too)
+## Third: ensure current R is used (could use Launchpad source or edd PPA too)
 wget -q -O- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc \
     | tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
 echo "deb [arch=amd64] https://cloud.r-project.org/bin/linux/ubuntu jammy-cran40/" > /etc/apt/sources.list.d/cran_r.list

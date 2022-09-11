@@ -11,7 +11,7 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A1489FE2AB99A21A
 echo "deb [arch=amd64] https://dirk.eddelbuettel.com/cranapt focal main" > /etc/apt/sources.list.d/cranapt.list
 apt update
 
-## Third: ensure R 4.2.0 is used
+## Third: ensure current R is used
 echo "deb [arch=amd64] https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/" > /etc/apt/sources.list.d/edd-misc.list
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 67C2D66C4B1D4339
 

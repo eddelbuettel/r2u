@@ -105,7 +105,7 @@ Second, add the repository to the `apt` registry:
 
 (Replace `focal` with `jammy` for use with Ubuntu 22.04.)
 
-Third, and optionally, if you do not yet have R 4.2.0 run these two lines (or
+Third, and optionally, if you do not yet have the current R version, run these two lines (or
 use the [standard CRAN repo setup](https://cloud.r-project.org/bin/linux/ubuntu/))
 
     wget -q -O- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc \
