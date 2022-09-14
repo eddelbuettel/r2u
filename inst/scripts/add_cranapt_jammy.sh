@@ -14,6 +14,7 @@ apt install --yes --no-install-recommends wget ca-certificates
 wget -q -O- https://eddelbuettel.github.io/r2u/assets/dirk_eddelbuettel_key.asc \
     | tee -a /etc/apt/trusted.gpg.d/cranapt_key.asc
 echo "deb [arch=amd64] https://dirk.eddelbuettel.com/cranapt jammy main" > /etc/apt/sources.list.d/cranapt.list
+apt update
 
 ## Third: ensure current R is used (could use Launchpad source or edd PPA too)
 wget -q -O- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc \
