@@ -15,6 +15,9 @@
 - **Installations are fast, automated and reversible** thanks to package
   management layer.
 
+- **Fast and well-connected mirror** at
+  [r2u.stat.illinois.edu](https://r2u.stat.illinois.edu) on the [Internet2](https://internet2.edu/) 
+
 - **Complete coverage** with (currently) ~ 19,700 CRAN packages
   (and 230+ from BioConductor).
 
@@ -97,13 +100,19 @@ First add the repository key so that `apt` knows it (this is optional but recomm
     wget -q -O- https://eddelbuettel.github.io/r2u/assets/dirk_eddelbuettel_key.asc \
         | tee -a /etc/apt/trusted.gpg.d/cranapt_key.asc
 
-Second, add the repository to the `apt` registry:
+Second, add the repository to the `apt` registry. You can use the original host
 
     echo "deb [arch=amd64] https://dirk.eddelbuettel.com/cranapt focal main" \
         > /etc/apt/sources.list.d/cranapt.list
     apt update
 
-(Replace `focal` with `jammy` for use with Ubuntu 22.04.)
+_or_ use the mirror at the [University of Illinois Urbana-Champaign](https://illinois.edu/):
+
+    echo "deb [arch=amd64] https://r2u.stat.illinois.edu/ubuntu focal main" \
+        > /etc/apt/sources.list.d/cranapt.list
+    apt update
+
+(In either example, replace `focal` with `jammy` for use with Ubuntu 22.04.)
 
 Third, and optionally, if you do not yet have the current R version, run these two lines (or
 use the [standard CRAN repo setup](https://cloud.r-project.org/bin/linux/ubuntu/))

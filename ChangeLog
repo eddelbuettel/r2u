@@ -1,3 +1,11 @@
+2022-09-16  Dirk Eddelbuettel  <edd@debian.org>
+
+	* README.md: Mention the new mirror r2u.stat.illinois.edu
+	* inst/scripts/add_cranapt_focal.sh: Use r2u.stat.illinois.edu
+	* inst/scripts/add_cranapt_jammy.sh: Idem
+	* docker/focal/run/cranapt.list: Idem
+	* docker/jammy/run/cranapt.list: Idem
+
 2022-09-14  John Blischak  <jdblischak@gmail.com>
 
 	* inst/scripts/add_cranapt_jammy.sh: Add missing 'apt update'

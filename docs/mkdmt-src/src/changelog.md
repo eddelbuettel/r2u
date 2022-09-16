@@ -1,5 +1,27 @@
 ###  2022 
 
+2022-09-16  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * README.md: Mention the new mirror r2u.stat.illinois.edu 
+        * inst/scripts/add_cranapt_focal.sh: Use r2u.stat.illinois.edu 
+        * inst/scripts/add_cranapt_jammy.sh: Idem 
+        * docker/focal/run/cranapt.list: Idem 
+        * docker/jammy/run/cranapt.list: Idem 
+ 
+2022-09-14  John Blischak  <jdblischak@gmail.com> 
+ 
+        * inst/scripts/add_cranapt_jammy.sh: Add missing 'apt update' 
+ 
+2022-09-11  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * README.md: Update to state 'current R' via CRAN apt repo 
+        * inst/scripts/add_cranapt_focal.sh: Idem 
+        * inst/scripts/add_cranapt_jammy.sh: Idem 
+ 
+2022-09-08  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * README.md: Update package number 
+ 
 2022-08-01  Dirk Eddelbuettel  <edd@debian.org> 
  
         * inst/dockerize/Dockerfile: Add 'dockerize' example 

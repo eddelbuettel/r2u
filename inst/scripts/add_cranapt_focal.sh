@@ -7,8 +7,9 @@ apt update -qq
 apt install --yes --no-install-recommends gpg-agent  	# to add the key
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A1489FE2AB99A21A
 
-## Second: add the repo
-echo "deb [arch=amd64] https://dirk.eddelbuettel.com/cranapt focal main" > /etc/apt/sources.list.d/cranapt.list
+## Second: add the repo -- here we now use the mirror
+##echo "deb [arch=amd64] https://dirk.eddelbuettel.com/cranapt focal main" > /etc/apt/sources.list.d/cranapt.list
+echo "deb [arch=amd64] https://r2u.stat.illinois.edu/ubuntu focal main" > /etc/apt/sources.list.d/cranapt.list
 apt update
 
 ## Third: ensure current R is used
