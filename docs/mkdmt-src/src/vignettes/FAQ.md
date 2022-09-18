@@ -74,6 +74,8 @@ We find it helpful. It allows you to use `install.packages()` in R, or script
 which is more natural. `bspm` will call `apt` for you. Hence our default
 Docker image has `bspm` installed and enabled by default.
 
+(Also see below though for `docker build` and `bspm`.)
+
 ### bspm is a little noisy
 
 You can wrap `suppressMessages()` around `bspm::enable()`.  We now do so in
@@ -85,7 +87,14 @@ the Docker image.
 ### With the 22.04 "jammy" container I get errors
 
 We found that adding `--security-opt seccomp=unconfined` to the `docker`
-invocation silenced those on AWS hosts and possibly other systems.
+invocation silenced those on AWS hosts and possibly other systems. 
+This may be related to Ubuntu hosts only.
+
+A side-effect of this required security policy statement for `bspm` is that
+`bspm` is not available when building containers off `r2u`. 
+It appears that Docker rules this out during builds.
+The only remedy is to use `bspm::disable()` and to rely on just `apt` to
+install the `r2u` packages in derived containers.
 
 ## Can one use `r2u` with Singularity containers?
 

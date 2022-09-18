@@ -165,9 +165,15 @@ There are also two Docker containers for Ubuntu 20.04 'focal' and 22.04 'jammy',
 [eddelbuettel/r2u](https://hub.docker.com/repository/docker/eddelbuettel/r2u) that have the above,
 including pinning and [bspm](https://cran.r-project.org/package=bspm) support, already set up.
 
-Note that with recent builds of Docker you may have to add the `--security-opt seccomp=unconfined`
-option to your Docker invocation to take advantage of bspm and the full system integration inside
-the container. This was already documented in the [FAQ](https://eddelbuettel.github.io/r2u/vignettes/FAQ/).
+Note that with recent builds of Docker (and possibly related to Ubuntu hosts) you may have to add
+the `--security-opt seccomp=unconfined` option to your Docker invocation to take advantage of bspm
+and the full system integration inside the container.
+This is also documented in the [FAQ](https://eddelbuettel.github.io/r2u/vignettes/FAQ/).
+
+We also found that when building containers based off the `r2u` containers, we could not rely on the
+nice `bspm` integration as it requires superuser rights to pass off commands from `install.packages()` to `apt`. 
+You can still use `r2u` containers as a base, but sadly have to turn off `bspm` and use just `apt`
+commands to install packages.
 
 
 ### Try It

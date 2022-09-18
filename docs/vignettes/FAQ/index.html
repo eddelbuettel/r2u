@@ -845,13 +845,20 @@ the addional Bioconductor packages in jammy can proceed. For more details see
 <code>install.r</code>, and refer to <em>CRAN and BioConductor packages by their names</em>
 which is more natural. <code>bspm</code> will call <code>apt</code> for you. Hence our default
 Docker image has <code>bspm</code> installed and enabled by default.</p>
+<p>(Also see below though for <code>docker build</code> and <code>bspm</code>.)</p>
 <h3 id="bspm-is-a-little-noisy">bspm is a little noisy</h3>
 <p>You can wrap <code>suppressMessages()</code> around <code>bspm::enable()</code>.  We now do so in
 the Docker image.</p>
 <h2 id="cannot-connect-errors">'Cannot connect' errors</h2>
 <h3 id="with-the-2204-jammy-container-i-get-errors">With the 22.04 "jammy" container I get errors</h3>
 <p>We found that adding <code>--security-opt seccomp=unconfined</code> to the <code>docker</code>
-invocation silenced those on AWS hosts and possibly other systems.</p>
+invocation silenced those on AWS hosts and possibly other systems. 
+This may be related to Ubuntu hosts only.</p>
+<p>A side-effect of this required security policy statement for <code>bspm</code> is that
+<code>bspm</code> is not available when building containers off <code>r2u</code>. 
+It appears that Docker rules this out during builds.
+The only remedy is to use <code>bspm::disable()</code> and to rely on just <code>apt</code> to
+install the <code>r2u</code> packages in derived containers.</p>
 <h2 id="can-one-use-r2u-with-singularity-containers">Can one use <code>r2u</code> with Singularity containers?</h2>
 <p>Yes, as discussed <a href="https://github.com/eddelbuettel/r2u/issues/9">in this GitHub issue</a>.
 The key is that Singularity does not allow <code>root</code> access, yet we need to install packages

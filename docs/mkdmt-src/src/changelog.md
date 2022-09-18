@@ -1,5 +1,11 @@
 ###  2022 
 
+2022-09-18  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * README.md: Mention that Docker build cannot use bspm as the 
+        security setting used at run-time is not available during build time 
+        * inst/docs/FAQ.md: Idem 
+ 
 2022-09-16  Dirk Eddelbuettel  <edd@debian.org> 
  
         * README.md: Mention the new mirror r2u.stat.illinois.edu 

@@ -926,9 +926,14 @@ overriding the standard value of 500.</p>
 <p>There are also two Docker containers for Ubuntu 20.04 'focal' and 22.04 'jammy', respectively, at
 <a href="https://hub.docker.com/repository/docker/eddelbuettel/r2u">eddelbuettel/r2u</a> that have the above,
 including pinning and <a href="https://cran.r-project.org/package=bspm">bspm</a> support, already set up.</p>
-<p>Note that with recent builds of Docker you may have to add the <code>--security-opt seccomp=unconfined</code>
-option to your Docker invocation to take advantage of bspm and the full system integration inside
-the container. This was already documented in the <a href="https://eddelbuettel.github.io/r2u/vignettes/FAQ/">FAQ</a>.</p>
+<p>Note that with recent builds of Docker (and possibly related to Ubuntu hosts) you may have to add
+the <code>--security-opt seccomp=unconfined</code> option to your Docker invocation to take advantage of bspm
+and the full system integration inside the container.
+This is also documented in the <a href="https://eddelbuettel.github.io/r2u/vignettes/FAQ/">FAQ</a>.</p>
+<p>We also found that when building containers based off the <code>r2u</code> containers, we could not rely on the
+nice <code>bspm</code> integration as it requires superuser rights to pass off commands from <code>install.packages()</code> to <code>apt</code>. 
+You can still use <code>r2u</code> containers as a base, but sadly have to turn off <code>bspm</code> and use just <code>apt</code>
+commands to install packages.</p>
 <h3 id="try-it">Try It</h3>
 <p>Use this link below (after possibly signing up for
 <a href="https://gitpod.io/">gitpod.io</a> first)</p>
