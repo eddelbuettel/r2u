@@ -212,6 +212,10 @@ Please file issues at the [GitHub issues for r2u](https://github.com/eddelbuette
   `install.packages()` and alike. That last part is important: package installations that do not use
   `install.packages()` (such as the RStudio GUI, `renv`, `rig`, ...) do not benefit from
   `install.packages()` calling `apt` for you, and cannot take advantage of r2u.
+ 
+ - `bspm` "automagically" converts the R calls to `install.packages()` but does not handle corresponding
+   calls to `remove.packages()`. See [this issue](https://github.com/Enchufa2/bspm/issues/43) for
+   a discussion. Packages may instead be removed with `bspm::remove_sys("thePackage")`.
 
 ### Fixed Issues
 
