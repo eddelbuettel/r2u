@@ -964,6 +964,13 @@ only (free) <a href="https://github.com">GitHub</a> and <a href="https://gitpod.
   <code>install.packages()</code> (such as the RStudio GUI, <code>renv</code>, <code>rig</code>, ...) do not benefit from
   <code>install.packages()</code> calling <code>apt</code> for you, and cannot take advantage of r2u.</p>
 </li>
+<li>
+<p><code>bspm</code> traces calls to <code>install.packages()</code> and maps them system-wide installation via <code>apt</code>.  By
+   choice, it does not map the <code>remove.packages()</code> for package removal, see <a href="https://github.com/Enchufa2/bspm/issues/43">this
+   issue</a> for more discussion. Packages can be uninstalled
+   via the system package manager using, respectively, <code>apt</code>, <code>dpkg</code> or one of graphical frontends as
+   well as via the R function <code>bspm::remove_sys()</code>.</p>
+</li>
 </ul>
 <h3 id="fixed-issues">Fixed Issues</h3>
 <ul>
