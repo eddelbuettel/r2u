@@ -36,4 +36,5 @@ echo "Pin-Priority: 700"  >> /etc/apt/preferences.d/99cranapt
 Rscript -e 'install.packages("bspm")'
 export RHOME=$(R RHOME)
 echo "suppressMessages(bspm::enable())" >> ${RHOME}/etc/Rprofile.site
-echo "options(bspm.sudo=TRUE)" >> ${RHOME}/etc/Rprofile.site
+## Giving bspm sudo right used to be required but no longer is under current bspm versions
+#echo "options(bspm.sudo=TRUE)" >> ${RHOME}/etc/Rprofile.site
