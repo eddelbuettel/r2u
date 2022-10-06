@@ -1,0 +1,15 @@
+{#-
+  https://raw.githubusercontent.com/squidfunk/mkdocs-material/master/material/partials/copyright.html
+-#}
+<div class="md-copyright">
+  {% if config.copyright %}
+    <div class="md-copyright__highlight">
+      {{ config.copyright }}
+    </div>
+  {% endif %}
+  {% if not config.extra.generator == false %}
+    Site made with
+    <a href="https://www.R-Project.org">R</a> scripts and
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener"> Material for MkDocs </a>
+  {% endif %}
+</div>

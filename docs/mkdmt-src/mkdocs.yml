@@ -1,11 +1,10 @@
 site_name: r2u
 site_url: https://github.com/eddelbuettel/r2u
-
-## input directory, usually 'docs' which we use for output
 docs_dir: src
-## output directory, i.e. docs/ on a GH repo
-## has to be a subdirectory so need to then copy to ../../docs
 site_dir: docs
+copyright: Copyright &copy; 2022 - present Dirk Eddelbuettel
+repo_url: https://github.com/eddelbuettel/r2u
+edit_uri: ""
 
 theme:
   name: material
@@ -25,6 +24,10 @@ extra:
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/eddelbuettel/r2u
+      name: r2u on GitHub
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/eddelbuettel
+      name: eddelbuettel on Twitter
 
 nav:
   - Home:

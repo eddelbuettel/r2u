@@ -1,3 +1,7 @@
+--- 
+title: CRAN as Ubuntu Binaries
+description: Cheap, fast, reliable -- pick any three!
+---
 
 ## r2u: CRAN as Ubuntu Binaries
 
