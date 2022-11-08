@@ -18,7 +18,7 @@
 - **Fast and well-connected mirror** at
   [r2u.stat.illinois.edu](https://r2u.stat.illinois.edu) on the [Internet2](https://internet2.edu/) 
 
-- **Complete coverage** with (currently) ~ 19,700 CRAN packages
+- **Complete coverage** with (currently) ~ 20,000 CRAN packages
   (and 230+ from BioConductor).
 
 - Complete support for both **Ubuntu 20.04** ("focal") **and Ubuntu 22.04** ("jammy").
@@ -50,7 +50,7 @@ Support for other cpu architectures is certainly possible but somewhat unlikely 
 (additional hardware) resources and time. Support for other distributions is possible but unlikely
 right now (due to a lack of resources and time). We hope to cover Debian at some point.
 
-Current versions are R 4.2.1, and BioConductor release 3.15 packages are provided when required by
+Current versions are R 4.2.2, and BioConductor release 3.15 packages are provided when required by
 CRAN packages.
 
 
@@ -69,8 +69,8 @@ So we now cover
   compilation
 - all BioConductor package that are implied by these (and build for us).
 
-This currently resuls in 19772 and 19667 binary packages from CRAN in "focal" and "jammy",
-respectively, and 230 and 235 BioConductor packages, respectively, from the 3.15 release.
+This currently resuls in 20173 and 20070 binary packages from CRAN in "focal" and "jammy",
+respectively, and 233 and 238 BioConductor packages, respectively, from the 3.15 release.
 
 The sole exception are two packages we cannot build (as we do not have the required commercial
 software it accessess) plus less than a handful of 'odd build' that fail.
