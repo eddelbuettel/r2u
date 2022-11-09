@@ -137,8 +137,9 @@ Fifth, and also optional, install and enable the
 other packages become available via `install.packages()` and
 `update.packages()`. Note that you may need to install it directly from source via `sudo Rscript -e
 'install.packages("bspm")'` to ensure it integrates correctly with the packaging system.
-
-
+You should also install Python components used internally by
+[bspm](https://cloud.r-project.org/package=bspm) via the `sudo apt-get install 
+python3-{dbus,gi,apt}` command.
 
 ### Pinning
 

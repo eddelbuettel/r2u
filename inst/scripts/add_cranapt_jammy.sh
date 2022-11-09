@@ -29,10 +29,9 @@ echo "Pin: release l=CRAN-Apt Packages" >> /etc/apt/preferences.d/99cranapt
 echo "Pin-Priority: 700"  >> /etc/apt/preferences.d/99cranapt
 
 ## Fifth: install bspm and enable it
-##
 ## If needed (in bare container, say) install python tools for bspm and R itself
-#DEBIAN_FRONTEND=noninteractive apt install --yes --no-install-recommends python3-dbus python3-apt r-base-core
-##
+apt install python3-{dbus,gi,apt}
+## Then install bspm (as root) and enable it
 Rscript -e 'install.packages("bspm")'
 export RHOME=$(R RHOME)
 echo "suppressMessages(bspm::enable())" >> ${RHOME}/etc/Rprofile.site

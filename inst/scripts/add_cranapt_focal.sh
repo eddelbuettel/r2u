@@ -22,8 +22,12 @@ echo "Pin: release o=CRAN-Apt Project" >> /etc/apt/preferences.d/99cranapt
 echo "Pin: release l=CRAN-Apt Packages" >> /etc/apt/preferences.d/99cranapt
 echo "Pin-Priority: 700"  >> /etc/apt/preferences.d/99cranapt
 
-## Fifth: install bspm and enable it
+## Fifth: install bspm (and its Python requirements) and enable it
+## If needed (in bare container, say) install python tools for bspm and R itself
+apt install python3-{dbus,gi,apt}
+## Then install bspm (as root) and enable it
 Rscript -e 'install.packages("bspm")'
 RHOME=$(R RHOME)
 echo "suppressMessages(bspm::enable())" >> ${RHOME}/etc/Rprofile.site
-echo "options(bspm.sudo=TRUE)" >> ${RHOME}/etc/Rprofile.site
+## Giving bspm sudo right used to be required but no longer is under current bspm versions
+#echo "options(bspm.sudo=TRUE)" >> ${RHOME}/etc/Rprofile.site
