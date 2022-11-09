@@ -210,8 +210,8 @@ Please file issues at the [GitHub issues for r2u](https://github.com/eddelbuette
 
 - r2u is an `apt` repo, which via `bspm` becomes used "automagically" via standard R calls of
   `install.packages()` and alike. That last part is important: package installations that do not use
-  `install.packages()` (such as the RStudio GUI, `renv`, `rig`, ...) do not benefit from
-  `install.packages()` calling `apt` for you, and cannot take advantage of r2u.
+  `install.packages()` (such as `renv`, `rig`, ...) do not benefit from
+  `install.packages()` calling `apt` for you, and cannot take advantage of r2u via `bspm`.
  
  - `bspm` traces calls to `install.packages()` and maps them system-wide installation via `apt`.  By
    choice, it does not map the `remove.packages()` for package removal, see [this
