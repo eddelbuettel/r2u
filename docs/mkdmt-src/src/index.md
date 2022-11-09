@@ -22,7 +22,7 @@ description: Cheap, fast, reliable -- pick any three!
 - **Fast and well-connected mirror** at
   [r2u.stat.illinois.edu](https://r2u.stat.illinois.edu) on the [Internet2](https://internet2.edu/) 
 
-- **Complete coverage** with (currently) ~ 19,700 CRAN packages
+- **Complete coverage** with (currently) ~ 20,000 CRAN packages
   (and 230+ from BioConductor).
 
 - Complete support for both **Ubuntu 20.04** ("focal") **and Ubuntu 22.04** ("jammy").
@@ -54,7 +54,7 @@ Support for other cpu architectures is certainly possible but somewhat unlikely 
 (additional hardware) resources and time. Support for other distributions is possible but unlikely
 right now (due to a lack of resources and time). We hope to cover Debian at some point.
 
-Current versions are R 4.2.1, and BioConductor release 3.15 packages are provided when required by
+Current versions are R 4.2.2, and BioConductor release 3.15 packages are provided when required by
 CRAN packages.
 
 
@@ -73,8 +73,8 @@ So we now cover
   compilation
 - all BioConductor package that are implied by these (and build for us).
 
-This currently resuls in 19772 and 19667 binary packages from CRAN in "focal" and "jammy",
-respectively, and 230 and 235 BioConductor packages, respectively, from the 3.15 release.
+This currently resuls in 20173 and 20070 binary packages from CRAN in "focal" and "jammy",
+respectively, and 233 and 238 BioConductor packages, respectively, from the 3.15 release.
 
 The sole exception are two packages we cannot build (as we do not have the required commercial
 software it accessess) plus less than a handful of 'odd build' that fail.
@@ -141,8 +141,9 @@ Fifth, and also optional, install and enable the
 other packages become available via `install.packages()` and
 `update.packages()`. Note that you may need to install it directly from source via `sudo Rscript -e
 'install.packages("bspm")'` to ensure it integrates correctly with the packaging system.
-
-
+You should also install Python components used internally by
+[bspm](https://cloud.r-project.org/package=bspm) via the `sudo apt-get install 
+python3-{dbus,gi,apt}` command.
 
 ### Pinning
 
@@ -214,33 +215,14 @@ Please file issues at the [GitHub issues for r2u](https://github.com/eddelbuette
 
 - r2u is an `apt` repo, which via `bspm` becomes used "automagically" via standard R calls of
   `install.packages()` and alike. That last part is important: package installations that do not use
-  `install.packages()` (such as the RStudio GUI, `renv`, `rig`, ...) do not benefit from
-  `install.packages()` calling `apt` for you, and cannot take advantage of r2u.
+  `install.packages()` (such as `renv`, `rig`, ...) do not benefit from
+  `install.packages()` calling `apt` for you, and cannot take advantage of r2u via `bspm`.
  
  - `bspm` traces calls to `install.packages()` and maps them system-wide installation via `apt`.  By
    choice, it does not map the `remove.packages()` for package removal, see [this
    issue](https://github.com/Enchufa2/bspm/issues/43) for more discussion. Packages can be uninstalled
    via the system package manager using, respectively, `apt`, `dpkg` or one of graphical frontends as
    well as via the R function `bspm::remove_sys()`.
-
-### Fixed Issues
-
-- [DONE] In May, some geospatial packages do not currently install on 20.04, adding the UbuntuGIS
-  PPA as a base may help. This is not an issue on 22.04. It also no longer appears to be an issue
-  with 20.04 now.
-
-- [DONE] The BioConductor release is still at 3.14 and should be upgraded to the now-current 3.15.
-
-- [DONE] Support for Ubuntu 22.04 has been added as well.
-
-- [DONE] Package nlme needed special treatment because the Debian/Ubuntu binary changed the
-  'hyphenated' version to a 'dot-separated' one leading to an inverted sorting order (see issue #7,
-  as well as the FAQ, for more on this).
-  
-- [DONE] Because Java is so special (and keeps its libraries 'elsewhere', the shared library dependence for
-  package rJava was not fully specified. We added a special treatment for it.
-
-- [DONE] Both `sf` and `terra` needed a dependency adjustment on 'focal' for their most recent versions.
 
 ### Author
 
