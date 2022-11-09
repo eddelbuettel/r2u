@@ -219,25 +219,6 @@ Please file issues at the [GitHub issues for r2u](https://github.com/eddelbuette
    via the system package manager using, respectively, `apt`, `dpkg` or one of graphical frontends as
    well as via the R function `bspm::remove_sys()`.
 
-### Fixed Issues
-
-- [DONE] In May, some geospatial packages do not currently install on 20.04, adding the UbuntuGIS
-  PPA as a base may help. This is not an issue on 22.04. It also no longer appears to be an issue
-  with 20.04 now.
-
-- [DONE] The BioConductor release is still at 3.14 and should be upgraded to the now-current 3.15.
-
-- [DONE] Support for Ubuntu 22.04 has been added as well.
-
-- [DONE] Package nlme needed special treatment because the Debian/Ubuntu binary changed the
-  'hyphenated' version to a 'dot-separated' one leading to an inverted sorting order (see issue #7,
-  as well as the FAQ, for more on this).
-  
-- [DONE] Because Java is so special (and keeps its libraries 'elsewhere', the shared library dependence for
-  package rJava was not fully specified. We added a special treatment for it.
-
-- [DONE] Both `sf` and `terra` needed a dependency adjustment on 'focal' for their most recent versions.
-
 ### Author
 
 Dirk Eddelbuettel
