@@ -190,6 +190,11 @@
         } else {
             .debug_message("Fresh ap\n")
 
+            ## also:
+            ##
+            ## db <- available.packages(repos = BiocManager::repositories())
+            ## deps <- tools::package_dependencies("Rgraphviz", db, recursive=TRUE)
+
             ## cf  contrib.url(BiocManager::repositories())
             ##     [1] "https://bioconductor.org/packages/3.14/bioc/src/contrib"
             ##     [2] "https://bioconductor.org/packages/3.14/data/annotation/src/contrib"
