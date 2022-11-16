@@ -5,7 +5,7 @@
 
 \section{Changes in r2u version 0.0.3 (2022-09-16)}{
   \itemize{
-    \item Announce mirror r2e.stat.illinois.edu and use in scripts
+    \item Announce mirror r2u.stat.illinois.edu and use in scripts
   }
 }
 
