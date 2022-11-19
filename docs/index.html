@@ -859,7 +859,7 @@
 </li>
 <li>
 <p><strong>Complete coverage</strong> with (currently) ~ 20,000 CRAN packages
-  (and 230+ from BioConductor).</p>
+  (and 240+ from BioConductor).</p>
 </li>
 <li>
 <p>Complete support for both <strong>Ubuntu 20.04</strong> ("focal") <strong>and Ubuntu 22.04</strong> ("jammy").</p>
@@ -884,7 +884,7 @@ predecessor release.  We use 'r-release' just like CRAN. So currently the 'focal
 <p>Support for other cpu architectures is certainly possible but somewhat unlikely due to a lack of
 (additional hardware) resources and time. Support for other distributions is possible but unlikely
 right now (due to a lack of resources and time). We hope to cover Debian at some point.</p>
-<p>Current versions are R 4.2.2, and BioConductor release 3.15 packages are provided when required by
+<p>Current versions are R 4.2.2, and BioConductor release 3.16 packages are provided when required by
 CRAN packages.</p>
 <h3 id="what-is-selected">What is Selected ?</h3>
 <p>Everything :)</p>
@@ -898,13 +898,13 @@ a very skewed distribution.) We iterated, and fairly soon arrived of full covera
   compilation</li>
 <li>all BioConductor package that are implied by these (and build for us).</li>
 </ul>
-<p>This currently resuls in 20173 and 20070 binary packages from CRAN in "focal" and "jammy",
-respectively, and 233 and 238 BioConductor packages, respectively, from the 3.15 release.</p>
+<p>This currently resuls in 20232 and 20130 binary packages from CRAN in "focal" and "jammy",
+respectively, and 244 and 240 BioConductor packages, respectively, from the 3.16 release.</p>
 <p>The sole exception are two packages we cannot build (as we do not have the required commercial
 software it accessess) plus less than a handful of 'odd build' that fail.</p>
 <h3 id="what-is-it-based-on">What is it Based On?</h3>
 <p>For the CRAN binaries we either repackage RSPM builds (where available) or build natively. All
-selected BioConductor 3.15 packages are built natively.  For all of these, full dependency
+selected BioConductor 3.16 packages are built natively.  For all of these, full dependency
 resolution and integration with the system is a key feature.</p>
 <p>Everything is provided as <code>.deb</code> binary files with proper dependency
 resolution by using a proper <code>apt</code> repo which also has a signed Release file.</p>
