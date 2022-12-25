@@ -1,12 +1,13 @@
 
 ## General
 
-### Why is it called CRANapt?
+### Why is it called both CRANapt and r2u?
 
 We hope to eventually provide CRAN binaries for multiple distributions
 (Debian, Ubuntu, ...), releases (testing/stable, LTS/current, ...), hardware
-platforms, and so on.  But we have to start somewhere so Ubuntu LTS for amd64
-is the first instance.
+platforms, and so on.  But we had to start somewhere, so Ubuntu LTS for amd64
+is the first instance. And as we are effectively only on Ubuntu for now, the
+shorter 'r2u' crept up, and stuck.
 
 ### How is it pronounced?
 
@@ -63,6 +64,14 @@ the newer Bioconductor 3.15, we added a small [virtual package
 added to the repo. So after `sudo apt install bioc-api-package` installation of
 the addional Bioconductor packages in jammy can proceed. For more details see 
 [issue #11](https://github.com/eddelbuettel/r2u/issues/11). 
+
+### Can I use it with other non-LTS Ubuntu releases?
+
+Of course!  You can always forward-upgrade.  So for example the 22.04
+("jammy") release works perfectly fine with 22.10 ("kinetic"). Just make sure
+you keep the `sources.list` entry on the LTS release you have as we (just
+like many other repositories) only provide LTS releases and no interim
+releases. 
 
 
 ## bspm

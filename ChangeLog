@@ -1,3 +1,12 @@
+2022-12-25  Dirk Eddelbuettel  <edd@debian.org>
+
+	* docs/mkdmt-src/src/vignettes/FAQ.md: Mention that non-LTS releases
+	can use the LTS repos just fine.
+
+2022-11-19  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/NEWS.Rd: Make release 0.0.4 with BioConductor 3.16
+
 2022-09-18  Dirk Eddelbuettel  <edd@debian.org>
 
 	* README.md: Mention that Docker build cannot use bspm as the
@@ -34,7 +43,7 @@
 2022-07-12  Dirk Eddelbuettel  <edd@debian.org>
 
 	* R/controlFiles.R (.addDepends): Special-case 'rJava' which does not
-	resolve its shared library given that Java libs are hidden
+ 	resolve its shared library given that Java libs are hidden
 
 2022-07-07  Dirk Eddelbuettel  <edd@debian.org>
 
