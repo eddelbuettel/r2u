@@ -12,7 +12,7 @@ Index: This package was not yet installed at build time.
 
 ### Maintainer
 
-Dirk Eddelbuettel \<edd@debian.org>
+Dirk Eddelbuettel \<edd@debian.org\>
 
 ### Author(s)
 

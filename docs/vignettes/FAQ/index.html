@@ -476,8 +476,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#why-is-it-called-cranapt" class="md-nav__link">
-    Why is it called CRANapt?
+  <a href="#why-is-it-called-both-cranapt-and-r2u" class="md-nav__link">
+    Why is it called both CRANapt and r2u?
   </a>
   
 </li>
@@ -513,6 +513,13 @@
           <li class="md-nav__item">
   <a href="#can-i-install-bioconductor-packages-from-ubuntu-not-in-r2u" class="md-nav__link">
     Can I install Bioconductor packages from Ubuntu not in r2u
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#can-i-use-it-with-other-non-lts-ubuntu-releases" class="md-nav__link">
+    Can I use it with other non-LTS Ubuntu releases?
   </a>
   
 </li>
@@ -741,8 +748,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#why-is-it-called-cranapt" class="md-nav__link">
-    Why is it called CRANapt?
+  <a href="#why-is-it-called-both-cranapt-and-r2u" class="md-nav__link">
+    Why is it called both CRANapt and r2u?
   </a>
   
 </li>
@@ -778,6 +785,13 @@
           <li class="md-nav__item">
   <a href="#can-i-install-bioconductor-packages-from-ubuntu-not-in-r2u" class="md-nav__link">
     Can I install Bioconductor packages from Ubuntu not in r2u
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#can-i-use-it-with-other-non-lts-ubuntu-releases" class="md-nav__link">
+    Can I use it with other non-LTS Ubuntu releases?
   </a>
   
 </li>
@@ -866,11 +880,12 @@
   <h1>FAQ</h1>
 
 <h2 id="general">General</h2>
-<h3 id="why-is-it-called-cranapt">Why is it called CRANapt?</h3>
+<h3 id="why-is-it-called-both-cranapt-and-r2u">Why is it called both CRANapt and r2u?</h3>
 <p>We hope to eventually provide CRAN binaries for multiple distributions
 (Debian, Ubuntu, ...), releases (testing/stable, LTS/current, ...), hardware
-platforms, and so on.  But we have to start somewhere so Ubuntu LTS for amd64
-is the first instance.</p>
+platforms, and so on.  But we had to start somewhere, so Ubuntu LTS for amd64
+is the first instance. And as we are effectively only on Ubuntu for now, the
+shorter 'r2u' crept up, and stuck.</p>
 <h3 id="how-is-it-pronounced">How is it pronounced?</h3>
 <p>We think of the 'n' as silent so you can always say "oh I just crapted these
 packages onto my system".</p>
@@ -916,6 +931,12 @@ the newer Bioconductor 3.15, we added a small <a href="https://github.com/eddelb
 added to the repo. So after <code>sudo apt install bioc-api-package</code> installation of
 the addional Bioconductor packages in jammy can proceed. For more details see 
 <a href="https://github.com/eddelbuettel/r2u/issues/11">issue #11</a>. </p>
+<h3 id="can-i-use-it-with-other-non-lts-ubuntu-releases">Can I use it with other non-LTS Ubuntu releases?</h3>
+<p>Of course!  You can always forward-upgrade.  So for example the 22.04
+("jammy") release works perfectly fine with 22.10 ("kinetic"). Just make sure
+you keep the <code>sources.list</code> entry on the LTS release you have as we (just
+like many other repositories) only provide LTS releases and no interim
+releases. </p>
 <h2 id="bspm">bspm</h2>
 <h3 id="should-i-install-bspm">Should I install bspm?</h3>
 <p>We find it helpful. It allows you to use <code>install.packages()</code> in R, or script
