@@ -115,7 +115,7 @@ _or_ use the mirror at the [University of Illinois Urbana-Champaign](https://ill
 
 (In either example, replace `focal` with `jammy` for use with Ubuntu 22.04.)
 
-Third, and optionally, if you do not yet have the current R version, run these fourlines (or
+Third, and optionally, if you do not yet have the current R version, run these four lines (or
 use the [standard CRAN repo setup](https://cloud.r-project.org/bin/linux/ubuntu/))
 
     wget -q -O- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc \
