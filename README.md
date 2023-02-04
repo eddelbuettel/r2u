@@ -7,19 +7,16 @@
   installations (of pre-built archives) only to discover that a shared library is missing. No more
   surprises.
 
-- **Full integration with `apt`** so that an update of a system library
-  cannot break an R package: if a (shared) library is used by a CRAN, the
-  package manager knows and will not remove it.  No more (R package) breakage
-  from (system) library updates.
+- **Full integration with `apt`** so that an update of a system library cannot break an R package:
+  if a (shared) library is used by a CRAN, the package manager knows and will not remove it.  No
+  more (R package) breakage from (system) library updates.
 
-- **Installations are fast, automated and reversible** thanks to package
-  management layer.
+- **Installations are fast, automated and reversible** thanks to the package management layer.
 
 - **Fast and well-connected mirror** at
   [r2u.stat.illinois.edu](https://r2u.stat.illinois.edu) on the [Internet2](https://internet2.edu/) 
 
-- **Complete coverage** with (currently) ~ 20,000 CRAN packages
-  (and 240+ from BioConductor).
+- **Complete coverage** with (currently) ~ 20,000 CRAN packages (and 240+ from BioConductor).
 
 - Complete support for both **Ubuntu 20.04** ("focal") **and Ubuntu 22.04** ("jammy").
 
@@ -69,7 +66,7 @@ So we now cover
   compilation
 - all BioConductor package that are implied by these (and build for us).
 
-This currently resuls in 20484 and 20383 binary packages from CRAN in "focal" and "jammy",
+This currently resuls in 20620 and 20520 binary packages from CRAN in "focal" and "jammy",
 respectively, and 249 and 245 BioConductor packages, respectively, from the 3.16 release.
 
 The sole exception are a two packages we cannot build (as we do not have the required commercial
