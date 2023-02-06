@@ -27,7 +27,7 @@ description: Cheap, fast, reliable -- pick any three!
 
 - Complete support for both **Ubuntu 20.04** ("focal") **and Ubuntu 22.04** ("jammy").
 
-- Optional (but recommeded) [bspm](https://cloud.r-project.org/package=bspm) use
+- Optional (but recommended) [bspm](https://cloud.r-project.org/package=bspm) use
   **automagically connects R functions like `install.packages()` to `apt`** for access to binaries 
   _and_ dependencies.
 
