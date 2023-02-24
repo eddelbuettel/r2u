@@ -11,7 +11,7 @@
 ## First: update apt and get keys
 apt update -qq && apt install --yes --no-install-recommends wget ca-certificates gnupg
 wget -q -O- https://eddelbuettel.github.io/r2u/assets/dirk_eddelbuettel_key.asc \
-    | tee -a /etc/apt/trusted.gpg.d/cranapt_key.as
+    | tee -a /etc/apt/trusted.gpg.d/cranapt_key.asc
 
 ## Second: add the repo -- here we use the well-connected mirror
 echo "deb [arch=amd64] https://r2u.stat.illinois.edu/ubuntu jammy main" > /etc/apt/sources.list.d/cranapt.list
