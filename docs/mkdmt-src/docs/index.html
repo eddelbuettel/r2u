@@ -403,11 +403,52 @@
     Usage and Setup
   </a>
   
+    <nav class="md-nav" aria-label="Usage and Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-update-apt-install-tools-fetch-key" class="md-nav__link">
+    Step 1: Update apt, install tools, fetch key
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-add-the-apt-repo" class="md-nav__link">
+    Step 2: Add the apt repo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-ensure-you-have-current-r-binaries-optional" class="md-nav__link">
+    Step 3: Ensure you have current R binaries (optional)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-use-pinning-for-the-r2u-repo-optional" class="md-nav__link">
+    Step 4: Use pinning for the r2u repo (optional)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-use-bspm-optional" class="md-nav__link">
+    Step 5: Use bspm (optional)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
-  <a href="#pinning" class="md-nav__link">
-    Pinning
+  <a href="#about-pinning" class="md-nav__link">
+    About Pinning
   </a>
   
 </li>
@@ -762,11 +803,52 @@
     Usage and Setup
   </a>
   
+    <nav class="md-nav" aria-label="Usage and Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-update-apt-install-tools-fetch-key" class="md-nav__link">
+    Step 1: Update apt, install tools, fetch key
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-add-the-apt-repo" class="md-nav__link">
+    Step 2: Add the apt repo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-ensure-you-have-current-r-binaries-optional" class="md-nav__link">
+    Step 3: Ensure you have current R binaries (optional)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-use-pinning-for-the-r2u-repo-optional" class="md-nav__link">
+    Step 4: Use pinning for the r2u repo (optional)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-use-bspm-optional" class="md-nav__link">
+    Step 5: Use bspm (optional)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
-  <a href="#pinning" class="md-nav__link">
-    Pinning
+  <a href="#about-pinning" class="md-nav__link">
+    About Pinning
   </a>
   
 </li>
@@ -844,22 +926,23 @@
   surprises.</p>
 </li>
 <li>
-<p><strong>Full integration with <code>apt</code></strong> so that an update of a system library
-  cannot break an R package: if a (shared) library is used by a CRAN, the
-  package manager knows and will not remove it.  No more (R package) breakage
-  from (system) library updates.</p>
+<p><strong>Full integration with <code>apt</code></strong> so that an update of a system library cannot break an R package:
+  if a (shared) library is used by a CRAN, the package manager knows, and will not remove it.  No
+  more (R package) breakage from (system) library updates.</p>
 </li>
 <li>
-<p><strong>Installations are fast, automated and reversible</strong> thanks to package
-  management layer.</p>
+<p><strong>Simpler and lighter</strong> than some alternatives as only <em>run-time</em> library packages are installed as
+  dependencies (instead of generally heavier <em>development</em> packages).</p>
+</li>
+<li>
+<p><strong>Installations are fast, automated and reversible</strong> thanks to the package management layer.</p>
 </li>
 <li>
 <p><strong>Fast and well-connected mirror</strong> at
   <a href="https://r2u.stat.illinois.edu">r2u.stat.illinois.edu</a> on the <a href="https://internet2.edu/">Internet2</a> </p>
 </li>
 <li>
-<p><strong>Complete coverage</strong> with (currently) ~ 20,000 CRAN packages
-  (and 240+ from BioConductor).</p>
+<p><strong>Complete coverage</strong> with (currently) ~ 20,000 CRAN packages (and 240+ from BioConductor).</p>
 </li>
 <li>
 <p>Complete support for both <strong>Ubuntu 20.04</strong> ("focal") <strong>and Ubuntu 22.04</strong> ("jammy").</p>
@@ -878,12 +961,12 @@ R package installation to <code>apt</code> using <a href="https://cloud.r-projec
 <p>This uses the Docker container referenced below, which has been set up with
 the five easy setup steps detailed here.</p>
 <h3 id="what-is-covered">What is Covered ?</h3>
-<p>We generally support amd64 (<em>i.e.</em> standard Intel/AMD cpus) for the Ubuntu LTS release and the
+<p>We generally support amd64 (<em>i.e.</em> standard Intel/AMD cpus) for the current Ubuntu LTS release and its
 predecessor release.  We use 'r-release' just like CRAN. So currently the 'focal' 20.04 LTS and
 'jammy' 22.04 LTS releases are fully supported.</p>
 <p>Support for other cpu architectures is certainly possible but somewhat unlikely due to a lack of
 (additional hardware) resources and time. Support for other distributions is possible but unlikely
-right now (due to a lack of resources and time). We hope to cover Debian at some point.</p>
+right now (due to a lack of resources and time). We still hope to cover Debian at some point.</p>
 <p>Current versions are R 4.2.2, and BioConductor release 3.16 packages are provided when required by
 CRAN packages.</p>
 <h3 id="what-is-selected">What is Selected ?</h3>
@@ -898,89 +981,98 @@ a very skewed distribution.) We iterated, and fairly soon arrived of full covera
   compilation</li>
 <li>all BioConductor package that are implied by these (and build for us).</li>
 </ul>
-<p>This currently resuls in 20410 and 20308 binary packages from CRAN in "focal" and "jammy",
+<p>This currently resuls in 20727 and 20627 binary packages from CRAN in "focal" and "jammy",
 respectively, and 249 and 245 BioConductor packages, respectively, from the 3.16 release.</p>
-<p>The sole exception are a two packages we cannot build (as we do not have the required commercial
+<p>The sole exception are two packages we cannot build (as we do not have the required commercial
 software it accessess) plus less than a handful of 'odd builds' that fail and
 are skipped.</p>
 <h3 id="what-is-it-based-on">What is it Based On?</h3>
-<p>For the CRAN binaries we either repackage RSPM builds (where available) or build natively. All
-selected BioConductor 3.16 packages are built natively.  For all of these, full dependency
-resolution and integration with the system is a key feature.</p>
+<p>For the CRAN binaries we either repackage
+<a href="https://packagemanager.rstudio.com/client/#/repos/2/packages/">RSPM/PPM</a> builds (where available)
+or build natively. All selected BioConductor 3.16 packages are built natively.  For all of these,
+full dependency resolution and integration with the system is a key feature.</p>
 <p>Everything is provided as <code>.deb</code> binary files with proper dependency
 resolution by using a proper <code>apt</code> repo which also has a signed Release file.</p>
 <h3 id="usage-and-setup">Usage and Setup</h3>
-<p>(Note that you could use <a href="https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/add_cranapt_focal.sh">this script
-<code>add_cranapt_focal.sh</code></a>
-or the <a href="https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/add_cranapt_jammy.sh">variant for
-jammy</a>
-to facilitate the setup but you may prefer to execute the steps outlined here
-by hand.)</p>
+<p>(Note that you could use one of the two scripts
+<a href="https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/add_cranapt_jammy.sh"><code>add_cranapt_jammy.sh</code></a>
+(for Ubuntu 22.04), or
+<a href="https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/add_cranapt_focal.sh"><code>add_cranapt_focal.sh</code></a>
+(for the older Ubuntu 20.04) to facilitate the setup. They are tested on 'empty' Ubuntu containers
+of the corresponding release. However, you may prefer to execute the steps outlined here by hand.)</p>
+<p>We show the setup step by step for 'jammy' aka Ubuntu 22.04. You should run all these commands
+as <code>root</code> to carefully review each one.</p>
+<h4 id="step-1-update-apt-install-tools-fetch-key">Step 1: Update apt, install tools, fetch key</h4>
 <p>First add the repository key so that <code>apt</code> knows it (this is optional but recommended)</p>
-<pre><code>apt install --yes --no-install-recommends wget      # to add the key
+<pre><code>apt update -qq &amp;&amp; apt install --yes --no-install-recommends wget ca-certificates gnupg
 wget -q -O- https://eddelbuettel.github.io/r2u/assets/dirk_eddelbuettel_key.asc \
     | tee -a /etc/apt/trusted.gpg.d/cranapt_key.asc
 </code></pre>
-<p>Second, add the repository to the <code>apt</code> registry. You can use the original host</p>
-<pre><code>echo "deb [arch=amd64] https://dirk.eddelbuettel.com/cranapt focal main" \
-    &gt; /etc/apt/sources.list.d/cranapt.list
-apt update
+<h4 id="step-2-add-the-apt-repo">Step 2: Add the apt repo</h4>
+<p>Second, add the repository to the <code>apt</code> registry. We recommend the well-connected main mirror
+provide at University of Illinois:</p>
+<pre><code>echo "deb [arch=amd64] https://r2u.stat.illinois.edu/ubuntu jammy main" &gt; /etc/apt/sources.list.d/cranapt.list
+apt update -qq
 </code></pre>
-<p><em>or</em> use the mirror at the <a href="https://illinois.edu/">University of Illinois Urbana-Champaign</a>:</p>
-<pre><code>echo "deb [arch=amd64] https://r2u.stat.illinois.edu/ubuntu focal main" \
-    &gt; /etc/apt/sources.list.d/cranapt.list
-apt update
-</code></pre>
-<p>(In either example, replace <code>focal</code> with <code>jammy</code> for use with Ubuntu 22.04.)</p>
+<h4 id="step-3-ensure-you-have-current-r-binaries-optional">Step 3: Ensure you have current R binaries (optional)</h4>
 <p>Third, and optionally, if you do not yet have the current R version, run these two lines (or
 use the <a href="https://cloud.r-project.org/bin/linux/ubuntu/">standard CRAN repo setup</a>)</p>
 <pre><code>wget -q -O- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc \
     | tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
-echo "deb [arch=amd64] https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/" \
-    &gt; /etc/apt/sources.list.d/cran-ubuntu.list
+echo "deb [arch=amd64] https://cloud.r-project.org/bin/linux/ubuntu jammy-cran40/" &gt; /etc/apt/ sources.list.d/cran_r.list
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 67C2D66C4B1D4339 51716619E084DAB9
+apt update -qq
+DEBIAN_FRONTEND=noninteractive apt install --yes --no-install-recommends r-base-core
 </code></pre>
-<p>(Again, replace <code>focal</code> with <code>jammy</code> for use with Ubuntu 22.04.)</p>
+<h4 id="step-4-use-pinning-for-the-r2u-repo-optional">Step 4: Use pinning for the r2u repo (optional)</h4>
 <p>Fourth, add repository 'pinning' as <code>apt</code> might get confused by some older
 packages (in the Ubuntu distro) which accidentally appear with a higher
-version number. See the next section to ensure 'CRANapt' sorts highest.</p>
+version number. See the next section for a short discussion how it ensures 'CRANapt' 
+sorts highest.</p>
+<pre><code>echo "Package: *" &gt; /etc/apt/preferences.d/99cranapt
+echo "Pin: release o=CRAN-Apt Project" &gt;&gt; /etc/apt/preferences.d/99cranapt
+echo "Pin: release l=CRAN-Apt Packages" &gt;&gt; /etc/apt/preferences.d/99cranapt
+echo "Pin-Priority: 700"  &gt;&gt; /etc/apt/preferences.d/99cranapt
+</code></pre>
 <p>After that the package are known (under their <code>r-cran-*</code> and <code>r-bioc-*</code>
 names).  You can install them on the command-line using <code>apt</code> and <code>apt-get</code>,
 via <code>aptitude</code> as well as other front-ends.</p>
-<p>Fifth, and also optional, install and enable the
-<a href="https://cloud.r-project.org/package=bspm">bspm</a> package so that CRANapt and
-other packages become available via <code>install.packages()</code> and
-<code>update.packages()</code>. Note that you may need to install it directly from source via <code>sudo Rscript -e
-'install.packages("bspm")'</code> to ensure it integrates correctly with the packaging system.
-You should also install Python components used internally by
-<a href="https://cloud.r-project.org/package=bspm">bspm</a> via the <code>sudo apt-get install 
+<h4 id="step-5-use-bspm-optional">Step 5: Use <code>bspm</code> (optional)</h4>
+<p>Fifth, and also optional, install and enable the <a href="https://cloud.r-project.org/package=bspm">bspm</a>
+package so that the r2u (or CRANapt) as well as other R packages (available as <code>r-*.deb</code> binaries)
+become available via <code>install.packages()</code> and <code>update.packages()</code>. Note that you may need to install
+it directly from source via <code>sudo Rscript -e 'install.packages("bspm")'</code> to ensure it integrates
+correctly with the packaging system.  You should also install Python components used internally by
+<a href="https://cloud.r-project.org/package=bspm">bspm</a> via the <code>sudo apt-get install
 python3-{dbus,gi,apt}</code> command.</p>
-<h3 id="pinning">Pinning</h3>
-<p>Because we let <code>apt</code> (and related tools) pick the packages, we have to ensure
-that the CRANapt repo sorts higher than the default repo as (older)
-package builds in the distribution itself may appear (to <code>apt</code>) to be
-newer. A case in point was package <code>gtable</code> whose version in Ubuntu was
-<code>0.3.0+dfsg-1</code> which accidentally sorts higher than the rebuild we made under
-a newer and more consistent version number <code>0.3.0-1.ca2004.1</code>.  One possible
-fix is 'apt pinning'. Place a file <code>/etc/apt/preferences.d/99cranapt</code> with content</p>
-<pre><code>Package: *
-Pin: release o=CRAN-Apt Project
-Pin: release l=CRAN-Apt Packages
-Pin-Priority: 700
+<pre><code>apt install --yes --no-install-recommends python3-{dbus,gi,apt}
+## Then install bspm (as root) and enable it, and enable a speed optimization
+Rscript -e 'install.packages("bspm")'
+RHOME=$(R RHOME)
+echo "suppressMessages(bspm::enable())" &gt;&gt; ${RHOME}/etc/Rprofile.site
+echo "options(bspm.version.check=FALSE)" &gt;&gt; ${RHOME}/etc/Rprofile.site
 </code></pre>
-<p>which will now give packages from this repo a higher default priority of 700
-overriding the standard value of 500.</p>
+<p>That's it! Now try it out!</p>
+<h3 id="about-pinning">About Pinning</h3>
+<p>Packages can be found in different repositories, and <em>generally</em> the highest available version is
+the one we what---and <code>apt</code> picks it for us. Now, because we let <code>apt</code> (and related tools) pick the
+packages based on versions, we may want to ensure that the CRANapt repo sorts higher than the
+default repo as (older) package builds in the distribution itself may appear (to <code>apt</code>) to be newer
+via a quirk in the sorting algorithm. A case in point was package <code>gtable</code> whose version in Ubuntu
+was <code>0.3.0+dfsg-1</code> which accidentally sorts higher than the rebuild we made under a newer and more
+consistent version number <code>0.3.0-1.ca2004.1</code>.</p>
+<p>For this issue, one possible and popular fix is to use 'apt pinning'. It can give 'higher weight'
+to packages from a particular repositor or tag.  In the suggested example above, we
+give the r2u / cranapt repo a weight of 700 which is higher than the package default value of
+500.</p>
 <h3 id="docker">Docker</h3>
 <p>There are also two Docker containers for Ubuntu 20.04 'focal' and 22.04 'jammy', respectively, at
 <a href="https://hub.docker.com/repository/docker/eddelbuettel/r2u">eddelbuettel/r2u</a> that have the above,
 including pinning and <a href="https://cran.r-project.org/package=bspm">bspm</a> support, already set up.</p>
-<p>Note that with recent builds of Docker (and possibly related to Ubuntu hosts) you may have to add
+<p>Note that with some builds of Docker (and possibly related to Ubuntu hosts) you may have to add
 the <code>--security-opt seccomp=unconfined</code> option to your Docker invocation to take advantage of bspm
 and the full system integration inside the container.
 This is also documented in the <a href="https://eddelbuettel.github.io/r2u/vignettes/FAQ/">FAQ</a>.</p>
-<p>We also found that when building containers based off the <code>r2u</code> containers, we could not rely on the
-nice <code>bspm</code> integration as it requires superuser rights to pass off commands from <code>install.packages()</code> to <code>apt</code>. 
-You can still use <code>r2u</code> containers as a base, but sadly have to turn off <code>bspm</code> and use just <code>apt</code>
-commands to install packages.</p>
 <h3 id="try-it">Try It</h3>
 <p>Use this link below (after possibly signing up for
 <a href="https://gitpod.io/">gitpod.io</a> first)</p>
@@ -1003,7 +1095,7 @@ only (free) <a href="https://github.com">GitHub</a> and <a href="https://gitpod.
 </li>
 <li>
 <p>A small number of packages do not build for lack required components; examples are ROracle and
-  Rcplex.  They, and their reverse dependencies, are are blacklisted and not built.</p>
+  Rcplex.  They, and their reverse dependencies, are blacklisted and not built.</p>
 </li>
 <li>
 <p>r2u is an <code>apt</code> repo, which via <code>bspm</code> becomes used "automagically" via standard R calls of
