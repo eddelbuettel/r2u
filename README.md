@@ -123,7 +123,7 @@ use the [standard CRAN repo setup](https://cloud.r-project.org/bin/linux/ubuntu/
 
     wget -q -O- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc \
         | tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
-    echo "deb [arch=amd64] https://cloud.r-project.org/bin/linux/ubuntu jammy-cran40/" > /etc/apt/ sources.list.d/cran_r.list
+    echo "deb [arch=amd64] https://cloud.r-project.org/bin/linux/ubuntu jammy-cran40/" > /etc/apt/sources.list.d/cran_r.list
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 67C2D66C4B1D4339 51716619E084DAB9
     apt update -qq
     DEBIAN_FRONTEND=noninteractive apt install --yes --no-install-recommends r-base-core
