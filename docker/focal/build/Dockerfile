@@ -16,8 +16,7 @@ RUN apt update -qq \
 
 ## Add our repo for R 4.2.0 -- no longer needed
 # COPY edd-misc.list /etc/apt/sources.list.d
-
-RUN apt update -qq && apt upgrade --yes
+# RUN apt update -qq && apt upgrade --yes
 
 COPY debBuild.sh /usr/local/bin
 COPY cranapt.list /etc/apt/sources.list.d

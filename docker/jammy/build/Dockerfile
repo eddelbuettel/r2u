@@ -18,9 +18,9 @@ COPY debBuild.sh /usr/local/bin
 COPY cranapt.list /etc/apt/sources.list.d
 COPY 99cranapt /etc/apt/preferences.d
 
-RUN echo "192.168.1.114  dirk.eddelbuettel.com" >> /etc/hosts \
-    && apt update -qq \
-    && apt upgrade --yes
+#RUN echo "192.168.1.114  dirk.eddelbuettel.com" >> /etc/hosts \
+#    && apt update -qq \
+#    && apt upgrade --yes
 
 
 CMD ["bash"]
