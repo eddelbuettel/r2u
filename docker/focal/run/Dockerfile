@@ -20,16 +20,19 @@ RUN rm -f /etc/apt/sources.list.save /etc/apt/sources.list.d/{c2d4u*,edd*,*.save
 COPY cranapt.list /etc/apt/sources.list.d
 COPY 99cranapt /etc/apt/preferences.d
 
+#    && Rscript -e 'bspm::disable(); install.packages("littler", type="source")' \
+
 ## update, but ignore the littler binary which is (currently at least) bad
 RUN apt update -qq \
     && apt upgrade --yes \
     && dpkg --purge r-cran-littler littler \
-    && Rscript -e 'bspm::disable(); install.packages("littler", type="source")' \
+    && Rscript -e 'bspm::disable(); remotes::install_github("eddelbuettel/littler")' \
     && cd /usr/local/bin \
     && ln -s /usr/local/lib/R/site-library/littler/bin/r . \
     && ln -sf /usr/local/lib/R/site-library/littler/examples/install.r . \
     && ln -sf /usr/local/lib/R/site-library/littler/examples/install2.r . \
     && ln -sf /usr/local/lib/R/site-library/littler/examples/installGithub.r . \
+    && ln -sf /usr/local/lib/R/site-library/littler/examples/installRub.r . \
     && ln -sf /usr/local/lib/R/site-library/littler/examples/update.r .
 
 CMD ["bash"]
