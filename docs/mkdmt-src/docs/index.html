@@ -942,7 +942,7 @@
   <a href="https://r2u.stat.illinois.edu">r2u.stat.illinois.edu</a> on the <a href="https://internet2.edu/">Internet2</a> </p>
 </li>
 <li>
-<p><strong>Complete coverage</strong> with (currently) ~ 20,000 CRAN packages (and 240+ from BioConductor).</p>
+<p><strong>Complete coverage</strong> with (currently) ~ 21,000 CRAN packages (and 240+ from BioConductor).</p>
 </li>
 <li>
 <p>Complete support for both <strong>Ubuntu 20.04</strong> ("focal") <strong>and Ubuntu 22.04</strong> ("jammy").</p>
@@ -951,6 +951,10 @@
 <p>Optional (but recommended) <a href="https://cloud.r-project.org/package=bspm">bspm</a> use
   <strong>automagically connects R functions like <code>install.packages()</code> to <code>apt</code></strong> for access to binaries 
   <em>and</em> dependencies.</p>
+</li>
+<li>
+<p>Docker containers <code>rocker/r2u</code> from the <a href="https://rocker-project.org/">Rocker Project</a> for both 
+  'focal' and  'jammy'.</p>
 </li>
 </ul>
 <h3 id="brief-demo">Brief Demo</h3>
@@ -967,7 +971,7 @@ predecessor release.  We use 'r-release' just like CRAN. So currently the 'focal
 <p>Support for other cpu architectures is certainly possible but somewhat unlikely due to a lack of
 (additional hardware) resources and time. Support for other distributions is possible but unlikely
 right now (due to a lack of resources and time). We still hope to cover Debian at some point.</p>
-<p>Current versions are R 4.2.2, and BioConductor release 3.16 packages are provided when required by
+<p>Current versions are R 4.2.3, and BioConductor release 3.16 packages are provided when required by
 CRAN packages.</p>
 <h3 id="what-is-selected">What is Selected ?</h3>
 <p>Everything :)</p>
@@ -981,8 +985,8 @@ a very skewed distribution.) We iterated, and fairly soon arrived of full covera
   compilation</li>
 <li>all BioConductor package that are implied by these (and build for us).</li>
 </ul>
-<p>This currently resuls in 20727 and 20627 binary packages from CRAN in "focal" and "jammy",
-respectively, and 249 and 245 BioConductor packages, respectively, from the 3.16 release.</p>
+<p>This currently resuls in 21043 and 20944 binary packages from CRAN in "focal" and "jammy",
+respectively, and 253 and 248 BioConductor packages, respectively, from the 3.16 release.</p>
 <p>The sole exception are two packages we cannot build (as we do not have the required commercial
 software it accessess) plus less than a handful of 'odd builds' that fail and
 are skipped.</p>
@@ -1004,14 +1008,16 @@ of the corresponding release. However, you may prefer to execute the steps outli
 as <code>root</code> to carefully review each one.</p>
 <h4 id="step-1-update-apt-install-tools-fetch-key">Step 1: Update apt, install tools, fetch key</h4>
 <p>First add the repository key so that <code>apt</code> knows it (this is optional but recommended)</p>
-<pre><code>apt update -qq &amp;&amp; apt install --yes --no-install-recommends wget ca-certificates gnupg
+<pre><code>apt update -qq &amp;&amp; apt install --yes --no-install-recommends wget \
+    ca-certificates gnupg
 wget -q -O- https://eddelbuettel.github.io/r2u/assets/dirk_eddelbuettel_key.asc \
     | tee -a /etc/apt/trusted.gpg.d/cranapt_key.asc
 </code></pre>
 <h4 id="step-2-add-the-apt-repo">Step 2: Add the apt repo</h4>
 <p>Second, add the repository to the <code>apt</code> registry. We recommend the well-connected main mirror
 provide at University of Illinois:</p>
-<pre><code>echo "deb [arch=amd64] https://r2u.stat.illinois.edu/ubuntu jammy main" &gt; /etc/apt/sources.list.d/cranapt.list
+<pre><code>echo "deb [arch=amd64] https://r2u.stat.illinois.edu/ubuntu jammy main" \
+     &gt; /etc/apt/sources.list.d/cranapt.list
 apt update -qq
 </code></pre>
 <h4 id="step-3-ensure-you-have-current-r-binaries-optional">Step 3: Ensure you have current R binaries (optional)</h4>
@@ -1019,8 +1025,10 @@ apt update -qq
 use the <a href="https://cloud.r-project.org/bin/linux/ubuntu/">standard CRAN repo setup</a>)</p>
 <pre><code>wget -q -O- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc \
     | tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
-echo "deb [arch=amd64] https://cloud.r-project.org/bin/linux/ubuntu jammy-cran40/" &gt; /etc/apt/ sources.list.d/cran_r.list
-apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 67C2D66C4B1D4339 51716619E084DAB9
+echo "deb [arch=amd64] https://cloud.r-project.org/bin/linux/ubuntu jammy-cran40/" \
+    &gt; /etc/apt/sources.list.d/cran_r.list
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys \
+    67C2D66C4B1D4339 51716619E084DAB9
 apt update -qq
 DEBIAN_FRONTEND=noninteractive apt install --yes --no-install-recommends r-base-core
 </code></pre>
@@ -1066,9 +1074,14 @@ to packages from a particular repositor or tag.  In the suggested example above,
 give the r2u / cranapt repo a weight of 700 which is higher than the package default value of
 500.</p>
 <h3 id="docker">Docker</h3>
-<p>There are also two Docker containers for Ubuntu 20.04 'focal' and 22.04 'jammy', respectively, at
-<a href="https://hub.docker.com/repository/docker/eddelbuettel/r2u">eddelbuettel/r2u</a> that have the above,
-including pinning and <a href="https://cran.r-project.org/package=bspm">bspm</a> support, already set up.</p>
+<p>There are also two Docker containers for Ubuntu 20.04 'focal' and 22.04 'jammy', respectively.
+Initially published as
+<a href="https://hub.docker.com/repository/docker/eddelbuettel/r2u">eddelbuettel/r2u</a>, these are now also
+available also as <a href="https://github.com/rocker-org/r2u">rocker/r2u</a>. They all have the features
+detailed above, including pinning and <a href="https://cran.r-project.org/package=bspm">bspm</a> support,
+already set up. </p>
+<p>Each of the Ubuntu LTS flavors, <em>i.e.</em>, 'focal' and 'jammy' is also available as an identical image
+using the release version, <em>i.e.</em>, '20.04' and '22.04', respectively.</p>
 <p>Note that with some builds of Docker (and possibly related to Ubuntu hosts) you may have to add
 the <code>--security-opt seccomp=unconfined</code> option to your Docker invocation to take advantage of bspm
 and the full system integration inside the container.
