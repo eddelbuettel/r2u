@@ -19,14 +19,16 @@
 - **Fast and well-connected mirror** at
   [r2u.stat.illinois.edu](https://r2u.stat.illinois.edu) on the [Internet2](https://internet2.edu/) 
 
-- **Complete coverage** with (currently) ~ 20,000 CRAN packages (and 240+ from BioConductor).
+- **Complete coverage** with (currently) ~ 21,000 CRAN packages (and 240+ from BioConductor).
 
 - Complete support for both **Ubuntu 20.04** ("focal") **and Ubuntu 22.04** ("jammy").
 
 - Optional (but recommended) [bspm](https://cloud.r-project.org/package=bspm) use
   **automagically connects R functions like `install.packages()` to `apt`** for access to binaries 
   _and_ dependencies.
-
+  
+- Docker containers `rocker/r2u` from the [Rocker Project](https://rocker-project.org/) for both 
+  'focal' and  'jammy'.
 
 ### Brief Demo
 
@@ -50,7 +52,7 @@ Support for other cpu architectures is certainly possible but somewhat unlikely 
 (additional hardware) resources and time. Support for other distributions is possible but unlikely
 right now (due to a lack of resources and time). We still hope to cover Debian at some point.
 
-Current versions are R 4.2.2, and BioConductor release 3.16 packages are provided when required by
+Current versions are R 4.2.3, and BioConductor release 3.16 packages are provided when required by
 CRAN packages.
 
 
@@ -69,8 +71,8 @@ So we now cover
   compilation
 - all BioConductor package that are implied by these (and build for us).
 
-This currently resuls in 20727 and 20627 binary packages from CRAN in "focal" and "jammy",
-respectively, and 249 and 245 BioConductor packages, respectively, from the 3.16 release.
+This currently resuls in 21043 and 20944 binary packages from CRAN in "focal" and "jammy",
+respectively, and 253 and 248 BioConductor packages, respectively, from the 3.16 release.
 
 The sole exception are two packages we cannot build (as we do not have the required commercial
 software it accessess) plus less than a handful of 'odd builds' that fail and
@@ -103,30 +105,40 @@ as `root` to carefully review each one.
 
 First add the repository key so that `apt` knows it (this is optional but recommended)
 
-    apt update -qq && apt install --yes --no-install-recommends wget ca-certificates gnupg
-    wget -q -O- https://eddelbuettel.github.io/r2u/assets/dirk_eddelbuettel_key.asc \
-        | tee -a /etc/apt/trusted.gpg.d/cranapt_key.asc
-
+```sh
+apt update -qq && apt install --yes --no-install-recommends wget \
+    ca-certificates gnupg
+wget -q -O- https://eddelbuettel.github.io/r2u/assets/dirk_eddelbuettel_key.asc \
+    | tee -a /etc/apt/trusted.gpg.d/cranapt_key.asc
+```
 
 #### Step 2: Add the apt repo
 
 Second, add the repository to the `apt` registry. We recommend the well-connected main mirror
 provide at University of Illinois:
 
-    echo "deb [arch=amd64] https://r2u.stat.illinois.edu/ubuntu jammy main" > /etc/apt/sources.list.d/cranapt.list
-    apt update -qq
+```sh
+echo "deb [arch=amd64] https://r2u.stat.illinois.edu/ubuntu jammy main" \
+     > /etc/apt/sources.list.d/cranapt.list
+apt update -qq
+```
 
 #### Step 3: Ensure you have current R binaries (optional)
 
 Third, and optionally, if you do not yet have the current R version, run these two lines (or
 use the [standard CRAN repo setup](https://cloud.r-project.org/bin/linux/ubuntu/))
 
-    wget -q -O- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc \
-        | tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
-    echo "deb [arch=amd64] https://cloud.r-project.org/bin/linux/ubuntu jammy-cran40/" > /etc/apt/sources.list.d/cran_r.list
-    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 67C2D66C4B1D4339 51716619E084DAB9
-    apt update -qq
-    DEBIAN_FRONTEND=noninteractive apt install --yes --no-install-recommends r-base-core
+```sh
+wget -q -O- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc \
+    | tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
+echo "deb [arch=amd64] https://cloud.r-project.org/bin/linux/ubuntu jammy-cran40/" \
+    > /etc/apt/sources.list.d/cran_r.list
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys \
+    67C2D66C4B1D4339 51716619E084DAB9
+apt update -qq
+DEBIAN_FRONTEND=noninteractive apt install --yes --no-install-recommends \
+    r-base-core
+```
 
 #### Step 4: Use pinning for the r2u repo (optional)
 
@@ -135,10 +147,12 @@ packages (in the Ubuntu distro) which accidentally appear with a higher
 version number. See the next section for a short discussion how it ensures 'CRANapt' 
 sorts highest.
 
-    echo "Package: *" > /etc/apt/preferences.d/99cranapt
-    echo "Pin: release o=CRAN-Apt Project" >> /etc/apt/preferences.d/99cranapt
-    echo "Pin: release l=CRAN-Apt Packages" >> /etc/apt/preferences.d/99cranapt
-    echo "Pin-Priority: 700"  >> /etc/apt/preferences.d/99cranapt
+```sh
+echo "Package: *" > /etc/apt/preferences.d/99cranapt
+echo "Pin: release o=CRAN-Apt Project" >> /etc/apt/preferences.d/99cranapt
+echo "Pin: release l=CRAN-Apt Packages" >> /etc/apt/preferences.d/99cranapt
+echo "Pin-Priority: 700"  >> /etc/apt/preferences.d/99cranapt
+```
 
 After that the package are known (under their `r-cran-*` and `r-bioc-*`
 names).  You can install them on the command-line using `apt` and `apt-get`,
@@ -154,12 +168,14 @@ correctly with the packaging system.  You should also install Python components 
 [bspm](https://cloud.r-project.org/package=bspm) via the `sudo apt-get install
 python3-{dbus,gi,apt}` command.
 
-    apt install --yes --no-install-recommends python3-{dbus,gi,apt}
-    ## Then install bspm (as root) and enable it, and enable a speed optimization
-    Rscript -e 'install.packages("bspm")'
-    RHOME=$(R RHOME)
-    echo "suppressMessages(bspm::enable())" >> ${RHOME}/etc/Rprofile.site
-    echo "options(bspm.version.check=FALSE)" >> ${RHOME}/etc/Rprofile.site
+```sh
+apt install --yes --no-install-recommends python3-{dbus,gi,apt}
+## Then install bspm (as root) and enable it, and enable a speed optimization
+Rscript -e 'install.packages("bspm")'
+RHOME=$(R RHOME)
+echo "suppressMessages(bspm::enable())" >> ${RHOME}/etc/Rprofile.site
+echo "options(bspm.version.check=FALSE)" >> ${RHOME}/etc/Rprofile.site
+```
 
 That's it! Now try it out!
 
@@ -183,9 +199,15 @@ give the r2u / cranapt repo a weight of 700 which is higher than the package def
 
 ### Docker
 
-There are also two Docker containers for Ubuntu 20.04 'focal' and 22.04 'jammy', respectively, at
-[eddelbuettel/r2u](https://hub.docker.com/repository/docker/eddelbuettel/r2u) that have the above,
-including pinning and [bspm](https://cran.r-project.org/package=bspm) support, already set up.
+There are also two Docker containers for Ubuntu 20.04 'focal' and 22.04 'jammy', respectively.
+Initially published as
+[eddelbuettel/r2u](https://hub.docker.com/repository/docker/eddelbuettel/r2u), these are now also
+available also as [rocker/r2u](https://github.com/rocker-org/r2u). They all have the features
+detailed above, including pinning and [bspm](https://cran.r-project.org/package=bspm) support,
+already set up. 
+
+Each of the Ubuntu LTS flavors, _i.e._, 'focal' and 'jammy' is also available as an identical image
+using the release version, _i.e._, '20.04' and '22.04', respectively.
 
 Note that with some builds of Docker (and possibly related to Ubuntu hosts) you may have to add
 the `--security-opt seccomp=unconfined` option to your Docker invocation to take advantage of bspm

@@ -1,3 +1,7 @@
+2023-04-14  Dirk Eddelbuettel  <edd@debian.org>
+
+	* README.md: Mention rocker/r2u containers
+
 2022-12-25  Dirk Eddelbuettel  <edd@debian.org>
 
 	* docs/mkdmt-src/src/vignettes/FAQ.md: Mention that non-LTS releases
