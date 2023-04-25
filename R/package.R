@@ -7,7 +7,9 @@
     if (!file.exists(path)) {
         repo <- paste0("https://packagemanager.rstudio.com/all/__linux__/", .getConfig("distribution_name"), "/latest")
         rv <- R.version
-        agent <- sprintf("R/%s R (%s)", getRversion(), paste(getRversion(), rv$platform, rv$arch, rv$os))
+        ## agent <- sprintf("R/%s R (%s)", getRversion(), paste(getRversion(), rv$platform, rv$arch, rv$os))
+        rversion <- .getConfig("minimum_r_version")  # e.g. "4.2.2"
+        agent <- sprintf("R/%s R (%s)", rversion, paste(rversion, rv$platform, rv$arch, rv$os))
         options(HTTPUserAgent = agent)
         download.packages(pkg, cachedir, repos = repo, quiet = TRUE)
         cat(green("[downloaded] "))
