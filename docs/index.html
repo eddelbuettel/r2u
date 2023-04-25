@@ -971,8 +971,9 @@ predecessor release.  We use 'r-release' just like CRAN. So currently the 'focal
 <p>Support for other cpu architectures is certainly possible but somewhat unlikely due to a lack of
 (additional hardware) resources and time. Support for other distributions is possible but unlikely
 right now (due to a lack of resources and time). We still hope to cover Debian at some point.</p>
-<p>Current versions are R 4.2.3, and BioConductor release 3.16 packages are provided when required by
-CRAN packages.</p>
+<p>Current versions are based on R 4.3.0, and BioConductor release 3.16 packages are provided when
+required by CRAN packages.  Binaries are still R 4.2.*  based (unless a forced rebuild was required)
+but the containers provide R 4.3.0.</p>
 <h3 id="what-is-selected">What is Selected ?</h3>
 <p>Everything :)</p>
 <p>Initially, we started from <a href="https://cran-logs.rstudio.com/">cran-logs</a> by picking the <em>N</em>
@@ -1008,7 +1009,7 @@ of the corresponding release. However, you may prefer to execute the steps outli
 as <code>root</code> to carefully review each one.</p>
 <h4 id="step-1-update-apt-install-tools-fetch-key">Step 1: Update apt, install tools, fetch key</h4>
 <p>First add the repository key so that <code>apt</code> knows it (this is optional but recommended)</p>
-<pre><code>apt update -qq &amp;&amp; apt install --yes --no-install-recommends wget \
+<pre><code class="language-sh">apt update -qq &amp;&amp; apt install --yes --no-install-recommends wget \
     ca-certificates gnupg
 wget -q -O- https://eddelbuettel.github.io/r2u/assets/dirk_eddelbuettel_key.asc \
     | tee -a /etc/apt/trusted.gpg.d/cranapt_key.asc
@@ -1016,31 +1017,32 @@ wget -q -O- https://eddelbuettel.github.io/r2u/assets/dirk_eddelbuettel_key.asc 
 <h4 id="step-2-add-the-apt-repo">Step 2: Add the apt repo</h4>
 <p>Second, add the repository to the <code>apt</code> registry. We recommend the well-connected main mirror
 provide at University of Illinois:</p>
-<pre><code>echo "deb [arch=amd64] https://r2u.stat.illinois.edu/ubuntu jammy main" \
+<pre><code class="language-sh">echo &quot;deb [arch=amd64] https://r2u.stat.illinois.edu/ubuntu jammy main&quot; \
      &gt; /etc/apt/sources.list.d/cranapt.list
 apt update -qq
 </code></pre>
 <h4 id="step-3-ensure-you-have-current-r-binaries-optional">Step 3: Ensure you have current R binaries (optional)</h4>
 <p>Third, and optionally, if you do not yet have the current R version, run these two lines (or
 use the <a href="https://cloud.r-project.org/bin/linux/ubuntu/">standard CRAN repo setup</a>)</p>
-<pre><code>wget -q -O- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc \
+<pre><code class="language-sh">wget -q -O- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc \
     | tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
-echo "deb [arch=amd64] https://cloud.r-project.org/bin/linux/ubuntu jammy-cran40/" \
+echo &quot;deb [arch=amd64] https://cloud.r-project.org/bin/linux/ubuntu jammy-cran40/&quot; \
     &gt; /etc/apt/sources.list.d/cran_r.list
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys \
     67C2D66C4B1D4339 51716619E084DAB9
 apt update -qq
-DEBIAN_FRONTEND=noninteractive apt install --yes --no-install-recommends r-base-core
+DEBIAN_FRONTEND=noninteractive apt install --yes --no-install-recommends \
+    r-base-core
 </code></pre>
 <h4 id="step-4-use-pinning-for-the-r2u-repo-optional">Step 4: Use pinning for the r2u repo (optional)</h4>
 <p>Fourth, add repository 'pinning' as <code>apt</code> might get confused by some older
 packages (in the Ubuntu distro) which accidentally appear with a higher
 version number. See the next section for a short discussion how it ensures 'CRANapt' 
 sorts highest.</p>
-<pre><code>echo "Package: *" &gt; /etc/apt/preferences.d/99cranapt
-echo "Pin: release o=CRAN-Apt Project" &gt;&gt; /etc/apt/preferences.d/99cranapt
-echo "Pin: release l=CRAN-Apt Packages" &gt;&gt; /etc/apt/preferences.d/99cranapt
-echo "Pin-Priority: 700"  &gt;&gt; /etc/apt/preferences.d/99cranapt
+<pre><code class="language-sh">echo &quot;Package: *&quot; &gt; /etc/apt/preferences.d/99cranapt
+echo &quot;Pin: release o=CRAN-Apt Project&quot; &gt;&gt; /etc/apt/preferences.d/99cranapt
+echo &quot;Pin: release l=CRAN-Apt Packages&quot; &gt;&gt; /etc/apt/preferences.d/99cranapt
+echo &quot;Pin-Priority: 700&quot;  &gt;&gt; /etc/apt/preferences.d/99cranapt
 </code></pre>
 <p>After that the package are known (under their <code>r-cran-*</code> and <code>r-bioc-*</code>
 names).  You can install them on the command-line using <code>apt</code> and <code>apt-get</code>,
@@ -1053,12 +1055,12 @@ it directly from source via <code>sudo Rscript -e 'install.packages("bspm")'</co
 correctly with the packaging system.  You should also install Python components used internally by
 <a href="https://cloud.r-project.org/package=bspm">bspm</a> via the <code>sudo apt-get install
 python3-{dbus,gi,apt}</code> command.</p>
-<pre><code>apt install --yes --no-install-recommends python3-{dbus,gi,apt}
+<pre><code class="language-sh">apt install --yes --no-install-recommends python3-{dbus,gi,apt}
 ## Then install bspm (as root) and enable it, and enable a speed optimization
-Rscript -e 'install.packages("bspm")'
+Rscript -e 'install.packages(&quot;bspm&quot;)'
 RHOME=$(R RHOME)
-echo "suppressMessages(bspm::enable())" &gt;&gt; ${RHOME}/etc/Rprofile.site
-echo "options(bspm.version.check=FALSE)" &gt;&gt; ${RHOME}/etc/Rprofile.site
+echo &quot;suppressMessages(bspm::enable())&quot; &gt;&gt; ${RHOME}/etc/Rprofile.site
+echo &quot;options(bspm.version.check=FALSE)&quot; &gt;&gt; ${RHOME}/etc/Rprofile.site
 </code></pre>
 <p>That's it! Now try it out!</p>
 <h3 id="about-pinning">About Pinning</h3>

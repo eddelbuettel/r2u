@@ -56,8 +56,9 @@ Support for other cpu architectures is certainly possible but somewhat unlikely 
 (additional hardware) resources and time. Support for other distributions is possible but unlikely
 right now (due to a lack of resources and time). We still hope to cover Debian at some point.
 
-Current versions are R 4.2.3, and BioConductor release 3.16 packages are provided when required by
-CRAN packages.
+Current versions are based on R 4.3.0, and BioConductor release 3.16 packages are provided when
+required by CRAN packages.  Binaries are still R 4.2.*  based (unless a forced rebuild was required)
+but the containers provide R 4.3.0.
 
 
 ### What is Selected ?
