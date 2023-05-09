@@ -1,3 +1,16 @@
+2023-05-09  Dirk Eddelbuettel  <edd@debian.org>
+
+	* repo: Several packages using the Graphics API of R itself have been
+	rebuilt for R 4.3.0 and its 'soft' API change 
+
+2023-04-29  Dirk Eddelbuettel  <edd@debian.org>
+
+	* repo: Rebuild of BioConductor packages for 3.17 release
+
+2023-04-25  Dirk Eddelbuettel  <edd@debian.org>
+
+	* README.md: Mention R 4.3.0 is now the R version used
+
 2023-04-14  Dirk Eddelbuettel  <edd@debian.org>
 
 	* README.md: Mention rocker/r2u containers
