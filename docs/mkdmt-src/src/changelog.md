@@ -1,5 +1,15 @@
 ###  2023 
 
+2023-06-03  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * repo: The metadata for focal (20.04) has been adjusted so packages 
+        `sf`, `gdalraster` and `FIESTA` are now available as on 22.04 
+ 
+2023-05-11  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * .gitpod.Dockerfile: Update to rocker/r2u:jammy 
+        * .gitpod.yml (vscode): Update to REditorSupport.r@2.8.0 
+ 
 2023-05-09  Dirk Eddelbuettel  <edd@debian.org> 
  
         * repo: Several packages using the Graphics API of R itself have been 
