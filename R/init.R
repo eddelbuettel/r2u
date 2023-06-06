@@ -275,6 +275,10 @@
     }
 }
 
+.setOptions <- function() {
+    options(download = 180) 		# up from default of 60
+}
+
 .onLoad <- function(libname, pkgname) {
     .loadConfig()
     .checkSystem()
@@ -283,6 +287,7 @@
     .loadBuilds()
     .loadBuildDepends()
     .loadBlacklist()
+    .setOptions()
 }
 
 .onAttach <- function(libname, pkgname) {
@@ -293,4 +298,5 @@
     .loadBuilds()
     .loadBuildDepends()
     .loadBlacklist()
+    .setOptions()
 }
