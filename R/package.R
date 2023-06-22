@@ -146,7 +146,7 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
     }
     pkgname <- paste0("r-", tolower(effrepo), "-", tolower(pkg)) 			# aka r-cran-namehere
     cand <- paste0(pkgname, "_", ver)
-    if (is.finite(match(cand, builds[, pkgver])) && isFALSE(force)) {
+    if (is.finite(match(cand, builds[, pkgver])) && isFALSE(force) && suffix==".1") {
         if (verbose) cat(blue(sprintf("%-22s %-11s %-11s", pkg, ver, aver))) 		# start console log with pkg
         if (verbose) cat(green("[already built - skipping]\n"))
         return(invisible())
