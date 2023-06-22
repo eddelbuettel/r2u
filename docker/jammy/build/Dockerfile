@@ -9,7 +9,7 @@ LABEL org.label-schema.license="GPL-2.0" \
 ## This was not needed before but we need it now
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN rm /etc/apt/sources.list.d/edd-ubuntu-misc-jammy.list \
+RUN rm -f /etc/apt/sources.list.d/edd-ubuntu-misc-jammy.list \
     && apt update -qq \
     && apt upgrade --yes \
     && apt install --yes --no-install-recommends dh-r gpg-agent xvfb \
