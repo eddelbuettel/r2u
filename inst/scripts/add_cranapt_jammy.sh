@@ -33,7 +33,7 @@ echo "Pin-Priority: 700"  >> /etc/apt/preferences.d/99cranapt
 
 ## Fifth: install bspm (and its Python requirements) and enable it
 ## If needed (in bare container, say) install python tools for bspm and R itself
-apt install --yes --no-install-recommends python3-{dbus,gi,apt}
+apt install --yes --no-install-recommends python3-{dbus,gi,apt} make
 ## Then install bspm (as root) and enable it, and enable a speed optimization
 Rscript -e 'install.packages("bspm")'
 RHOME=$(R RHOME)
