@@ -132,7 +132,7 @@
     close(con)
 }
 
-.writeChangelog <- function(pkg, db, ap, repo=c("CRAN", "Bioc"), debug=FALSE, suffix=".1") {
+.writeChangelog <- function(pkg, db, ap, repo=c("CRAN", "Bioc"), debug=FALSE, suffix=".1", debver="1.", plusdfsg=FALSE) {
     if (missing(db)) db <- .pkgenv[["db"]]
     stopifnot("db must be data.frame" = inherits(db, "data.frame"))
     repo <- tolower(match.arg(repo))
@@ -161,7 +161,14 @@
     }
 
     rel <- paste0("r-", repo, "-", lp)
-    ver <- paste0(upstreamversion, "-1.ca", gsub("\\.", "", distribution), suffix)
+    ver <- paste0(upstreamversion,
+                  if (plusdfsg) "+dfsg" else "",
+                  "-",
+                  debver,        			# usually "1.",
+                  "ca",					# for cranapt
+                  gsub("\\.", "", distribution),	# eg take out "." from "22.04"
+                  suffix)                               # usually ".1"
+
     date <- system("date -R", intern=TRUE)
     con <- file("changelog", "wt")
     cat(rel, " (", ver, ") ", distribution_name, "; urgency=medium\n\n",

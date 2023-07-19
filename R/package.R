@@ -80,10 +80,14 @@
 ##' @param force logical Optional value to force package build from source, default is \sQuote{FALSE}
 ##' @param xvfb logical Optional value to build under \code{xvfb-run}, default is \sQuote{FALSE}
 ##' @param suffix character Optional value to override default package version suffix of \sQuote{.1}
-##' @param ndeps integer Optional value for selected build-dependency count build via \code{nDeps}
+##' @param debver character Optional value for beginning of Debian build version,
+##' default \sQuote{1.}
+##' @param plusdfsg logical Optional switch whether \dQuote{+dfsg} gets appended to usptream,
+##' default \sQuote{FALSE}
 ##' @return Nothing as the function is invoked for the side effect of building binary packages
 ##' @author Dirk Eddelbuettel
-buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb=FALSE, suffix=".1") {
+buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb=FALSE,
+                         suffix=".1", debver="1.", plusdfsg=FALSE) {
     db <- .pkgenv[["db"]]
     stopifnot("db must be data.frame" = inherits(db, "data.frame"))
     .checkTarget(tgt)
@@ -152,6 +156,20 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
         return(invisible())
     }
 
+    ## side-effect of the Breaks for R 4.3.1 and the newly built packages
+    if (  (pkg == "magick"     && ver == "2.7.4")
+        ||(pkg == "MALDIquant" && ver == "1.22.1")
+        ||(pkg == "ps"         && ver == "1.7.5")
+        ||(pkg == "ragg"       && ver == "1.2.5")
+        ||(pkg == "svglite"    && ver == "2.1.1")
+        ||(pkg == "tibble"     && ver == "3.2.1")) {
+        if (verbose) {
+            cat(blue(sprintf("%-22s %-11s %-11s", pkg, ver, aver)))
+            cat(red("[silly breaks side effect, skipping]\n"))
+        }
+        return(invisible())
+    }
+
     ## so we're building one
     cat(blue(sprintf("%-22s %-11s %-11s", pkg, ver, aver))) 		# start console log with pkg
     if (is.finite(match(pkg, .pkgenv[["blacklist"]]))) {
@@ -181,7 +199,7 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
         untar(file, exdir=instdir)
         if (!file.exists(file.path(instdir, pkg, "Meta", "package.rds"))) {
             cat("[forcing source build]\n")
-            buildPackage(pkg, tgt, debug, version, force=TRUE, xvfb, suffix)
+            buildPackage(pkg, tgt, debug, version, force=TRUE, xvfb, suffix, debver, plusdfsg)
             return(invisible())
         }
     } else {
@@ -197,7 +215,7 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
     }
 
     .writeControl(pkg, db, ap, repo)
-    .writeChangelog(pkg, db, ap, repo, suffix=suffix)
+    .writeChangelog(pkg, db, ap, repo, suffix=suffix, debver=debver, plusdfsg=plusdfsg)
     .writeRules(pkg, repo)
     .writeCopyright(pkg, D[, License])
     .writeSourceFormat(pkg)
