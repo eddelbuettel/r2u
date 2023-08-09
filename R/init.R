@@ -276,7 +276,7 @@
 }
 
 .setOptions <- function() {
-    options(download = 180) 		# up from default of 60
+    options(timeout = 300) 		# up from default of 60
 }
 
 .onLoad <- function(libname, pkgname) {
