@@ -1,0 +1,56 @@
+{
+    "image": "mcr.microsoft.com/devcontainers/base:jammy",
+
+    "features": {
+        "ghcr.io/rocker-org/devcontainer-features/r-apt:0": {
+            // See: https://github.com/rocker-org/devcontainer-features/blob/main/src/r-apt/README.md#options
+            //
+            // Use RSupport (incl languageserver and httpgd) spand bspm
+            "vscodeRSupport": "full",
+            "installBspm": true,
+            //
+            // But turn off Radian (R console), devtools, extre Markdown support and debugger
+            // You can add each of these individually or jointly. See the table at
+            // https://github.com/rocker-org/devcontainer-features/blob/main/src/r-apt/README.md#options
+            "installRadian": false,
+            "installDevTools": false,
+            "installRMarkdown": false,
+            "installVscDebugger": false,
+            "useTesting": false
+        }
+
+    },
+
+    // Configure tool-specific properties.
+    "customizations": {
+        // Configure properties specific to VS Code.
+        "vscode": {
+            // Set *default* container specific settings.json values on container create.
+            "settings": {
+                // use httpgd as the plotting device
+                "r.plot.useHttpgd": true,
+                //
+                // turn these two on with Radian
+                //"r.rterm.linux": "/usr/local/bin/radian",
+                //"r.bracketedPaste": true,
+                //
+                // some guidance for the editor on R files
+                "[r]": {
+                    "editor.wordSeparators": "`~!@#%$^&*()-=+[{]}\\|;:'\",<>/?"
+                },
+                // see https://stackoverflow.com/questions/68858490/disable-r-linting-in-vscode
+                "r.lsp.diagnostics": false
+            }
+        }
+    },
+
+    // Use 'forwardPorts' to make a list of ports inside the container available locally.
+    // "forwardPorts": [ 8787 ],
+    //
+    // Use 'postCreateCommand' to run commands after the container is created.
+    // "postCreateCommand": "R -q -e 'install.packages(\"tidyverse\")'",
+
+    // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+    // "remoteUser": "root"
+
+}
