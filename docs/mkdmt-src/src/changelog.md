@@ -1,5 +1,13 @@
 ###  2023 
 
+2023-08-12  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * .devcontainers/*: Adding documentation for Devcontainer use 
+ 
+2023-08-09  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * R/init.R (.setOptions): Set timeout to 300 
+ 
 2023-06-03  Dirk Eddelbuettel  <edd@debian.org> 
  
         * repo: The metadata for focal (20.04) has been adjusted so packages 

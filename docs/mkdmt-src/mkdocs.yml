@@ -37,7 +37,7 @@ nav:
     - man/r2u-package.md
   - Articles:
     - FAQ: vignettes/FAQ.md
-    - Notes: vignettes/Notes.md
+    - Codespaces: vignettes/Codespaces.md
   - News:
     - news.md
   - Changelog:
