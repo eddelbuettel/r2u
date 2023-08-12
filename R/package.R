@@ -177,6 +177,11 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
         return(invisible())
     }
 
+    if (repo == "CRAN" && is.na(match(pkg, db[,Package]))) {
+        cat("[skipping as not in current CRAN db]\n")
+        return(invisible())
+    }
+
     file <- if (repo == "CRAN" && isFALSE(force)) {
                 .get_package_file(pkg, D[, Version]) 			# rspm file, possibly cached
             } else {
@@ -208,11 +213,6 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
     }
 
     setwd("debian")
-
-    if (repo == "CRAN" && is.na(match(pkg, db[,Package]))) {
-        cat("[skipping as not in current CRAN db]\n")
-        return(invisible())
-    }
 
     .writeControl(pkg, db, ap, repo)
     .writeChangelog(pkg, db, ap, repo, suffix=suffix, debver=debver, plusdfsg=plusdfsg)
