@@ -7,6 +7,8 @@
 ##
 ## Note that the code here must be run in the 8gb ram instance of codespaces
 
+options(bspm.version.check=FALSE) 	# with r2u prefer binaries over source and skip version check
+
 if (!requireNamespace("Seurat", quietly = TRUE)) install.packages("Seurat")
 
 if (!requireNamespace("cellxgene.census", quietly = TRUE)) {
