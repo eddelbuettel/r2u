@@ -34,10 +34,7 @@ can run the code easily in the browser environment: Highlight or hover over
 line(s) and execute them by hitting `Cmd`+`Return` (Mac) / `Ctrl`+`Return`
 (Linux / Windows).
 
-<img src="https://eddelbuettel.github.io/r2u/assets/vscodespace.png" width="90%">
-
-(Both example screenshots reflect the initial [codespaces-r2u][codespaces-r2u] repo as well as
-personal scratchspace one which we started with, both of course work here too.)
+<img src="https://eddelbuettel.github.io/r2u/assets/sfExample.png" width="90%">
 
 Do not forget to close your Codespace once you have finished using it. Click
 the "Codespaces" tab at the very bottom left of your code editor / browser
@@ -61,7 +58,7 @@ downloads single-cell data from Census and uses
 decomposition plots. _Note that in order run this you have to change the
 Codespaces default instance from 'small' (4gb ram) to 'large' (16gb ram)._
 
-<img src="https://eddelbuettel.github.io/r2u/assets/census_example_codespace.jpeg" width="90%">
+<img src="https://eddelbuettel.github.io/r2u/assets/censusExample.png" width="90%">
 
 
 ### Local DevContainer build
