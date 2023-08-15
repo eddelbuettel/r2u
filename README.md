@@ -20,7 +20,7 @@
   [r2u.stat.illinois.edu](https://r2u.stat.illinois.edu) on the [Internet2](https://internet2.edu/) 
 
 - **Complete coverage** with (currently) ~ 21,000 CRAN packages (and 240+ from BioConductor) using
-  **current versions**: We use R 4.3.0, and BioConductor 3.17.
+  **current versions**: We now use R 4.3.1, and BioConductor 3.17.
 
 - Complete support for both **Ubuntu 20.04** ("focal") **and Ubuntu 22.04** ("jammy").
 
@@ -53,9 +53,10 @@ Support for other cpu architectures is certainly possible but somewhat unlikely 
 (additional hardware) resources and time. Support for other distributions is possible but unlikely
 right now (due to a lack of resources and time). We still hope to cover Debian at some point.
 
-Current versions are based on R 4.3.0, and BioConductor release 3.17 packages are provided when
-required by CRAN packages.  Binaries are still R 4.2.*  based (unless a forced rebuild was required)
-but the containers provide R 4.3.0.  We expect to switch to R 4.3.0-based builds very soon.
+Current versions are based on R 4.3.1, and BioConductor release 3.17 packages are provided when
+required by CRAN packages.  Binaries are generally R 4.3.* based. Some older packages released when
+we used R 4.2.* may have been built with R 4.2.*, they will still work the same with R 4.3.* as R is
+generally forward-compatible.
 
 
 ### What is Selected ?
