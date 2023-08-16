@@ -81,7 +81,7 @@ command palette too (`Cmd+Shift+p` / `Ctrl+Shift+p`).
 
 To add this ability of launching Codespaces in the browser (or editor) to a repo of yours, create a
 directory `.devcontainers` in your selected repo, and add the file
-[`.devcontainers/devcontainer.json`](.devcontainers/devcontainer.json). You can customize it by
+[`.devcontainers/devcontainer.json`](https://github.com/eddelbuettel/r2u/blob/master/.devcontainer/devcontainer.json). You can customize it by
 enabling other feature, or use the `postCreateCommand` field to install packages (while taking full
 advantage of [r2u][r2u]).
 

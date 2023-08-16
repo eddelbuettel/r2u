@@ -1,5 +1,17 @@
 ###  2023 
 
+2023-08-16  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * R/init.R (.setOptions): Set timeout to 180 
+ 
+2023-08-15  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * README.md: A few edits throughout 
+ 
+2023-08-13  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * docs/*: Added new vignette on 'codespaces' 
+ 
 2023-08-12  Dirk Eddelbuettel  <edd@debian.org> 
  
         * .devcontainers/*: Adding documentation for Devcontainer use 

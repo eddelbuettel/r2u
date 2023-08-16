@@ -465,6 +465,26 @@
     Try It
   </a>
   
+    <nav class="md-nav" aria-label="Try It">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#via-codespaces" class="md-nav__link">
+    Via codespaces
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#via-gitpodio" class="md-nav__link">
+    Via gitpod.io
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -865,6 +885,26 @@
     Try It
   </a>
   
+    <nav class="md-nav" aria-label="Try It">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#via-codespaces" class="md-nav__link">
+    Via codespaces
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#via-gitpodio" class="md-nav__link">
+    Via gitpod.io
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -942,8 +982,8 @@
   <a href="https://r2u.stat.illinois.edu">r2u.stat.illinois.edu</a> on the <a href="https://internet2.edu/">Internet2</a> </p>
 </li>
 <li>
-<p><strong>Complete coverage</strong> with (currently) ~ 21,000 CRAN packages (and 240+ from BioConductor) using
-  <strong>current versions</strong>: We use R 4.3.0, and BioConductor 3.17.</p>
+<p><strong>Complete coverage</strong> with (currently) ~ 21,500 CRAN packages (and 260+ from BioConductor) using
+  <strong>current versions</strong>: We use R 4.3.1, and BioConductor 3.17.</p>
 </li>
 <li>
 <p>Complete support for both <strong>Ubuntu 20.04</strong> ("focal") <strong>and Ubuntu 22.04</strong> ("jammy").</p>
@@ -972,9 +1012,10 @@ predecessor release.  We use 'r-release' just like CRAN. So currently the 'focal
 <p>Support for other cpu architectures is certainly possible but somewhat unlikely due to a lack of
 (additional hardware) resources and time. Support for other distributions is possible but unlikely
 right now (due to a lack of resources and time). We still hope to cover Debian at some point.</p>
-<p>Current versions are based on R 4.3.0, and BioConductor release 3.17 packages are provided when
-required by CRAN packages.  Binaries are still R 4.2.*  based (unless a forced rebuild was required)
-but the containers provide R 4.3.0.  We expect to switch to R 4.3.0-based builds very soon.</p>
+<p>Current versions are based on R 4.3.1, and BioConductor release 3.17 packages are provided when
+required by CRAN packages.  Binaries are generally R 4.3.<em> based. Some older packages released when
+we used R 4.2.</em> may have been built with R 4.2.<em>, they will still work the same with R 4.3.</em> as R is
+generally forward-compatible.</p>
 <h3 id="what-is-selected">What is Selected ?</h3>
 <p>Everything :)</p>
 <p>Initially, we started from <a href="https://cran-logs.rstudio.com/">cran-logs</a> by picking the <em>N</em>
@@ -987,15 +1028,15 @@ a very skewed distribution.) We iterated, and fairly soon arrived of full covera
   compilation</li>
 <li>all BioConductor package that are implied by these (and build for us).</li>
 </ul>
-<p>This currently resuls in 21043 and 20944 binary packages from CRAN in "focal" and "jammy",
-respectively, and 253 and 248 BioConductor packages, respectively, from the 3.16 release.</p>
+<p>This currently resuls in 21711 and 21615 binary packages from CRAN in "focal" and "jammy",
+respectively, and 265 and 260 BioConductor packages, respectively, from the 3.17 release.</p>
 <p>The sole exception are two packages we cannot build (as we do not have the required commercial
 software it accessess) plus less than a handful of 'odd builds' that fail and
 are skipped.</p>
 <h3 id="what-is-it-based-on">What is it Based On?</h3>
 <p>For the CRAN binaries we either repackage
 <a href="https://packagemanager.rstudio.com/client/#/repos/2/packages/">RSPM/PPM</a> builds (where available)
-or build natively. All selected BioConductor 3.16 packages are built natively.  For all of these,
+or build natively. All selected BioConductor 3.17 packages are built natively.  For all of these,
 full dependency resolution and integration with the system is a key feature.</p>
 <p>Everything is provided as <code>.deb</code> binary files with proper dependency
 resolution by using a proper <code>apt</code> repo which also has a signed Release file.</p>
@@ -1090,6 +1131,13 @@ the <code>--security-opt seccomp=unconfined</code> option to your Docker invocat
 and the full system integration inside the container.
 This is also documented in the <a href="https://eddelbuettel.github.io/r2u/vignettes/FAQ/">FAQ</a>.</p>
 <h3 id="try-it">Try It</h3>
+<h4 id="via-codespaces">Via codespaces</h4>
+<p>See the vignette <a href="https://eddelbuettel.github.io/r2u/vignettes/Codespaces/">Codespaces</a> about how to
+launch a 'Codespace' directly in your browser, launched from the gitrepo within minutes.</p>
+<p>This also works from your [vscode][https://code.visualstudio.com/] installation as a remote
+codespace.</p>
+<p>The vignette has more details.</p>
+<h4 id="via-gitpodio">Via gitpod.io</h4>
 <p>Use this link below (after possibly signing up for
 <a href="https://gitpod.io/">gitpod.io</a> first)</p>
 <p><a href="https://gitpod.io/#https://github.com/eddelbuettel/r2u"><img alt="Open in Gitpod" src="https://gitpod.io/button/open-in-gitpod.svg" /></a></p>

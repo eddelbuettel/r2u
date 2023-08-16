@@ -19,8 +19,8 @@
 - **Fast and well-connected mirror** at
   [r2u.stat.illinois.edu](https://r2u.stat.illinois.edu) on the [Internet2](https://internet2.edu/) 
 
-- **Complete coverage** with (currently) ~ 21,000 CRAN packages (and 240+ from BioConductor) using
-  **current versions**: We now use R 4.3.1, and BioConductor 3.17.
+- **Complete coverage** with (currently) ~ 21,500 CRAN packages (and 260+ from BioConductor) using
+  **current versions**: We use R 4.3.1, and BioConductor 3.17.
 
 - Complete support for both **Ubuntu 20.04** ("focal") **and Ubuntu 22.04** ("jammy").
 
@@ -74,8 +74,8 @@ So we now cover
   compilation
 - all BioConductor package that are implied by these (and build for us).
 
-This currently resuls in 21043 and 20944 binary packages from CRAN in "focal" and "jammy",
-respectively, and 253 and 248 BioConductor packages, respectively, from the 3.16 release.
+This currently resuls in 21711 and 21615 binary packages from CRAN in "focal" and "jammy",
+respectively, and 265 and 260 BioConductor packages, respectively, from the 3.17 release.
 
 The sole exception are two packages we cannot build (as we do not have the required commercial
 software it accessess) plus less than a handful of 'odd builds' that fail and
@@ -85,7 +85,7 @@ are skipped.
 
 For the CRAN binaries we either repackage
 [RSPM/PPM](https://packagemanager.rstudio.com/client/#/repos/2/packages/) builds (where available)
-or build natively. All selected BioConductor 3.16 packages are built natively.  For all of these,
+or build natively. All selected BioConductor 3.17 packages are built natively.  For all of these,
 full dependency resolution and integration with the system is a key feature.
 
 Everything is provided as `.deb` binary files with proper dependency
@@ -220,6 +220,18 @@ This is also documented in the [FAQ](https://eddelbuettel.github.io/r2u/vignette
 
 
 ### Try It
+
+#### Via codespaces 
+
+See the vignette [Codespaces](https://eddelbuettel.github.io/r2u/vignettes/Codespaces/) about how to
+launch a 'Codespace' directly in your browser, launched from the gitrepo within minutes.
+
+This also works from your [vscode][https://code.visualstudio.com/] installation as a remote
+codespace.
+
+The vignette has more details.
+
+#### Via gitpod.io
 
 Use this link below (after possibly signing up for
 [gitpod.io](https://gitpod.io/) first)
