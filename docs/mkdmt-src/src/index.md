@@ -49,13 +49,14 @@ the five easy setup steps detailed here.
 
 ### What is Covered ?
 
-We generally support amd64 (_i.e._ standard Intel/AMD cpus) for the current Ubuntu LTS release and its
-predecessor release.  We use 'r-release' just like CRAN. So currently the 'focal' 20.04 LTS and
-'jammy' 22.04 LTS releases are fully supported.
+We generally support amd64 (_i.e._ standard 64-bit Intel/AMD cpus, sometimes also called x86_64)
+for the current Ubuntu LTS release and its predecessor release.  We use 'r-release' just like
+CRAN. So currently the 'focal' 20.04 LTS and 'jammy' 22.04 LTS releases are fully supported.
 
 Support for other cpu architectures is certainly possible but somewhat unlikely due to a lack of
 (additional hardware) resources and time. Support for other distributions is possible but unlikely
-right now (due to a lack of resources and time). We still hope to cover Debian at some point.
+right now (due to a lack of resources and time). RSPM/PPM now appears to also support Debian which
+could be added at some later point.
 
 Current versions are based on R 4.3.1, and BioConductor release 3.17 packages are provided when
 required by CRAN packages.  Binaries are generally R 4.3.* based. Some older packages released when
@@ -260,7 +261,7 @@ Please file issues at the [GitHub issues for r2u](https://github.com/eddelbuette
 
 ### Known Issues
 
-- The littler package reflects build-time configuration, the RSPM binary is then expecting a
+- The littler package reflects build-time configuration, the RSPM/PPM binary is then expecting a
   different R location so it needs a binary rebuild. Added a 'force' flag, may need a list similar
   to the blacklist to always compiled.
 

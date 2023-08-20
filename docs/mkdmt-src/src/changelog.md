@@ -1,5 +1,9 @@
 ###  2023 
 
+2023-08-20  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * README.md: Small edits and minor clarification 
+ 
 2023-08-16  Dirk Eddelbuettel  <edd@debian.org> 
  
         * R/init.R (.setOptions): Set timeout to 180 

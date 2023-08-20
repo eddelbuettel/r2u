@@ -1006,12 +1006,13 @@ R package installation to <code>apt</code> using <a href="https://cloud.r-projec
 <p>This uses the Docker container referenced below, which has been set up with
 the five easy setup steps detailed here.</p>
 <h3 id="what-is-covered">What is Covered ?</h3>
-<p>We generally support amd64 (<em>i.e.</em> standard Intel/AMD cpus) for the current Ubuntu LTS release and its
-predecessor release.  We use 'r-release' just like CRAN. So currently the 'focal' 20.04 LTS and
-'jammy' 22.04 LTS releases are fully supported.</p>
+<p>We generally support amd64 (<em>i.e.</em> standard 64-bit Intel/AMD cpus, sometimes also called x86_64)
+for the current Ubuntu LTS release and its predecessor release.  We use 'r-release' just like
+CRAN. So currently the 'focal' 20.04 LTS and 'jammy' 22.04 LTS releases are fully supported.</p>
 <p>Support for other cpu architectures is certainly possible but somewhat unlikely due to a lack of
 (additional hardware) resources and time. Support for other distributions is possible but unlikely
-right now (due to a lack of resources and time). We still hope to cover Debian at some point.</p>
+right now (due to a lack of resources and time). RSPM/PPM now appears to also support Debian which
+could be added at some later point.</p>
 <p>Current versions are based on R 4.3.1, and BioConductor release 3.17 packages are provided when
 required by CRAN packages.  Binaries are generally R 4.3.<em> based. Some older packages released when
 we used R 4.2.</em> may have been built with R 4.2.<em>, they will still work the same with R 4.3.</em> as R is
@@ -1153,7 +1154,7 @@ only (free) <a href="https://github.com">GitHub</a> and <a href="https://gitpod.
 <h3 id="known-issues">Known Issues</h3>
 <ul>
 <li>
-<p>The littler package reflects build-time configuration, the RSPM binary is then expecting a
+<p>The littler package reflects build-time configuration, the RSPM/PPM binary is then expecting a
   different R location so it needs a binary rebuild. Added a 'force' flag, may need a list similar
   to the blacklist to always compiled.</p>
 </li>
