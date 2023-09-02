@@ -320,8 +320,38 @@ nDeps <- function(ndeps) {
     pkgs <- setdiff(pkgs, .pkgenv[["blacklist"]])
 }
 
+.getUpdatedBiocPackages <- function(tgt) {
+    ## modeled after .getUpdatedPackages above, but adjusting for the fact that
+    ## our universe of 'relevant BioC packages' to compare to is much smaller
+
+    .checkTarget(tgt)
+
+    ## get available packages (which is updated on package load if older than cache age)
+    ap <- .pkgenv[["ap"]]
+    ap <- ap[ap == "Bioc", pkgver := paste(deb, Version, sep="_"), by=deb]
+    ap <- ap[, pkg := tolower(Package)]
+
+    ## update list of builds for chosen target distribution and access
+    .loadBuilds(tgt)
+    bb <- .pkgenv[["builds"]][grepl("^r-bioc", name),]
+    bb <- bb[, pkg := gsub("r-bioc-(.*)_.*", "\\1", pkgver)]
+
+    ap <- ap[bb, on="pkg"]
+    ap <- ap[, i.pkgver := NULL]
+
+    newpkgs <- setdiff(ap[is.na(pkgver)==FALSE, pkgver], bb[, pkgver])
+    #pkgs <- ap[newpkgs,,on="pkgver"]
+    #print(pkgs)
+
+    ## get vector of packages to build
+    pkgs <- ap[newpkgs, Package, on="pkgver"]
+
+    ## and diff against the blacklist
+    pkgs <- setdiff(pkgs, .pkgenv[["blacklist"]])
+}
+
 #' @rdname buildPackage
-buildUpdatedPackages <- function(tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb=FALSE) {
-    pkgs <- .getUpdatedPackages(tgt)
+buildUpdatedPackages <- function(tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb=FALSE, bioc=FALSE) {
+    pkgs <- if (bioc) .getUpdatedBiocPackages(tgt) else .getUpdatedPackages(tgt)
     buildAll(pkgs, tgt, debug=debug, verbose=verbose, force=force, xvfb=xvfb)
 }
