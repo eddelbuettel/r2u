@@ -209,9 +209,9 @@
             apBIOC <- merge(apBIOC, apBIOCdataexp, all=TRUE)
 
             ## the returned set is tools::CRAN_package_db() and _not_ dependent on the distribution name
-            rspmrepo <- paste0("https://packagemanager.rstudio.com/all/__linux__/jammy/latest")
-            apRSPM <- data.table(ap="CRAN", as.data.frame(available.packages(repos=rspmrepo)))
-            ap <- merge(apRSPM, apBIOC, all=TRUE)
+            ppmrepo <- paste0("https://packagemanager.posit.co/all/__linux__/jammy/latest")
+            apPPM <- data.table(ap="CRAN", as.data.frame(available.packages(repos=ppmrepo)))
+            ap <- merge(apPPM, apBIOC, all=TRUE)
 
             ap[, deb := paste0("r-", tolower(ap), "-", tolower(Package))]
 
