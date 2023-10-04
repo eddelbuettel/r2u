@@ -227,7 +227,7 @@ This is also documented in the [FAQ](https://eddelbuettel.github.io/r2u/vignette
 See the vignette [Codespaces](https://eddelbuettel.github.io/r2u/vignettes/Codespaces/) about how to
 launch a 'Codespace' directly in your browser, launched from the gitrepo within minutes.
 
-This also works from your [vscode][https://code.visualstudio.com/] installation as a remote
+This also works from your [vscode](https://code.visualstudio.com/) installation as a remote
 codespace.
 
 The vignette has more details.
@@ -248,6 +248,16 @@ just start R in the terminal window.
 The gif below display running one such example to install
 [brms](https://github.com/paul-buerkner/brms) from binaries in a few seconds.  Using this requires
 only (free) [GitHub](https://github.com) and [GitPod](https://gitpod.io) accounts.
+
+### Usage Statistics
+
+Usage is vibrant. 
+As of fall 2023, approximately 200,000 packages are shipped per week, with a total of now over ten million packages shipped.  
+Early September 2023 also had the most recent and dramatic spike of _over three million packages in two days_.
+The following chart gives a summary of cumulative and average weekly downloads (the latter one on a log scale) 
+as of October 2023.
+
+![](https://eddelbuettel.github.io/images/2023-10-01/r2u_aggregated_and_weekly_2023-10-01.png)
 
 
 ### Support
