@@ -10,7 +10,8 @@
 \title{Build a Package}
 \usage{
 buildPackage(pkg, tgt, debug = FALSE, verbose = FALSE, force = FALSE,
-  xvfb = FALSE, suffix = ".1")
+  xvfb = FALSE, suffix = ".1", debver = "1.", plusdfsg = FALSE,
+  dryrun = FALSE)
 
 buildAll(pkg, tgt, debug = FALSE, verbose = FALSE, force = FALSE,
   xvfb = FALSE)
@@ -22,7 +23,7 @@ topNCompiled(npkg, date = Sys.Date() - 1, from = 1L)
 nDeps(ndeps)
 
 buildUpdatedPackages(tgt, debug = FALSE, verbose = FALSE, force = FALSE,
-  xvfb = FALSE)
+  xvfb = FALSE, bioc = FALSE)
 }
 \arguments{
 \item{pkg}{character Name of the CRAN or BioConductor package to build}
@@ -40,13 +41,19 @@ to either \dQuote{20.04} or \dQuote{22.04} (or their names \dQuote{focal} or \dQ
 
 \item{suffix}{character Optional value to override default package version suffix of \sQuote{.1}}
 
+\item{debver}{character Optional value for beginning of Debian build version,
+default \sQuote{1.}}
+
+\item{plusdfsg}{logical Optional switch whether \dQuote{+dfsg} gets appended to usptream,
+default \sQuote{FALSE}}
+
+\item{dryrun}{logical Optional value to skip actual package build step, default is \sQuote{FALSE}}
+
 \item{npkg}{integer Number of packages to build}
 
 \item{date}{Date Relevant date for cranlog download stats}
 
 \item{from}{integer Optional applied as offset to \code{npkg} to shift the selection}
-
-\item{ndeps}{integer Optional value for selected build-dependency count build via \code{nDeps}}
 }
 \value{
 Nothing as the function is invoked for the side effect of building binary packages

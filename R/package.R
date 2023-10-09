@@ -84,10 +84,11 @@
 ##' default \sQuote{1.}
 ##' @param plusdfsg logical Optional switch whether \dQuote{+dfsg} gets appended to usptream,
 ##' default \sQuote{FALSE}
+##' @param dryrun logical Optional value to skip actual package build step, default is \sQuote{FALSE}
 ##' @return Nothing as the function is invoked for the side effect of building binary packages
 ##' @author Dirk Eddelbuettel
 buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb=FALSE,
-                         suffix=".1", debver="1.", plusdfsg=FALSE) {
+                         suffix=".1", debver="1.", plusdfsg=FALSE, dryrun=FALSE) {
     db <- .pkgenv[["db"]]
     stopifnot("db must be data.frame" = inherits(db, "data.frame"))
     .checkTarget(tgt)
@@ -204,7 +205,7 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
         untar(file, exdir=instdir)
         if (!file.exists(file.path(instdir, pkg, "Meta", "package.rds"))) {
             cat("[forcing source build]\n")
-            buildPackage(pkg, tgt, debug, version, force=TRUE, xvfb, suffix, debver, plusdfsg)
+            buildPackage(pkg, tgt, debug, version, force=TRUE, xvfb, suffix, debver, plusdfsg, dryrun)
             return(invisible())
         }
     } else {
@@ -237,9 +238,12 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
                   depstr,
                   pkg)
     if (debug) print(cmd)
-    rc <- system(cmd, ignore.stdout=!debug)
-    if (rc == 0) cat(green("[built]\n")) else cat(red("[error ", rc, "]\n",sep=""))
-
+    if (dryrun) {
+        cat(blue("[dry-run so not building]\n"))
+    } else {
+        rc <- system(cmd, ignore.stdout=!debug)
+        if (rc == 0) cat(green("[built]\n")) else cat(red("[error ", rc, "]\n",sep=""))
+    }
     invisible()
 }
 

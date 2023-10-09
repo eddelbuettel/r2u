@@ -1,3 +1,7 @@
+2023-10-09  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/package.R (buildPackage): Support new argument 'dryrun'
+
 2023-09-02  Dirk Eddelbuettel  <edd@debian.org>
 
 	* R/package.R: Extended to also update BioConductor packages
