@@ -1,5 +1,16 @@
 ###  2023 
 
+2023-11-04  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * README.md: Mention R 4.3.2 is now the R version used and provided, 
+        update package counts from CRAN and BioConductor 
+ 
+        * repo: Rebuild of BioConductor packages for 3.18 release 
+ 
+2023-10-09  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * R/package.R (buildPackage): Support new argument 'dryrun' 
+ 
 2023-09-02  Dirk Eddelbuettel  <edd@debian.org> 
  
         * R/package.R: Extended to also update BioConductor packages 

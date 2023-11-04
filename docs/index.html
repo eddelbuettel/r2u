@@ -996,8 +996,8 @@
   <a href="https://r2u.stat.illinois.edu">r2u.stat.illinois.edu</a> on the <a href="https://internet2.edu/">Internet2</a> </p>
 </li>
 <li>
-<p><strong>Complete coverage</strong> with (currently) ~ 21,700 CRAN packages (and 260+ from BioConductor) using
-  <strong>current versions</strong>: We use R 4.3.1, and BioConductor 3.17.</p>
+<p><strong>Complete coverage</strong> with (currently) ~ 22,120 CRAN packages (and 279 from BioConductor) using
+  <strong>current versions</strong>: We use R 4.3.2, and BioConductor 3.18.</p>
 </li>
 <li>
 <p>Complete support for both <strong>Ubuntu 20.04</strong> ("focal") <strong>and Ubuntu 22.04</strong> ("jammy").</p>
@@ -1027,7 +1027,7 @@ CRAN. So currently the 'focal' 20.04 LTS and 'jammy' 22.04 LTS releases are full
 (additional hardware) resources and time. Support for other distributions is possible but unlikely
 right now (due to a lack of resources and time). RSPM/PPM now appears to also support Debian which
 could be added at some later point.</p>
-<p>Current versions are based on R 4.3.1, and BioConductor release 3.17 packages are provided when
+<p>Current versions are based on R 4.3.2, and BioConductor release 3.18 packages are provided when
 required by CRAN packages.  Binaries are generally R 4.3.<em> based. Some older packages released when
 we used R 4.2.</em> may have been built with R 4.2.<em>, they will still work the same with R 4.3.</em> as R is
 generally forward-compatible.</p>
@@ -1043,15 +1043,15 @@ a very skewed distribution.) We iterated, and fairly soon arrived of full covera
   compilation</li>
 <li>all BioConductor package that are implied by these (and build for us).</li>
 </ul>
-<p>This currently resuls in 21833 and 21737 binary packages from CRAN in "focal" and "jammy",
-respectively, and 267 and 262 BioConductor packages, respectively, from the 3.17 release.</p>
+<p>This currently resuls in 22214 and 22120 binary packages from CRAN in "focal" and "jammy",
+respectively, and 279 and 279 BioConductor packages, respectively, from the 3.18 release.</p>
 <p>The sole exception are two packages we cannot build (as we do not have the required commercial
 software it accessess) plus less than a handful of 'odd builds' that fail and
 are skipped.</p>
 <h3 id="what-is-it-based-on">What is it Based On?</h3>
 <p>For the CRAN binaries we either repackage
 <a href="https://packagemanager.rstudio.com/client/#/repos/2/packages/">RSPM/PPM</a> builds (where available)
-or build natively. All selected BioConductor 3.17 packages are built natively.  For all of these,
+or build natively. All selected BioConductor 3.18 packages are built natively.  For all of these,
 full dependency resolution and integration with the system is a key feature.</p>
 <p>Everything is provided as <code>.deb</code> binary files with proper dependency
 resolution by using a proper <code>apt</code> repo which also has a signed Release file.</p>
