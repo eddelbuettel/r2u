@@ -1,5 +1,9 @@
 ###  2023 
 
+2023-11-05  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * repo: Expanded BioConductor support adding over 100 packages 
+ 
 2023-11-04  Dirk Eddelbuettel  <edd@debian.org> 
  
         * README.md: Mention R 4.3.2 is now the R version used and provided, 
