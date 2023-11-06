@@ -996,7 +996,7 @@
   <a href="https://r2u.stat.illinois.edu">r2u.stat.illinois.edu</a> on the <a href="https://internet2.edu/">Internet2</a> </p>
 </li>
 <li>
-<p><strong>Complete coverage</strong> with (currently) ~ 22,120 CRAN packages (and 279 from BioConductor) using
+<p><strong>Complete coverage</strong> with (currently) ~ 22,120 CRAN packages (and 391 from BioConductor) using
   <strong>current versions</strong>: We use R 4.3.2, and BioConductor 3.18.</p>
 </li>
 <li>
@@ -1041,10 +1041,13 @@ a very skewed distribution.) We iterated, and fairly soon arrived of full covera
 <ul>
 <li><em>all CRAN packages</em> (modulo at best handful of blacklisted ones) including all packages needing
   compilation</li>
-<li>all BioConductor package that are implied by these (and build for us).</li>
+<li>all BioConductor packages implied by these plus a 'healthy subset' of the highest
+    <a href="https://bioconductor.org/packages/stats/bioc/bioc_pkg_scores.tab">scoring</a> BioConductor
+    packages (also covering <em>e.g.</em> all BioConductor packages in the Debian and Ubuntu distributions)</li>
 </ul>
-<p>This currently resuls in 22214 and 22120 binary packages from CRAN in "focal" and "jammy",
-respectively, and 279 and 279 BioConductor packages, respectively, from the 3.18 release.</p>
+<p>This currently results in 22214 and 22120 binary packages from CRAN in "focal" and "jammy",
+respectively, and 391 and 391 BioConductor packages, respectively, from the 3.18 release.  (See the
+<a href="">FAQ</a> about why this number is higher than CRAN.)</p>
 <p>The sole exception are two packages we cannot build (as we do not have the required commercial
 software it accessess) plus less than a handful of 'odd builds' that fail and
 are skipped.</p>

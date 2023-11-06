@@ -55,15 +55,27 @@ also asked in [issue #8](https://github.com/eddelbuettel/r2u/issues/8).)
 
 ### Can I install Bioconductor packages from Ubuntu not in r2u
 
-Ubuntu contains a number of Debian packages `r-bioc-*`. However, the
-distribution cutoff for the 'jammy' (22.04) cutoff was before Bioconductor 3.15
-was released so these packages have a dependency on the 'r-api-bioc-3.14'
-(virtual) package. To satisfy this with our r2u packages, which are based on
-the newer Bioconductor 3.15, we added a small [virtual package
+This used to be an issue in the earlier days. As of fall 2023 and the
+BioConductor 3.18 release, we also ensure we had all packages covered by the
+(originall Debian and hence also in the) Ubuntu distribution. Aat that time,
+the distribution had around 170 packages whereas the set of packages covered
+by r2u increased to nearly 400. With the combination of r2u generally having
+a newer version along with the recommended pinning you should always get the
+r2u version without issues.
+
+(And for historical context, back-then-when Ubuntu contained a number of
+Debian packages `r-bioc-*`. However, as the distribution cutoff for the
+'jammy' (22.04) cutoff was before Bioconductor 3.15 was released so these
+packages had a dependency on the 'r-api-bioc-3.14' (virtual) package. To
+satisfy this with our r2u packages, which were then based on the newer
+Bioconductor 3.15 (and later upgraded to 3.16, 3.17, now 3.18), we added a
+small [virtual package
 `bioc-api-package`](https://github.com/eddelbuettel/bioc-api-package) that we
-added to the repo. So after `sudo apt install bioc-api-package` installation of
-the addional Bioconductor packages in jammy can proceed. For more details see 
-[issue #11](https://github.com/eddelbuettel/r2u/issues/11). 
+added to the repo. So after `sudo apt install bioc-api-package` installation
+of the addional Bioconductor packages in jammy can proceed. For more details
+see [issue #11](https://github.com/eddelbuettel/r2u/issues/11). Note that
+none of what is described in this second paragraph to the question is needed
+anymore given the changes described in the first. All good!)
 
 ### Can I use it with other non-LTS Ubuntu releases?
 
@@ -72,6 +84,20 @@ Of course!  You can always forward-upgrade.  So for example the 22.04
 you keep the `sources.list` entry on the LTS release you have as we (just
 like many other repositories) only provide LTS releases and no interim
 releases. 
+
+When running 22.10 / 23.04 / 23.10 on a laptop with r2u, we are aware of one
+binary for the [av](https://cloud.r-project.org/package=av) which ends up
+with a library dependency no longer satisified by the distribution. So we
+built ourselves an ad-hoc new binary of `r-cran-av` for the distro we ran. We
+will keep an eye on this to see if it affects other packages. If you find
+one, please file an issue. We think we can address this with a supplementary
+repo on an 'as-needed' basis.
+
+### Why does it have more packages than CRAN ?
+
+We (at least currently) do not purge packages from r2u that have been
+archived at CRAN.  Hence the set of packages at r2u grows faster and further
+leading to a (as of fall 2023) ten percent difference relative to CRAN.
 
 
 ## bspm
@@ -116,7 +142,7 @@ The running example in that issue is installing [Seurat](https://cloud.r-project
 and moderately complex and extended dependencies. Thanks to how `r2u` is set up a simpler Dockerfile
 such as
 
-    FROM eddelbuettel/r2u:22.04
+    FROM rocker/r2u:22.04
     RUN install.r Seurat
 
 which by using `install.r` (from [littler](https://github.com/eddelbuettel/littler) along with
@@ -127,5 +153,5 @@ a suitable `.sif` from it as discussed in the issue.
 
 ## How can one know when it was updated
 
-We follow RSPM builds so their [update tracker](https://packagemanager.rstudio.com/client/#/repos/1/activity)
+We follow PPM/RSPM builds so their [update tracker](https://packagemanager.rstudio.com/client/#/repos/1/activity)
 there can be helpful. We currently have no 'lastBuilt' tag on the website but could add one if that helped.

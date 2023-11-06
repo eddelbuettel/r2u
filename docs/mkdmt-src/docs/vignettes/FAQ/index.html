@@ -524,6 +524,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#why-does-it-have-more-packages-than-cran" class="md-nav__link">
+    Why does it have more packages than CRAN ?
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -796,6 +803,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#why-does-it-have-more-packages-than-cran" class="md-nav__link">
+    Why does it have more packages than CRAN ?
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -922,21 +936,43 @@ cases, is really not suitable to such setups. So we recommend against using
 (the current r2u setup which is Ubuntu-only) on Debian.  (This question was
 also asked in <a href="https://github.com/eddelbuettel/r2u/issues/8">issue #8</a>.)</p>
 <h3 id="can-i-install-bioconductor-packages-from-ubuntu-not-in-r2u">Can I install Bioconductor packages from Ubuntu not in r2u</h3>
-<p>Ubuntu contains a number of Debian packages <code>r-bioc-*</code>. However, the
-distribution cutoff for the 'jammy' (22.04) cutoff was before Bioconductor 3.15
-was released so these packages have a dependency on the 'r-api-bioc-3.14'
-(virtual) package. To satisfy this with our r2u packages, which are based on
-the newer Bioconductor 3.15, we added a small <a href="https://github.com/eddelbuettel/bioc-api-package">virtual package
+<p>This used to be an issue in the earlier days. As of fall 2023 and the
+BioConductor 3.18 release, we also ensure we had all packages covered by the
+(originall Debian and hence also in the) Ubuntu distribution. Aat that time,
+the distribution had around 170 packages whereas the set of packages covered
+by r2u increased to nearly 400. With the combination of r2u generally having
+a newer version along with the recommended pinning you should always get the
+r2u version without issues.</p>
+<p>(And for historical context, back-then-when Ubuntu contained a number of
+Debian packages <code>r-bioc-*</code>. However, as the distribution cutoff for the
+'jammy' (22.04) cutoff was before Bioconductor 3.15 was released so these
+packages had a dependency on the 'r-api-bioc-3.14' (virtual) package. To
+satisfy this with our r2u packages, which were then based on the newer
+Bioconductor 3.15 (and later upgraded to 3.16, 3.17, now 3.18), we added a
+small <a href="https://github.com/eddelbuettel/bioc-api-package">virtual package
 <code>bioc-api-package</code></a> that we
-added to the repo. So after <code>sudo apt install bioc-api-package</code> installation of
-the addional Bioconductor packages in jammy can proceed. For more details see 
-<a href="https://github.com/eddelbuettel/r2u/issues/11">issue #11</a>. </p>
+added to the repo. So after <code>sudo apt install bioc-api-package</code> installation
+of the addional Bioconductor packages in jammy can proceed. For more details
+see <a href="https://github.com/eddelbuettel/r2u/issues/11">issue #11</a>. Note that
+none of what is described in this second paragraph to the question is needed
+anymore given the changes described in the first. All good!)</p>
 <h3 id="can-i-use-it-with-other-non-lts-ubuntu-releases">Can I use it with other non-LTS Ubuntu releases?</h3>
 <p>Of course!  You can always forward-upgrade.  So for example the 22.04
 ("jammy") release works perfectly fine with 22.10 ("kinetic"). Just make sure
 you keep the <code>sources.list</code> entry on the LTS release you have as we (just
 like many other repositories) only provide LTS releases and no interim
 releases. </p>
+<p>When running 22.10 / 23.04 / 23.10 on a laptop with r2u, we are aware of one
+binary for the <a href="https://cloud.r-project.org/package=av">av</a> which ends up
+with a library dependency no longer satisified by the distribution. So we
+built ourselves an ad-hoc new binary of <code>r-cran-av</code> for the distro we ran. We
+will keep an eye on this to see if it affects other packages. If you find
+one, please file an issue. We think we can address this with a supplementary
+repo on an 'as-needed' basis.</p>
+<h3 id="why-does-it-have-more-packages-than-cran">Why does it have more packages than CRAN ?</h3>
+<p>We (at least currently) do not purge packages from r2u that have been
+archived at CRAN.  Hence the set of packages at r2u grows faster and further
+leading to a (as of fall 2023) ten percent difference relative to CRAN.</p>
 <h2 id="bspm">bspm</h2>
 <h3 id="should-i-install-bspm">Should I install bspm?</h3>
 <p>We find it helpful. It allows you to use <code>install.packages()</code> in R, or script
@@ -965,7 +1001,7 @@ create a new Docker container -- and transfer / transform that container for Sin
 <p>The running example in that issue is installing <a href="https://cloud.r-project.org/package=Seurat">Seurat</a>
 and moderately complex and extended dependencies. Thanks to how <code>r2u</code> is set up a simpler Dockerfile
 such as</p>
-<pre><code>FROM eddelbuettel/r2u:22.04
+<pre><code>FROM rocker/r2u:22.04
 RUN install.r Seurat
 </code></pre>
 <p>which by using <code>install.r</code> (from <a href="https://github.com/eddelbuettel/littler">littler</a> along with
@@ -973,7 +1009,7 @@ RUN install.r Seurat
 and enjoy the resulting container <code>r2u_seurat:22.04</code> (or give it any other suitable name) and build
 a suitable <code>.sif</code> from it as discussed in the issue.</p>
 <h2 id="how-can-one-know-when-it-was-updated">How can one know when it was updated</h2>
-<p>We follow RSPM builds so their <a href="https://packagemanager.rstudio.com/client/#/repos/1/activity">update tracker</a>
+<p>We follow PPM/RSPM builds so their <a href="https://packagemanager.rstudio.com/client/#/repos/1/activity">update tracker</a>
 there can be helpful. We currently have no 'lastBuilt' tag on the website but could add one if that helped.</p>
 
 
