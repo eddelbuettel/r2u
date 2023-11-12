@@ -1,5 +1,10 @@
 ###  2023 
 
+2023-11-10  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * repo: Rebuilt a number of packages following Matrix update 
+        following discussion and analysis with Mikael Jagan 
+ 
 2023-11-05  Dirk Eddelbuettel  <edd@debian.org> 
  
         * repo: Expanded BioConductor support adding over 100 packages 
