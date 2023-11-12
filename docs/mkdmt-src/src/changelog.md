@@ -1,5 +1,9 @@
 ###  2023 
 
+2023-11-11  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * R/package.R: Add new '--compile' flag to force source build 
+ 
 2023-11-10  Dirk Eddelbuettel  <edd@debian.org> 
  
         * repo: Rebuilt a number of packages following Matrix update 

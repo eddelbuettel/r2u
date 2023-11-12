@@ -85,10 +85,11 @@
 ##' @param plusdfsg logical Optional switch whether \dQuote{+dfsg} gets appended to usptream,
 ##' default \sQuote{FALSE}
 ##' @param dryrun logical Optional value to skip actual package build step, default is \sQuote{FALSE}
+##' @param compile logical Optional value to ensure compilation from source, default is \sQuote{FALSE}
 ##' @return Nothing as the function is invoked for the side effect of building binary packages
 ##' @author Dirk Eddelbuettel
 buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb=FALSE,
-                         suffix=".1", debver="1.", plusdfsg=FALSE, dryrun=FALSE) {
+                         suffix=".1", debver="1.", plusdfsg=FALSE, dryrun=FALSE, compile=FALSE) {
     db <- .pkgenv[["db"]]
     stopifnot("db must be data.frame" = inherits(db, "data.frame"))
     .checkTarget(tgt)
@@ -183,9 +184,11 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
         return(invisible())
     }
 
-    file <- if (repo == "CRAN" && isFALSE(force)) {
+    file <- if (repo == "CRAN" && isFALSE(force) && isFALSE(compile)) {
+                cat(green("[bin] "))
                 .get_package_file(pkg, D[, Version]) 			# rspm file, possibly cached
             } else {
+                cat(green("[src] "))
                 .get_source_file(AP[, Package], AP[, Version], AP)
             }
 
@@ -205,7 +208,8 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
         untar(file, exdir=instdir)
         if (!file.exists(file.path(instdir, pkg, "Meta", "package.rds"))) {
             cat("[forcing source build]\n")
-            buildPackage(pkg, tgt, debug, version, force=TRUE, xvfb, suffix, debver, plusdfsg, dryrun)
+            buildPackage(pkg, tgt, debug, version, force=TRUE, xvfb, suffix,
+                         debver, plusdfsg, dryrun, compile)
             return(invisible())
         }
     } else {
