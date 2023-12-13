@@ -1,5 +1,9 @@
 ###  2023 
 
+2023-12-12  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * README.md: Updated totals and count 
+ 
 2023-11-11  Dirk Eddelbuettel  <edd@debian.org> 
  
         * R/package.R: Add new '--compile' flag to force source build 

@@ -23,7 +23,7 @@ description: Easy, fast, reliable -- pick all three!
 - **Fast and well-connected mirror** at
   [r2u.stat.illinois.edu](https://r2u.stat.illinois.edu) on the [Internet2](https://internet2.edu/) 
 
-- **Complete coverage** with (currently) ~ 22,120 CRAN packages (and 391 from BioConductor) using
+- **Complete coverage** with (currently) ~ 22,437 CRAN packages (and 392 from BioConductor) using
   **current versions**: We use R 4.3.2, and BioConductor 3.18.
 
 - Complete support for both **Ubuntu 20.04** ("focal") **and Ubuntu 22.04** ("jammy").
@@ -81,8 +81,8 @@ So we now cover
     [scoring](https://bioconductor.org/packages/stats/bioc/bioc_pkg_scores.tab) BioConductor
     packages (also covering _e.g._ all BioConductor packages in the Debian and Ubuntu distributions)
 
-This currently results in 22214 and 22120 binary packages from CRAN in "focal" and "jammy",
-respectively, and 391 and 391 BioConductor packages, respectively, from the 3.18 release.  (See this
+This currently results in 22437 and 22343 binary packages from CRAN in "focal" and "jammy",
+respectively, and 392 and 392 BioConductor packages, respectively, from the 3.18 release. (See this
 [FAQ](https://eddelbuettel.github.io/r2u/vignettes/FAQ/#why-does-it-have-more-packages-than-cran) about why this number is higher than CRAN.)
 
 The sole exception are two packages we cannot build (as we do not have the required commercial
@@ -259,12 +259,12 @@ only (free) [GitHub](https://github.com) and [GitPod](https://gitpod.io) account
 ### Usage Statistics
 
 Usage is vibrant. 
-As of fall 2023, approximately 200,000 packages are shipped per week, with a total of now over ten million packages shipped.  
+As of late 2023, nearly 300,000 packages are shipped per week, with a total of now over thirteen million packages shipped.
 Early September 2023 also had the most recent and dramatic spike of _over three million packages in two days_.
 The following chart gives a summary of cumulative and average weekly downloads (the latter one on a log scale) 
-as of October 2023.
+as of December 2023.
 
-![](https://eddelbuettel.github.io/images/2023-10-01/r2u_aggregated_and_weekly_2023-10-01.png)
+![](https://eddelbuettel.github.io/images/2023-12-12/r2u_aggregated_and_weekly_2023-12-12.png)
 
 
 ### Support

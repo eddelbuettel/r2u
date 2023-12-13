@@ -244,6 +244,7 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
     if (debug) print(cmd)
     if (dryrun) {
         cat(blue("[dry-run so not building]\n"))
+        if (verbose) cat("CMD: ", cmd, "\n")
     } else {
         rc <- system(cmd, ignore.stdout=!debug)
         if (rc == 0) cat(green("[built]\n")) else cat(red("[error ", rc, "]\n",sep=""))
