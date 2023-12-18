@@ -1,5 +1,9 @@
 ###  2023 
 
+2023-12-18  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * README.md: Document r2u use in GitHub Actions 
+ 
 2023-12-12  Dirk Eddelbuettel  <edd@debian.org> 
  
         * README.md: Updated totals and count 

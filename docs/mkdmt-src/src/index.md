@@ -32,8 +32,10 @@ description: Easy, fast, reliable -- pick all three!
   **automagically connects R functions like `install.packages()` to `apt`** for access to binaries 
   _and_ dependencies.
   
-- Docker containers `rocker/r2u` from the [Rocker Project](https://rocker-project.org/) for both 
+- **Docker containers** `rocker/r2u` from the [Rocker Project](https://rocker-project.org/) for both 
   'focal' and  'jammy'.
+  
+- **GitHub Actions support** to set up on Ubuntu 22.04 "jammy" or via container
 
 ### Brief Demo
 
@@ -225,7 +227,34 @@ the `--security-opt seccomp=unconfined` option to your Docker invocation to take
 and the full system integration inside the container.
 This is also documented in the [FAQ](https://eddelbuettel.github.io/r2u/vignettes/FAQ/).
 
+### GitHub Actions
 
+There are two basic ways to take advantage of *r2u* in a GitHub Actions.  The first, and simplest,
+is to switch to using the Docker container (see previous section). This is as simple as adding the
+`container:` statement after `runs-on:` in `jobs:` section:
+
+```
+    runs-on: ubuntu-latest
+    container:
+      image: rocker/r2u:22.04
+```
+
+A complete example is provided in [this R package
+repo](https://github.com/eddelbuettel/RcppInt64/blob/master/.github/workflows/r2u.yaml). The key
+advantage of this approach is that everything is already set up.
+
+A second approach consists of adding *r2u* as a step via [the `r2u-setup` GitHub
+Action](https://github.com/eddelbuettel/github-actions):
+
+```
+      - name: Setup r2u
+        uses: eddelbuettel/github-actions/r2u-setup@master
+```
+
+A complete example is provided [in this
+repo](https://github.com/eddelbuettel/spotifytop50us/blob/master/.github/workflows/update.yaml)
+where we use it because using the Docker container approach makes committing back via `git` a little
+harder.
 
 ### Try It
 
