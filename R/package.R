@@ -121,6 +121,8 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
     ver <- D[, Version]
     aver <- AP[, Version]
 
+    if (effrepo == "Bioc") ver <- aver 		# BioC pkgs in CRAN db so carry version over
+
     ## accomodate 'dash-to-dot' version change in Debian for some old 'recommended' packages
     if (pkg %in% c("nlme", "foreign")) {
         ver <- gsub("-", ".", ver)
@@ -139,7 +141,6 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
         if (verbose) cat("[not yet available - skipping]\n")
         return(invisible())
     } else if (effrepo == "Bioc") {
-        cand <- paste0(pkgname, "_", aver)
         if (is.finite(match(cand, builds[, pkgver])) && isFALSE(force)) { 		# if already built
             if (verbose) {
                 cat(blue(sprintf("%-22s %-11s %-11s", pkg, ver, aver)))
