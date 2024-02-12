@@ -121,8 +121,6 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
     ver <- D[, Version]
     aver <- AP[, Version]
 
-    if (effrepo == "Bioc") ver <- aver 		# BioC pkgs in CRAN db so carry version over
-
     ## accomodate 'dash-to-dot' version change in Debian for some old 'recommended' packages
     if (pkg %in% c("nlme", "foreign")) {
         ver <- gsub("-", ".", ver)
@@ -134,6 +132,7 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
         cat(pkg, "missing, skipping\n")
         return(invisible())
     }
+    if (effrepo == "Bioc") ver <- aver 		# BioC pkgs in CRAN db so carry version over
     pkgname <- paste0("r-", tolower(effrepo), "-", tolower(pkg)) 			# aka r-cran-namehere
     cand <- paste0(pkgname, "_", ver)
     if (effrepo == "CRAN" && isFALSE(ver == aver) && isFALSE(force)) {
