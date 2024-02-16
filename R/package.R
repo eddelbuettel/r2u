@@ -173,7 +173,7 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
     }
 
     ## so we're building one
-    cat(blue(sprintf("%-22s %-11s %-11s", pkg, ver, aver))) 		# start console log with pkg
+    cat(green(sprintf("%-22s %-11s %-11s", pkg, ver, aver))) 		# start console log with pkg
     if (is.finite(match(pkg, .pkgenv[["blacklist"]]))) {
         cat(red("[blacklisted, skipping]\n"))
         return(invisible())
