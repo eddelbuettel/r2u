@@ -173,7 +173,7 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
     }
 
     ## so we're building one
-    cat(green(sprintf("%-22s %-11s %-11s", pkg, ver, aver))) 		# start console log with pkg
+    cat(blue(sprintf("%-22s %-11s %-11s", pkg, ver, aver))) 		# start console log with pkg
     if (is.finite(match(pkg, .pkgenv[["blacklist"]]))) {
         cat(red("[blacklisted, skipping]\n"))
         return(invisible())
@@ -184,7 +184,7 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
         return(invisible())
     }
 
-    cat(blue(sprintf("[%4s] ", tolower(effrepo))))
+    cat(green(sprintf("[%4s] ", tolower(effrepo))))
     file <- if (repo == "CRAN" && isFALSE(force) && isFALSE(compile)) {
                 cat(green("[bin] "))
                 .get_package_file(pkg, D[, Version]) 			# rspm file, possibly cached
