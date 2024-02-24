@@ -55,11 +55,11 @@ also asked in [issue #8](https://github.com/eddelbuettel/r2u/issues/8).)
 
 ### Can I install Bioconductor packages from Ubuntu not in r2u
 
-This used to be an issue in the earlier days. As of fall 2023 and the
+This used to be an issue in the earlier days. As of early 2024 and the
 BioConductor 3.18 release, we also ensure we had all packages covered by the
-(originall Debian and hence also in the) Ubuntu distribution. Aat that time,
+(originall Debian and hence also in the) Ubuntu distribution. At that time,
 the distribution had around 170 packages whereas the set of packages covered
-by r2u increased to nearly 400. With the combination of r2u generally having
+by r2u increased to just over 400. With the combination of r2u generally having
 a newer version along with the recommended pinning you should always get the
 r2u version without issues.
 
@@ -99,6 +99,23 @@ We (at least currently) do not purge packages from r2u that have been
 archived at CRAN.  Hence the set of packages at r2u grows faster and further
 leading to a (as of fall 2023) ten percent difference relative to CRAN.
 
+### What about other architectures besides x86_64 ?
+
+Excellent question. CRAN builds for at least three different OSs, Debian binaries are provided on
+maybe 15 hardware platforms so 'how hard can it be?' you may ask (and some have both more
+[recently](https://github.com/eddelbuettel/r2u/issues/55) and a little
+[earlier](https://github.com/eddelbuettel/r2u/issues/40)).
+
+Sadly, quite hard. This is essentially somewhere between the third or fourth time I tried to build
+something like this (some history is in [this paper](https://arxiv.org/abs/2103.08069)), and it only
+got as (amazingly !) far as it is has gotten because I could build on existing binaries.  None of
+that rich infrastructure exists for other hardware platforms, and recall that all this also works by
+plugging into and relying on `apt` so it would have to be a Debian (or Ubuntu) platform.  
+
+But hey if you read this and happen to be, say, a product manager at a large cloud provider, get in
+touch. I have the infrastructure here, and nearly three decades of experience creating `.deb`
+packages. This _can be done_ and on some platforms (maybe graviton ?) it would make some quite a ton
+of sense.  But until then we remain in a `x86_64` world.
 
 ## bspm
 
@@ -153,5 +170,6 @@ a suitable `.sif` from it as discussed in the issue.
 
 ## How can one know when it was updated
 
-We follow PPM/RSPM builds so their [update tracker](https://packagemanager.rstudio.com/client/#/repos/1/activity)
-there can be helpful. We currently have no 'lastBuilt' tag on the website but could add one if that helped.
+We follow P3M/PPM/RSPM builds so their [update
+tracker](https://p3m.dev/client/#/repos/cran/activity) there can be helpful. We currently have no
+'lastBuilt' tag on the website but could add one if that helped.

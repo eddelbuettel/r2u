@@ -531,6 +531,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#what-about-other-architectures-besides-x86_64" class="md-nav__link">
+    What about other architectures besides x86_64 ?
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -810,6 +817,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#what-about-other-architectures-besides-x86_64" class="md-nav__link">
+    What about other architectures besides x86_64 ?
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -936,11 +950,11 @@ cases, is really not suitable to such setups. So we recommend against using
 (the current r2u setup which is Ubuntu-only) on Debian.  (This question was
 also asked in <a href="https://github.com/eddelbuettel/r2u/issues/8">issue #8</a>.)</p>
 <h3 id="can-i-install-bioconductor-packages-from-ubuntu-not-in-r2u">Can I install Bioconductor packages from Ubuntu not in r2u</h3>
-<p>This used to be an issue in the earlier days. As of fall 2023 and the
+<p>This used to be an issue in the earlier days. As of early 2024 and the
 BioConductor 3.18 release, we also ensure we had all packages covered by the
-(originall Debian and hence also in the) Ubuntu distribution. Aat that time,
+(originall Debian and hence also in the) Ubuntu distribution. At that time,
 the distribution had around 170 packages whereas the set of packages covered
-by r2u increased to nearly 400. With the combination of r2u generally having
+by r2u increased to just over 400. With the combination of r2u generally having
 a newer version along with the recommended pinning you should always get the
 r2u version without issues.</p>
 <p>(And for historical context, back-then-when Ubuntu contained a number of
@@ -973,6 +987,20 @@ repo on an 'as-needed' basis.</p>
 <p>We (at least currently) do not purge packages from r2u that have been
 archived at CRAN.  Hence the set of packages at r2u grows faster and further
 leading to a (as of fall 2023) ten percent difference relative to CRAN.</p>
+<h3 id="what-about-other-architectures-besides-x86_64">What about other architectures besides x86_64 ?</h3>
+<p>Excellent question. CRAN builds for at least three different OSs, Debian binaries are provided on
+maybe 15 hardware platforms so 'how hard can it be?' you may ask (and some have both more
+<a href="https://github.com/eddelbuettel/r2u/issues/55">recently</a> and a little
+<a href="https://github.com/eddelbuettel/r2u/issues/40">earlier</a>).</p>
+<p>Sadly, quite hard. This is essentially somewhere between the third or fourth time I tried to build
+something like this (some history is in <a href="https://arxiv.org/abs/2103.08069">this paper</a>), and it only
+got as (amazingly !) far as it is has gotten because I could build on existing binaries.  None of
+that rich infrastructure exists for other hardware platforms, and recall that all this also works by
+plugging into and relying on <code>apt</code> so it would have to be a Debian (or Ubuntu) platform.  </p>
+<p>But hey if you read this and happen to be, say, a product manager at a large cloud provider, get in
+touch. I have the infrastructure here, and nearly three decades of experience creating <code>.deb</code>
+packages. This <em>can be done</em> and on some platforms (maybe graviton ?) it would make some quite a ton
+of sense.  But until then we remain in a <code>x86_64</code> world.</p>
 <h2 id="bspm">bspm</h2>
 <h3 id="should-i-install-bspm">Should I install bspm?</h3>
 <p>We find it helpful. It allows you to use <code>install.packages()</code> in R, or script
@@ -1009,8 +1037,9 @@ RUN install.r Seurat
 and enjoy the resulting container <code>r2u_seurat:22.04</code> (or give it any other suitable name) and build
 a suitable <code>.sif</code> from it as discussed in the issue.</p>
 <h2 id="how-can-one-know-when-it-was-updated">How can one know when it was updated</h2>
-<p>We follow PPM/RSPM builds so their <a href="https://packagemanager.rstudio.com/client/#/repos/1/activity">update tracker</a>
-there can be helpful. We currently have no 'lastBuilt' tag on the website but could add one if that helped.</p>
+<p>We follow P3M/PPM/RSPM builds so their <a href="https://p3m.dev/client/#/repos/cran/activity">update
+tracker</a> there can be helpful. We currently have no
+'lastBuilt' tag on the website but could add one if that helped.</p>
 
 
 
