@@ -23,7 +23,7 @@ description: Easy, fast, reliable -- pick all three!
 - **Fast and well-connected mirror** at
   [r2u.stat.illinois.edu](https://r2u.stat.illinois.edu) on the [Internet2](https://internet2.edu/) 
 
-- **Complete coverage** with (currently) ~ 22,437 CRAN packages (and 392 from BioConductor) using
+- **Complete coverage** with (currently) ~ 22,651 CRAN packages (and 401 from BioConductor) using
   **current versions**: We use R 4.3.2, and BioConductor 3.18.
 
 - Complete support for both **Ubuntu 20.04** ("focal") **and Ubuntu 22.04** ("jammy").
@@ -51,13 +51,15 @@ the five easy setup steps detailed here.
 
 ### What is Covered ?
 
-We generally support amd64 (_i.e._ standard 64-bit Intel/AMD cpus, sometimes also called x86_64)
-for the current Ubuntu LTS release and its predecessor release.  We use 'r-release' just like
-CRAN. So currently the 'focal' 20.04 LTS and 'jammy' 22.04 LTS releases are fully supported.
+We generally support amd64 (_i.e._ standard 64-bit Intel/AMD cpus, sometimes also called x86_64) for
+the current Ubuntu LTS release and its predecessor release (more on this
+[here](https://eddelbuettel.github.io/r2u/vignettes/FAQ/#what-about-other-architectures-besides-x86_64)).
+We use 'r-release' just like CRAN. So currently the 'focal' 20.04 LTS and 'jammy' 22.04 LTS releases
+are fully supported.
 
 Support for other cpu architectures is certainly possible but somewhat unlikely due to a lack of
 (additional hardware) resources and time. Support for other distributions is possible but unlikely
-right now (due to a lack of resources and time). RSPM/PPM now appears to also support Debian which
+right now (due to a lack of resources and time). P3M/PPM/RSPM now appears to also support Debian which
 could be added at some later point.
 
 Current versions are based on R 4.3.2, and BioConductor release 3.18 packages are provided when
@@ -83,8 +85,8 @@ So we now cover
     [scoring](https://bioconductor.org/packages/stats/bioc/bioc_pkg_scores.tab) BioConductor
     packages (also covering _e.g._ all BioConductor packages in the Debian and Ubuntu distributions)
 
-This currently results in 22437 and 22343 binary packages from CRAN in "focal" and "jammy",
-respectively, and 392 and 392 BioConductor packages, respectively, from the 3.18 release. (See this
+This currently results in 22741 and 22651 binary packages from CRAN in "focal" and "jammy",
+respectively, and 401 and 401 BioConductor packages, respectively, from the 3.18 release. (See this
 [FAQ](https://eddelbuettel.github.io/r2u/vignettes/FAQ/#why-does-it-have-more-packages-than-cran) about why this number is higher than CRAN.)
 
 The sole exception are two packages we cannot build (as we do not have the required commercial
@@ -299,6 +301,12 @@ as of December 2023.
 ### Support
 
 Please file issues at the [GitHub issues for r2u](https://github.com/eddelbuettel/r2u/issues).
+
+
+### Frequently Asked Questions
+
+Please also see the [FAQ](https://eddelbuettel.github.io/r2u/vignettes/FAQ/) for answers to
+_Frequently Asked Questions_.
 
 
 ### Known Issues

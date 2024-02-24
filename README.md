@@ -47,13 +47,15 @@ the five easy setup steps detailed here.
 
 ### What is Covered ?
 
-We generally support amd64 (_i.e._ standard 64-bit Intel/AMD cpus, sometimes also called x86_64)
-for the current Ubuntu LTS release and its predecessor release.  We use 'r-release' just like
-CRAN. So currently the 'focal' 20.04 LTS and 'jammy' 22.04 LTS releases are fully supported.
+We generally support amd64 (_i.e._ standard 64-bit Intel/AMD cpus, sometimes also called x86_64) for
+the current Ubuntu LTS release and its predecessor release (more on this
+[here](https://eddelbuettel.github.io/r2u/vignettes/FAQ/#what-about-other-architectures-besides-x86_64)).
+We use 'r-release' just like CRAN. So currently the 'focal' 20.04 LTS and 'jammy' 22.04 LTS releases
+are fully supported.
 
 Support for other cpu architectures is certainly possible but somewhat unlikely due to a lack of
 (additional hardware) resources and time. Support for other distributions is possible but unlikely
-right now (due to a lack of resources and time). RSPM/PPM now appears to also support Debian which
+right now (due to a lack of resources and time). P3M/PPM/RSPM now appears to also support Debian which
 could be added at some later point.
 
 Current versions are based on R 4.3.2, and BioConductor release 3.18 packages are provided when
@@ -295,6 +297,12 @@ as of December 2023.
 ### Support
 
 Please file issues at the [GitHub issues for r2u](https://github.com/eddelbuettel/r2u/issues).
+
+
+### Frequently Asked Questions
+
+Please also see the [FAQ](https://eddelbuettel.github.io/r2u/vignettes/FAQ/) for answers to
+_Frequently Asked Questions_.
 
 
 ### Known Issues

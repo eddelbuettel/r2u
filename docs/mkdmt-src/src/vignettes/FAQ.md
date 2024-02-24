@@ -102,9 +102,9 @@ leading to a (as of fall 2023) ten percent difference relative to CRAN.
 ### What about other architectures besides x86_64 ?
 
 Excellent question. CRAN builds for at least three different OSs, Debian binaries are provided on
-maybe 15 hardware platforms so 'how hard can it be?' you may ask (and some have both more
-[recently](https://github.com/eddelbuettel/r2u/issues/55) and a little
-[earlier](https://github.com/eddelbuettel/r2u/issues/40)).
+maybe 15 hardware platforms so 'how hard can it be?' you may ask (and some have in issues
+[#40](https://github.com/eddelbuettel/r2u/issues/40) and
+[#55](https://github.com/eddelbuettel/r2u/issues/55)).
 
 Sadly, quite hard. This is essentially somewhere between the third or fourth time I tried to build
 something like this (some history is in [this paper](https://arxiv.org/abs/2103.08069)), and it only
