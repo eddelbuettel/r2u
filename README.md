@@ -19,8 +19,8 @@
 - **Fast and well-connected mirror** at
   [r2u.stat.illinois.edu](https://r2u.stat.illinois.edu) on the [Internet2](https://internet2.edu/) 
 
-- **Complete coverage** with (currently) ~ 22,651 CRAN packages (and 401 from BioConductor) using
-  **current versions**: We use R 4.3.2, and BioConductor 3.18.
+- **Complete coverage** with (currently) ~ 22913 CRAN packages (and 401 from BioConductor) using
+  **current versions**: We use R 4.3.3, and BioConductor 3.18.
 
 - Complete support for both **Ubuntu 20.04** ("focal") **and Ubuntu 22.04** ("jammy").
 
@@ -58,7 +58,7 @@ Support for other cpu architectures is certainly possible but somewhat unlikely 
 right now (due to a lack of resources and time). P3M/PPM/RSPM now appears to also support Debian which
 could be added at some later point.
 
-Current versions are based on R 4.3.2, and BioConductor release 3.18 packages are provided when
+Current versions are based on R 4.3.3, and BioConductor release 3.18 packages are provided when
 required by CRAN packages.  Binaries are generally R 4.3.* based. Some older packages released when
 we used R 4.2.* may have been built with R 4.2.*, they will still work the same with R 4.3.* as R is
 generally forward-compatible.
@@ -81,8 +81,8 @@ So we now cover
     [scoring](https://bioconductor.org/packages/stats/bioc/bioc_pkg_scores.tab) BioConductor
     packages (also covering _e.g._ all BioConductor packages in the Debian and Ubuntu distributions)
 
-This currently results in 22741 and 22651 binary packages from CRAN in "focal" and "jammy",
-respectively, and 401 and 401 BioConductor packages, respectively, from the 3.18 release. (See this
+This currently results in 23002 and 22913 binary packages from CRAN in "focal" and "jammy",
+respectively, and 406 and 406 BioConductor packages, respectively, from the 3.18 release. (See this
 [FAQ](https://eddelbuettel.github.io/r2u/vignettes/FAQ/#why-does-it-have-more-packages-than-cran) about why this number is higher than CRAN.)
 
 The sole exception are two packages we cannot build (as we do not have the required commercial
@@ -286,12 +286,12 @@ only (free) [GitHub](https://github.com) and [GitPod](https://gitpod.io) account
 ### Usage Statistics
 
 Usage is vibrant. 
-As of late 2023, nearly 300,000 packages are shipped per week, with a total of now over thirteen million packages shipped.
+As of early 2024, about 300,000 packages are shipped per week, with a total of now over sixteen million packages shipped.
 Early September 2023 also had the most recent and dramatic spike of _over three million packages in two days_.
 The following chart gives a summary of cumulative and average weekly downloads (the latter one on a log scale) 
-as of December 2023.
+as of December March.
 
-![](https://eddelbuettel.github.io/images/2023-12-12/r2u_aggregated_and_weekly_2023-12-12.png)
+![](https://eddelbuettel.github.io/images/2024-03-24/r2u_aggregated_and_weekly_2024-03-24.png)
 
 
 ### Support
