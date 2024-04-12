@@ -1,6 +1,10 @@
 
 .basePkgs <- c("base", "compiler", "datasets", "graphics", "grDevices", "grid", "methods", "parallel",
                "splines", "stats", "stats4", "tcltk", "tools", "translations", "utils")
+## also see tools:::.get_standard_package_names() or explicitly joining list elements 'base'
+## and 'recommended' in unname(do.call(c, tools:::.get_standard_package_names()))
+## or just 'base' in sort(tools:::.get_standard_package_names()$base) which is almost the above
+## (modulo 'translations')
 
 .isBasePackage <- function(pkg) {
     pkg %in% .basePkgs
@@ -8,9 +12,17 @@
 
 .addDepends <- function(dt, ap, con) {
     if (is.na(dt[,Depends])) return(invisible(NULL))
+
     dep <- gsub("\\n", "", dt[,Depends])
     dep <- gsub("R \\(.*?\\)[, ]*", "", dep, perl=TRUE)
-    if (nchar(dep) == 0) return(invisible(NULL))
+
+    curpkg <- dt[1,Package]
+    rtdeps <- .pkgenv[["runtimedeps"]]
+    has_rtdeps <- any(grepl(curpkg, rtdeps))
+
+    if (nchar(dep) == 0 && !has_rtdeps)
+        return(invisible(NULL))
+
     deps <- strsplit(dep, ",")[[1]]
     for (i in deps) {
         i <- gsub("^ ", "", i)
@@ -19,8 +31,10 @@
         p <- ap[Package==j, deb]
         cat(", ", p ,sep="", file=con, append=TRUE)
     }
-    if (dt[1,Package] == "rJava") {
-        cat(", default-jre", sep="", file=con, append=TRUE)
+
+    if (has_rtdeps) {
+        rtdep <- read.dcf(textConnection(rtdeps), curpkg)[[1]]
+        cat(", ", rtdep, sep="", file=con, append=TRUE)
     }
 }
 

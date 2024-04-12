@@ -88,6 +88,24 @@
     return("")
 }
 
+.defaultRunTimeDependsFile <- function(dist = "") {
+    pkgdir <- tools::R_user_dir(packageName())	# ~/.local/share/R/ + package
+    if (dir.exists(pkgdir)) {
+        if (dist == "") {
+            fname <- file.path(pkgdir, "runtimedepends.dcf")
+        } else {
+            fname <- file.path(pkgdir, paste0("runtimedepends.", dist, ".dcf"))
+        }
+        if (file.exists(fname)) {
+            return(fname)
+        }
+    } else {
+        .debug_message("No package config dir")
+    }
+    return("")
+}
+
+
 .loadConfig <- function() {
     if (is.na(match("config_file", names(.pkgenv)))) {
         .debug_message("Reading config\n")
@@ -275,6 +293,25 @@
     }
 }
 
+.loadRuntimedepends <- function() {
+    runtimedepsfile <- .defaultRunTimeDependsFile()
+    if (runtimedepsfile == "") {
+        .pkgenv[["runtimedeps"]] <- character()
+    } else {
+        skipped <- Filter(\(x) !grepl("^#", x),  readLines(runtimedepsfile))
+        .pkgenv[["runtimedeps"]] <- skipped
+    }
+t}
+
+.addRuntimedepends <- function(dist) {
+    runtimedepsfile <- .defaultRunTimeDependsFile(dist)
+    if (runtimedepsfile != "") {
+        skipped <- Filter(\(x) !grepl("^#", x),  readLines(runtimedepsfile))
+        .pkgenv[["runtimedeps"]] <- c(.pkgenv[["runtimedeps"]], skipped)
+    }
+}
+
+
 .setOptions <- function() {
     options(timeout = 180) 		# up from default of 60
 }
@@ -287,6 +324,7 @@
     .loadBuilds()
     .loadBuildDepends()
     .loadBlacklist()
+    .loadRuntimedepends()
     .setOptions()
 }
 
@@ -298,5 +336,6 @@
     .loadBuilds()
     .loadBuildDepends()
     .loadBlacklist()
+    .loadRuntimedepends()
     .setOptions()
 }
