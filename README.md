@@ -19,7 +19,7 @@
 - **Fast and well-connected mirror** at
   [r2u.stat.illinois.edu](https://r2u.stat.illinois.edu) on the [Internet2](https://internet2.edu/) 
 
-- **Complete coverage** with (currently) ~ 22913 CRAN packages (and 401 from BioConductor) using
+- **Complete coverage** with (currently) ~ 22913 CRAN packages (and 406 from BioConductor) using
   **current versions**: We use R 4.3.3, and BioConductor 3.18.
 
 - Complete support for both **Ubuntu 20.04** ("focal") **and Ubuntu 22.04** ("jammy").

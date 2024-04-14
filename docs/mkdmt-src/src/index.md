@@ -86,7 +86,7 @@ So we now cover
     packages (also covering _e.g._ all BioConductor packages in the Debian and Ubuntu distributions)
 
 This currently results in 23002 and 22913 binary packages from CRAN in "focal" and "jammy",
-respectively, and 401 and 401 BioConductor packages, respectively, from the 3.18 release. (See this
+respectively, and 406 and 406 BioConductor packages, respectively, from the 3.18 release. (See this
 [FAQ](https://eddelbuettel.github.io/r2u/vignettes/FAQ/#why-does-it-have-more-packages-than-cran) about why this number is higher than CRAN.)
 
 The sole exception are two packages we cannot build (as we do not have the required commercial

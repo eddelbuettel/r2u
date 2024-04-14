@@ -1,3 +1,37 @@
+###  2024 
+
+2024-04-12  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * R/init.R (.loadRuntimedepends): Support run-time dependency 
+        declarations via config file 
+        * R/controlFiles.R (.addDepends): Show run-time dependencies 
+        * R/package.R (buildPackage): Source run-time dependency file 
+ 
+2024-03-25  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * README.md: Update usage numbers and charts 
+ 
+2024-02-23  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * vignettes/FAQ.md: Expanded FAQ, link FAQ from ToC 
+ 
+2024-02-16  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * R/package.R: More consistent color use 
+ 
+2024-02-12  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * R/package.R: Package version display small correction, display 
+        source repo more prominently 
+ 
+2024-02-11  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * R/package.R: Package version display tweak 
+ 
+2024-02-09  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * README.md: Update usage counts 
+ 
 ###  2023 
 
 2023-12-18  Dirk Eddelbuettel  <edd@debian.org> 
