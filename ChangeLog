@@ -1,3 +1,10 @@
+2024-04-12  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/init.R (.loadRuntimedepends): Support run-time dependency
+	declarations via config file
+	* R/controlFiles.R (.addDepends): Show run-time dependencies
+	* R/package.R (buildPackage): Source run-time dependency file
+
 2024-03-25  Dirk Eddelbuettel  <edd@debian.org>
 
 	* README.md: Update usage numbers and charts
