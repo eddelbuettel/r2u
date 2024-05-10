@@ -74,7 +74,8 @@
 ##' @title Build a Package
 ##' @param pkg character Name of the CRAN or BioConductor package to build
 ##' @param tgt character Name (or version) of the build target distribution, this is restricted
-##' to either \dQuote{20.04} or \dQuote{22.04} (or their names \dQuote{focal} or \dQuote{jammy})
+##' to either \dQuote{20.04}, \dQuote{22.04} or \dQuote{24.04} (or their names \dQuote{focal},
+##' \dQuote{jammy} or \dQuote{noble}_
 ##' @param debug logical Optional value to show more debugging output, default is \sQuote{FALSE}
 ##' @param verbose logical Optional value show more verbose progress output, default is \sQuote{FALSE}
 ##' @param force logical Optional value to force package build from source, default is \sQuote{FALSE}
@@ -308,6 +309,12 @@ topNCompiled <- function(npkg, date=Sys.Date() - 1, from=1L) {
 nDeps <- function(ndeps) {
     db <- .pkgenv[["db"]]
     db[adjdep == ndeps, Package]
+}
+
+#' @rdname buildPackage
+nDepsRange <- function(ndepslo, ndepshi) {
+    db <- .pkgenv[["db"]]
+    db[adjdep >= ndepslo & adjdep <= ndepshi, Package]
 }
 
 .getUpdatedPackages <- function(tgt) {

@@ -145,6 +145,9 @@
     } else if (tgt == "22.04" || tgt == "jammy") {
         .pkgenv[["distribution"]] <- "22.04"
         .pkgenv[["distribution_name"]] <- "jammy"
+    } else if (tgt == "24.04" || tgt == "noble") {
+        .pkgenv[["distribution"]] <- "24.04"
+        .pkgenv[["distribution_name"]] <- "noble"
     } else {
         stop("Unknown build target: ", tgt, call. = FALSE)
     }
@@ -250,7 +253,7 @@
     setwd(dd)
     fls <- list.files(".", pattern="\\.deb$", full.names=FALSE)
     n1 <- tools::file_path_sans_ext(fls)
-    n2 <- gsub("-\\d+.ca(20|22)04.\\d+_(all|amd64)$", "", n1)
+    n2 <- gsub("-\\d+.ca(20|22|24)04.\\d+_(all|amd64)$", "", n1)
     n3 <- gsub(".*-\\d+.ca(\\d{4}).\\d+_.*", "\\1", n1)
     B <- data.table(name=fls, pkgver=n2, file.info(fls), tgt=n3)
     .pkgenv[["builds"]] <- B
