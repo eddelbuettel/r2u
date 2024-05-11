@@ -19,7 +19,7 @@
 - **Fast and well-connected mirror** at
   [r2u.stat.illinois.edu](https://r2u.stat.illinois.edu) on the [Internet2](https://internet2.edu/) 
 
-- **Complete coverage** with (currently, using 22.04) ~ 22913 CRAN packages (and 406 from
+- **Complete coverage** with (currently, using 22.04) ~ 23175 CRAN packages (and 409 from
   BioConductor) using **current versions**: We use R 4.4.0, and BioConductor 3.19 (on 24.04, and
   soon too on 22.04) and 3.18 (on 20.04).
 
@@ -83,8 +83,8 @@ So we now cover
     [scoring](https://bioconductor.org/packages/stats/bioc/bioc_pkg_scores.tab) BioConductor
     packages (also covering _e.g._ all BioConductor packages in the Debian and Ubuntu distributions)
 
-This currently results in 23262, 23175, 20452 binary packages from CRAN in "focal", "jammy", and
-"noble", respectively, and 408, 409, and 290 BioConductor packages, respectively, from the 3.19 and
+This currently results in 23270, 23182, 20541 binary packages from CRAN in "focal", "jammy", and
+"noble", respectively, and 408, 409, and 325 BioConductor packages, respectively, from the 3.19 and
 3.18 releases. (See this
 [FAQ](https://eddelbuettel.github.io/r2u/vignettes/FAQ/#why-does-it-have-more-packages-than-cran)
 about why this number is higher than CRAN, and variable between releases.)
