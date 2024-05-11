@@ -20,11 +20,11 @@
 }
 
 ## downloader from bioc
-.get_source_file <- function(pkg, ver, ap) {
+.get_source_file <- function(pkg, ver, ap, force) {
     cachedir <- file.path(.getConfig("package_cache"), .getConfig("distribution_name"))
     if (!dir.exists(cachedir)) dir.create(cachedir, recursive=TRUE)
     path <- file.path(cachedir, paste0(pkg, "_", ver, ".tar.gz"))
-    if (!file.exists(path)) {
+    if (!file.exists(path) || force) {
         remotefile <- file.path(repos=ap[,Repository], paste0(pkg, "_", ver, ".tar.gz"))
         download.file(remotefile, destfile=path, quiet=TRUE)
         cat(green("[downloaded] "))
@@ -192,7 +192,7 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
                 .get_package_file(pkg, D[, Version]) 			# rspm file, possibly cached
             } else {
                 cat(green("[src] "))
-                .get_source_file(AP[, Package], AP[, Version], AP)
+                .get_source_file(AP[, Package], AP[, Version], AP, isTRUE(force) && isTRUE(compile))
             }
 
     build_dir <- .getConfig("build_directory")
