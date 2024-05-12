@@ -1,5 +1,11 @@
-<section id="NEWS" class="container">
-<h2>News for Package <code>r2u</code></h2>
+<div class="container">
+<div role="main">
+<h3 id="version-0.0.7-2024-05-12">Version 0.0.7 (2024-05-12)</h3>
+<ul>
+<li><p>Add support for Ubuntu 24.04 aka 'noble'</p></li>
+<li><p>Switch to BioConductor 3.19 and rebuild all r-bioc-* packages (in
+'noble' aks 24.04, jammy to follow)</p></li>
+</ul>
 <h3 id="version-0.0.6-2023-11-04">Version 0.0.6 (2023-11-04)</h3>
 <ul>
 <li><p>Switch to BioConductor 3.18 and rebuild all r-bioc-*
@@ -27,4 +33,5 @@ packages</p></li>
 <ul>
 <li><p>Initial release for Ubuntu 20.04</p></li>
 </ul>
-</section>
+</div>
+</div>

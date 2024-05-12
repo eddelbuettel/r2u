@@ -23,19 +23,20 @@ description: Easy, fast, reliable -- pick all three!
 - **Fast and well-connected mirror** at
   [r2u.stat.illinois.edu](https://r2u.stat.illinois.edu) on the [Internet2](https://internet2.edu/) 
 
-- **Complete coverage** with (currently) ~ 22913 CRAN packages (and 406 from BioConductor) using
-  **current versions**: We use R 4.3.3, and BioConductor 3.18.
+- **Complete coverage** with (currently, using 22.04) ~ 23199 CRAN packages (and 411 from
+  BioConductor) using **current versions**: We use R 4.4.0, and BioConductor 3.19 (on 24.04, and
+  soon too on 22.04) and 3.18 (on 20.04).
 
-- Complete support for both **Ubuntu 20.04** ("focal") **and Ubuntu 22.04** ("jammy").
+- Complete support for **Ubuntu 20.04 ("focal")**,  **22.04 ("jammy")** and **24.04 ("noble")**.
 
 - Optional (but recommended) [bspm](https://cloud.r-project.org/package=bspm) use
   **automagically connects R functions like `install.packages()` to `apt`** for access to binaries 
   _and_ dependencies.
   
 - **Docker containers** `rocker/r2u` from the [Rocker Project](https://rocker-project.org/) for both 
-  'focal' and  'jammy'.
+  'focal', 'jammy' and 'noble'.
   
-- **GitHub Actions support** to set up on Ubuntu 22.04 "jammy" or via container
+- **GitHub Actions support** to set up on Ubuntu 22.04 "jammy" or via container.
 
 ### Brief Demo
 
@@ -54,18 +55,18 @@ the five easy setup steps detailed here.
 We generally support amd64 (_i.e._ standard 64-bit Intel/AMD cpus, sometimes also called x86_64) for
 the current Ubuntu LTS release and its predecessor release (more on this
 [here](https://eddelbuettel.github.io/r2u/vignettes/FAQ/#what-about-other-architectures-besides-x86_64)).
-We use 'r-release' just like CRAN. So currently the 'focal' 20.04 LTS and 'jammy' 22.04 LTS releases
-are fully supported.
+We use 'r-release' just like CRAN. So currently the 'focal' 20.04 LTS, 'jammy' 22.04 LTS and 'noble'
+24.04 releases are fully supported.
 
 Support for other cpu architectures is certainly possible but somewhat unlikely due to a lack of
 (additional hardware) resources and time. Support for other distributions is possible but unlikely
 right now (due to a lack of resources and time). P3M/PPM/RSPM now appears to also support Debian which
 could be added at some later point.
 
-Current versions are based on R 4.3.3, and BioConductor release 3.18 packages are provided when
-required by CRAN packages.  Binaries are generally R 4.3.* based. Some older packages released when
-we used R 4.2.* may have been built with R 4.2.*, they will still work the same with R 4.3.* as R is
-generally forward-compatible.
+Current versions are based on R 4.4.0, and BioConductor release 3.19 (for 'noble' and 'jammy')
+packages are provided when required by CRAN packages.  Binaries are generally R 4.4.* based. Some
+older packages released when we used R 4.2.* or 4.3.* may have been built with R 4.2.* or R 4.3.*,
+they will still work the same with R 4.4.* as R is generally forward-compatible.
 
 
 ### What is Selected ?
@@ -85,9 +86,11 @@ So we now cover
     [scoring](https://bioconductor.org/packages/stats/bioc/bioc_pkg_scores.tab) BioConductor
     packages (also covering _e.g._ all BioConductor packages in the Debian and Ubuntu distributions)
 
-This currently results in 23002 and 22913 binary packages from CRAN in "focal" and "jammy",
-respectively, and 406 and 406 BioConductor packages, respectively, from the 3.18 release. (See this
-[FAQ](https://eddelbuettel.github.io/r2u/vignettes/FAQ/#why-does-it-have-more-packages-than-cran) about why this number is higher than CRAN.)
+This currently results in 23286, 23199, 20744 binary packages from CRAN in "focal", "jammy", and
+"noble", respectively, and 412, 411, and 428 BioConductor packages, respectively, from the 3.19 and
+3.18 releases. (See this
+[FAQ](https://eddelbuettel.github.io/r2u/vignettes/FAQ/#why-does-it-have-more-packages-than-cran)
+about why this number is higher than CRAN, and variable between releases.)
 
 The sole exception are two packages we cannot build (as we do not have the required commercial
 software it accessess) plus less than a handful of 'odd builds' that fail and
@@ -96,9 +99,9 @@ are skipped.
 ### What is it Based On?
 
 For the CRAN binaries we either repackage
-[RSPM/PPM](https://packagemanager.rstudio.com/client/#/repos/2/packages/) builds (where available)
-or build natively. All selected BioConductor 3.18 packages are built natively.  For all of these,
-full dependency resolution and integration with the system is a key feature.
+[P3M/RSPM/PPM](https://packagemanager.rstudio.com/client/#/repos/2/packages/) builds (where
+available) or build natively. All selected BioConductor packages are built natively.  For all of
+these, full dependency resolution and integration with the system is a key feature.
 
 Everything is provided as `.deb` binary files with proper dependency
 resolution by using a proper `apt` repo which also has a signed Release file.
@@ -214,15 +217,15 @@ give the r2u / cranapt repo a weight of 700 which is higher than the package def
 
 ### Docker
 
-There are also two Docker containers for Ubuntu 20.04 'focal' and 22.04 'jammy', respectively.
-Initially published as
+There are also Docker containers for Ubuntu 20.04 'focal', 22.04 'jammy', and 24.04 'noble',
+respectively.  Initially published as
 [eddelbuettel/r2u](https://hub.docker.com/repository/docker/eddelbuettel/r2u), these are now also
 available also as [rocker/r2u](https://github.com/rocker-org/r2u). They all have the features
 detailed above, including pinning and [bspm](https://cran.r-project.org/package=bspm) support,
-already set up. 
+already set up.
 
 Each of the Ubuntu LTS flavors, _i.e._, 'focal' and 'jammy' is also available as an identical image
-using the release version, _i.e._, '20.04' and '22.04', respectively.
+using the release version, _i.e._, '20.04', '22.04', and '24.04', respectively.
 
 Note that with some builds of Docker (and possibly related to Ubuntu hosts) you may have to add
 the `--security-opt seccomp=unconfined` option to your Docker invocation to take advantage of bspm

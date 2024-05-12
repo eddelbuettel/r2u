@@ -1,5 +1,22 @@
 ###  2024 
 
+2024-05-12  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * README.md: Document 24.04 support 
+ 
+2024-05-11  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * R/package.R (.get_source_file): Always download source file if 
+        'force' and 'compile' are set 
+        * R/controlFiles.R (.addDepends): Refine one regular expression 
+ 
+2024-05-10  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * R/init.R: Support Ubuntu 24.04 
+        * R/package.R: Idem 
+        * inst/scripts/add_cranapt_noble.sh: Idem 
+        * docker/noble/*: Build and run-time support for 24.04 
+ 
 2024-04-12  Dirk Eddelbuettel  <edd@debian.org> 
  
         * R/init.R (.loadRuntimedepends): Support run-time dependency 

@@ -1024,11 +1024,13 @@
   <a href="https://r2u.stat.illinois.edu">r2u.stat.illinois.edu</a> on the <a href="https://internet2.edu/">Internet2</a> </p>
 </li>
 <li>
-<p><strong>Complete coverage</strong> with (currently) ~ 22913 CRAN packages (and 406 from BioConductor) using
-  <strong>current versions</strong>: We use R 4.3.3, and BioConductor 3.18.</p>
+<p><strong>Complete coverage</strong> with (currently, using 22.04) ~ 23199 CRAN packages (and 411 from
+  BioConductor) using <strong>current versions</strong>: We use R 4.4.0, and BioConductor 3.19 (on 24.04, and
+  soon too on 22.04) and 3.18 (on 20.04).</p>
 </li>
 <li>
-<p>Complete support for both <strong>Ubuntu 20.04</strong> ("focal") <strong>and Ubuntu 22.04</strong> ("jammy").</p>
+<p>Complete support for both <strong>Ubuntu 20.04</strong> ("focal") <strong>and Ubuntu 22.04</strong> ("jammy") <strong>and Ubuntu
+  24.04</strong> ("noble").</p>
 </li>
 <li>
 <p>Optional (but recommended) <a href="https://cloud.r-project.org/package=bspm">bspm</a> use
@@ -1037,10 +1039,10 @@
 </li>
 <li>
 <p><strong>Docker containers</strong> <code>rocker/r2u</code> from the <a href="https://rocker-project.org/">Rocker Project</a> for both 
-  'focal' and  'jammy'.</p>
+  'focal', 'jammy' and 'noble'.</p>
 </li>
 <li>
-<p><strong>GitHub Actions support</strong> to set up on Ubuntu 22.04 "jammy" or via container</p>
+<p><strong>GitHub Actions support</strong> to set up on Ubuntu 22.04 "jammy" or via container.</p>
 </li>
 </ul>
 <h3 id="brief-demo">Brief Demo</h3>
@@ -1054,16 +1056,16 @@ the five easy setup steps detailed here.</p>
 <p>We generally support amd64 (<em>i.e.</em> standard 64-bit Intel/AMD cpus, sometimes also called x86_64) for
 the current Ubuntu LTS release and its predecessor release (more on this
 <a href="https://eddelbuettel.github.io/r2u/vignettes/FAQ/#what-about-other-architectures-besides-x86_64">here</a>).
-We use 'r-release' just like CRAN. So currently the 'focal' 20.04 LTS and 'jammy' 22.04 LTS releases
-are fully supported.</p>
+We use 'r-release' just like CRAN. So currently the 'focal' 20.04 LTS, 'jammy' 22.04 LTS and 'noble'
+24.04 releases are fully supported.</p>
 <p>Support for other cpu architectures is certainly possible but somewhat unlikely due to a lack of
 (additional hardware) resources and time. Support for other distributions is possible but unlikely
 right now (due to a lack of resources and time). P3M/PPM/RSPM now appears to also support Debian which
 could be added at some later point.</p>
-<p>Current versions are based on R 4.3.3, and BioConductor release 3.18 packages are provided when
-required by CRAN packages.  Binaries are generally R 4.3.<em> based. Some older packages released when
-we used R 4.2.</em> may have been built with R 4.2.<em>, they will still work the same with R 4.3.</em> as R is
-generally forward-compatible.</p>
+<p>Current versions are based on R 4.4.0, and BioConductor release 3.19 (for 'noble' and 'jammy')
+packages are provided when required by CRAN packages.  Binaries are generally R 4.4.<em> based. Some
+older packages released when we used R 4.2.</em> or 4.3.<em> may have been built with R 4.2.</em> or R 4.3.<em>,
+they will still work the same with R 4.4.</em> as R is generally forward-compatible.</p>
 <h3 id="what-is-selected">What is Selected ?</h3>
 <p>Everything :)</p>
 <p>Initially, we started from <a href="https://cran-logs.rstudio.com/">cran-logs</a> by picking the <em>N</em>
@@ -1078,17 +1080,19 @@ a very skewed distribution.) We iterated, and fairly soon arrived of full covera
     <a href="https://bioconductor.org/packages/stats/bioc/bioc_pkg_scores.tab">scoring</a> BioConductor
     packages (also covering <em>e.g.</em> all BioConductor packages in the Debian and Ubuntu distributions)</li>
 </ul>
-<p>This currently results in 23002 and 22913 binary packages from CRAN in "focal" and "jammy",
-respectively, and 406 and 406 BioConductor packages, respectively, from the 3.18 release. (See this
-<a href="https://eddelbuettel.github.io/r2u/vignettes/FAQ/#why-does-it-have-more-packages-than-cran">FAQ</a> about why this number is higher than CRAN.)</p>
+<p>This currently results in 23286, 23199, 20744 binary packages from CRAN in "focal", "jammy", and
+"noble", respectively, and 412, 411, and 428 BioConductor packages, respectively, from the 3.19 and
+3.18 releases. (See this
+<a href="https://eddelbuettel.github.io/r2u/vignettes/FAQ/#why-does-it-have-more-packages-than-cran">FAQ</a>
+about why this number is higher than CRAN, and variable between releases.)</p>
 <p>The sole exception are two packages we cannot build (as we do not have the required commercial
 software it accessess) plus less than a handful of 'odd builds' that fail and
 are skipped.</p>
 <h3 id="what-is-it-based-on">What is it Based On?</h3>
 <p>For the CRAN binaries we either repackage
-<a href="https://packagemanager.rstudio.com/client/#/repos/2/packages/">RSPM/PPM</a> builds (where available)
-or build natively. All selected BioConductor 3.18 packages are built natively.  For all of these,
-full dependency resolution and integration with the system is a key feature.</p>
+<a href="https://packagemanager.rstudio.com/client/#/repos/2/packages/">P3M/RSPM/PPM</a> builds (where
+available) or build natively. All selected BioConductor packages are built natively.  For all of
+these, full dependency resolution and integration with the system is a key feature.</p>
 <p>Everything is provided as <code>.deb</code> binary files with proper dependency
 resolution by using a proper <code>apt</code> repo which also has a signed Release file.</p>
 <h3 id="usage-and-setup">Usage and Setup</h3>
@@ -1169,14 +1173,14 @@ to packages from a particular repositor or tag.  In the suggested example above,
 give the r2u / cranapt repo a weight of 700 which is higher than the package default value of
 500.</p>
 <h3 id="docker">Docker</h3>
-<p>There are also two Docker containers for Ubuntu 20.04 'focal' and 22.04 'jammy', respectively.
-Initially published as
+<p>There are also Docker containers for Ubuntu 20.04 'focal', 22.04 'jammy', and 24.04 'noble',
+respectively.  Initially published as
 <a href="https://hub.docker.com/repository/docker/eddelbuettel/r2u">eddelbuettel/r2u</a>, these are now also
 available also as <a href="https://github.com/rocker-org/r2u">rocker/r2u</a>. They all have the features
 detailed above, including pinning and <a href="https://cran.r-project.org/package=bspm">bspm</a> support,
-already set up. </p>
+already set up.</p>
 <p>Each of the Ubuntu LTS flavors, <em>i.e.</em>, 'focal' and 'jammy' is also available as an identical image
-using the release version, <em>i.e.</em>, '20.04' and '22.04', respectively.</p>
+using the release version, <em>i.e.</em>, '20.04', '22.04', and '24.04', respectively.</p>
 <p>Note that with some builds of Docker (and possibly related to Ubuntu hosts) you may have to add
 the <code>--security-opt seccomp=unconfined</code> option to your Docker invocation to take advantage of bspm
 and the full system integration inside the container.
