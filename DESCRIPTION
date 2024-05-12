@@ -1,11 +1,11 @@
 Package: r2u
 Type: Package
-Title: Turn RSPM Binary Packages into Ubuntu Packages
-Version: 0.0.1
-Date: 2022-04-10
+Title: Turn P3M/PPM/RSPM Binary Packages into Ubuntu Packages
+Version: 0.0.7
+Date: 2024-05-12
 Author: Dirk Eddelbuettel
 Maintainer: Dirk Eddelbuettel <edd@debian.org>
-Description: RSPM binary packages are turned into Ubuntu packages containing
+Description: P3M/PPM/RSPM binary packages are turned into Ubuntu packages containing
  proper system dependency information.
 License: GPL (>= 2)
 Depends: R (>= 4.0.0)

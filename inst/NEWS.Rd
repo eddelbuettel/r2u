@@ -3,6 +3,14 @@
 \newcommand{\ghpr}{\href{https://github.com/eddelbuettel/drat/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/eddelbuettel/drat/issues/#1}{##1}}
 
+\section{Changes in r2u version 0.0.7 (2024-05-12)}{
+  \itemize{
+    \item Add support for Ubuntu 24.04 aka 'noble'
+    \item Switch to BioConductor 3.19 and rebuild all r-bioc-* packages (in
+    'noble' aks 24.04, jammy to follow)
+  }
+}
+
 \section{Changes in r2u version 0.0.6 (2023-11-04)}{
   \itemize{
     \item Switch to BioConductor 3.18 and rebuild all r-bioc-* packages
