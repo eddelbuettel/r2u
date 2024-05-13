@@ -109,7 +109,9 @@ resolution by using a proper `apt` repo which also has a signed Release file.
 
 ### Usage and Setup
 
-(Note that you could use one of the two scripts
+(Note that you could use one of the scripts
+[`add_cranapt_noble.sh`](https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/add_cranapt_noble.sh)
+(for Ubuntu 24.04), or
 [`add_cranapt_jammy.sh`](https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/add_cranapt_jammy.sh)
 (for Ubuntu 22.04), or
 [`add_cranapt_focal.sh`](https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/add_cranapt_focal.sh)
