@@ -23,5 +23,7 @@ COPY 99cranapt /etc/apt/preferences.d
 #    && apt update -qq \
 #    && apt upgrade --yes
 
+## Update to get eg Matrix 1.7.0
+RUN apt update -qq && apt upgrade --yes
 
 CMD ["bash"]

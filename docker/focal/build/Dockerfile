@@ -23,4 +23,7 @@ COPY debBuild.sh /usr/local/bin
 COPY cranapt.list /etc/apt/sources.list.d
 COPY 99cranapt /etc/apt/preferences.d
 
+## Update to get eg Matrix 1.7.0
+RUN apt update -qq && apt upgrade --yes
+
 CMD ["bash"]
