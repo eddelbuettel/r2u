@@ -1,8 +1,15 @@
 ###  2024 
 
+2024-05-13  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * README.md: Document BioConductor 3.19 support across all three 
+        supported releases (now that 22.04 and 20.04 both caught up) 
+ 
 2024-05-12  Dirk Eddelbuettel  <edd@debian.org> 
  
         * README.md: Document 24.04 support 
+ 
+        * inst/scripts/add_cranapt_noble.sh: Add new 24.04 install script 
  
 2024-05-11  Dirk Eddelbuettel  <edd@debian.org> 
  

@@ -7,7 +7,7 @@
   \itemize{
     \item Add support for Ubuntu 24.04 aka 'noble'
     \item Switch to BioConductor 3.19 and rebuild all r-bioc-* packages (in
-    'noble' aks 24.04, jammy to follow)
+    'noble' aka 24.04, jammy and focal to follow)
   }
 }
 

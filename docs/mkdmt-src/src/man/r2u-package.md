@@ -1,10 +1,12 @@
 
-## Turn RSPM Binary Packages into Ubuntu Packages
+<div role="main">
+
+## Turn P3M/PPM/RSPM Binary Packages into Ubuntu Packages
 
 ### Description
 
-RSPM binary packages are turned into Ubuntu packages containing proper
-system dependency information.
+P3M/PPM/RSPM binary packages are turned into Ubuntu packages containing
+proper system dependency information.
 
 ### Package Content
 
@@ -17,4 +19,5 @@ Dirk Eddelbuettel \<edd@debian.org\>
 ### Author(s)
 
 Dirk Eddelbuettel
+
 
