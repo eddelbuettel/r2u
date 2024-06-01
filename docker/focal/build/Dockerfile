@@ -13,6 +13,7 @@ RUN rm -f /etc/apt/sources.list.d/edd-ubuntu-misc-focal.list \
     && apt update -qq \
     && apt upgrade --yes \
     && apt install --yes --no-install-recommends dh-r gpg-agent xvfb \
+                 libopenblas0 \
     && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A1489FE2AB99A21A 67C2D66C4B1D4339
 
 ## Add our repo for R 4.2.0 -- no longer needed
