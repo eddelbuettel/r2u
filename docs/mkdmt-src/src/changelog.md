@@ -1,5 +1,9 @@
 ###  2024 
 
+2024-06-01  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * README.md: Update usage section showing 20 million total downloads 
+ 
 2024-05-13  Dirk Eddelbuettel  <edd@debian.org> 
  
         * README.md: Document BioConductor 3.19 support across all three 
