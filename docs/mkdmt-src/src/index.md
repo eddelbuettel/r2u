@@ -85,7 +85,7 @@ So we now cover
     [scoring](https://bioconductor.org/packages/stats/bioc/bioc_pkg_scores.tab) BioConductor
     packages (also covering _e.g._ all BioConductor packages in the Debian and Ubuntu distributions)
 
-This currently results in 23271, 23183, 20687 binary packages from CRAN in "focal", "jammy", and
+This currently results in 23655, 23569, 21156 binary packages from CRAN in "focal", "jammy", and
 "noble", respectively, and 419, 419, and 435 BioConductor packages, respectively, from the 3.19 and
 3.18 releases. (See this
 [FAQ](https://eddelbuettel.github.io/r2u/vignettes/FAQ/#why-does-it-have-more-packages-than-cran)

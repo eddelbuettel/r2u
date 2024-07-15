@@ -1,5 +1,9 @@
 ###  2024 
 
+2024-07-15  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * README.md: Update package counts 
+ 
 2024-06-01  Dirk Eddelbuettel  <edd@debian.org> 
  
         * README.md: Update usage section showing 20 million total downloads 
