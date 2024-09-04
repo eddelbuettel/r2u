@@ -1,3 +1,7 @@
+2024-09-03  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Authors@R): Added
+
 2024-07-15  Dirk Eddelbuettel  <edd@debian.org>
 
 	* README.md: Update package counts
