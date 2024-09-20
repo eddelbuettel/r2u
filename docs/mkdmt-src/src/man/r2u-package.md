@@ -1,5 +1,4 @@
 
-<div role="main">
 
 ## Turn P3M/PPM/RSPM Binary Packages into Ubuntu Packages
 
@@ -18,6 +17,7 @@ Dirk Eddelbuettel \<edd@debian.org\>
 
 ### Author(s)
 
-Dirk Eddelbuettel
+Dirk Eddelbuettel \[aut, cre\]
+(\<https://orcid.org/0000-0001-6419-907X\>)
 
 

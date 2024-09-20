@@ -1,5 +1,4 @@
 
-<div role="main">
 
 ## Build a Package
 
