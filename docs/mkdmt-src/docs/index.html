@@ -1101,8 +1101,10 @@ resolution by using a proper <code>apt</code> repo which also has a signed Relea
 (for Ubuntu 22.04), or
 <a href="https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/add_cranapt_focal.sh"><code>add_cranapt_focal.sh</code></a>
 (for the older Ubuntu 20.04) to facilitate the setup. They are tested on 'empty' Ubuntu containers
-of the corresponding release. However, you may prefer to execute the steps outlined here by hand.)</p>
-<p>We show the setup step by step for 'jammy' aka Ubuntu 22.04. You should run all these commands
+of the corresponding release. However, you may prefer to execute the steps outlined here by hand.)
+You can use <code>lsb_release -cs</code> to generate your release name: "focal", "jammy", and "noble" are
+supported and you could swap "focal" or "noble" in below (or use one of the scripts).</p>
+<p>Here, we show the setup step by step for 'jammy' aka Ubuntu 22.04. You should run all these commands
 as <code>root</code> to carefully review each one.</p>
 <h4 id="step-1-update-apt-install-tools-fetch-key">Step 1: Update apt, install tools, fetch key</h4>
 <p>First add the repository key so that <code>apt</code> knows it (this is optional but recommended)</p>
