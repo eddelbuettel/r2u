@@ -1,5 +1,13 @@
 ###  2024 
 
+2024-10-16  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * README.md: Updated usage figures and chart (from late September) 
+ 
+2024-09-03  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Authors@R): Added 
+ 
 2024-07-15  Dirk Eddelbuettel  <edd@debian.org> 
  
         * README.md: Update package counts 

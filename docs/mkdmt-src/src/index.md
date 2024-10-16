@@ -23,7 +23,7 @@ description: Easy, fast, reliable -- pick all three!
 - **Fast and well-connected mirror** at
   [r2u.stat.illinois.edu](https://r2u.stat.illinois.edu) on the [Internet2](https://internet2.edu/) 
 
-- **Complete coverage** with (currently, using 22.04) ~ 23183 CRAN packages (and 421 from
+- **Complete coverage** with (currently, using 22.04) ~ 24056 CRAN packages (and 428 from
   BioConductor) using **current versions**: We use R 4.4.0, and BioConductor 3.19.
 
 - Complete support for **Ubuntu 20.04 ("focal")**,  **22.04 ("jammy")** and **24.04 ("noble")**.
@@ -85,9 +85,9 @@ So we now cover
     [scoring](https://bioconductor.org/packages/stats/bioc/bioc_pkg_scores.tab) BioConductor
     packages (also covering _e.g._ all BioConductor packages in the Debian and Ubuntu distributions)
 
-This currently results in 23655, 23569, 21156 binary packages from CRAN in "focal", "jammy", and
-"noble", respectively, and 419, 419, and 435 BioConductor packages, respectively, from the 3.19 and
-3.18 releases. (See this
+This currently results in 24141, 24056, 21682 binary packages from CRAN in "focal", "jammy", and
+"noble", respectively, and 420, 420, and 448 BioConductor packages, respectively, from the 3.19 
+releases. (See this
 [FAQ](https://eddelbuettel.github.io/r2u/vignettes/FAQ/#why-does-it-have-more-packages-than-cran)
 about why this number is higher than CRAN, and variable between releases.)
 
@@ -301,8 +301,7 @@ now over twenty four million packages shipped.  Early September 2023 also had th
 dramatic spike of _over three million packages in two days_.  The following chart gives a summary of
 cumulative and average weekly downloads (the latter one on a log scale) as of August.
 
-![](https://eddelbuettel.github.io/images/2024-08-21/r2u_aggregated_and_weekly_2024-08-21.png)
-
+![](https://eddelbuettel.github.io/images/2024-09-24/r2u_aggregated_and_weekly_2024-09-24.png)
 
 ### Support
 
