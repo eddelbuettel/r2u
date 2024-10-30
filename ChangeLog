@@ -1,3 +1,10 @@
+2024-10-30  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/scripts/add_cranapt_noble.sh: Updated to use gpg instead of
+	apt-key (following issue #72)
+
+	* README.md: Mentioned updated 'noble' aka 24.04 script too
+
 2024-10-16  Dirk Eddelbuettel  <edd@debian.org>
 
 	* README.md: Updated usage figures and chart (from late September)

@@ -1104,8 +1104,11 @@ resolution by using a proper <code>apt</code> repo which also has a signed Relea
 of the corresponding release. However, you may prefer to execute the steps outlined here by hand.)
 You can use <code>lsb_release -cs</code> to generate your release name: "focal", "jammy", and "noble" are
 supported and you could swap "focal" or "noble" in below (or use one of the scripts).</p>
-<p>Here, we show the setup step by step for 'jammy' aka Ubuntu 22.04. You should run all these commands
-as <code>root</code> to carefully review each one.</p>
+<p>Here, we show the setup step by step for 'jammy' aka Ubuntu 22.04 (as it is still the most-widely
+used distribution per our logs). You should run all these commands as <code>root</code> to carefully review
+each one. If you prefer the newer Ubuntu 24.04, please see the
+<a href="https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/add_cranapt_noble.sh"><code>add_cranapt_noble.sh</code></a>
+script which also avoids the now-deprecated <code>apt-key</code> command).</p>
 <h4 id="step-1-update-apt-install-tools-fetch-key">Step 1: Update apt, install tools, fetch key</h4>
 <p>First add the repository key so that <code>apt</code> knows it (this is optional but recommended)</p>
 <pre><code class="language-sh">apt update -qq &amp;&amp; apt install --yes --no-install-recommends wget \

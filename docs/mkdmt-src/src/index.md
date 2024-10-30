@@ -119,8 +119,11 @@ of the corresponding release. However, you may prefer to execute the steps outli
 You can use `lsb_release -cs` to generate your release name: "focal", "jammy", and "noble" are
 supported and you could swap "focal" or "noble" in below (or use one of the scripts).
 
-Here, we show the setup step by step for 'jammy' aka Ubuntu 22.04. You should run all these commands
-as `root` to carefully review each one.
+Here, we show the setup step by step for 'jammy' aka Ubuntu 22.04 (as it is still the most-widely
+used distribution per our logs). You should run all these commands as `root` to carefully review
+each one. If you prefer the newer Ubuntu 24.04, please see the
+[`add_cranapt_noble.sh`](https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/add_cranapt_noble.sh)
+script which also avoids the now-deprecated `apt-key` command).
 
 
 #### Step 1: Update apt, install tools, fetch key  
