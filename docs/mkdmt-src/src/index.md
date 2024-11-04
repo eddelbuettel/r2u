@@ -24,7 +24,7 @@ description: Easy, fast, reliable -- pick all three!
   [r2u.stat.illinois.edu](https://r2u.stat.illinois.edu) on the [Internet2](https://internet2.edu/) 
 
 - **Complete coverage** with (currently, using 22.04) ~ 24056 CRAN packages (and 428 from
-  BioConductor) using **current versions**: We use R 4.4.0, and BioConductor 3.19.
+  BioConductor) using **current versions**: We use R 4.4.*, and BioConductor 3.20.
 
 - Complete support for **Ubuntu 20.04 ("focal")**,  **22.04 ("jammy")** and **24.04 ("noble")**.
 
@@ -62,7 +62,7 @@ Support for other cpu architectures is certainly possible but somewhat unlikely 
 right now (due to a lack of resources and time). P3M/PPM/RSPM now appears to also support Debian which
 could be added at some later point.
 
-Current versions are based on R 4.4.0, and BioConductor release 3.19 packages are provided when
+Current versions are based on R 4.4.0, and BioConductor release 3.20 packages are provided when
 required by CRAN packages.  Binaries are generally R 4.4.* based. Some older packages released when
 we used R 4.2.* or 4.3.* may have been built with R 4.2.* or R 4.3.*, they will still work the same
 with R 4.4.* as R is generally forward-compatible.
@@ -331,11 +331,11 @@ _Frequently Asked Questions_.
   `install.packages()` (such as `renv`, `rig`, ...) do not benefit from
   `install.packages()` calling `apt` for you, and cannot take advantage of r2u via `bspm`.
  
- - `bspm` traces calls to `install.packages()` and maps them system-wide installation via `apt`.  By
-   choice, it does not map the `remove.packages()` for package removal, see [this
-   issue](https://github.com/Enchufa2/bspm/issues/43) for more discussion. Packages can be uninstalled
-   via the system package manager using, respectively, `apt`, `dpkg` or one of graphical frontends as
-   well as via the R function `bspm::remove_sys()`.
+- `bspm` traces calls to `install.packages()` and maps them system-wide installation via `apt`.  By
+  choice, it does not map the `remove.packages()` for package removal, see [this
+  issue](https://github.com/Enchufa2/bspm/issues/43) for more discussion. Packages can be uninstalled
+  via the system package manager using, respectively, `apt`, `dpkg` or one of graphical frontends as
+  well as via the R function `bspm::remove_sys()`.
 
 ### Author
 

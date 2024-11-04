@@ -1025,7 +1025,7 @@
 </li>
 <li>
 <p><strong>Complete coverage</strong> with (currently, using 22.04) ~ 24056 CRAN packages (and 428 from
-  BioConductor) using <strong>current versions</strong>: We use R 4.4.0, and BioConductor 3.19.</p>
+  BioConductor) using <strong>current versions</strong>: We use R 4.4.*, and BioConductor 3.20.</p>
 </li>
 <li>
 <p>Complete support for <strong>Ubuntu 20.04 ("focal")</strong>,  <strong>22.04 ("jammy")</strong> and <strong>24.04 ("noble")</strong>.</p>
@@ -1060,7 +1060,7 @@ We use 'r-release' just like CRAN. So currently the 'focal' 20.04 LTS, 'jammy' 2
 (additional hardware) resources and time. Support for other distributions is possible but unlikely
 right now (due to a lack of resources and time). P3M/PPM/RSPM now appears to also support Debian which
 could be added at some later point.</p>
-<p>Current versions are based on R 4.4.0, and BioConductor release 3.19 packages are provided when
+<p>Current versions are based on R 4.4.0, and BioConductor release 3.20 packages are provided when
 required by CRAN packages.  Binaries are generally R 4.4.<em> based. Some older packages released when
 we used R 4.2.</em> or 4.3.<em> may have been built with R 4.2.</em> or R 4.3.<em>, they will still work the same
 with R 4.4.</em> as R is generally forward-compatible.</p>
@@ -1258,10 +1258,10 @@ cumulative and average weekly downloads (the latter one on a log scale) as of Au
 </li>
 <li>
 <p><code>bspm</code> traces calls to <code>install.packages()</code> and maps them system-wide installation via <code>apt</code>.  By
-   choice, it does not map the <code>remove.packages()</code> for package removal, see <a href="https://github.com/Enchufa2/bspm/issues/43">this
-   issue</a> for more discussion. Packages can be uninstalled
-   via the system package manager using, respectively, <code>apt</code>, <code>dpkg</code> or one of graphical frontends as
-   well as via the R function <code>bspm::remove_sys()</code>.</p>
+  choice, it does not map the <code>remove.packages()</code> for package removal, see <a href="https://github.com/Enchufa2/bspm/issues/43">this
+  issue</a> for more discussion. Packages can be uninstalled
+  via the system package manager using, respectively, <code>apt</code>, <code>dpkg</code> or one of graphical frontends as
+  well as via the R function <code>bspm::remove_sys()</code>.</p>
 </li>
 </ul>
 <h3 id="author">Author</h3>

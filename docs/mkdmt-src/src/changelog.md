@@ -1,5 +1,9 @@
 ###  2024 
 
+2024-11-04  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * README.md: Document BioConductor 3.20 support 
+ 
 2024-10-30  Dirk Eddelbuettel  <edd@debian.org> 
  
         * inst/scripts/add_cranapt_noble.sh: Updated to use gpg instead of 
