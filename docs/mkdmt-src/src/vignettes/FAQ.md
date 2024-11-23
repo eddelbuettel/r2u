@@ -3,11 +3,11 @@
 
 ### Why is it called both CRANapt and r2u?
 
-We hope to eventually provide CRAN binaries for multiple distributions
-(Debian, Ubuntu, ...), releases (testing/stable, LTS/current, ...), hardware
-platforms, and so on.  But we had to start somewhere, so Ubuntu LTS for amd64
-is the first instance. And as we are effectively only on Ubuntu for now, the
-shorter 'r2u' crept up, and stuck.
+We started out with the hope to eventually provide CRAN binaries for multiple
+distributions (Debian, Ubuntu, ...), releases (testing/stable, LTS/current,
+...), hardware platforms, and so on.  But we had to start somewhere, so
+Ubuntu LTS for amd64 is the first instance. And as we are effectively only on
+Ubuntu, at least for now, the shorter 'r2u' crept up, and stuck.
 
 ### How is it pronounced?
 
@@ -43,6 +43,9 @@ Overall it also still at a fraction of CRAN packages. So we created this repo
 as an experiment to see if we could scale a simple and direct approach, and
 in the hopes it can complement the c2d4u PPA and offer additional packages
 
+As of 2024, that hope has come to fruition as c2d4u is now taken a
+well-deserved hiatus, and recommends switching to r2u instead.
+
 ### Can I use (current) r2u with Debian?
 
 In general, it is _not_ a good idea to mix packages from Debian and Ubuntu in
@@ -61,7 +64,10 @@ BioConductor 3.18 release, we also ensure we had all packages covered by the
 the distribution had around 170 packages whereas the set of packages covered
 by r2u increased to just over 400. With the combination of r2u generally having
 a newer version along with the recommended pinning you should always get the
-r2u version without issues.
+r2u version without issues.  
+
+As of late 2024, and BioConductor 3.20, we have well over 400 packages from
+BioConductor for the (currently three) LTS releases we support.
 
 (And for historical context, back-then-when Ubuntu contained a number of
 Debian packages `r-bioc-*`. However, as the distribution cutoff for the
@@ -85,7 +91,7 @@ you keep the `sources.list` entry on the LTS release you have as we (just
 like many other repositories) only provide LTS releases and no interim
 releases. 
 
-When running 22.10 / 23.04 / 23.10 on a laptop with r2u, we are aware of one
+When running 22.10 / 23.04 / 23.10 / 24.10 on a laptop with r2u, we are aware of one
 binary for the [av](https://cloud.r-project.org/package=av) which ends up
 with a library dependency no longer satisified by the distribution. So we
 built ourselves an ad-hoc new binary of `r-cran-av` for the distro we ran. We
@@ -117,7 +123,30 @@ touch. I have the infrastructure here, and nearly three decades of experience cr
 packages. This _can be done_ and on some platforms (maybe graviton ?) it would make some quite a ton
 of sense.  But until then we remain in a `x86_64` world.
 
-## bspm
+### Why can I not uninstall packages with `remove.packages()` ?
+
+This issue is known and documented, for example under [known issues in the main GitHub
+README](https://github.com/eddelbuettel/r2u?tab=readme-ov-file#known-issues) shadowed in [the main
+page of the documentation](https://eddelbuettel.github.io/r2u/#known-issues). The `bspm` package
+traces `install.packages()` to facilitate installation; removal is a little more complicated as
+[discussed in this issue at the `bspm` repo](https://github.com/Enchufa2/bspm/issues/43). However,
+`bspm` provides a function `bspm::remove_sys()` to remove a package installed via r2u as a system
+package.
+
+Also see isues [#75](https://github.com/eddelbuettel/r2u/issues/75) and
+[#35](https://github.com/eddelbuettel/r2u/issues/35).
+
+### Can I install and use older versions by choice ?
+
+Of course!  One key aspect of using R on Debian / Ubuntu is that the order the library path
+directories (shown by calling `.libPaths()`) such that the system libraries come last. This means
+that you can always call `bspm::disable(); install.packages("some_package")` to install
+`some_package` into either your personal repository within `$HOME` or into
+`/usr/local/lib/R/site-packages/`.  Just make sure to disable `bspm` to be able to install
+'normally' from source. 
+
+See issue [#75](https://github.com/eddelbuettel/r2u/issues/75) where this is discussed a little too
+and an example is provided.
 
 ### Should I install bspm?
 
@@ -134,9 +163,7 @@ You can wrap `suppressMessages()` around `bspm::enable()`.  We now do so in
 the Docker image.
 
 
-## 'Cannot connect' errors
-
-### With the 22.04 "jammy" container I get errors
+### With the 22.04 "jammy" container I get 'Cannot connect' errors
 
 We found that adding `--security-opt seccomp=unconfined` to the `docker`
 invocation silenced those on AWS hosts and possibly other systems. 
@@ -148,7 +175,7 @@ It appears that Docker rules this out during builds.
 The only remedy is to use `bspm::disable()` and to rely on just `apt` to
 install the `r2u` packages in derived containers.
 
-## Can one use `r2u` with Singularity containers?
+### Can one use `r2u` with Singularity containers?
 
 Yes, as discussed [in this GitHub issue](https://github.com/eddelbuettel/r2u/issues/9).
 The key is that Singularity does not allow `root` access, yet we need to install packages
@@ -168,7 +195,7 @@ and enjoy the resulting container `r2u_seurat:22.04` (or give it any other suita
 a suitable `.sif` from it as discussed in the issue.
 
 
-## How can one know when it was updated
+### How can one know when it was updated
 
 We follow P3M/PPM/RSPM builds so their [update
 tracker](https://p3m.dev/client/#/repos/cran/activity) there can be helpful. We currently have no
