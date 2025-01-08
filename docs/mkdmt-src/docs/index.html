@@ -403,47 +403,6 @@
     Usage and Setup
   </a>
   
-    <nav class="md-nav" aria-label="Usage and Setup">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#step-1-update-apt-install-tools-fetch-key" class="md-nav__link">
-    Step 1: Update apt, install tools, fetch key
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-2-add-the-apt-repo" class="md-nav__link">
-    Step 2: Add the apt repo
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-3-ensure-you-have-current-r-binaries-optional" class="md-nav__link">
-    Step 3: Ensure you have current R binaries (optional)
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-4-use-pinning-for-the-r2u-repo-optional" class="md-nav__link">
-    Step 4: Use pinning for the r2u repo (optional)
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-5-use-bspm-optional" class="md-nav__link">
-    Step 5: Use bspm (optional)
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -471,26 +430,6 @@
   <a href="#try-it" class="md-nav__link">
     Try It
   </a>
-  
-    <nav class="md-nav" aria-label="Try It">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#via-codespaces" class="md-nav__link">
-    Via codespaces
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#via-gitpodio" class="md-nav__link">
-    Via gitpod.io
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -844,47 +783,6 @@
     Usage and Setup
   </a>
   
-    <nav class="md-nav" aria-label="Usage and Setup">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#step-1-update-apt-install-tools-fetch-key" class="md-nav__link">
-    Step 1: Update apt, install tools, fetch key
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-2-add-the-apt-repo" class="md-nav__link">
-    Step 2: Add the apt repo
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-3-ensure-you-have-current-r-binaries-optional" class="md-nav__link">
-    Step 3: Ensure you have current R binaries (optional)
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-4-use-pinning-for-the-r2u-repo-optional" class="md-nav__link">
-    Step 4: Use pinning for the r2u repo (optional)
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-5-use-bspm-optional" class="md-nav__link">
-    Step 5: Use bspm (optional)
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -912,26 +810,6 @@
   <a href="#try-it" class="md-nav__link">
     Try It
   </a>
-  
-    <nav class="md-nav" aria-label="Try It">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#via-codespaces" class="md-nav__link">
-    Via codespaces
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#via-gitpodio" class="md-nav__link">
-    Via gitpod.io
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1024,7 +902,7 @@
   <a href="https://r2u.stat.illinois.edu">r2u.stat.illinois.edu</a> on the <a href="https://internet2.edu/">Internet2</a> </p>
 </li>
 <li>
-<p><strong>Complete coverage</strong> with (currently, using 22.04) ~ 24056 CRAN packages (and 428 from
+<p><strong>Complete coverage</strong> with (currently, using 22.04) ~ 24491 CRAN packages (and 435 from
   BioConductor) using <strong>current versions</strong>: We use R 4.4.*, and BioConductor 3.20.</p>
 </li>
 <li>
@@ -1078,8 +956,8 @@ a very skewed distribution.) We iterated, and fairly soon arrived of full covera
     <a href="https://bioconductor.org/packages/stats/bioc/bioc_pkg_scores.tab">scoring</a> BioConductor
     packages (also covering <em>e.g.</em> all BioConductor packages in the Debian and Ubuntu distributions)</li>
 </ul>
-<p>This currently results in 24141, 24056, 21682 binary packages from CRAN in "focal", "jammy", and
-"noble", respectively, and 420, 420, and 448 BioConductor packages, respectively, from the 3.19 
+<p>This currently results in 24572, 24491, 22140 binary packages from CRAN in "focal", "jammy", and
+"noble", respectively, and 427, 435, and 450 BioConductor packages, respectively, from the 3.20 
 releases. (See this
 <a href="https://eddelbuettel.github.io/r2u/vignettes/FAQ/#why-does-it-have-more-packages-than-cran">FAQ</a>
 about why this number is higher than CRAN, and variable between releases.)</p>
@@ -1109,21 +987,21 @@ used distribution per our logs). You should run all these commands as <code>root
 each one. If you prefer the newer Ubuntu 24.04, please see the
 <a href="https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/add_cranapt_noble.sh"><code>add_cranapt_noble.sh</code></a>
 script which also avoids the now-deprecated <code>apt-key</code> command).</p>
-<h4 id="step-1-update-apt-install-tools-fetch-key">Step 1: Update apt, install tools, fetch key</h4>
+<p><strong> Step 1: Update apt, install tools, fetch key</strong></p>
 <p>First add the repository key so that <code>apt</code> knows it (this is optional but recommended)</p>
 <pre><code class="language-sh">apt update -qq &amp;&amp; apt install --yes --no-install-recommends wget \
     ca-certificates gnupg
 wget -q -O- https://eddelbuettel.github.io/r2u/assets/dirk_eddelbuettel_key.asc \
     | tee -a /etc/apt/trusted.gpg.d/cranapt_key.asc
 </code></pre>
-<h4 id="step-2-add-the-apt-repo">Step 2: Add the apt repo</h4>
+<p><strong> Step 2: Add the apt repo</strong></p>
 <p>Second, add the repository to the <code>apt</code> registry. We recommend the well-connected main mirror
 provide at University of Illinois:</p>
 <pre><code class="language-sh">echo &quot;deb [arch=amd64] https://r2u.stat.illinois.edu/ubuntu jammy main&quot; \
      &gt; /etc/apt/sources.list.d/cranapt.list
 apt update -qq
 </code></pre>
-<h4 id="step-3-ensure-you-have-current-r-binaries-optional">Step 3: Ensure you have current R binaries (optional)</h4>
+<p><strong> Step 3: Ensure you have current R binaries (optional)</strong></p>
 <p>Third, and optionally, if you do not yet have the current R version, run these two lines (or
 use the <a href="https://cloud.r-project.org/bin/linux/ubuntu/">standard CRAN repo setup</a>)</p>
 <pre><code class="language-sh">wget -q -O- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc \
@@ -1136,7 +1014,7 @@ apt update -qq
 DEBIAN_FRONTEND=noninteractive apt install --yes --no-install-recommends \
     r-base-core
 </code></pre>
-<h4 id="step-4-use-pinning-for-the-r2u-repo-optional">Step 4: Use pinning for the r2u repo (optional)</h4>
+<p><strong> Step 4: Use pinning for the r2u repo (optional)</strong></p>
 <p>Fourth, add repository 'pinning' as <code>apt</code> might get confused by some older
 packages (in the Ubuntu distro) which accidentally appear with a higher
 version number. See the next section for a short discussion how it ensures 'CRANapt' 
@@ -1149,7 +1027,7 @@ echo &quot;Pin-Priority: 700&quot;  &gt;&gt; /etc/apt/preferences.d/99cranapt
 <p>After that the package are known (under their <code>r-cran-*</code> and <code>r-bioc-*</code>
 names).  You can install them on the command-line using <code>apt</code> and <code>apt-get</code>,
 via <code>aptitude</code> as well as other front-ends.</p>
-<h4 id="step-5-use-bspm-optional">Step 5: Use <code>bspm</code> (optional)</h4>
+<p><strong> Step 5: Use <code>bspm</code> (optional)</strong></p>
 <p>Fifth, and also optional, install and enable the <a href="https://cloud.r-project.org/package=bspm">bspm</a>
 package so that the r2u (or CRANapt) as well as other R packages (available as <code>r-*.deb</code> binaries)
 become available via <code>install.packages()</code> and <code>update.packages()</code>. Note that you may need to install
@@ -1211,13 +1089,13 @@ repo</a>
 where we use it because using the Docker container approach makes committing back via <code>git</code> a little
 harder.</p>
 <h3 id="try-it">Try It</h3>
-<h4 id="via-codespaces">Via codespaces</h4>
+<p><strong> Via codespaces </strong></p>
 <p>See the vignette <a href="https://eddelbuettel.github.io/r2u/vignettes/Codespaces/">Codespaces</a> about how to
 launch a 'Codespace' directly in your browser, launched from the gitrepo within minutes.</p>
 <p>This also works from your <a href="https://code.visualstudio.com/">vscode</a> installation as a remote
 codespace.</p>
 <p>The vignette has more details.</p>
-<h4 id="via-gitpodio">Via gitpod.io</h4>
+<p><strong> Via gitpod.io </strong></p>
 <p>Use this link below (after possibly signing up for
 <a href="https://gitpod.io/">gitpod.io</a> first)</p>
 <p><a href="https://gitpod.io/#https://github.com/eddelbuettel/r2u"><img alt="Open in Gitpod" src="https://gitpod.io/button/open-in-gitpod.svg" /></a></p>
@@ -1229,11 +1107,11 @@ just start R in the terminal window.</p>
 <a href="https://github.com/paul-buerkner/brms">brms</a> from binaries in a few seconds.  Using this requires
 only (free) <a href="https://github.com">GitHub</a> and <a href="https://gitpod.io">GitPod</a> accounts.</p>
 <h3 id="usage-statistics">Usage Statistics</h3>
-<p>Usage is vibrant.  As of summer 2024, over 300,000 packages are shipped per week, with a total of
-now over twenty four million packages shipped.  Early September 2023 also had the most recent and
+<p>Usage is vibrant.  As of January 2025, over 300,000 packages are shipped per week, with a total of
+now over thirty three million packages shipped.  Early September 2023 also had the most recent and
 dramatic spike of <em>over three million packages in two days</em>.  The following chart gives a summary of
 cumulative and average weekly downloads (the latter one on a log scale) as of August.</p>
-<p><img alt="" src="https://eddelbuettel.github.io/images/2024-09-24/r2u_aggregated_and_weekly_2024-09-24.png" /></p>
+<p><img alt="" src="https://eddelbuettel.github.io/images/2025-01-07/r2u_aggregated_and_weekly_2025-01-07.png" /></p>
 <h3 id="support">Support</h3>
 <p>Please file issues at the <a href="https://github.com/eddelbuettel/r2u/issues">GitHub issues for r2u</a>.</p>
 <h3 id="frequently-asked-questions">Frequently Asked Questions</h3>

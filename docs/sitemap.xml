@@ -2,37 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://github.com/eddelbuettel/r2u/</loc>
-         <lastmod>2024-11-23</lastmod>
+         <lastmod>2025-01-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/eddelbuettel/r2u/changelog/</loc>
-         <lastmod>2024-11-23</lastmod>
+         <lastmod>2025-01-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/eddelbuettel/r2u/news/</loc>
-         <lastmod>2024-11-23</lastmod>
+         <lastmod>2025-01-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/eddelbuettel/r2u/man/buildPackage/</loc>
-         <lastmod>2024-11-23</lastmod>
+         <lastmod>2025-01-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/eddelbuettel/r2u/man/r2u-package/</loc>
-         <lastmod>2024-11-23</lastmod>
+         <lastmod>2025-01-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/eddelbuettel/r2u/vignettes/Codespaces/</loc>
-         <lastmod>2024-11-23</lastmod>
+         <lastmod>2025-01-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/eddelbuettel/r2u/vignettes/FAQ/</loc>
-         <lastmod>2024-11-23</lastmod>
+         <lastmod>2025-01-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>

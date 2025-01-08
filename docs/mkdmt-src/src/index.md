@@ -23,7 +23,7 @@ description: Easy, fast, reliable -- pick all three!
 - **Fast and well-connected mirror** at
   [r2u.stat.illinois.edu](https://r2u.stat.illinois.edu) on the [Internet2](https://internet2.edu/) 
 
-- **Complete coverage** with (currently, using 22.04) ~ 24056 CRAN packages (and 428 from
+- **Complete coverage** with (currently, using 22.04) ~ 24491 CRAN packages (and 435 from
   BioConductor) using **current versions**: We use R 4.4.*, and BioConductor 3.20.
 
 - Complete support for **Ubuntu 20.04 ("focal")**,  **22.04 ("jammy")** and **24.04 ("noble")**.
@@ -85,8 +85,8 @@ So we now cover
     [scoring](https://bioconductor.org/packages/stats/bioc/bioc_pkg_scores.tab) BioConductor
     packages (also covering _e.g._ all BioConductor packages in the Debian and Ubuntu distributions)
 
-This currently results in 24141, 24056, 21682 binary packages from CRAN in "focal", "jammy", and
-"noble", respectively, and 420, 420, and 448 BioConductor packages, respectively, from the 3.19 
+This currently results in 24572, 24491, 22140 binary packages from CRAN in "focal", "jammy", and
+"noble", respectively, and 427, 435, and 450 BioConductor packages, respectively, from the 3.20 
 releases. (See this
 [FAQ](https://eddelbuettel.github.io/r2u/vignettes/FAQ/#why-does-it-have-more-packages-than-cran)
 about why this number is higher than CRAN, and variable between releases.)
@@ -126,7 +126,7 @@ each one. If you prefer the newer Ubuntu 24.04, please see the
 script which also avoids the now-deprecated `apt-key` command).
 
 
-#### Step 1: Update apt, install tools, fetch key  
+** Step 1: Update apt, install tools, fetch key**
 
 First add the repository key so that `apt` knows it (this is optional but recommended)
 
@@ -137,7 +137,7 @@ wget -q -O- https://eddelbuettel.github.io/r2u/assets/dirk_eddelbuettel_key.asc 
     | tee -a /etc/apt/trusted.gpg.d/cranapt_key.asc
 ```
 
-#### Step 2: Add the apt repo
+** Step 2: Add the apt repo**
 
 Second, add the repository to the `apt` registry. We recommend the well-connected main mirror
 provide at University of Illinois:
@@ -148,7 +148,7 @@ echo "deb [arch=amd64] https://r2u.stat.illinois.edu/ubuntu jammy main" \
 apt update -qq
 ```
 
-#### Step 3: Ensure you have current R binaries (optional)
+** Step 3: Ensure you have current R binaries (optional)**
 
 Third, and optionally, if you do not yet have the current R version, run these two lines (or
 use the [standard CRAN repo setup](https://cloud.r-project.org/bin/linux/ubuntu/))
@@ -165,7 +165,7 @@ DEBIAN_FRONTEND=noninteractive apt install --yes --no-install-recommends \
     r-base-core
 ```
 
-#### Step 4: Use pinning for the r2u repo (optional)
+** Step 4: Use pinning for the r2u repo (optional)**
 
 Fourth, add repository 'pinning' as `apt` might get confused by some older
 packages (in the Ubuntu distro) which accidentally appear with a higher
@@ -183,7 +183,7 @@ After that the package are known (under their `r-cran-*` and `r-bioc-*`
 names).  You can install them on the command-line using `apt` and `apt-get`,
 via `aptitude` as well as other front-ends.
 
-#### Step 5: Use `bspm` (optional)
+** Step 5: Use `bspm` (optional)**
 
 Fifth, and also optional, install and enable the [bspm](https://cloud.r-project.org/package=bspm)
 package so that the r2u (or CRANapt) as well as other R packages (available as `r-*.deb` binaries)
@@ -270,7 +270,7 @@ harder.
 
 ### Try It
 
-#### Via codespaces 
+** Via codespaces **
 
 See the vignette [Codespaces](https://eddelbuettel.github.io/r2u/vignettes/Codespaces/) about how to
 launch a 'Codespace' directly in your browser, launched from the gitrepo within minutes.
@@ -280,7 +280,7 @@ codespace.
 
 The vignette has more details.
 
-#### Via gitpod.io
+** Via gitpod.io **
 
 Use this link below (after possibly signing up for
 [gitpod.io](https://gitpod.io/) first)
@@ -299,12 +299,12 @@ only (free) [GitHub](https://github.com) and [GitPod](https://gitpod.io) account
 
 ### Usage Statistics
 
-Usage is vibrant.  As of summer 2024, over 300,000 packages are shipped per week, with a total of
-now over twenty four million packages shipped.  Early September 2023 also had the most recent and
+Usage is vibrant.  As of January 2025, over 300,000 packages are shipped per week, with a total of
+now over thirty three million packages shipped.  Early September 2023 also had the most recent and
 dramatic spike of _over three million packages in two days_.  The following chart gives a summary of
 cumulative and average weekly downloads (the latter one on a log scale) as of August.
 
-![](https://eddelbuettel.github.io/images/2024-09-24/r2u_aggregated_and_weekly_2024-09-24.png)
+![](https://eddelbuettel.github.io/images/2025-01-07/r2u_aggregated_and_weekly_2025-01-07.png)
 
 ### Support
 
