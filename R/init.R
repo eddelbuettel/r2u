@@ -124,6 +124,7 @@
             .pkgenv[["r2u_directory"]] <- cfg[1, "r2u_directory"]
             .pkgenv[["build_directory"]] <- cfg[1, "build_directory"]
             .pkgenv[["deb_directory"]] <- cfg[1, "deb_directory"]
+            .pkgenv[["build_container"]] <- cfg[1, "build_container"]
 
             ## fallbacks, overriden when 'tgt' specified
             .pkgenv[["distribution"]] <- "20.04"

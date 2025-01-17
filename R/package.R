@@ -230,7 +230,8 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
     r2u_dir <- .getConfig("r2u_directory")
     setwd(r2u_dir)
     distname <- .getConfig("distribution_name")
-    container <- paste0("eddelbuettel/r2u_build:", distname)
+    build_container <- .getConfig("build_container")
+    container <- paste0(build_container, ":", distname)
     deps <- if (pkg %in% names(.getConfig("builddeps"))) .getConfig("builddeps")[pkg] else ""
     added_deps <- if (repo == "Bioc" || isTRUE(force)) paste(.filterAndMapBuildDepends(pkg, ap), collapse=" ") else ""
     depstr <- if (nchar(deps) + nchar(added_deps) > 0) paste0("-a '", deps, " ", added_deps, "' ") else " "
