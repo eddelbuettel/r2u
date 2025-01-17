@@ -7,7 +7,7 @@ LABEL org.label-schema.license="GPL-2.0" \
       maintainer="Dirk Eddelbuettel <edd@debian.org>"
 
 ## This was not needed before but we need it now
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 
 RUN rm -f /etc/apt/sources.list.d/edd-ubuntu-misc-focal.list \
     && apt update -qq \
