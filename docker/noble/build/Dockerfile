@@ -12,8 +12,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN rm -f /etc/apt/sources.list.d/edd-ubuntu-misc-jammy.list \
     && apt update -qq \
     && apt upgrade --yes \
-    && apt install --yes --no-install-recommends dh-r gpg-agent xvfb \
-    && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A1489FE2AB99A21A 67C2D66C4B1D4339
+    && apt install --yes --no-install-recommends dh-r gpg-agent xvfb 
 
 COPY debBuild.sh /usr/local/bin
 COPY r2u.sources marutter-ubuntu-rrutter4_0-noble.sources /etc/apt/sources.list.d
