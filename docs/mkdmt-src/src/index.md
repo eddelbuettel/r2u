@@ -35,7 +35,7 @@ description: Easy, fast, reliable -- pick all three!
 - **Docker containers** `rocker/r2u` from the [Rocker Project](https://rocker-project.org/) for both 
   'focal', 'jammy' and 'noble'.
   
-- **GitHub Actions support** to set up on Ubuntu 22.04 "jammy" or via container.
+- **GitHub Actions support** to set up on Ubuntu 'latest' or via container.
 
 ### Brief Demo
 
@@ -62,7 +62,7 @@ Support for other cpu architectures is certainly possible but somewhat unlikely 
 right now (due to a lack of resources and time). P3M/PPM/RSPM now appears to also support Debian which
 could be added at some later point.
 
-Current versions are based on R 4.4.0, and BioConductor release 3.20 packages are provided when
+Current versions are based on R 4.4.*, and BioConductor release 3.20 packages are provided when
 required by CRAN packages.  Binaries are generally R 4.4.* based. Some older packages released when
 we used R 4.2.* or 4.3.* may have been built with R 4.2.* or R 4.3.*, they will still work the same
 with R 4.4.* as R is generally forward-compatible.
@@ -79,14 +79,14 @@ a very skewed distribution.) We iterated, and fairly soon arrived of full covera
 
 So we now cover
 
-- *all CRAN packages* (modulo at best handful of blacklisted ones) including all packages needing
+- *all CRAN packages* (modulo at best a handful of blacklisted ones) including all packages needing
   compilation
 - all BioConductor packages implied by these plus a 'healthy subset' of the highest
     [scoring](https://bioconductor.org/packages/stats/bioc/bioc_pkg_scores.tab) BioConductor
     packages (also covering _e.g._ all BioConductor packages in the Debian and Ubuntu distributions)
 
-This currently results in 24572, 24491, 22140 binary packages from CRAN in "focal", "jammy", and
-"noble", respectively, and 427, 435, and 450 BioConductor packages, respectively, from the 3.20 
+This currently results in 24797, 24717, 22376 binary packages from CRAN in "focal", "jammy", and
+"noble", respectively, and 429, 437, and 451 BioConductor packages, respectively, from the 3.20 
 releases. (See this
 [FAQ](https://eddelbuettel.github.io/r2u/vignettes/FAQ/#why-does-it-have-more-packages-than-cran)
 about why this number is higher than CRAN, and variable between releases.)
@@ -120,13 +120,14 @@ You can use `lsb_release -cs` to generate your release name: "focal", "jammy", a
 supported and you could swap "focal" or "noble" in below (or use one of the scripts).
 
 Here, we show the setup step by step for 'jammy' aka Ubuntu 22.04 (as it is still the most-widely
-used distribution per our logs). You should run all these commands as `root` to carefully review
-each one. If you prefer the newer Ubuntu 24.04, please see the
+used distribution per our logs, though we may update this to 24.04 soon). You should run all these
+commands as `root` to carefully review each one. If you prefer the newer Ubuntu 24.04, please see
+the
 [`add_cranapt_noble.sh`](https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/add_cranapt_noble.sh)
 script which also avoids the now-deprecated `apt-key` command).
 
 
-** Step 1: Update apt, install tools, fetch key**
+**Step 1: Update apt, install tools, fetch key**
 
 First add the repository key so that `apt` knows it (this is optional but recommended)
 
@@ -137,7 +138,7 @@ wget -q -O- https://eddelbuettel.github.io/r2u/assets/dirk_eddelbuettel_key.asc 
     | tee -a /etc/apt/trusted.gpg.d/cranapt_key.asc
 ```
 
-** Step 2: Add the apt repo**
+**Step 2: Add the apt repo**
 
 Second, add the repository to the `apt` registry. We recommend the well-connected main mirror
 provide at University of Illinois:
@@ -148,7 +149,7 @@ echo "deb [arch=amd64] https://r2u.stat.illinois.edu/ubuntu jammy main" \
 apt update -qq
 ```
 
-** Step 3: Ensure you have current R binaries (optional)**
+**Step 3: Ensure you have current R binaries (optional)**
 
 Third, and optionally, if you do not yet have the current R version, run these two lines (or
 use the [standard CRAN repo setup](https://cloud.r-project.org/bin/linux/ubuntu/))
@@ -165,7 +166,7 @@ DEBIAN_FRONTEND=noninteractive apt install --yes --no-install-recommends \
     r-base-core
 ```
 
-** Step 4: Use pinning for the r2u repo (optional)**
+**Step 4: Use pinning for the r2u repo (optional)**
 
 Fourth, add repository 'pinning' as `apt` might get confused by some older
 packages (in the Ubuntu distro) which accidentally appear with a higher
@@ -183,7 +184,7 @@ After that the package are known (under their `r-cran-*` and `r-bioc-*`
 names).  You can install them on the command-line using `apt` and `apt-get`,
 via `aptitude` as well as other front-ends.
 
-** Step 5: Use `bspm` (optional)**
+**Step 5: Use `bspm` (optional)**
 
 Fifth, and also optional, install and enable the [bspm](https://cloud.r-project.org/package=bspm)
 package so that the r2u (or CRANapt) as well as other R packages (available as `r-*.deb` binaries)

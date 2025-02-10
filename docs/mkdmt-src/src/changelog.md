@@ -1,3 +1,9 @@
+###  2025 
+
+2025-02-10  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * R/init.R: Robustify build when no config directory present 
+ 
 ###  2024 
 
 2024-11-04  Dirk Eddelbuettel  <edd@debian.org> 
