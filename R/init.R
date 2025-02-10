@@ -1,7 +1,7 @@
 
 .pkgenv <- new.env(parent=emptyenv())
 
-.debug <- FALSE #TRUE#
+.debug <- FALSE #TRUE
 .debug_message <- function(...) if (.debug) message(..., appendLF=FALSE)
 
 .defaultConfigFile <- function() {
@@ -23,7 +23,7 @@
             return(fname)
         }
     } else {
-        .debug_message("No package config dir")
+        .debug_message("No package config dir for CRAN db\n")
     }
     return("")
 }
@@ -36,7 +36,7 @@
             return(fname)
         }
     } else {
-        .debug_message("No package config dir")
+        .debug_message("No package config dir for AP\n")
     }
     return("")
 }
@@ -49,7 +49,7 @@
             return(fname)
         }
     } else {
-        .debug_message("No package config dir")
+        .debug_message("No package config dir for BioC\n")
     }
     return("")
 }
@@ -66,7 +66,7 @@
             return(fname)
         }
     } else {
-        .debug_message("No package config dir")
+        .debug_message("No package config dir for build depends")
     }
     return("")
 }
@@ -83,7 +83,7 @@
             return(fname)
         }
     } else {
-        .debug_message("No package config dir")
+        .debug_message("No package config dir for blacklist")
     }
     return("")
 }
@@ -100,7 +100,7 @@
             return(fname)
         }
     } else {
-        .debug_message("No package config dir")
+        .debug_message("No package config dir for run-time depends")
     }
     return("")
 }
@@ -131,8 +131,9 @@
             .pkgenv[["distribution_name"]] <- "focal"
 
         } else {
-            .debug_message("No config file")
+            .debug_message("No config file\n")
             .pkgenv[["config_file"]] <- ""
+            .pkgenv[["bioc_version"]] <- "3.20"
         }
     } else {
         .debug_message("Already have config\n")
@@ -166,10 +167,15 @@
     if (is.na(match("db", names(.pkgenv)))) {
         .debug_message("Reading db\n")
         dbfile <- .defaultCRANDBFile()
-        if (file.exists(dbfile) && as.numeric(difftime(Sys.time(), file.info(dbfile)$ctime, units="hours")) < hrs) {
-            db <- readRDS(dbfile)
-            .debug_message("Cached db\n")
-        } else {
+        db <- NULL
+        if (file.exists(dbfile) && !is.null(hrs)) {
+            age <- as.numeric(difftime(Sys.time(), file.info(dbfile)$ctime, units="hourssecs"))
+            if (age < hrs) {
+                db <- readRDS(dbfile)
+                .debug_message("Cached db\n")
+            }
+        }
+        if (is.null(db)) {
             .debug_message("Fresh db\n")
             db <- data.table(as.data.frame(tools::CRAN_package_db()))
 
@@ -186,8 +192,12 @@
             for (br in names(baserevs)) db[Package %in% baserevs[[br]], adjdep := adjdep - 1]
 
             dbfile <- .defaultCRANDBFile(TRUE)
-            saveRDS(db, dbfile)
-            .debug_message("Written db\n")
+            if (dbfile != "") {
+                saveRDS(db, dbfile)
+                .debug_message("Written db\n")
+            } else {
+                .debug_message("Not writing db as no default dir\n")
+            }
         }
         .pkgenv[["db"]] <- data.table(as.data.frame(db))
     } else {
@@ -205,11 +215,14 @@
     if (is.na(match("ap", names(.pkgenv)))) {
         .debug_message("Getting ap\n")
         apfile <- .defaultAPFile()
-        if (file.exists(apfile) &&
-            as.numeric(difftime(Sys.time(), file.info(apfile)$ctime, units="hours")) < hrs) {
-            ap <- readRDS(apfile)
-            .debug_message("Cached ap\n")
-        } else {
+        ap <- NULL
+        if (file.exists(apfile) && !is.null(hrs)) {
+            if (as.numeric(difftime(Sys.time(), file.info(apfile)$ctime, units="hours")) < hrs) {
+                ap <- readRDS(apfile)
+                .debug_message("Cached ap\n")
+            }
+        }
+        if (is.null(ap)) {
             .debug_message("Fresh ap\n")
 
             ## also:
@@ -238,8 +251,12 @@
             ap[, deb := paste0("r-", tolower(ap), "-", tolower(Package))]
 
             apfile <- .defaultAPFile(TRUE)
-            saveRDS(ap, apfile)
-            .debug_message("Written ap\n")
+            if (apfile != "") {
+                saveRDS(ap, apfile)
+                .debug_message("Written ap\n")
+            } else {
+                .debug_message("Not writing ap as no config dir\n")
+            }
         }
         .pkgenv[["ap"]] <- data.table(as.data.frame(ap))
     } else {
@@ -250,14 +267,17 @@
 .loadBuilds <- function(tgt) {
     if (missing(tgt)) tgt <- .pkgenv[["distribution_name"]]
     dd <- file.path(.pkgenv[["deb_directory"]], "dists", tgt, "main")
-    cwd <- getwd()
-    setwd(dd)
-    fls <- list.files(".", pattern="\\.deb$", full.names=FALSE)
-    n1 <- tools::file_path_sans_ext(fls)
-    n2 <- gsub("-\\d+.ca(20|22|24)04.\\d+_(all|amd64)$", "", n1)
-    n3 <- gsub(".*-\\d+.ca(\\d{4}).\\d+_.*", "\\1", n1)
-    B <- data.table(name=fls, pkgver=n2, file.info(fls), tgt=n3)
-    .pkgenv[["builds"]] <- B
+    if (isTRUE(nzchar(dd))) {
+        cwd <- getwd()
+        setwd(dd)
+        fls <- list.files(".", pattern="\\.deb$", full.names=FALSE)
+        n1 <- tools::file_path_sans_ext(fls)
+        n2 <- gsub("-\\d+.ca(20|22|24)04.\\d+_(all|amd64)$", "", n1)
+        n3 <- gsub(".*-\\d+.ca(\\d{4}).\\d+_.*", "\\1", n1)
+        B <- data.table(name=fls, pkgver=n2, file.info(fls), tgt=n3)
+        .pkgenv[["builds"]] <- B
+        setwd(cwd)
+    }
 }
 
 .loadBuildDepends <- function() {
