@@ -169,7 +169,7 @@
         dbfile <- .defaultCRANDBFile()
         db <- NULL
         if (file.exists(dbfile) && !is.null(hrs)) {
-            age <- as.numeric(difftime(Sys.time(), file.info(dbfile)$ctime, units="hourssecs"))
+            age <- as.numeric(difftime(Sys.time(), file.info(dbfile)$ctime, units="hours"))
             if (age < hrs) {
                 db <- readRDS(dbfile)
                 .debug_message("Cached db\n")
@@ -267,7 +267,7 @@
 .loadBuilds <- function(tgt) {
     if (missing(tgt)) tgt <- .pkgenv[["distribution_name"]]
     dd <- file.path(.pkgenv[["deb_directory"]], "dists", tgt, "main")
-    if (isTRUE(nzchar(dd))) {
+    if (isTRUE(nzchar(dd)) && dir.exists(dd)) {
         cwd <- getwd()
         setwd(dd)
         fls <- list.files(".", pattern="\\.deb$", full.names=FALSE)
@@ -277,6 +277,8 @@
         B <- data.table(name=fls, pkgver=n2, file.info(fls), tgt=n3)
         .pkgenv[["builds"]] <- B
         setwd(cwd)
+    } else {
+        .pkgenv[["builds"]] <- NULL
     }
 }
 
