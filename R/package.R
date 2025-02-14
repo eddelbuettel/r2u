@@ -235,16 +235,26 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
     deps <- if (pkg %in% names(.getConfig("builddeps"))) .getConfig("builddeps")[pkg] else ""
     added_deps <- if (repo == "Bioc" || isTRUE(force)) paste(.filterAndMapBuildDepends(pkg, ap), collapse=" ") else ""
     depstr <- if (nchar(deps) + nchar(added_deps) > 0) paste0("-a '", deps, " ", added_deps, "' ") else " "
-    cmd <- paste0("docker run --rm -ti ",
-                  "-v ", getwd(), ":/mnt ",
-                  "-w /mnt/build/", distname, "/", pkg, " ",
-                  container, " debBuild.sh ",
-                  if (isTRUE(xvfb) || grepl("(tcltk|tkrplot)", depstr)) "-x " else " ",
-                  if (repo == "Bioc") "-b " else " ",
-                  if (repo == "Bioc" || isTRUE(force)) "-s " else " ",
-                  "-d ", distname, " ",
-                  depstr,
-                  pkg)
+    if (.in.docker()) {
+        cmd <- paste0("debBuild.sh ",
+                      if (isTRUE(xvfb) || grepl("(tcltk|tkrplot)", depstr)) "-x " else " ",
+                      if (repo == "Bioc") "-b " else " ",
+                      if (repo == "Bioc" || isTRUE(force)) "-s " else " ",
+                      "-d ", distname, " ",
+                      depstr,
+                      pkg)
+    } else {
+        cmd <- paste0("docker run --rm -ti ",
+                      "-v ", getwd(), ":/mnt ",
+                      "-w /mnt/build/", distname, "/", pkg, " ",
+                      container, " debBuild.sh ",
+                      if (isTRUE(xvfb) || grepl("(tcltk|tkrplot)", depstr)) "-x " else " ",
+                      if (repo == "Bioc") "-b " else " ",
+                      if (repo == "Bioc" || isTRUE(force)) "-s " else " ",
+                      "-d ", distname, " ",
+                      depstr,
+                      pkg)
+    }
     if (debug) print(cmd)
     if (dryrun) {
         cat(blue("[dry-run so not building]\n"))

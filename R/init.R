@@ -4,6 +4,8 @@
 .debug <- FALSE #TRUE
 .debug_message <- function(...) if (.debug) message(..., appendLF=FALSE)
 
+.in.docker <- function() file.exists("/.dockerenv")
+
 .defaultConfigFile <- function() {
     pkgdir <- tools::R_user_dir(packageName())      # ~/.local/share/R/ + package
     if (dir.exists(pkgdir)) {
@@ -156,7 +158,8 @@
 }
 
 .checkSystem <- function() {
-    bins <- c("docker", "apt", "dpkg", "date", "md5sum", "sha1sum", "sha256sum")
+    bins <- c("apt", "dpkg", "date", "md5sum", "sha1sum", "sha256sum")
+    if (isFALSE(.in.docker())) bins <- c("docker", bins)
     res <- Sys.which(bins)
     if (any(res==""))
         stop("Missing binaries for '", paste(names(res[res==""]), collapse=", "), "'.", call. = FALSE)
