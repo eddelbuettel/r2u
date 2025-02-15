@@ -6,6 +6,41 @@
 
 .in.docker <- function() file.exists("/.dockerenv")
 
+.createDefaultConfiguration <- function() { 	    # opt-in helper function not called at load
+    pkgdir <- tools::R_user_dir(packageName())      # ~/.local/share/R/ + package
+    if (!dir.exists(pkgdir)) {
+        dir.create(pkgdir, recursive = TRUE)
+    } 
+    fname <- file.path(pkgdir, "config.dcf")
+
+    if (requireNamespace("whomai", quietly=TRUE)) {
+        cat("maintainer:", whoami::fullname(), paste0("<", whoami::email_address(), ">"), "\n",
+            file = fname, append = FALSE)
+    } else {
+        cat("maintainer: r2u builder <none@email.com>\n", file = fname, append = FALSE)
+    }
+    cat("debhelper_compat: 13\n",           file = fname, append = TRUE)
+    cat("minimum_r_version: 4.4.0\n",       file = fname, append = TRUE)
+    cat("r_api_version: 4.0\n",             file = fname, append = TRUE)
+    cat("bioc_version: 3.20\n",             file = fname, append = TRUE)
+    cat("debian_policy_version: 4.7.0\n",   file = fname, append = TRUE)
+    cat("cache_age_hours_cran_db: 3\n",     file = fname, append = TRUE)
+    cat("r2u_directory: /var/local/r2u/\n", file = fname, append = TRUE)
+    cat("package_cache: /var/local/r2u/cache\n", file = fname, append = TRUE)
+    cat("build_directory: /var/local/r2u/build\n",file = fname, append = TRUE)
+    cat("deb_directory: /var/local/r2u/ubuntu/pool\n",file = fname, append = TRUE)
+    cat("build_container: eddelbuettel/r2u_build\n", file = fname, append = TRUE)
+
+    if (!dir.exists("/var/local/r2u/cache")) dir.create("/var/local/r2u/cache", recursive=TRUE)
+    if (!dir.exists("/var/local/r2u/build")) dir.create("/var/local/r2u/build", recursive=TRUE)
+    if (!dir.exists("/var/local/r2u/ubuntu/pool")) dir.create("/var/local/r2u/ubuntu/pool", recursive=TRUE)
+    if (.in.docker()) {
+        file.symlink("/var/local/r2/cache", "/mnt")
+        file.symlink("/var/local/r2/build", "/mnt")
+        file.symlink("/var/local/r2/ubuntu", "/mnt")
+    }
+}
+
 .defaultConfigFile <- function() {
     pkgdir <- tools::R_user_dir(packageName())      # ~/.local/share/R/ + package
     if (dir.exists(pkgdir)) {
@@ -127,16 +162,14 @@
             .pkgenv[["build_directory"]] <- cfg[1, "build_directory"]
             .pkgenv[["deb_directory"]] <- cfg[1, "deb_directory"]
             .pkgenv[["build_container"]] <- cfg[1, "build_container"]
-
-            ## fallbacks, overriden when 'tgt' specified
-            .pkgenv[["distribution"]] <- "20.04"
-            .pkgenv[["distribution_name"]] <- "focal"
-
         } else {
             .debug_message("No config file\n")
             .pkgenv[["config_file"]] <- ""
             .pkgenv[["bioc_version"]] <- "3.20"
         }
+        ## fallbacks, overriden when 'tgt' specified
+        .pkgenv[["distribution"]] <- "24.04"
+        .pkgenv[["distribution_name"]] <- "noble"
     } else {
         .debug_message("Already have config\n")
     }
@@ -159,10 +192,13 @@
 
 .checkSystem <- function() {
     bins <- c("apt", "dpkg", "date", "md5sum", "sha1sum", "sha256sum")
-    if (isFALSE(.in.docker())) bins <- c("docker", bins)
+    if (isFALSE(.in.docker())) { 	# if not inside Docker already
+        bins <- c("docker", bins)       # also check for docker binary
+    }
     res <- Sys.which(bins)
-    if (any(res==""))
+    if (any(res=="")) {
         stop("Missing binaries for '", paste(names(res[res==""]), collapse=", "), "'.", call. = FALSE)
+    }
     invisible()
 }
 
