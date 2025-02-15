@@ -40,3 +40,8 @@ vignettes/*.pdf
 
 # Local files
 local/*
+docker/deprecated_rebuildAndPushFocalAndJammy.sh
+docker/rebuildBuildContainers.sh
+calendar.md
+NOTES.md
+.devcontainer/examples/
