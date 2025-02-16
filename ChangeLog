@@ -1,3 +1,7 @@
+2025-02-16  Dirk Eddelbuettel  <edd@debian.org>
+
+	* docker/noble/build/debBuild.sh: Enhancements to noble debBuild.sh
+
 2025-02-10  Dirk Eddelbuettel  <edd@debian.org>
 
 	* R/init.R: Robustify build when no config directory present

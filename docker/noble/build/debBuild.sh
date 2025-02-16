@@ -51,6 +51,9 @@ if [ "${aptpkgs}" != "" ]; then
 fi
 
 if [ "${source}" = "yes" ]; then
+    if [ ! -d /mnt/build/${dist}/${pkg}/src ]; then
+        mkdir -vp /mnt/build/${dist}/${pkg}/src
+    fi
     cd /mnt/build/${dist}/${pkg}/src
     if [ "${xvfb}" = "yes" ]; then
         xvfb-run -a -n 20 R CMD INSTALL -l ../../${pkg}/debian/r-${repo}-${lcpkg}/usr/lib/R/site-library ${pkg}
@@ -68,6 +71,9 @@ chown docker:staff *"${lcpkg}"*
 chown -R docker:staff ${pkg}
 
 ## TODO: install into pool/ dir
+if [ ! -d /mnt/ubuntu/pool/dists/${dist}/main ]; then
+    mkdir -vp /mnt/ubuntu/pool/dists/${dist}/main
+fi
 mv -v r-${repo}-${lcpkg}_*.deb /mnt/ubuntu/pool/dists/${dist}/main
 
 ## TODO: update index
