@@ -196,12 +196,15 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
             }
 
     build_dir <- .getConfig("build_directory")
-    if (!dir.exists(build_dir)) stop("Build directory '", build_dir, "' does not exist")
+    if (!dir.exists(build_dir)) {
+        stop("Build directory '", build_dir, "' does not exist")
+        dir.create(build_dir, recursive=TRUE)
+    }
     build_dir <- file.path(build_dir, .getConfig("distribution_name"))
     if (!dir.exists(build_dir)) dir.create(build_dir, recursive=TRUE)
     setwd(build_dir)
 
-    if (!dir.exists(pkg)) dir.create(pkg) 				# namehere inside build
+    if (!dir.exists(pkg)) dir.create(pkg) 				# name here inside build
     setwd(pkg)
 
     instdir <- file.path("debian", pkgname, "usr", "lib", "R", "site-library") 	# unpackaged binary
@@ -236,6 +239,8 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
     added_deps <- if (repo == "Bioc" || isTRUE(force)) paste(.filterAndMapBuildDepends(pkg, ap), collapse=" ") else ""
     depstr <- if (nchar(deps) + nchar(added_deps) > 0) paste0("-a '", deps, " ", added_deps, "' ") else " "
     if (.in.docker()) {
+        chkdir <- file.path(.getConfig("build_directory"), .getConfig("distribution_name"), pkg)
+        if (!dir.exists(chkdir)) dir.create(chkdir, recursive=TRUE) 				
         cmd <- paste0("debBuild.sh ",
                       if (isTRUE(xvfb) || grepl("(tcltk|tkrplot)", depstr)) "-x " else " ",
                       if (repo == "Bioc") "-b " else " ",

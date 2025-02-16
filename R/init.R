@@ -35,9 +35,9 @@
     if (!dir.exists("/var/local/r2u/build")) dir.create("/var/local/r2u/build", recursive=TRUE)
     if (!dir.exists("/var/local/r2u/ubuntu/pool")) dir.create("/var/local/r2u/ubuntu/pool", recursive=TRUE)
     if (.in.docker()) {
-        file.symlink("/var/local/r2/cache", "/mnt")
-        file.symlink("/var/local/r2/build", "/mnt")
-        file.symlink("/var/local/r2/ubuntu", "/mnt")
+        file.symlink("/var/local/r2u/cache", "/mnt")
+        file.symlink("/var/local/r2u/build", "/mnt")
+        file.symlink("/var/local/r2u/ubuntu", "/mnt")
     }
 }
 
