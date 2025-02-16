@@ -3,3 +3,6 @@
 ^\.Rproj\.user$
 ^local
 ^\.gitpod
+^\.devcontainer
+^docker
+^docs

@@ -1,8 +1,8 @@
 Package: r2u
 Type: Package
 Title: Turn P3M/PPM/RSPM Binary Packages into Ubuntu Packages
-Version: 0.0.8
-Date: 2024-11-04
+Version: 0.0.9
+Date: 2025-02-16
 Authors@R: person("Dirk", "Eddelbuettel", role = c("aut", "cre"), email = "edd@debian.org",
                   comment = c(ORCID = "0000-0001-6419-907X"))
 Description: P3M/PPM/RSPM binary packages are turned into Ubuntu packages containing
