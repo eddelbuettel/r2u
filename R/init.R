@@ -19,6 +19,7 @@
     } else {
         cat("maintainer: r2u builder <none@email.com>\n", file = fname, append = FALSE)
     }
+    cat("in_docker:", .in.docker(), "\n",   file = fname, append = TRUE)
     cat("debhelper_compat: 13\n",           file = fname, append = TRUE)
     cat("minimum_r_version: 4.4.0\n",       file = fname, append = TRUE)
     cat("r_api_version: 4.0\n",             file = fname, append = TRUE)
@@ -35,9 +36,9 @@
     if (!dir.exists("/var/local/r2u/build")) dir.create("/var/local/r2u/build", recursive=TRUE)
     if (!dir.exists("/var/local/r2u/ubuntu/pool")) dir.create("/var/local/r2u/ubuntu/pool", recursive=TRUE)
     if (.in.docker()) {
-        file.symlink("/var/local/r2u/cache", "/mnt")
-        file.symlink("/var/local/r2u/build", "/mnt")
-        file.symlink("/var/local/r2u/ubuntu", "/mnt")
+        if (!file.exists("/mnt/cache"))  file.symlink("/var/local/r2u/cache", "/mnt")
+        if (!file.exists("/mnt/build"))  file.symlink("/var/local/r2u/build", "/mnt")
+        if (!file.exists("/mnt/ubuntu")) file.symlink("/var/local/r2u/ubuntu", "/mnt")
     }
 }
 
@@ -151,6 +152,7 @@
             cfg <- read.dcf(cfgfile)
             .pkgenv[["config_file"]] <- cfgfile
             .pkgenv[["maintainer"]] <- cfg[1, "maintainer"]
+            .pkgenv[["in_docker"]] <- as.logical(cfg[1, "in_docker"])
             .pkgenv[["debhelper_compat"]] <- cfg[1, "debhelper_compat"]
             .pkgenv[["minimum_r_version"]] <- cfg[1, "minimum_r_version"]
             .pkgenv[["r_api_version"]] <- cfg[1, "r_api_version"]
@@ -222,13 +224,16 @@
             p <- tools::package_dependencies(db[, Package], db=db, recursive=TRUE)
             pp <- lapply(p, length)
             ppp <- sapply(pp, `[`)
-            np <- data.table(Package=names(ppp), ndep=ppp)
+            ## adjust out base packages
+            adjpp <- lapply(p, \(x) length(setdiff(x, .basePkgs)))
+            adjppp <- sapply(adjpp, `[`)
+            np <- data.table(Package=names(ppp), ndep=ppp, adjdep=adjppp)
             db <- db[np, on="Package"]
 
             ## adjust out the base packages
-            baserevs <- tools::package_dependencies(.basePkgs, db=db, reverse=TRUE)
-            db[, adjdep := ndep]
-            for (br in names(baserevs)) db[Package %in% baserevs[[br]], adjdep := adjdep - 1]
+            #baserevs <- tools::package_dependencies(.basePkgs, db=db, reverse=TRUE)
+            #db[, adjdep := ndep]
+            #for (br in names(baserevs)) db[Package %in% baserevs[[br]], adjdep := adjdep - 1]
 
             dbfile <- .defaultCRANDBFile(TRUE)
             if (dbfile != "") {
@@ -306,7 +311,7 @@
 .loadBuilds <- function(tgt) {
     if (missing(tgt)) tgt <- .pkgenv[["distribution_name"]]
     dd <- file.path(.pkgenv[["deb_directory"]], "dists", tgt, "main")
-    if (isTRUE(nzchar(dd)) && dir.exists(dd)) {
+    if (isFALSE(.pkgenv[["in_docker"]]) && isTRUE(nzchar(dd)) && dir.exists(dd)) {
         cwd <- getwd()
         setwd(dd)
         fls <- list.files(".", pattern="\\.deb$", full.names=FALSE)
@@ -316,6 +321,17 @@
         B <- data.table(name=fls, pkgver=n2, file.info(fls), tgt=n3)
         .pkgenv[["builds"]] <- B
         setwd(cwd)
+    } else if (requireNamespace("RcppAPT", quietly = TRUE)) {
+        library(RcppAPT)
+        B <- data.table(RcppAPT::getPackages("^r-(bioc|cran)-"), key="Package")
+        B[, r2u := grepl("ca2404", Version), by=Package]
+        B[, tgt := gsub(".*-\\d+.ca(\\d{4}).\\d+.*", "\\1", Version), by=Package]
+        B[, vv := gsub("^\\d:", "", Version), by=Package]
+        B[, vvv := gsub("-\\d$", "", vv), by=Package]
+        B[, vvvv := gsub("-\\d\\.ca\\d{4}\\.\\d$", "", vvv), by=Package]
+        B[, pkgver := paste(Package, vvvv, sep="_")]
+        B[, let(vv = NULL, vvv = NULL, vvvv = NULL) ]
+        .pkgenv[["builds"]] <- B
     } else {
         .pkgenv[["builds"]] <- NULL
     }

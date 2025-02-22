@@ -94,7 +94,7 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
     db <- .pkgenv[["db"]]
     stopifnot("db must be data.frame" = inherits(db, "data.frame"))
     .checkTarget(tgt)
-    .loadBuilds()                       # need to this again once target is reflected
+    .loadBuilds(tgt)        		# local or remote
     .addBuildDepends(tgt)               # add distro-release versioned depends
     .addBlacklist(tgt)                  # add distro-release blacklist
     .addRuntimedepends(tgt)             # add distro-release run-time depends
@@ -107,6 +107,7 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
         return(invisible())
     }
     tgtdist <- gsub("\\.", "", .pkgenv[["distribution"]])   ## NB this will not work for Debian testing
+
     builds <- .pkgenv[["builds"]][tgt == tgtdist,]
 
     repo <- ap[aind, ap]
@@ -159,7 +160,7 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
         if (verbose) cat(green("[already built - skipping]\n"))
         return(invisible())
     }
-
+    
     ## side-effect of the Breaks for R 4.3.1 and the newly built packages
     if (  (pkg == "magick"     && ver == "2.7.4")
         ||(pkg == "MALDIquant" && ver == "1.22.1")
