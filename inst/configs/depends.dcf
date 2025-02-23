@@ -1,0 +1,283 @@
+RPostgres: libpq-dev
+RcppGSL: libgsl-dev
+rgl: libglu-dev libgl-dev
+igraph: libglpk-dev
+units: libudunits2-dev
+rgeos: libgeos-dev
+RMySQL: libmysqlclient-dev
+sodium: libsodium-dev
+odbc: unixodbc-dev
+RODBC: unixodbc-dev
+RcppZiggurat: libgsl-dev
+magick: libmagick++-dev
+gsl: libgsl-dev
+jqr: libjq-dev
+lwgeom: libgeos-dev libproj-dev
+rjags: jags
+rsvg: librsvg2-dev
+ncdf4: libnetcdf-dev
+proj4: libproj-dev
+runjags: jags
+topicmodels: libgsl-dev
+hdf5r: libhdf5-dev
+protolite: libprotobuf-dev
+RMariaDB: libmysqlclient-dev
+fftwtools: libfftw3-dev
+keyring: libsecret-1-dev
+qqconf: libfftw3-dev
+RNetCDF: libnetcdf-dev libudunits2-dev
+Rglpk: libglpk-dev
+ridge: libgsl-dev
+fftw: libfftw3-dev 
+RQuantLib: libquantlib0-dev
+archive: libarchive-dev
+cld3: libprotobuf-dev
+xslt: libxslt1-dev
+cit: libgsl-dev
+mvabund: libgsl-dev
+pcaL1: coinor-libclp-dev
+RcppRedis: libhiredis-dev
+Rssa: libfftw3-dev
+clustermq: libzmq3-dev
+pbdZMQ: libzmq3-dev
+redux: libhiredis-dev
+glpkAPI: libglpk-dev
+exactextractr: libgeos-dev
+eaf: libgsl-dev
+leidenbase: libglpk-dev
+redland: librdf0-dev
+mixture: libgsl-dev
+Rlibeemd: libgsl-dev
+chebpol: libfftw3-dev libgsl-dev
+BayesVarSel: libgsl-dev
+CLVTools: libgsl-dev
+sdcTable: libglpk-dev
+rtmpt: libgsl-dev
+diversitree: libfftw3-dev libgsl-dev
+gpg: libgpgme-dev
+pbdMPI: libopenmpi-dev
+poisbinom: libfftw3-dev 
+PoissonBinomial: libfftw3-dev 
+SimInf: libgsl-dev
+Rhtslib: libcurl4-openssl-dev
+Rsamtools: libcurl4-openssl-dev
+RDieHarder: libgsl-dev
+pbdSLAP: libopenmpi-dev
+coga: libgsl-dev
+gslnls: libgsl-dev
+apcf: libgeos-dev
+cartogramR: libfftw3-dev 
+catSurv: libgsl-dev
+KSgeneral: libfftw3-dev 
+Libra: libgsl-dev
+rDEA: libglpk-dev
+rzmq: libzmq3-dev
+smam: libgsl-dev
+survSNP: libgsl-dev
+crandep: libgsl-dev libopenblas0
+LCMCR: libgsl-dev
+libstableR: libgsl-dev
+MFPCA: libfftw3-dev 
+ravetools: libfftw3-dev 
+simplexreg: libgsl-dev
+SuperGauss: libfftw3-dev 
+diseq: libgsl-dev
+fingerPro: libgsl-dev
+flan: libgsl-dev
+fRLR: libgsl-dev
+GPBayes: libgsl-dev
+hadron: libgsl-dev
+image.CannyEdges: libfftw3-dev 
+landsepi: libgsl-dev
+mashr: libgsl-dev
+pexm: jags
+VBLPCM: libgsl-dev
+jSDM: libgsl-dev
+monoreg: libgsl-dev
+ltable: libgsl-dev
+OpenCL: ocl-icd-opencl-dev
+PoissonMultinomial: libfftw3-dev
+QF: libgsl-dev
+RKHSMetaMod: libgsl-dev
+specklestar: libfftw3-dev
+maftools: libcurl4-openssl-dev
+abn: libgsl-dev
+RPostgreSQL: libpq-dev
+Rsymphony: coinor-libsymphony-dev coinor-libcgl-dev
+RProtoBuf: libprotobuf-dev libprotoc-dev
+csaw: libcurl4-openssl-dev
+pdftools: libpoppler-cpp-dev
+ssh: libssh-dev
+qdap: default-jre
+Rmpi: libopenmpi-dev
+RSclient: libssl-dev
+RVowpalWabbit: libboost-program-options-dev
+udunits2: libudunits2-dev
+imager: libfftw3-dev libtiff-dev libx11-dev
+opencv: libopencv-dev
+Rpoppler: libpoppler-glib-dev
+tesseract: libtesseract-dev libleptonica-dev tesseract-ocr-eng
+tkrplot: libx11-dev tcl8.6-dev tk8.6-dev
+av: ffmpeg libavfilter-dev
+bbl: libgsl-dev
+bigGP: libopenmpi-dev
+Cairo: libcairo2-dev libx11-dev libxt-dev libtiff-dev
+ijtiff: libtiff-dev libzstd-dev libwebp-dev
+rrd: librrd-dev
+doMPI: libopenmpi-dev
+dynr: libgsl-dev
+bigmemory: uuid-dev
+iplots: default-jre
+VariantAnnotation: libcurl4-openssl-dev
+InterfaceqPCR: default-jre
+DiffBind: libcurl4-openssl-dev
+postGGIR: default-jre
+bamsignals: libcurl4-openssl-dev
+NLPutils: default-jre
+Rbgs: default-jre
+regRSM: libopenmpi-dev
+aslib: default-jre
+llama: default-jre
+BASiNET: default-jre
+BayesSAE: libgsl-dev
+bioacoustics: cmake libfftw3-dev
+BNSP: libgsl-dev
+CADStat: default-jre
+coreNLP: default-jre
+rJPSGCS: default-jre
+CrypticIBDcheck: default-jre
+DataClean: default-jre
+DIscBIO: default-jre
+GeoFIS: libgmp-dev libmpfr-dev
+HiCseg: libgsl-dev
+hive: default-jre
+hSDM: libgsl-dev
+image.textlinedetector: libopencv-dev
+jackalope: libcurl4-openssl-dev
+KFKSDS: libgsl-dev
+lilikoi: default-jre
+LOMAR: libgmp-dev
+mBvs: libgsl-dev
+mixcat: libgsl-dev
+mutossGUI: default-jre
+pathfindR: default-jre
+psbcGroup: libgsl-dev
+RcppMeCab: libmecab-dev
+RmecabKo: libmecab-dev
+SemiCompRisks: libgsl-dev
+SPARSEMODr: libgsl-dev
+spFW: libfftw3-dev
+staplr: default-jre
+stsm: libgsl-dev
+SymTS: libgsl-dev
+tm.plugin.webmining: default-jre
+valse: libgsl-dev
+#gdalcubes: libgdal-dev libproj-dev
+DiversityOccupancy: default-jre
+RoBMA: jags
+BPEC: default-jre
+valse: r-cran-rcppgsl libgsl-dev
+spectralGraphTopology: r-cran-cvxr
+metaMix: libopenmpi-dev
+OSMscale: default-jre
+pems.utils: default-jre
+Relectoral: default-jre
+SiteAdapt: default-jre
+rsbml: libsbml5-dev
+rnetcarto: libgsl-dev
+markets: libgsl-dev
+hgwrr: libgsl-dev
+RoBSA: jags
+ToxicR: libgsl-dev cmake
+GeneralizedWendland: libgsl-dev
+rJava: default-jdk
+disbayes: r-cran-rstantools
+tipsae: r-cran-rstantools
+surveyvoi: libgmp-dev libmpfr-dev libgmp3-dev
+mmpca: libgsl-dev
+island: libgsl-dev
+excursions: libgsl-dev
+spaMM: libgsl-dev
+spate: libfftw3-dev
+econetwork: libgsl-dev
+cgalMeshes: libgmp-dev libmpfr-dev
+rswipl: swi-prolog-core libarchive-dev cmake
+vol2birdR: libhdf5-dev libproj-dev libgsl-dev
+git2r: libgit2-dev
+dsfa: libboost-dev
+rcontroll: libgsl-dev
+tfevents: libprotobuf-dev
+xtensor: git
+frailtyMMpen: libgsl-dev
+rhdf5filters: libzstd-dev
+trackViewer: libcurl4-openssl-dev
+R2SWF: libfreetype6-dev
+twingp: liblapacke-dev
+sphereTessellation: libgmp-dev libmpfr-dev
+flashlighttext: cmake git libboost-dev libboost-program-options-dev libboost-system-dev libboost-thread-dev libboost-test-dev
+rlibkriging: libopenblas-dev cmake libhdf5-dev r-bioc-rhdf5lib
+neojags: jags
+libstable4u: libgsl-dev
+stpphawkes: libgsl-dev
+TriDimRegression: r-cran-rstantools
+PEPBVS: libgsl-dev
+rmsb: r-cran-rstantools
+bayesWatch: libboost-all-dev
+DirichletMultinomial: libgsl-dev
+# should no longer be needed  bvhar: r-cran-knitr
+fstcore: libzstd-dev liblz4-dev
+PROJ: libproj-dev
+mvst: libgsl-dev
+adbcpostgresql: libpq-dev
+gdalBindings: libproj-dev libgdal-dev
+shrinkTVP: libgsl-dev
+fluidsynth: libfluidsynth-dev
+methylKit: libcurl4-openssl-dev
+bigrquerystorage: libprotobuf-dev libgrpc++-dev protobuf-compiler-grpc
+Colossus: r-cran-stringr
+timeless: cargo
+sbrl: libgsl-dev libgmp-dev
+clarabel: cargo
+gifski: cargo
+heck: cargo
+hellorust: cargo
+orbweaver: cargo
+prqlr: cargo
+smcryptoR: cargo
+ymd: cargo
+tok: cargo
+b64: cargo
+string2path: cargo
+arcpbf: cargo
+fcl: cargo
+interpolation: libgmp-dev
+rsgeo: cargo libssl-dev 
+rtracklayer: libcurl4-openssl-dev
+arcgisutils: rustc cargo
+zoomerjoin: cargo
+rshift: cargo
+ratioOfQsprays: libgmp-dev libmpfr-dev
+symbolicQspray: libgmp-dev libmpfr-dev
+Apollonius: libgmp-dev libmpfr-dev
+CytoML: libxml2-dev
+jack: libgmp-dev libmpfr-dev
+QuasR: libcurl4-openssl-dev
+ChemmineOB: libopenbabel-dev libeigen3-dev
+arcgisplaces: cargo libssl-dev
+alcyon: cmake
+mcrPioda: libgsl-dev
+MPCR: cmake git
+fCWTr: libfftw3-dev
+rlas: libboost-dev
+moc.gapbk: libopenmpi-dev
+resultant: libgmp-dev libmpfr-dev
+lnmixsurv: libgsl-dev
+cpp11tesseract: libtesseract-dev libleptonica-dev tesseract-ocr-eng
+saeMSPE: libgsl-dev
+cpp11armadillo: r-cran-cpp11
+sundialr: cmake
+cpp11bigwig: libcurl4-openssl-dev
+openmpt: libopenmpt-dev portaudio19-dev
+BayesChange: libgsl-dev
+flint: libgmp-dev libmpfr-dev libflint-dev
+

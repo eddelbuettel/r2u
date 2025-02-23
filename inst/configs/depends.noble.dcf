@@ -1,0 +1,152 @@
+git2r: libssh2-1-dev
+rolog: libarchive-dev swi-prolog-core
+stan4bart: libtbb-dev
+bayesdfa: libtbb-dev
+RcppParallel: libtbb-dev
+prophet: libtbb-dev
+rstanarm: libtbb-dev
+blavaan: libtbb-dev
+metaBMA: libtbb-dev
+rmsb: libtbb-dev
+pema: libtbb-dev
+baggr: libtbb-dev
+bayesforecast: libtbb-dev
+MetaStan: libtbb-dev
+pcFactorStan: libtbb-dev
+RBesT: libtbb-dev
+spsurv: libtbb-dev
+thurstonianIRT: libtbb-dev
+bayesbr: libtbb-dev
+bayes4psy: libtbb-dev
+bayesGAM: libtbb-dev
+breathteststan: libtbb-dev
+CausalQueries: libtbb-dev
+multinma: libtbb-dev
+rater: libtbb-dev
+bayesZIB: libtbb-dev
+BINtools: libtbb-dev
+bmgarch: libtbb-dev
+cbq: libtbb-dev
+hsstan: libtbb-dev
+rbmi: libtbb-dev
+epidemia: libtbb-dev
+fcirt: libtbb-dev
+DCPO: libtbb-dev
+BayesSenMC: libtbb-dev
+bellreg: libtbb-dev
+bistablehistory: libtbb-dev
+bmggum: libtbb-dev
+bmlm: libtbb-dev
+bmstdr: libtbb-dev
+bpcs: libtbb-dev
+bsem: libtbb-dev
+CNVRG: libtbb-dev
+eggCounts: libtbb-dev
+FlexReg: libtbb-dev
+gastempt: libtbb-dev r-cran-rstantools
+geostan: libtbb-dev
+isotracer: libtbb-dev
+lgpr: libtbb-dev
+LMMELSM: libtbb-dev
+MIRES: libtbb-dev
+mrbayes: libtbb-dev
+networkscaleup: libtbb-dev
+OncoBayes2: libtbb-dev
+PoolTestR: libtbb-dev
+prome: libtbb-dev
+psrwe: libtbb-dev
+rcbayes: libtbb-dev
+rmBayes: libtbb-dev
+rmdcev: libtbb-dev
+rts2: libtbb-dev
+surveil: libtbb-dev
+tipsae: libtbb-dev
+tmbstan: libtbb-dev
+TriDimRegression: libtbb-dev
+ubms: libtbb-dev
+walker: libtbb-dev
+rbioacc: libtbb-dev
+StanMoMo: libtbb-dev
+YPBP: libtbb-dev
+YPPE: libtbb-dev
+zoid: libtbb-dev
+fishflux: libtbb-dev
+Rlgt: libtbb-dev
+phacking: libtbb-dev
+sf: libproj-dev libgdal-dev
+terra: libgdal-dev libproj-dev
+gert: libgit2-dev
+BeeGUTS: libtbb-dev
+bws: libtbb-dev
+hwep: libtbb-dev
+EloSteepness: libtbb-dev
+MADPop: libtbb-dev
+truncnormbayes: libtbb-dev
+vapour: libgdal-dev libproj-dev
+historicalborrowlong: libtbb-dev
+RoBTT: libtbb-dev
+bakR: libtbb-dev
+EcoEnsemble: libtbb-dev
+gdalcubes: libgdal-dev libproj-dev
+rgdal: libgdal-dev libproj-dev
+oncomsm: libtbb-dev
+EpiNow2: libtbb-dev
+expertsurv: libtbb-dev
+float: libopenblas0-openmp
+rxode2ll: libtbb-dev
+conStruct: libtbb-dev
+rxode2parse: libtbb-dev
+jfa: libtbb-dev
+CARME: libtbb-dev r-cran-rstantools
+densEstBayes: libtbb-dev
+measr: libtbb-dev
+publipha: libtbb-dev
+ProbReco: libtbb-dev
+ssMousetrack: libtbb-dev
+hbamr: libtbb-dev
+BayesianPlatformDesignTimeTrend: libtbb-dev
+survstan: libtbb-dev
+baldur: libtbb-dev
+Bernadette: libtbb-dev
+gdalraster: libgdal-dev
+RoBTT: libtbb-dev
+bennu: libtbb-dev
+bbmix: libtbb-dev r-cran-rstantools
+beanz: libtbb-dev
+visit: libtbb-dev
+idem: libtbb-dev
+ctsem: libtbb-dev
+rPBK: libtbb-dev r-cran-rstantools
+rstanemax: libtbb-dev
+greencrab.toolkit: libtbb-dev
+cloneRate: libtbb-dev
+glmmfields: libtbb-dev
+BayesGmed: libtbb-dev
+BayesGrowth: libtbb-dev
+multipleDL: libtbb-dev
+glmmPen: libtbb-dev r-cran-rstantools
+psBayesborrow: libtbb-dev
+rstanbdp: libtbb-dev
+glmmrBase: libtbb-dev
+tsnet: libtbb-dev
+quanteda: libtbb-dev
+BPrinStratTTE: libtbb-dev r-cran-rstantools
+rsparse: libopenblas-pthread-dev
+rxode2ll: libtbb-dev
+arcgisgeocode: cargo rustc
+GUD: libtbb-dev
+winputall: libtbb-dev
+birdie: libtbb-dev
+parTimeROC: libtbb-dev
+bsynth: libtbb-dev
+mlts: libtbb-dev
+phylopairs: libtbb-dev
+Rlgt: libtbb-dev
+ProbBreed: libtbb-dev
+WhiteLabRt: libtbb-dev
+multinma: libtbb-dev
+rxode2: libtbb-dev
+serosv: libtbb-dev
+eDNAjoint: libtbb-dev
+rtiktoken: cargo rustc
+

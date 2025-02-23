@@ -32,13 +32,20 @@
     cat("deb_directory: /var/local/r2u/ubuntu/pool\n",file = fname, append = TRUE)
     cat("build_container: eddelbuettel/r2u_build\n", file = fname, append = TRUE)
 
-    if (!dir.exists("/var/local/r2u/cache")) dir.create("/var/local/r2u/cache", recursive=TRUE)
-    if (!dir.exists("/var/local/r2u/build")) dir.create("/var/local/r2u/build", recursive=TRUE)
+    if (!dir.exists("/var/local/r2u/cache"))       dir.create("/var/local/r2u/cache", recursive=TRUE)
+    if (!dir.exists("/var/local/r2u/build"))       dir.create("/var/local/r2u/build", recursive=TRUE)
     if (!dir.exists("/var/local/r2u/ubuntu/pool")) dir.create("/var/local/r2u/ubuntu/pool", recursive=TRUE)
     if (.in.docker()) {
         if (!file.exists("/mnt/cache"))  file.symlink("/var/local/r2u/cache", "/mnt")
         if (!file.exists("/mnt/build"))  file.symlink("/var/local/r2u/build", "/mnt")
         if (!file.exists("/mnt/ubuntu")) file.symlink("/var/local/r2u/ubuntu", "/mnt")
+    }
+    for (file in c("blacklist.txt", "depends.dcf", "depends.noble.dcf", "runtimedepends.dcf")) {
+        dstfile <- file.path(pkgdir, file)
+        if (!file.exists(dstfile)) {
+            srcfile <- file.path(system.file("configs", file, package="r2u"))
+            file.copy(srcfile, dstfile)
+        }
     }
 }
 
@@ -330,7 +337,7 @@
         B[, vvv := gsub("-\\d$", "", vv), by=Package]
         B[, vvvv := gsub("-\\d\\.ca\\d{4}\\.\\d$", "", vvv), by=Package]
         B[, pkgver := paste(Package, vvvv, sep="_")]
-        B[, let(vv = NULL, vvv = NULL, vvvv = NULL) ]
+        B[, `:=`(vv = NULL, vvv = NULL, vvvv = NULL) ]
         .pkgenv[["builds"]] <- B
     } else {
         .pkgenv[["builds"]] <- NULL

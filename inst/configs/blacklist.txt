@@ -1,0 +1,115 @@
+#gdalcubes
+#vapour
+#
+# Cannot build without external CPlex software
+Rcplex
+ROI.plugin.cplex
+#
+# Cannot build without external Oracle software
+ROracle
+ora
+# Need binary
+BRugs
+#
+# needs 'profile' which no longer exists -- now present
+# proffer
+#
+# misc build errors
+oolong
+valse
+ExomeDepth
+#
+# not yet (version 8.0.0)
+# arrow
+#
+# does not build despite libsbml5-dev installed
+rsbml
+#
+# no idea where this one comes from
+bikeHelpR
+#
+# nlme 3.1-157 vs 3.1.157 issue
+#nlme
+#
+# mdsOpt has FC_LEN issue
+#mdsOpt
+#
+# littler from RSPM is irredeemingly borked (wrong RHOME)
+littler
+#
+# g3viz needs cBioPortalData from BioC which is ... expensive (five more packages...)
+#cBioPortalData
+#g3viz
+#
+# something wrong with reticulate
+deeptrafo
+#
+# brings its own shared libs which doesn't work
+rswipl
+rolog
+# scater need basilisk which we do not have -- now we do (2023-11-04)
+#scater
+# ProFAST needs basilisk  -- now we do (2023-11-04)
+#ProFAST
+#
+# Breaks: and local version follow-up, needs override -- now inside r2u
+#magick
+#MALDIquant
+#ps
+#ragg
+#svglite
+#tibble
+# PRECAST needs scater -- now we do (2023-11-04)
+#PRECAST
+#
+# bspm does not connect to system bus when pre-made
+# needs local manual build with added python deps and file
+#bspm
+#
+# CelliD depends on basilisk -- now we do (2023-11-04)
+#CelliD
+#
+# jquerylib: the dfsg in the version gets in the way, local version built
+jquerylib
+#
+# MPCR: build fails, while being large, wants sudo (?) (to build/install cmake)
+#MPCR
+# Need R 4.4.0
+#MASS
+#DanielBiostatistics10th
+#DemographicTable
+#param2moment
+#ThomasJeffersonUniv
+#TukeyGH77
+#VisualizeSimon2Stage
+#
+# Needs R 4.4.0 and coordinated builds of a few packages
+#Matrix
+#
+# Expensice BioC package with a few more data packages
+ChIPQC
+#
+# Needs OpenCL SDK or equivalent
+gpuR
+#
+# Needs gpuR
+clrng
+#
+# Has hard-wired path which fails re-load test at buid
+checked
+#
+# bnlearn:  link error over allocLang
+bnlearn
+#
+# reticulate now needs a venv
+tm.plugin.mail
+PytrendsLongitudinalR
+#
+# cargo too old
+rbm25
+prqlr
+SQLFormatteR
+# configure unhappy with flint
+flint
+
+

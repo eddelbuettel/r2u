@@ -1,0 +1,14 @@
+maintainer: Dirk Eddelbuettel <edd@debian.org>
+in_docker: FALSE
+debhelper_compat: 13
+minimum_r_version: 4.4.0
+r_api_version: 4.0
+bioc_version: 3.20
+debian_policy_version: 4.7.0
+cache_age_hours_cran_db: 3
+package_cache: /var/local/r2u/cache
+r2u_directory: /var/local/r2u
+build_directory: /var/local/r2u/build
+deb_directory: /var/local/r2u/ubuntu/pool
+build_container: eddelbuettel/r2u_build
+
