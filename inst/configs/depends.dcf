@@ -280,4 +280,4 @@ cpp11bigwig: libcurl4-openssl-dev
 openmpt: libopenmpt-dev portaudio19-dev
 BayesChange: libgsl-dev
 flint: libgmp-dev libmpfr-dev libflint-dev
-
+curl: libcurl4-openssl-dev

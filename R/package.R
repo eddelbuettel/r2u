@@ -253,7 +253,7 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
         cmd <- paste0("docker run --rm -ti ",
                       "-v ", getwd(), ":/mnt ",
                       "-w /mnt/build/", distname, "/", pkg, " ",
-                      container, " debBuild.sh ",
+                      container, " debBuild.sh -r /mnt ",
                       if (isTRUE(xvfb) || grepl("(tcltk|tkrplot)", depstr)) "-x " else " ",
                       if (repo == "Bioc") "-b " else " ",
                       if (repo == "Bioc" || isTRUE(force)) "-s " else " ",
