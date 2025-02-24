@@ -3,7 +3,7 @@
 set -e
 
 progname=$(basename $0)
-options=':a:d:bsxh?'
+options=':a:d:r:bsxh?'
 ## see https://stackoverflow.com/a/7948533/143305 for long options
 usage_and_exit() {
     echo "Usage: ${progname} [-r r2udir] [-a pkgs] [-d dist] [-b] [-s] [-x] [-? | -h] pkg"
