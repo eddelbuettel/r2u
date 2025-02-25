@@ -175,6 +175,7 @@
             .debug_message("No config file\n")
             .pkgenv[["config_file"]] <- ""
             .pkgenv[["bioc_version"]] <- "3.20"
+            .pkgenv[["package_cache"]] <- "/var/local/r2u/cache"
         }
         ## fallbacks, overriden when 'tgt' specified
         .pkgenv[["distribution"]] <- "24.04"

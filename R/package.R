@@ -300,7 +300,7 @@ buildAll <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb=FAL
 #' @param date Date Relevant date for cranlog download stats
 #' @param from integer Optional applied as offset to \code{npkg} to shift the selection
 topN <- function(npkg, date=Sys.Date() - 1, from=1L) {
-    D <- data.table::fread(.getCachedDLLogsFile(date))
+    D <- .local_fread(.getCachedDLLogsFile(date))
     D <- D[, .N, keyby=package][order(N,decreasing=TRUE)]
     D[seq(from, min(from+npkg-1L, nrow(D))),package]
 }
@@ -308,7 +308,7 @@ topN <- function(npkg, date=Sys.Date() - 1, from=1L) {
 #' @rdname buildPackage
 topNCompiled <- function(npkg, date=Sys.Date() - 1, from=1L) {
     db <- .pkgenv[["db"]]
-    D <- data.table::fread(.getCachedDLLogsFile(date))
+    D <- .local_fread(.getCachedDLLogsFile(date))
     DN <- D[, .N, keyby=package][order(N,decreasing=TRUE)]
     setnames(DN, "package", "Package")
     CP <- db[NeedsCompilation != "no", Package]
@@ -409,4 +409,18 @@ toTargets <- function(pkgs) {
         if (p != lastpkgs) cat(',', sep="")
     }
     cat("]}\n")
+}
+
+# To not require R.utils for reading a compressed gz
+## .local_fread <- function(url) {
+##     tf <- tempfile(fileext="csv.gz")
+##     download.file(url, tf, quiet=TRUE)
+##     res <- data.table::fread(tf)
+##     unlink(tf)
+##     res
+## }
+.local_fread <- function(fname) {
+    cmd <- paste("zcat", fname)
+    res <- data.table::fread(cmd=cmd)
+    res
 }
