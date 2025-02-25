@@ -393,7 +393,7 @@ buildUpdatedPackages <- function(tgt, debug=FALSE, verbose=FALSE, force=FALSE, x
 }
 
 #' @rdName buildPackage
-toTargets <- function(pkgs) {
+toTargets <- function(pkgs, file="") {
     ## this corresponds to the `jq` based snippet to turn a vector of packages into a JSON expression
     ## which is suitable as input to a GitHub Actions 'matrix' to control parallel work
     ## ie
@@ -402,13 +402,13 @@ toTargets <- function(pkgs) {
     ## > toTargets(vec)
     ## {"target":["microbenchmark","parallelly","bitops","matrixStats"]}
     ## >
-    cat('{"target":[', sep="")
+    cat('{"target":[', sep="", file=file)
     lastpkgs <- tail(pkgs,1)
     for (p in pkgs) {
-        cat('"', p, '"', sep="")
-        if (p != lastpkgs) cat(',', sep="")
+        cat('"', p, '"', sep="", file=file, append=TRUE)
+        if (p != lastpkgs) cat(',', sep="", file=file, append=TRUE)
     }
-    cat("]}\n")
+    cat("]}\n", file=file, append=TRUE)
 }
 
 # To not require R.utils for reading a compressed gz
