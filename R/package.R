@@ -160,20 +160,21 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
         if (verbose) cat(green("[already built - skipping]\n"))
         return(invisible())
     }
-    
+
     ## side-effect of the Breaks for R 4.3.1 and the newly built packages
-    if (  (pkg == "magick"     && ver == "2.7.4")
-        ||(pkg == "MALDIquant" && ver == "1.22.1")
-        ||(pkg == "ps"         && ver == "1.7.5")
-        ||(pkg == "ragg"       && ver == "1.2.5")
-        ||(pkg == "svglite"    && ver == "2.1.1")
-        ||(pkg == "tibble"     && ver == "3.2.1")) {
-        if (verbose) {
-            cat(blue(sprintf("%-22s %-11s %-11s", pkg, ver, aver)))
-            cat(red("[silly breaks side effect, skipping]\n"))
-        }
-        return(invisible())
-    }
+    ## no longer needed as of R 4.4.2 in Feb 2025
+    #if (  (pkg == "magick"     && ver == "2.7.4")
+    #    ||(pkg == "MALDIquant" && ver == "1.22.1")
+    #    ||(pkg == "ps"         && ver == "1.7.5")
+    #    ||(pkg == "ragg"       && ver == "1.2.5")
+    #    ||(pkg == "svglite"    && ver == "2.1.1")
+    #    ||(pkg == "tibble"     && ver == "3.2.1")) {
+    #    if (verbose) {
+    #        cat(blue(sprintf("%-22s %-11s %-11s", pkg, ver, aver)))
+    #        cat(red("[silly breaks side effect, skipping]\n"))
+    #    }
+    #    return(invisible())
+    #}
 
     ## so we're building one
     cat(blue(sprintf("%-22s %-11s %-11s", pkg, ver, aver))) 		# start console log with pkg
@@ -389,4 +390,23 @@ nDepsRange <- function(ndepslo, ndepshi) {
 buildUpdatedPackages <- function(tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb=FALSE, bioc=FALSE) {
     pkgs <- if (bioc) .getUpdatedBiocPackages(tgt) else .getUpdatedPackages(tgt)
     buildAll(pkgs, tgt, debug=debug, verbose=verbose, force=force, xvfb=xvfb)
+}
+
+#' @rdName buildPackage
+toTargets <- function(pkgs) {
+    ## this corresponds to the `jq` based snippet to turn a vector of packages into a JSON expression
+    ## which is suitable as input to a GitHub Actions 'matrix' to control parallel work
+    ## ie
+    ## > vec
+    ## [1] "microbenchmark" "parallelly"     "bitops"         "matrixStats"
+    ## > toTargets(vec)
+    ## {"target":["microbenchmark","parallelly","bitops","matrixStats"]}
+    ## >
+    cat('{"target":[', sep="")
+    lastpkgs <- tail(pkgs,1)
+    for (p in pkgs) {
+        cat('"', p, '"', sep="")
+        if (p != lastpkgs) cat(',', sep="")
+    }
+    cat("]}\n")
 }
