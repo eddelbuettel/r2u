@@ -13,7 +13,7 @@
     } 
     fname <- file.path(pkgdir, "config.dcf")
 
-    if (requireNamespace("whomai", quietly=TRUE)) {
+    if (requireNamespace("whoami", quietly=TRUE)) {
         cat("maintainer:", whoami::fullname(), paste0("<", whoami::email_address(), ">"), "\n",
             file = fname, append = FALSE)
     } else {
@@ -330,7 +330,6 @@
         .pkgenv[["builds"]] <- B
         setwd(cwd)
     } else if (requireNamespace("RcppAPT", quietly = TRUE)) {
-        library(RcppAPT)
         B <- data.table(RcppAPT::getPackages("^r-(bioc|cran)-"), key="Package")
         B[, r2u := grepl("ca2404", Version), by=Package]
         B[, tgt := gsub(".*-\\d+.ca(\\d{4}).\\d+.*", "\\1", Version), by=Package]

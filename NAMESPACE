@@ -3,5 +3,5 @@
 exportPattern("^[[:alpha:]]+")
 
 import("data.table")
-importFrom("utils", "packageName", "available.packages", "download.file", "download.packages", "read.table", "untar")
+importFrom("utils", "packageName", "available.packages", "download.file", "download.packages", "read.table", "untar", "head", "tail")
 importFrom("crayon", "red", "green", "blue")

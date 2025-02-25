@@ -6,12 +6,15 @@
 \alias{topN}
 \alias{topNCompiled}
 \alias{nDeps}
+\alias{nDepsRange}
 \alias{buildUpdatedPackages}
+\alias{toTargets}
+\alias{getBuildTargets}
 \title{Build a Package}
 \usage{
 buildPackage(pkg, tgt, debug = FALSE, verbose = FALSE, force = FALSE,
   xvfb = FALSE, suffix = ".1", debver = "1.", plusdfsg = FALSE,
-  dryrun = FALSE)
+  dryrun = FALSE, compile = FALSE)
 
 buildAll(pkg, tgt, debug = FALSE, verbose = FALSE, force = FALSE,
   xvfb = FALSE)
@@ -22,14 +25,21 @@ topNCompiled(npkg, date = Sys.Date() - 1, from = 1L)
 
 nDeps(ndeps)
 
+nDepsRange(ndepslo, ndepshi)
+
 buildUpdatedPackages(tgt, debug = FALSE, verbose = FALSE, force = FALSE,
   xvfb = FALSE, bioc = FALSE)
+
+toTargets(pkgs, file = "")
+
+getBuildTargets(filename, N = 200, verbose = TRUE)
 }
 \arguments{
 \item{pkg}{character Name of the CRAN or BioConductor package to build}
 
 \item{tgt}{character Name (or version) of the build target distribution, this is restricted
-to either \dQuote{20.04} or \dQuote{22.04} (or their names \dQuote{focal} or \dQuote{jammy})}
+to either \dQuote{20.04}, \dQuote{22.04} or \dQuote{24.04} (or their names \dQuote{focal},
+\dQuote{jammy} or \dQuote{noble}_}
 
 \item{debug}{logical Optional value to show more debugging output, default is \sQuote{FALSE}}
 
@@ -48,6 +58,8 @@ default \sQuote{1.}}
 default \sQuote{FALSE}}
 
 \item{dryrun}{logical Optional value to skip actual package build step, default is \sQuote{FALSE}}
+
+\item{compile}{logical Optional value to ensure compilation from source, default is \sQuote{FALSE}}
 
 \item{npkg}{integer Number of packages to build}
 

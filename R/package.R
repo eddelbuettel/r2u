@@ -392,7 +392,7 @@ buildUpdatedPackages <- function(tgt, debug=FALSE, verbose=FALSE, force=FALSE, x
     buildAll(pkgs, tgt, debug=debug, verbose=verbose, force=force, xvfb=xvfb)
 }
 
-#' @rdName buildPackage
+#' @rdname buildPackage
 toTargets <- function(pkgs, file="") {
     ## this corresponds to the `jq` based snippet to turn a vector of packages into a JSON expression
     ## which is suitable as input to a GitHub Actions 'matrix' to control parallel work
@@ -423,4 +423,41 @@ toTargets <- function(pkgs, file="") {
     cmd <- paste("zcat", fname)
     res <- data.table::fread(cmd=cmd)
     res
+}
+
+## Helper function for GitHub Actions builds
+#' @rdname buildPackage
+getBuildTargets <- function(filename, N=200, verbose=TRUE) {
+    if (requireNamespace("RcppAPT", quietly=TRUE)) {
+        ## get packages already Built
+        B <- data.table(RcppAPT::getPackages("^r-(bioc|cran)-"), key="Package")
+        ##B[, tgt := gsub(".*-\\d+.ca(\\d{4}).\\d+.*", "\\1", Version), by=Package]
+        B[, r2u := grepl("ca2404", Version), by=Package]
+        B[, vv := gsub("^\\d:", "", Version), by=Package]
+        B[, vvv := gsub("-\\d$", "", vv), by=Package]
+        B[, vvvv := gsub("-\\d\\.ca\\d{4}\\.\\d$", "", vvv), by=Package]
+        B[, pkgver := paste(Package, vvvv, sep="_")]
+        B[, let(vv = NULL, vvv = NULL, vvvv = NULL) ]
+
+        ## get target package, here top N compiled
+        topN <- unique(topNCompiled(N, Sys.Date()-2))
+        db <- .pkgenv[["db"]]
+        TP <- data.table(Package=topN)
+        P <- db[TP, on="Package"]
+        P <- P[!duplicated(Package),]
+        P[Package %in% c("nlme", "foreign"), Version := gsub("-", ".", Version)]
+        P[, pkgver := paste0("r-cran-", tolower(Package), "_", Version)]
+
+        P <- P[, isin := is.finite(match(pkgver, B[r2u==TRUE, pkgver])), by=pkgver][isin==FALSE,]
+        P <- P[order(adjdep,ndep,Package), c(1:2, 70:73)]
+
+        if (verbose) print(P)
+
+        P <- head(P, min(20, nrow(P)))
+        if (verbose) toTargets(P[,Package])
+
+        toTargets(P[, Package], file=filename)
+    } else {
+        cat("# needs RcppAPT\n", file=filename)
+    }
 }
