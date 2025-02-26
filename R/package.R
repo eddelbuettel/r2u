@@ -472,13 +472,13 @@ getBuildTargets <- function(filename, N=200, nbatch=20, verbose=TRUE) {
     ## get packages already Built
     cmd <- "links -dump"
     url <- "https://r2u.stat.illinois.edu/ubuntu/pool/dists/noble/main/"
-    awk <- r"(awk '/r-.*arm64.deb/ { print $1 "," $2 " "$3 "," $4 }')"
+    awk <- r"(awk '/r-.*_ar/ { print $1 "," $2 " "$3 "," $4 }')"  # not arm64.deb as cols get chopped
     cmd <- paste(cmd, url, "|", awk)
     B <- data.table::fread(cmd=cmd, col.names=c("file","date","size"))
-    B[, version := gsub(".*_(.*)_arm64.deb", "\\1", file), by=file]
+    B[, version := gsub(".*_(.*)_arm", "\\1", file), by=file]
     B[, r2u := grepl("ca2404", version), by=file]  # needed ?
     B[, ver := gsub("(.*)-(\\d\\.ca\\d{4}\\.\\d)$", "\\1", version)][] # upstream
-    B[, pkgver := gsub("(.*)-(\\d\\.ca\\d{4}\\.\\d)_(arm64|amd64|all).deb$", "\\1", file)]
+    B[, pkgver := gsub("(.*)-(\\d\\.ca\\d{4}\\.\\d)_(.*)$", "\\1", file)]
     if (verbose) print(B)
 
     ## get target package, here top N compiled
@@ -494,7 +494,7 @@ getBuildTargets <- function(filename, N=200, nbatch=20, verbose=TRUE) {
     
     P <- P[, isin := is.finite(match(pkgver, B[r2u==TRUE, pkgver])), by=pkgver]
     P <- P[isin==FALSE & skip==FALSE,]
-    P <- P[order(adjdep,ndep,Package), c(1:2, 70:73)]
+    P <- P[order(adjdep,ndep,Package), c(1:2, 70:74)]
     if (verbose) print(P)
     P <- head(P, min(nbatch, nrow(P)))
     if (verbose) {
