@@ -490,13 +490,13 @@ getBuildTargets <- function(filename, N=200, nbatch=20, verbose=TRUE) {
     P[Package %in% c("nlme", "foreign"), Version := gsub("-", ".", Version)]
     P[, pkgver := paste0("r-cran-", tolower(Package), "_", Version)]
 
-    P <- P[, isin := is.finite(match(pkgver, B[r2u==TRUE, pkgver])), by=pkgver][isin==FALSE,]
+    P <- P[, skip := is.finite(match(Package, .pkgenv[["blacklist"]])), by=Package] 
+    
+    P <- P[, isin := is.finite(match(pkgver, B[r2u==TRUE, pkgver])), by=pkgver]
+    P <- P[isin==FALSE & skip==FALSE,]
     P <- P[order(adjdep,ndep,Package), c(1:2, 70:73)]
-
     if (verbose) print(P)
-
     P <- head(P, min(nbatch, nrow(P)))
-
     if (verbose) {
         print(P)
         toTargets(P[,Package])
