@@ -10,5 +10,5 @@ Description: P3M/PPM/RSPM binary packages are turned into Ubuntu packages contai
 License: GPL (>= 2)
 Depends: R (>= 4.0.0)
 Imports: data.table, crayon, utils
-Suggests: RcppAPT, whoami
+Suggests: whoami
 RoxygenNote: 6.0.1

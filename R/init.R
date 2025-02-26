@@ -329,15 +329,14 @@
         B <- data.table(name=fls, pkgver=n2, file.info(fls), tgt=n3)
         .pkgenv[["builds"]] <- B
         setwd(cwd)
-    } else if (requireNamespace("RcppAPT", quietly = TRUE)) {
-        B <- data.table(RcppAPT::getPackages("^r-(bioc|cran)-"), key="Package")
-        B[, r2u := grepl("ca2404", Version), by=Package]
-        B[, tgt := gsub(".*-\\d+.ca(\\d{4}).\\d+.*", "\\1", Version), by=Package]
-        B[, vv := gsub("^\\d:", "", Version), by=Package]
-        B[, vvv := gsub("-\\d$", "", vv), by=Package]
-        B[, vvvv := gsub("-\\d\\.ca\\d{4}\\.\\d$", "", vvv), by=Package]
-        B[, pkgver := paste(Package, vvvv, sep="_")]
-        B[, `:=`(vv = NULL, vvv = NULL, vvvv = NULL) ]
+    } else if (nzchar(Sys.getenv("CI", ""))) {
+        ## get packages already Built
+        B <- data.table::fread(cmd=r"(links -dump https://r2u.stat.illinois.edu/ubuntu/pool/dists/noble/main/| awk '/r-.*arm64.deb/ { print $1 "," $2 " "$3 "," $4 }')",
+                           col.names=c("file","date","size"))
+        B[, version := gsub(".*_(.*)_arm64.deb", "\\1", file), by=file]
+        B[, r2u := grepl("ca2404", version), by=file]  # needed ?
+        B[, ver := gsub("(.*)-(\\d\\.ca\\d{4}\\.\\d)$", "\\1", version)][] # upstream
+        B[, pkgver := gsub("(.*)-(\\d\\.ca\\d{4}\\.\\d)_(arm64|amd64|all).deb$", "\\1", file)]
         .pkgenv[["builds"]] <- B
     } else {
         .pkgenv[["builds"]] <- NULL

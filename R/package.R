@@ -425,39 +425,79 @@ toTargets <- function(pkgs, file="") {
     res
 }
 
+## ## Helper function for GitHub Actions builds
+## # ' @ rdname buildPackage
+## getBuildTargets <- function(filename, N=200, verbose=TRUE) {
+##     if (requireNamespace("RcppAPT", quietly=TRUE)) {
+##         ## get packages already Built
+##         B <- data.table(RcppAPT::getPackages("^r-(bioc|cran)-"), key="Package")
+##         ##B[, tgt := gsub(".*-\\d+.ca(\\d{4}).\\d+.*", "\\1", Version), by=Package]
+##         B[, r2u := grepl("ca2404", Version), by=Package]
+##         B[, vv := gsub("^\\d:", "", Version), by=Package]
+##         B[, vvv := gsub("-\\d$", "", vv), by=Package]
+##         B[, vvvv := gsub("-\\d\\.ca\\d{4}\\.\\d$", "", vvv), by=Package]
+##         B[, pkgver := paste(Package, vvvv, sep="_")]
+##         B[, let(vv = NULL, vvv = NULL, vvvv = NULL) ]
+
+##         ## get target package, here top N compiled
+##         topN <- unique(topNCompiled(N, Sys.Date()-2))
+##         db <- .pkgenv[["db"]]
+##         TP <- data.table(Package=topN)
+##         P <- db[TP, on="Package"]
+##         P <- P[!duplicated(Package),]
+##         P[Package %in% c("nlme", "foreign"), Version := gsub("-", ".", Version)]
+##         P[, pkgver := paste0("r-cran-", tolower(Package), "_", Version)]
+
+##         P <- P[, isin := is.finite(match(pkgver, B[r2u==TRUE, pkgver])), by=pkgver][isin==FALSE,]
+##         P <- P[order(adjdep,ndep,Package), c(1:2, 70:73)]
+
+##         if (verbose) print(P)
+
+##         P <- head(P, min(20, nrow(P)))
+
+##         if (verbose) {
+##             print(P)
+##             toTargets(P[,Package])
+##         }
+
+##         toTargets(P[, Package], file=filename)
+##     } else {
+##         cat("# needs RcppAPT\n", file=filename)
+##     }
+## }
+
 ## Helper function for GitHub Actions builds
 #' @rdname buildPackage
 getBuildTargets <- function(filename, N=200, verbose=TRUE) {
-    if (requireNamespace("RcppAPT", quietly=TRUE)) {
-        ## get packages already Built
-        B <- data.table(RcppAPT::getPackages("^r-(bioc|cran)-"), key="Package")
-        ##B[, tgt := gsub(".*-\\d+.ca(\\d{4}).\\d+.*", "\\1", Version), by=Package]
-        B[, r2u := grepl("ca2404", Version), by=Package]
-        B[, vv := gsub("^\\d:", "", Version), by=Package]
-        B[, vvv := gsub("-\\d$", "", vv), by=Package]
-        B[, vvvv := gsub("-\\d\\.ca\\d{4}\\.\\d$", "", vvv), by=Package]
-        B[, pkgver := paste(Package, vvvv, sep="_")]
-        B[, let(vv = NULL, vvv = NULL, vvvv = NULL) ]
+    ## get packages already Built
+    B <- data.table::fread(cmd=r"(links -dump https://r2u.stat.illinois.edu/ubuntu/pool/dists/noble/main/| awk '/r-.*arm64.deb/ { print $1 "," $2 " "$3 "," $4 }')",
+                           col.names=c("file","date","size"))
+    B[, version := gsub(".*_(.*)_arm64.deb", "\\1", file), by=file]
+    B[, r2u := grepl("ca2404", version), by=file]  # needed ?
+    B[, ver := gsub("(.*)-(\\d\\.ca\\d{4}\\.\\d)$", "\\1", version)][] # upstream
+    B[, pkgver := gsub("(.*)-(\\d\\.ca\\d{4}\\.\\d)_(arm64|amd64|all).deb$", "\\1", file)]
+    if (verbose) print(B)
 
-        ## get target package, here top N compiled
-        topN <- unique(topNCompiled(N, Sys.Date()-2))
-        db <- .pkgenv[["db"]]
-        TP <- data.table(Package=topN)
-        P <- db[TP, on="Package"]
-        P <- P[!duplicated(Package),]
-        P[Package %in% c("nlme", "foreign"), Version := gsub("-", ".", Version)]
-        P[, pkgver := paste0("r-cran-", tolower(Package), "_", Version)]
+    ## get target package, here top N compiled
+    topN <- unique(topNCompiled(N, Sys.Date()-2))
+    db <- .pkgenv[["db"]]
+    TP <- data.table(Package=topN)
+    P <- db[TP, on="Package"]
+    P <- P[!duplicated(Package),]
+    P[Package %in% c("nlme", "foreign"), Version := gsub("-", ".", Version)]
+    P[, pkgver := paste0("r-cran-", tolower(Package), "_", Version)]
 
-        P <- P[, isin := is.finite(match(pkgver, B[r2u==TRUE, pkgver])), by=pkgver][isin==FALSE,]
-        P <- P[order(adjdep,ndep,Package), c(1:2, 70:73)]
+    P <- P[, isin := is.finite(match(pkgver, B[r2u==TRUE, pkgver])), by=pkgver][isin==FALSE,]
+    P <- P[order(adjdep,ndep,Package), c(1:2, 70:73)]
 
-        if (verbose) print(P)
+    if (verbose) print(P)
 
-        P <- head(P, min(20, nrow(P)))
-        if (verbose) toTargets(P[,Package])
+    P <- head(P, min(20, nrow(P)))
 
-        toTargets(P[, Package], file=filename)
-    } else {
-        cat("# needs RcppAPT\n", file=filename)
+    if (verbose) {
+        print(P)
+        toTargets(P[,Package])
     }
+
+    toTargets(P[, Package], file=filename)
 }
