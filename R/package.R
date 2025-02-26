@@ -466,12 +466,15 @@ toTargets <- function(pkgs, file="") {
 ##     }
 ## }
 
-## Helper function for GitHub Actions builds
+## Helper function for GitHub Actions builds and specific to arm64
 #' @rdname buildPackage
-getBuildTargets <- function(filename, N=200, verbose=TRUE) {
+getBuildTargets <- function(filename, N=200, nbatch=20, verbose=TRUE) {
     ## get packages already Built
-    B <- data.table::fread(cmd=r"(links -dump https://r2u.stat.illinois.edu/ubuntu/pool/dists/noble/main/| awk '/r-.*arm64.deb/ { print $1 "," $2 " "$3 "," $4 }')",
-                           col.names=c("file","date","size"))
+    cmd <- "links -dump"
+    url <- "https://r2u.stat.illinois.edu/ubuntu/pool/dists/noble/main/"
+    awk <- r"(awk '/r-.*arm64.deb/ { print $1 "," $2 " "$3 "," $4 }')"
+    cmd <- paste(cmd, url, "|", awk)
+    B <- data.table::fread(cmd=cmd, col.names=c("file","date","size"))
     B[, version := gsub(".*_(.*)_arm64.deb", "\\1", file), by=file]
     B[, r2u := grepl("ca2404", version), by=file]  # needed ?
     B[, ver := gsub("(.*)-(\\d\\.ca\\d{4}\\.\\d)$", "\\1", version)][] # upstream
@@ -492,7 +495,7 @@ getBuildTargets <- function(filename, N=200, verbose=TRUE) {
 
     if (verbose) print(P)
 
-    P <- head(P, min(20, nrow(P)))
+    P <- head(P, min(nbatch, nrow(P)))
 
     if (verbose) {
         print(P)
