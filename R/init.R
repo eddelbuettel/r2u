@@ -296,8 +296,11 @@
             apBIOC <- merge(apBIOC, apBIOCdataexp, all=TRUE)
 
             ## the returned set is tools::CRAN_package_db() and _not_ dependent on the distribution name
-            ppmrepo <- paste0("https://packagemanager.posit.co/all/__linux__/jammy/latest")
-            apPPM <- data.table(ap="CRAN", as.data.frame(available.packages(repos=ppmrepo)))
+            ## when we run at GH we do not want / need ppm as it lags a day so switch to CRAN there
+            ppmrepo <- "https://packagemanager.posit.co/all/__linux__/jammy/latest"
+            cranrepo <- "https://cloud.r-project.org"
+            aprepo <- if (nzchar(Sys.getenv("CI", ""))) ppmrepo else cranrepo
+            apPPM <- data.table(ap="CRAN", as.data.frame(available.packages(repos=aprepo)))
             ap <- merge(apPPM, apBIOC, all=TRUE)
 
             ap[, deb := paste0("r-", tolower(ap), "-", tolower(Package))]
