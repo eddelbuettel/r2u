@@ -5,7 +5,9 @@
     if (!dir.exists(cachedir)) dir.create(cachedir, recursive=TRUE)
     path <- file.path(cachedir, paste0(pkg, "_", ver, ".tar.gz"))
     if (!file.exists(path)) {
-        repo <- paste0("https://packagemanager.posit.co/all/__linux__/", .getConfig("distribution_name"), "/latest")
+        ppmrepo <- paste0("https://packagemanager.posit.co/all/__linux__/", .getConfig("distribution_name"), "/latest")
+        cranrepo <- "https://cloud.r-project.org"
+        repo <- if (nzchar(Sys.getenv("CI", ""))) ppmrepo else cranrepo
         rv <- R.version
         ## agent <- sprintf("R/%s R (%s)", getRversion(), paste(getRversion(), rv$platform, rv$arch, rv$os))
         rversion <- .getConfig("minimum_r_version")  # e.g. "4.2.2"

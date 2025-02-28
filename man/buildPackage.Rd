@@ -32,7 +32,7 @@ buildUpdatedPackages(tgt, debug = FALSE, verbose = FALSE, force = FALSE,
 
 toTargets(pkgs, file = "")
 
-getBuildTargets(filename, N = 200, verbose = TRUE)
+getBuildTargets(filename, N = 200, nbatch = 20, verbose = TRUE)
 }
 \arguments{
 \item{pkg}{character Name of the CRAN or BioConductor package to build}
