@@ -6,8 +6,9 @@
     path <- file.path(cachedir, paste0(pkg, "_", ver, ".tar.gz"))
     if (!file.exists(path)) {
         ppmrepo <- paste0("https://packagemanager.posit.co/all/__linux__/", .getConfig("distribution_name"), "/latest")
-        cranrepo <- "https://cloud.r-project.org"
-        repo <- if (nzchar(Sys.getenv("CI", ""))) ppmrepo else cranrepo
+        #cranrepo <- "https://cloud.r-project.org"
+        #repo <- if (nzchar(Sys.getenv("CI", ""))) ppmrepo else cranrepo
+        repo <- ppmrepo
         rv <- R.version
         ## agent <- sprintf("R/%s R (%s)", getRversion(), paste(getRversion(), rv$platform, rv$arch, rv$os))
         rversion <- .getConfig("minimum_r_version")  # e.g. "4.2.2"
@@ -477,7 +478,7 @@ getBuildTargets <- function(filename, N=200, nbatch=20, verbose=TRUE) {
     awk <- r"(awk '/r-.*_ar/ { print $1 "," $2 " "$3 "," $4 }')"  # not arm64.deb as cols get chopped
     cmd <- paste(cmd, url, "|", awk)
     B <- data.table::fread(cmd=cmd, col.names=c("file","date","size"))
-    B[, version := gsub(".*_(.*)_arm", "\\1", file), by=file]
+    B[, version := gsub(".*_(.*)_ar", "\\1", file), by=file]
     B[, r2u := grepl("ca2404", version), by=file]  # needed ?
     B[, ver := gsub("(.*)-(\\d\\.ca\\d{4}\\.\\d)$", "\\1", version)][] # upstream
     B[, pkgver := gsub("(.*)-(\\d\\.ca\\d{4}\\.\\d)_(.*)$", "\\1", file)]
@@ -493,10 +494,16 @@ getBuildTargets <- function(filename, N=200, nbatch=20, verbose=TRUE) {
     P[, pkgver := paste0("r-cran-", tolower(Package), "_", Version)]
 
     P <- P[, skip := is.finite(match(Package, .pkgenv[["blacklist"]])), by=Package] 
-    
+    P <- P[, win := (OS_type == "windows")]
     P <- P[, isin := is.finite(match(pkgver, B[r2u==TRUE, pkgver])), by=pkgver]
-    P <- P[isin==FALSE & skip==FALSE,]
-    P <- P[order(adjdep,ndep,Package), c(1:2, 70:74)]
+    P <- P[isin==FALSE & skip==FALSE & is.na(win),]
+
+    ap <- r2u:::.pkgenv[["ap"]]
+    newP <- ap[, .(Package, Version)][P,on="Package"]
+    newP <- newP[ Version==i.Version, ]
+    newP[, i.Version:=NULL ]
+
+    P <- newP[order(adjdep,ndep,Package), c(1:2, 71:75)]
     if (verbose) print(P)
     P <- head(P, min(nbatch, nrow(P)))
     if (verbose) {
