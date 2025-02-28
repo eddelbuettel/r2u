@@ -503,7 +503,7 @@ getBuildTargets <- function(filename, N=200, nbatch=20, verbose=TRUE) {
     newP <- newP[ Version==i.Version, ]
     newP[, i.Version:=NULL ]
 
-    P <- newP[order(adjdep,ndep,Package), c(1:2, 71:75)]
+    P <- newP[order(adjdep,ndep,Package), c(1:2, 70:75)]
     if (verbose) print(P)
     P <- head(P, min(nbatch, nrow(P)))
     if (verbose) {
