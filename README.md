@@ -22,7 +22,8 @@
 - **Complete coverage** with (currently, using 22.04) ~ 24491 CRAN packages (and 435 from
   BioConductor) using **current versions**: We use R 4.4.*, and BioConductor 3.20.
 
-- Complete support for **Ubuntu 20.04 ("focal")**,  **22.04 ("jammy")** and **24.04 ("noble")**.
+- Complete support for **Ubuntu 20.04 ("focal")**, **22.04 ("jammy")** and **24.04 ("noble")** on
+  amd64, as well as (initial) **24.04 ("noble")** support on arm64.
 
 - Optional (but recommended) [bspm](https://cloud.r-project.org/package=bspm) use
   **automagically connects R functions like `install.packages()` to `apt`** for access to binaries 
@@ -51,9 +52,10 @@ We generally support amd64 (_i.e._ standard 64-bit Intel/AMD cpus, sometimes als
 the current Ubuntu LTS release and its predecessor release (more on this
 [here](https://eddelbuettel.github.io/r2u/vignettes/FAQ/#what-about-other-architectures-besides-x86_64)).
 We use 'r-release' just like CRAN. So currently the 'focal' 20.04 LTS, 'jammy' 22.04 LTS and 'noble'
-24.04 releases are fully supported.
+24.04 releases are fully supported.  We are now also starting to support arm64 on 'noble' 24.04 taking
+advantage of arm64-based runners at GitHub Actions. 
 
-Support for other cpu architectures is certainly possible but somewhat unlikely due to a lack of
+Support for additional cpu architectures is certainly possible but somewhat unlikely due to a lack of
 (additional hardware) resources and time. Support for other distributions is possible but unlikely
 right now (due to a lack of resources and time). P3M/PPM/RSPM now appears to also support Debian which
 could be added at some later point.
@@ -87,9 +89,9 @@ releases. (See this
 [FAQ](https://eddelbuettel.github.io/r2u/vignettes/FAQ/#why-does-it-have-more-packages-than-cran)
 about why this number is higher than CRAN, and variable between releases.)
 
-The sole exception are two packages we cannot build (as we do not have the required commercial
-software it accessess) plus less than a handful of 'odd builds' that fail and
-are skipped.
+The sole exception are packages we cannot build (as we do not have the required commercial software
+it accessess, or do not have the required more recent toolchain component) plus a handful or so of
+'odd builds' that fail and are skipped.
 
 ### What is it Based On?
 
@@ -145,6 +147,8 @@ echo "deb [arch=amd64] https://r2u.stat.illinois.edu/ubuntu jammy main" \
 apt update -qq
 ```
 
+Use `arch=arm64` for arm64 support (currently only available for noble).
+
 **Step 3: Ensure you have current R binaries (optional)**
 
 Third, and optionally, if you do not yet have the current R version, run these two lines (or
@@ -161,6 +165,9 @@ apt update -qq
 DEBIAN_FRONTEND=noninteractive apt install --yes --no-install-recommends \
     r-base-core
 ```
+
+Use `arch=arm64` for arm64 support (currently only available for noble).
+
 
 **Step 4: Use pinning for the r2u repo (optional)**
 

@@ -906,7 +906,8 @@
   BioConductor) using <strong>current versions</strong>: We use R 4.4.*, and BioConductor 3.20.</p>
 </li>
 <li>
-<p>Complete support for <strong>Ubuntu 20.04 ("focal")</strong>,  <strong>22.04 ("jammy")</strong> and <strong>24.04 ("noble")</strong>.</p>
+<p>Complete support for <strong>Ubuntu 20.04 ("focal")</strong>, <strong>22.04 ("jammy")</strong> and <strong>24.04 ("noble")</strong> on
+  amd64, as well as (initial) <strong>24.04 ("noble")</strong> support on arm64.</p>
 </li>
 <li>
 <p>Optional (but recommended) <a href="https://cloud.r-project.org/package=bspm">bspm</a> use
@@ -933,8 +934,9 @@ the five easy setup steps detailed here.</p>
 the current Ubuntu LTS release and its predecessor release (more on this
 <a href="https://eddelbuettel.github.io/r2u/vignettes/FAQ/#what-about-other-architectures-besides-x86_64">here</a>).
 We use 'r-release' just like CRAN. So currently the 'focal' 20.04 LTS, 'jammy' 22.04 LTS and 'noble'
-24.04 releases are fully supported.</p>
-<p>Support for other cpu architectures is certainly possible but somewhat unlikely due to a lack of
+24.04 releases are fully supported.  We are now also starting to support arm64 on 'noble' 24.04 taking
+advantage of arm64-based runners at GitHub Actions. </p>
+<p>Support for additional cpu architectures is certainly possible but somewhat unlikely due to a lack of
 (additional hardware) resources and time. Support for other distributions is possible but unlikely
 right now (due to a lack of resources and time). P3M/PPM/RSPM now appears to also support Debian which
 could be added at some later point.</p>
@@ -961,9 +963,9 @@ a very skewed distribution.) We iterated, and fairly soon arrived of full covera
 releases. (See this
 <a href="https://eddelbuettel.github.io/r2u/vignettes/FAQ/#why-does-it-have-more-packages-than-cran">FAQ</a>
 about why this number is higher than CRAN, and variable between releases.)</p>
-<p>The sole exception are two packages we cannot build (as we do not have the required commercial
-software it accessess) plus less than a handful of 'odd builds' that fail and
-are skipped.</p>
+<p>The sole exception are packages we cannot build (as we do not have the required commercial software
+it accessess, or do not have the required more recent toolchain component) plus a handful or so of
+'odd builds' that fail and are skipped.</p>
 <h3 id="what-is-it-based-on">What is it Based On?</h3>
 <p>For the CRAN binaries we either repackage
 <a href="https://packagemanager.rstudio.com/client/#/repos/2/packages/">P3M/RSPM/PPM</a> builds (where
@@ -1002,6 +1004,7 @@ provide at University of Illinois:</p>
      &gt; /etc/apt/sources.list.d/cranapt.list
 apt update -qq
 </code></pre>
+<p>Use <code>arch=arm64</code> for arm64 support (currently only available for noble).</p>
 <p><strong>Step 3: Ensure you have current R binaries (optional)</strong></p>
 <p>Third, and optionally, if you do not yet have the current R version, run these two lines (or
 use the <a href="https://cloud.r-project.org/bin/linux/ubuntu/">standard CRAN repo setup</a>)</p>
@@ -1015,6 +1018,7 @@ apt update -qq
 DEBIAN_FRONTEND=noninteractive apt install --yes --no-install-recommends \
     r-base-core
 </code></pre>
+<p>Use <code>arch=arm64</code> for arm64 support (currently only available for noble).</p>
 <p><strong>Step 4: Use pinning for the r2u repo (optional)</strong></p>
 <p>Fourth, add repository 'pinning' as <code>apt</code> might get confused by some older
 packages (in the Ubuntu distro) which accidentally appear with a higher

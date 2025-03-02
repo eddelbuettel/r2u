@@ -114,14 +114,16 @@ maybe 15 hardware platforms so 'how hard can it be?' you may ask (and some have 
 
 Sadly, quite hard. This is essentially somewhere between the third or fourth time I tried to build
 something like this (some history is in [this paper](https://arxiv.org/abs/2103.08069)), and it only
-got as (amazingly !) far as it is has gotten because I could build on existing binaries.  None of
+got as (amazingly !)  far as it is has gotten because I could build on existing binaries.  None of
 that rich infrastructure exists for other hardware platforms, and recall that all this also works by
-plugging into and relying on `apt` so it would have to be a Debian (or Ubuntu) platform.  
+plugging into and relying on `apt` so it would have to be a Debian (or Ubuntu) platform.  Now,
+thanks to expanded support at GitHub Actions we can also support arm64.
 
-But hey if you read this and happen to be, say, a product manager at a large cloud provider, get in
-touch. I have the infrastructure here, and nearly three decades of experience creating `.deb`
-packages. This _can be done_ and on some platforms (maybe graviton ?) it would make some quite a ton
-of sense.  But until then we remain in a `x86_64` world.
+But direct hardware access would of course be preferable. If you read this and happen to be, say, a
+product manager at a large cloud provider, get in touch. I have the infrastructure here, and nearly
+three decades of experience creating `.deb` packages. This _can be done_ and on some platforms it
+makes a ton of sense to add support and the beginning of arm64 support shows.  Otherwise the focus
+will remain in a `x86_64` world.
 
 ### Why can I not uninstall packages with `remove.packages()` ?
 

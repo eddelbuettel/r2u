@@ -974,13 +974,15 @@ maybe 15 hardware platforms so 'how hard can it be?' you may ask (and some have 
 <a href="https://github.com/eddelbuettel/r2u/issues/55">#55</a>).</p>
 <p>Sadly, quite hard. This is essentially somewhere between the third or fourth time I tried to build
 something like this (some history is in <a href="https://arxiv.org/abs/2103.08069">this paper</a>), and it only
-got as (amazingly !) far as it is has gotten because I could build on existing binaries.  None of
+got as (amazingly !)  far as it is has gotten because I could build on existing binaries.  None of
 that rich infrastructure exists for other hardware platforms, and recall that all this also works by
-plugging into and relying on <code>apt</code> so it would have to be a Debian (or Ubuntu) platform.  </p>
-<p>But hey if you read this and happen to be, say, a product manager at a large cloud provider, get in
-touch. I have the infrastructure here, and nearly three decades of experience creating <code>.deb</code>
-packages. This <em>can be done</em> and on some platforms (maybe graviton ?) it would make some quite a ton
-of sense.  But until then we remain in a <code>x86_64</code> world.</p>
+plugging into and relying on <code>apt</code> so it would have to be a Debian (or Ubuntu) platform.  Now,
+thanks to expanded support at GitHub Actions we can also support arm64.</p>
+<p>But direct hardware access would of course be preferable. If you read this and happen to be, say, a
+product manager at a large cloud provider, get in touch. I have the infrastructure here, and nearly
+three decades of experience creating <code>.deb</code> packages. This <em>can be done</em> and on some platforms it
+makes a ton of sense to add support and the beginning of arm64 support shows.  Otherwise the focus
+will remain in a <code>x86_64</code> world.</p>
 <h3 id="why-can-i-not-uninstall-packages-with-removepackages">Why can I not uninstall packages with <code>remove.packages()</code> ?</h3>
 <p>This issue is known and documented, for example under <a href="https://github.com/eddelbuettel/r2u?tab=readme-ov-file#known-issues">known issues in the main GitHub
 README</a> shadowed in <a href="https://eddelbuettel.github.io/r2u/#known-issues">the main
