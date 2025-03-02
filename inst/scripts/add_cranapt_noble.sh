@@ -17,10 +17,10 @@ gpg --keyserver keyserver.ubuntu.com --recv-keys 67C2D66C4B1D4339 51716619E084DA
 gpg --export --armor 67C2D66C4B1D4339 51716619E084DAB9 > /usr/share/keyrings/r2u.gpg
 
 ## Second: add the repo -- here we use the well-connected mirror
-echo "deb [arch=amd64] https://r2u.stat.illinois.edu/ubuntu noble main" > /etc/apt/sources.list.d/cranapt.list
+echo "deb [arch=amd64,arm64] https://r2u.stat.illinois.edu/ubuntu noble main" > /etc/apt/sources.list.d/cranapt.list
 
 ## Third: ensure current R is used
-echo "deb [arch=amd64] https://cloud.r-project.org/bin/linux/ubuntu noble-cran40/" > /etc/apt/sources.list.d/cran_r.list
+echo "deb [arch=amd64,arm64] https://cloud.r-project.org/bin/linux/ubuntu noble-cran40/" > /etc/apt/sources.list.d/cran_r.list
 apt update -qq
 DEBIAN_FRONTEND=noninteractive apt install --yes --no-install-recommends r-base-core
 
