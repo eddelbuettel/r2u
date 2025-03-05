@@ -18,8 +18,7 @@
 
     curpkg <- dt[1,Package]
     rtdeps <- .pkgenv[["runtimedeps"]]
-    has_rtdeps <- any(grepl(paste0("^",curpkg,"$"), rtdeps))
-
+    has_rtdeps <- any(grepl(paste0("^",curpkg,":"), rtdeps))
     if (nchar(dep) == 0 && !has_rtdeps)
         return(invisible(NULL))
 
