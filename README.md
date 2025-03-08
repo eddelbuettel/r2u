@@ -274,7 +274,7 @@ harder.
 
 ### Try It
 
-** Via codespaces **
+**Via codespaces**
 
 See the vignette [Codespaces](https://eddelbuettel.github.io/r2u/vignettes/Codespaces/) about how to
 launch a 'Codespace' directly in your browser, launched from the gitrepo within minutes.
@@ -284,7 +284,7 @@ codespace.
 
 The vignette has more details.
 
-** Via gitpod.io **
+**Via gitpod.io**
 
 Use this link below (after possibly signing up for
 [gitpod.io](https://gitpod.io/) first)
