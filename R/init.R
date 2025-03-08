@@ -6,6 +6,14 @@
 
 .in.docker <- function() file.exists("/.dockerenv")
 
+.platform <- function() {
+    machine <- Sys.info()[["machine"]]
+    switch(machine,
+           "x86_64" = "amd64",
+           "aarch64" = "arm64",
+           NA_character_)
+}
+
 .createDefaultConfiguration <- function() { 	    # opt-in helper function not called at load
     pkgdir <- tools::R_user_dir(packageName())      # ~/.local/share/R/ + package
     if (!dir.exists(pkgdir)) {

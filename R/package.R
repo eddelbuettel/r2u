@@ -100,6 +100,7 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
     .loadBuilds(tgt)        		# local or remote
     .addBuildDepends(tgt)               # add distro-release versioned depends
     .addBlacklist(tgt)                  # add distro-release blacklist
+    .addBlacklist(.platform())          # add arch blacklist (for arm64)
     .addRuntimedepends(tgt)             # add distro-release run-time depends
     if (.isBasePackage(pkg)) return(invisible())
     ind <- match(pkg, db[,Package])
@@ -472,6 +473,9 @@ toTargets <- function(pkgs, file="") {
 ## Helper function for GitHub Actions builds and specific to arm64
 #' @rdname buildPackage
 getBuildTargets <- function(filename, N=200, nbatch=20, verbose=TRUE) {
+    .addBlacklist("24.04")              # add distro-release blacklist
+    .addBlacklist(.platform())          # add arch blacklist (for arm64)
+
     ## get packages already Built
     #cmd <- "links -dump"
     #url <- "https://r2u.stat.illinois.edu/ubuntu/pool/dists/noble/main/"
