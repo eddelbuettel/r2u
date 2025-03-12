@@ -307,12 +307,12 @@ only (free) [GitHub](https://github.com) and [GitPod](https://gitpod.io) account
 
 ### Usage Statistics
 
-Usage is vibrant.  As of January 2025, over 300,000 packages are shipped per week, with a total of
-now over thirty three million packages shipped.  Early September 2023 also had the most recent and
+Usage is vibrant.  As of March 2025, over 400,000 packages are shipped per week, with a total of
+now over thirty seven million packages shipped.  Early September 2023 also had the most recent and
 dramatic spike of _over three million packages in two days_.  The following chart gives a summary of
 cumulative and average weekly downloads (the latter one on a log scale) as of August.
 
-![](https://eddelbuettel.github.io/images/2025-01-07/r2u_aggregated_and_weekly_2025-01-07.png)
+![](https://eddelbuettel.github.io/images/2025-03-11/r2u_aggregated_and_weekly_2025-03-11.png)
 
 ### Support
 
