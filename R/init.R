@@ -344,19 +344,20 @@
     if (missing(tgt)) tgt <- .pkgenv[["distribution_name"]]
     if (missing(pltfrm)) pltfrm <- .platform()
     dd <- file.path(.pkgenv[["deb_directory"]], "dists", tgt, "main")
-    if (isFALSE(.pkgenv[["in_docker"]]) && isTRUE(nzchar(dd)) && dir.exists(dd)) {
-        #cwd <- getwd()
-        #setwd(dd)
-        #fls <- list.files(".", pattern="\\.deb$", full.names=FALSE)
-        #n1 <- tools::file_path_sans_ext(fls)
-        #n2 <- gsub("-\\d+.ca(20|22|24)04.\\d+_(all|amd64)$", "", n1)
-        #n3 <- gsub(".*-\\d+.ca(\\d{4}).\\d+_.*", "\\1", n1)
-        #B <- data.table(name=fls, pkgver=n2, file.info(fls), tgt=n3)
-        B <- readRDS(file.path(dd, "builds.rds"))
+    if (isFALSE(.pkgenv[["in_docker"]]) && isTRUE(nzchar(dd)) && dir.exists(dd)) {	## this is specific to local build with the local pool of builds
+        ## cannot read builds.rds which only exists for noble
+        cwd <- getwd()
+        setwd(dd)
+        fls <- list.files(".", pattern="\\.deb$", full.names=FALSE)
+        flsse <- tools::file_path_sans_ext(fls)
+        arch <-   gsub(".*_(all|arm64|amd64)$", "\\1", flsse)
+        pkgver <- gsub("-\\d+.ca(20|22|24)04.\\d+_(all|arm64|amd64)$", "", flsse)
+        tgt <- gsub(".*-\\d+.ca(\\d{4}).\\d+_.*", "\\1", flsse)
+        B <- data.table(name=fls, pkgver=pkgver, arch=arch, file.info(fls), tgt=tgt)
         B <- B[arch %in% c("all", pltfrm), ]
         .pkgenv[["builds"]] <- B
-        #setwd(cwd)
-    } else if (nzchar(Sys.getenv("CI", ""))) {
+        setwd(cwd)
+    } else if (nzchar(Sys.getenv("CI", ""))) { 						## this is specific to the arm64 build at GH
         ## get packages already Built
         #B <- data.table::fread(cmd=r"(links -dump https://r2u.stat.illinois.edu/ubuntu/pool/dists/noble/main/| awk '/r-.*arm64.deb/ { print $1 "," $2 " "$3 "," $4 }')", col.names=c("file","date","size"))
         #B[, version := gsub(".*_(.*)_arm64.deb", "\\1", file), by=file]
@@ -364,6 +365,7 @@
         #B[, ver := gsub("(.*)-(\\d\\.ca\\d{4}\\.\\d)$", "\\1", version)][] # upstream
         #B[, pkgver := gsub("(.*)-(\\d\\.ca\\d{4}\\.\\d)_(arm64|amd64|all).deb$", "\\1", file)]
         B <- .allBuilds(tgt)
+        B <- B[arch == pltfrm, ]
         .pkgenv[["builds"]] <- B
     } else {
         .pkgenv[["builds"]] <- NULL

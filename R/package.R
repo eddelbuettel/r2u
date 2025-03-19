@@ -67,8 +67,8 @@
 ##' The \code{buildPackage} function builds the given package. The \code{buildAll} package applies
 ##' to all elements in the supplied vector of packages. The \code{topN} and \code{topNCompiled} helpers
 ##' select \sQuote{N} among all (or all compiled) packages. The \code{nDeps} function builds packages
-##' with a given (adjusted) build-dependency count. The \code{updatedPackages} function finds a set
-##' of available packages that are not yet built.
+##' with a given (adjusted) build-dependency count. The \code{buildUpdatedPackages} function finds a 
+##' set of available packages that are not yet built.
 ##'
 ##' Note that this build process is still somewhat tailored to the build setup use by the author and
 ##' is not (yet ?) meant to be universally transferable. It should be with a little care and possible
@@ -91,6 +91,7 @@
 ##' @param dryrun logical Optional value to skip actual package build step, default is \sQuote{FALSE}
 ##' @param compile logical Optional value to ensure compilation from source, default is \sQuote{FALSE}
 ##' @return Nothing as the function is invoked for the side effect of building binary packages
+##' @seealso \code{buildUpdatedPackages}
 ##' @author Dirk Eddelbuettel
 buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb=FALSE,
                          suffix=".1", debver="1.", plusdfsg=FALSE, dryrun=FALSE, compile=FALSE) {
