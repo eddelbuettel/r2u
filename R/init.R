@@ -328,6 +328,16 @@
     }
 }
 
+.allBuilds <- function(tgt) {
+    if (missing(tgt)) tgt <- .pkgenv[["distribution_name"]]
+    tfile <- tempfile(fileext=".rds")
+    url <- file.path("https://r2u.stat.illinois.edu/ubuntu/pool/dists", tgt, "main/builds.rds")
+    download.file(url, tfile, quiet=TRUE)
+    B <- readRDS(tfile)
+    unlink(tfile)
+    B
+}
+
 .loadBuilds <- function(tgt) {
     if (missing(tgt)) tgt <- .pkgenv[["distribution_name"]]
     dd <- file.path(.pkgenv[["deb_directory"]], "dists", tgt, "main")
@@ -343,12 +353,13 @@
         setwd(cwd)
     } else if (nzchar(Sys.getenv("CI", ""))) {
         ## get packages already Built
-        B <- data.table::fread(cmd=r"(links -dump https://r2u.stat.illinois.edu/ubuntu/pool/dists/noble/main/| awk '/r-.*arm64.deb/ { print $1 "," $2 " "$3 "," $4 }')",
+        #B <- data.table::fread(cmd=r"(links -dump https://r2u.stat.illinois.edu/ubuntu/pool/dists/noble/main/| awk '/r-.*arm64.deb/ { print $1 "," $2 " "$3 "," $4 }')",
                            col.names=c("file","date","size"))
-        B[, version := gsub(".*_(.*)_arm64.deb", "\\1", file), by=file]
-        B[, r2u := grepl("ca2404", version), by=file]  # needed ?
-        B[, ver := gsub("(.*)-(\\d\\.ca\\d{4}\\.\\d)$", "\\1", version)][] # upstream
-        B[, pkgver := gsub("(.*)-(\\d\\.ca\\d{4}\\.\\d)_(arm64|amd64|all).deb$", "\\1", file)]
+        #B[, version := gsub(".*_(.*)_arm64.deb", "\\1", file), by=file]
+        #B[, r2u := grepl("ca2404", version), by=file]  # needed ?
+        #B[, ver := gsub("(.*)-(\\d\\.ca\\d{4}\\.\\d)$", "\\1", version)][] # upstream
+        #B[, pkgver := gsub("(.*)-(\\d\\.ca\\d{4}\\.\\d)_(arm64|amd64|all).deb$", "\\1", file)]
+        B <- .allBuilds(tgt)
         .pkgenv[["builds"]] <- B
     } else {
         .pkgenv[["builds"]] <- NULL

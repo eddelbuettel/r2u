@@ -471,22 +471,18 @@ toTargets <- function(pkgs, file="") {
 ## }
 
 ## Helper function for GitHub Actions builds and specific to arm64
+## TODO: generalize to target
 #' @rdname buildPackage
-getBuildTargets <- function(filename, N=200, nbatch=20, verbose=TRUE) {
-    .addBlacklist("24.04")              # add distro-release blacklist
-    .addBlacklist(.platform())          # add arch blacklist (for arm64)
+getBuildTargets <- function(filename, N=200, nbatch=20, platform=.platform(), verbose=TRUE) {
+    .addBlacklist(.pkgenv[["distribution"]])            # add distro-release blacklist
+    .addBlacklist(platform)             		# add arch blacklist (for arm64)
 
     ## get packages already Built
     #cmd <- "links -dump"
     #url <- "https://r2u.stat.illinois.edu/ubuntu/pool/dists/noble/main/"
     #awk <- r"(awk '/r-.*_ar/ { print $1 "," $2 " "$3 "," $4 }')"  # not arm64.deb as cols get chopped
     #cmd <- paste(cmd, url, "|", awk)
-    #B <- data.table::fread(cmd=cmd, col.names=c("file","date","size"))
-    tfile <- tempfile(fileext=".rds")
-    url <- "https://r2u.stat.illinois.edu/ubuntu/pool/dists/noble/main/builds.rds"
-    download.file(url, tfile, quiet=TRUE)
-    B <- readRDS(tfile)
-    unlink(tfile)
+    B <- .allBuilds("noble")
     B <- B[grepl("arm64.deb$", file), ]
 
     B[, version := gsub(".*_(.*)_ar", "\\1", file), by=file]
