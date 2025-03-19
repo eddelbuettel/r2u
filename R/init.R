@@ -328,33 +328,37 @@
     }
 }
 
-.allBuilds <- function(tgt) {
+.allBuilds <- function(tgt, pltfrm) {
     if (missing(tgt)) tgt <- .pkgenv[["distribution_name"]]
+    if (missing(pltfrm)) pltfrm <- .platform()
     tfile <- tempfile(fileext=".rds")
     url <- file.path("https://r2u.stat.illinois.edu/ubuntu/pool/dists", tgt, "main/builds.rds")
     download.file(url, tfile, quiet=TRUE)
     B <- readRDS(tfile)
     unlink(tfile)
+    B <- B[arch %in% c("all", pltfrm), ]
     B
 }
 
-.loadBuilds <- function(tgt) {
+.loadBuilds <- function(tgt, pltfrm) {
     if (missing(tgt)) tgt <- .pkgenv[["distribution_name"]]
+    if (missing(pltfrm)) pltfrm <- .platform()
     dd <- file.path(.pkgenv[["deb_directory"]], "dists", tgt, "main")
     if (isFALSE(.pkgenv[["in_docker"]]) && isTRUE(nzchar(dd)) && dir.exists(dd)) {
-        cwd <- getwd()
-        setwd(dd)
-        fls <- list.files(".", pattern="\\.deb$", full.names=FALSE)
-        n1 <- tools::file_path_sans_ext(fls)
-        n2 <- gsub("-\\d+.ca(20|22|24)04.\\d+_(all|amd64)$", "", n1)
-        n3 <- gsub(".*-\\d+.ca(\\d{4}).\\d+_.*", "\\1", n1)
-        B <- data.table(name=fls, pkgver=n2, file.info(fls), tgt=n3)
+        #cwd <- getwd()
+        #setwd(dd)
+        #fls <- list.files(".", pattern="\\.deb$", full.names=FALSE)
+        #n1 <- tools::file_path_sans_ext(fls)
+        #n2 <- gsub("-\\d+.ca(20|22|24)04.\\d+_(all|amd64)$", "", n1)
+        #n3 <- gsub(".*-\\d+.ca(\\d{4}).\\d+_.*", "\\1", n1)
+        #B <- data.table(name=fls, pkgver=n2, file.info(fls), tgt=n3)
+        B <- readRDS(file.path(dd, "builds.rds"))
+        B <- B[arch %in% c("all", pltfrm), ]
         .pkgenv[["builds"]] <- B
-        setwd(cwd)
+        #setwd(cwd)
     } else if (nzchar(Sys.getenv("CI", ""))) {
         ## get packages already Built
-        #B <- data.table::fread(cmd=r"(links -dump https://r2u.stat.illinois.edu/ubuntu/pool/dists/noble/main/| awk '/r-.*arm64.deb/ { print $1 "," $2 " "$3 "," $4 }')",
-                           col.names=c("file","date","size"))
+        #B <- data.table::fread(cmd=r"(links -dump https://r2u.stat.illinois.edu/ubuntu/pool/dists/noble/main/| awk '/r-.*arm64.deb/ { print $1 "," $2 " "$3 "," $4 }')", col.names=c("file","date","size"))
         #B[, version := gsub(".*_(.*)_arm64.deb", "\\1", file), by=file]
         #B[, r2u := grepl("ca2404", version), by=file]  # needed ?
         #B[, ver := gsub("(.*)-(\\d\\.ca\\d{4}\\.\\d)$", "\\1", version)][] # upstream
