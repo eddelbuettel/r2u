@@ -493,7 +493,7 @@ getBuildTargets <- function(filename, N=200, nbatch=20, platform=.platform(), ve
     if (verbose) print(B)
 
     ## get target package, here top N compiled
-    topN <- unique(topNCompiled(N, Sys.Date()-2))
+    topN <- unique(topNCompiled(N, Sys.Date()-3))
     db <- .pkgenv[["db"]]
     TP <- data.table(Package=topN)
     P <- db[TP, on="Package"]
