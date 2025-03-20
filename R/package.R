@@ -472,9 +472,9 @@ toTargets <- function(pkgs, file="") {
 ## }
 
 ## Helper function for GitHub Actions builds and specific to arm64
-## TODO: generalize to target
+## N is now obsolete
 #' @rdname buildPackage
-getBuildTargets <- function(filename, N=200, nbatch=20, platform=.platform(), verbose=TRUE) {
+getBuildTargets <- function(filename, N=200, nbatch=40, platform=.platform(), verbose=TRUE) {
     .addBlacklist(.pkgenv[["distribution"]])            # add distro-release blacklist
     .addBlacklist(platform)             		# add arch blacklist (for arm64)
 
@@ -483,8 +483,9 @@ getBuildTargets <- function(filename, N=200, nbatch=20, platform=.platform(), ve
     #url <- "https://r2u.stat.illinois.edu/ubuntu/pool/dists/noble/main/"
     #awk <- r"(awk '/r-.*_ar/ { print $1 "," $2 " "$3 "," $4 }')"  # not arm64.deb as cols get chopped
     #cmd <- paste(cmd, url, "|", awk)
-    B <- .allBuilds("noble")
-    B <- B[grepl("arm64.deb$", file), ]
+    B <- .allBuilds("noble", platform)
+    restr <- paste0(platform, ".deb$")
+    B <- B[grepl(restr, file), ]
 
     B[, version := gsub(".*_(.*)_ar", "\\1", file), by=file]
     B[, r2u := grepl("ca2404", version), by=file]  # needed ?
@@ -492,11 +493,18 @@ getBuildTargets <- function(filename, N=200, nbatch=20, platform=.platform(), ve
     B[, pkgver := gsub("(.*)-(\\d\\.ca\\d{4}\\.\\d)_(.*)$", "\\1", file)]
     if (verbose) print(B)
 
-    ## get target package, here top N compiled
-    topN <- unique(topNCompiled(N, Sys.Date()-3))
     db <- .pkgenv[["db"]]
-    TP <- data.table(Package=topN)
-    P <- db[TP, on="Package"]
+    ## take one: get target packages, here top N compiled
+    ##   topN <- unique(topNCompiled(N, Sys.Date()-2))
+    ##   TP <- data.table(Package=topN)
+    ## take two: get (all) target packages from AP
+    ##   ap <- .pkgenv[["ap"]]
+    ##   TP <- data.table(Package=ap[ap == "CRAN" & NeedsCompilation=="yes", Package])
+    ## for either take one or take two: merge with db 
+    ##   TP <- data.table(Package=db[NeedsCompilation=="yes", unique(Package)])
+    ##   P <- db[TP, on="Package"]
+    ## take three: use db directly
+    P <- db[NeedsCompilation=="yes", ]
     P <- P[!duplicated(Package),]
     P[Package %in% c("nlme", "foreign"), Version := gsub("-", ".", Version)]
     P[, pkgver := paste0("r-cran-", tolower(Package), "_", Version)]
@@ -519,5 +527,6 @@ getBuildTargets <- function(filename, N=200, nbatch=20, platform=.platform(), ve
         toTargets(P[,Package])
     }
 
-    toTargets(P[, Package], file=filename)
+    toTargets(P[, Package], file=filename) # actual effect of writing out
+    invisible(P)                           # available for debug print if needed
 }
