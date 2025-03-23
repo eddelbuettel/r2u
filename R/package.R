@@ -395,7 +395,7 @@ topNCompiled <- function(npkg, date=Sys.Date() - 1, from=1L) {
 #' @rdname buildPackage
 buildUpdatedPackages <- function(tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb=FALSE, bioc=FALSE, dryrun=FALSE) {
     pkgs <- if (bioc) .getUpdatedBiocPackages(tgt) else .getUpdatedPackages(tgt)
-    if (dryrun) print(tgt) else buildAll(pkgs, tgt, debug=debug, verbose=verbose, force=force, xvfb=xvfb)
+    if (dryrun) print(pkgs) else buildAll(pkgs, tgt, debug=debug, verbose=verbose, force=force, xvfb=xvfb)
 }
 
 # no longer in rd @rdname buildPackage
