@@ -90,6 +90,7 @@
 ##' default \sQuote{FALSE}
 ##' @param dryrun logical Optional value to skip actual package build step, default is \sQuote{FALSE}
 ##' @param compile logical Optional value to ensure compilation from source, default is \sQuote{FALSE}
+##' @param bioc logical Optional switch for BioConductor build
 ##' @return Nothing as the function is invoked for the side effect of building binary packages
 ##' @seealso \code{buildUpdatedPackages}
 ##' @author Dirk Eddelbuettel
@@ -328,14 +329,14 @@ topNCompiled <- function(npkg, date=Sys.Date() - 1, from=1L) {
     pkg
 }
 
-#' @rdname buildPackage
-nDeps <- function(ndeps) {
+#  no longer in rd ' @rdname buildPackage
+.nDeps <- function(ndeps) {
     db <- .pkgenv[["db"]]
     db[adjdep == ndeps, Package]
 }
 
-#' @rdname buildPackage
-nDepsRange <- function(ndepslo, ndepshi) {
+#  no longer in rd ' @rdname buildPackage
+.nDepsRange <- function(ndepslo, ndepshi) {
     db <- .pkgenv[["db"]]
     db[adjdep >= ndepslo & adjdep <= ndepshi, Package]
 }
@@ -392,13 +393,13 @@ nDepsRange <- function(ndepslo, ndepshi) {
 }
 
 #' @rdname buildPackage
-buildUpdatedPackages <- function(tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb=FALSE, bioc=FALSE) {
+buildUpdatedPackages <- function(tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb=FALSE, bioc=FALSE, dryrun=FALSE) {
     pkgs <- if (bioc) .getUpdatedBiocPackages(tgt) else .getUpdatedPackages(tgt)
-    buildAll(pkgs, tgt, debug=debug, verbose=verbose, force=force, xvfb=xvfb)
+    if (dryrun) print(tgt) else buildAll(pkgs, tgt, debug=debug, verbose=verbose, force=force, xvfb=xvfb)
 }
 
-#' @rdname buildPackage
-toTargets <- function(pkgs, file="") {
+# no longer in rd @rdname buildPackage
+.toTargets <- function(pkgs, filename="") {
     ## this corresponds to the `jq` based snippet to turn a vector of packages into a JSON expression
     ## which is suitable as input to a GitHub Actions 'matrix' to control parallel work
     ## ie
@@ -407,13 +408,13 @@ toTargets <- function(pkgs, file="") {
     ## > toTargets(vec)
     ## {"target":["microbenchmark","parallelly","bitops","matrixStats"]}
     ## >
-    cat('{"target":[', sep="", file=file)
+    cat('{"target":[', sep="", file=filename)
     lastpkgs <- tail(pkgs,1)
     for (p in pkgs) {
-        cat('"', p, '"', sep="", file=file, append=TRUE)
-        if (p != lastpkgs) cat(',', sep="", file=file, append=TRUE)
+        cat('"', p, '"', sep="", file=filename, append=TRUE)
+        if (p != lastpkgs) cat(',', sep="", file=filename, append=TRUE)
     }
-    cat("]}\n", file=file, append=TRUE)
+    cat("]}\n", file=filename, append=TRUE)
 }
 
 # To not require R.utils for reading a compressed gz
@@ -473,8 +474,8 @@ toTargets <- function(pkgs, file="") {
 
 ## Helper function for GitHub Actions builds and specific to arm64
 ## N is now obsolete
-#' @rdname buildPackage
-getBuildTargets <- function(filename, N=200, nbatch=40, platform=.platform(), verbose=TRUE) {
+#  no longer in rd @rdname buildPackage
+.getBuildTargets <- function(filename="", N=200, nbatch=40, platform=.platform(), verbose=TRUE) {
     .addBlacklist(.pkgenv[["distribution"]])            # add distro-release blacklist
     .addBlacklist(platform)             		# add arch blacklist (for arm64)
 
@@ -487,9 +488,9 @@ getBuildTargets <- function(filename, N=200, nbatch=40, platform=.platform(), ve
     restr <- paste0(platform, ".deb$")
     B <- B[grepl(restr, file), ]
 
-    B[, version := gsub(".*_(.*)_ar", "\\1", file), by=file]
+    ## already in B[, version := gsub("^.*_(.*)_(amd64|all|arch64)\\.deb$", "\\1", file), by=file]
     B[, r2u := grepl("ca2404", version), by=file]  # needed ?
-    B[, ver := gsub("(.*)-(\\d\\.ca\\d{4}\\.\\d)$", "\\1", version)][] # upstream
+    B[, ver := gsub("(.*)-(\\d\\.ca\\d{4}\\.\\d)$", "\\1", version)] # upstream
     B[, pkgver := gsub("(.*)-(\\d\\.ca\\d{4}\\.\\d)_(.*)$", "\\1", file)]
     if (verbose) print(B)
 
@@ -498,13 +499,14 @@ getBuildTargets <- function(filename, N=200, nbatch=40, platform=.platform(), ve
     ##   topN <- unique(topNCompiled(N, Sys.Date()-2))
     ##   TP <- data.table(Package=topN)
     ## take two: get (all) target packages from AP
-    ##   ap <- .pkgenv[["ap"]]
-    ##   TP <- data.table(Package=ap[ap == "CRAN" & NeedsCompilation=="yes", Package])
+    ## NB: this is the only one that reflects BioC as we 'stack' ap with BioC but not db
+    ap <- .pkgenv[["ap"]]
+    TP <- data.table(Package=ap[ap == "CRAN" & NeedsCompilation=="yes", Package])
     ## for either take one or take two: merge with db 
-    ##   TP <- data.table(Package=db[NeedsCompilation=="yes", unique(Package)])
-    ##   P <- db[TP, on="Package"]
+    TP <- data.table(Package=db[NeedsCompilation=="yes", unique(Package)])
+    P <- db[TP, on="Package"]
     ## take three: use db directly
-    P <- db[NeedsCompilation=="yes", ]
+    #P <- db[NeedsCompilation=="yes", ]
     P <- P[!duplicated(Package),]
     P[Package %in% c("nlme", "foreign"), Version := gsub("-", ".", Version)]
     P[, pkgver := paste0("r-cran-", tolower(Package), "_", Version)]
@@ -514,7 +516,7 @@ getBuildTargets <- function(filename, N=200, nbatch=40, platform=.platform(), ve
     P <- P[, isin := is.finite(match(pkgver, B[r2u==TRUE, pkgver])), by=pkgver]
     P <- P[isin==FALSE & skip==FALSE & is.na(win),]
 
-    ap <- r2u:::.pkgenv[["ap"]]
+    ap <- .pkgenv[["ap"]]
     newP <- ap[, .(Package, Version)][P,on="Package"]
     newP <- newP[ Version==i.Version, ]
     newP[, i.Version:=NULL ]
@@ -524,9 +526,9 @@ getBuildTargets <- function(filename, N=200, nbatch=40, platform=.platform(), ve
     P <- head(P, min(nbatch, nrow(P)))
     if (verbose) {
         print(P)
-        toTargets(P[,Package])
+        .toTargets(P[,Package])
     }
 
-    toTargets(P[, Package], file=filename) # actual effect of writing out
+    .toTargets(P[, Package], filename) 	   # actual effect of writing out
     invisible(P)                           # available for debug print if needed
 }

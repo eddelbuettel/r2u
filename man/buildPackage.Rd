@@ -5,11 +5,7 @@
 \alias{buildAll}
 \alias{topN}
 \alias{topNCompiled}
-\alias{nDeps}
-\alias{nDepsRange}
 \alias{buildUpdatedPackages}
-\alias{toTargets}
-\alias{getBuildTargets}
 \title{Build a Package}
 \usage{
 buildPackage(pkg, tgt, debug = FALSE, verbose = FALSE, force = FALSE,
@@ -23,16 +19,8 @@ topN(npkg, date = Sys.Date() - 1, from = 1L)
 
 topNCompiled(npkg, date = Sys.Date() - 1, from = 1L)
 
-nDeps(ndeps)
-
-nDepsRange(ndepslo, ndepshi)
-
 buildUpdatedPackages(tgt, debug = FALSE, verbose = FALSE, force = FALSE,
-  xvfb = FALSE, bioc = FALSE)
-
-toTargets(pkgs, file = "")
-
-getBuildTargets(filename, N = 200, nbatch = 20, verbose = TRUE)
+  xvfb = FALSE, bioc = FALSE, dryrun = FALSE)
 }
 \arguments{
 \item{pkg}{character Name of the CRAN or BioConductor package to build}
@@ -66,6 +54,8 @@ default \sQuote{FALSE}}
 \item{date}{Date Relevant date for cranlog download stats}
 
 \item{from}{integer Optional applied as offset to \code{npkg} to shift the selection}
+
+\item{bioc}{logical Optional switch for BioConductor build}
 }
 \value{
 Nothing as the function is invoked for the side effect of building binary packages
@@ -78,12 +68,15 @@ built packages.
 The \code{buildPackage} function builds the given package. The \code{buildAll} package applies
 to all elements in the supplied vector of packages. The \code{topN} and \code{topNCompiled} helpers
 select \sQuote{N} among all (or all compiled) packages. The \code{nDeps} function builds packages
-with a given (adjusted) build-dependency count. The \code{updatedPackages} function finds a set
-of available packages that are not yet built.
+with a given (adjusted) build-dependency count. The \code{buildUpdatedPackages} function finds a 
+set of available packages that are not yet built.
 
 Note that this build process is still somewhat tailored to the build setup use by the author and
 is not (yet ?) meant to be universally transferable. It should be with a little care and possible
 examination of the code. If interested, please get in touch.
+}
+\seealso{
+\code{buildUpdatedPackages}
 }
 \author{
 Dirk Eddelbuettel
