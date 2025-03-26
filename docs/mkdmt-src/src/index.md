@@ -232,6 +232,8 @@ give the r2u / cranapt repo a weight of 700 which is higher than the package def
 
 ### Docker
 
+**Core r2u Containers**
+
 There are also Docker containers for Ubuntu 20.04 'focal', 22.04 'jammy', and 24.04 'noble',
 respectively.  Initially published as
 [eddelbuettel/r2u](https://hub.docker.com/repository/docker/eddelbuettel/r2u), these are now also
@@ -246,6 +248,19 @@ Note that with some builds of Docker (and possibly related to Ubuntu hosts) you 
 the `--security-opt seccomp=unconfined` option to your Docker invocation to take advantage of bspm
 and the full system integration inside the container.
 This is also documented in the [FAQ](https://eddelbuettel.github.io/r2u/vignettes/FAQ/).
+
+**Contributed Containers**
+
+We are now starting to see derived containers:
+
+- [BioConductor](https://www.bioconductor.org/) has an (alpha release) project
+[bioc2u](https://github.com/Bioconductor/bioc2u) providing (internal ?) BioConductor builds
+- [Jeffrey Girard](https://github.com/jmgirard) created
+[rstudio2u](https://github.com/jmgirard/rstudio2u) which adds RStudio to the
+base layer provided by r2u.
+
+It is encouraging to see such specialisations based off r2u itself.
+
 
 ### GitHub Actions
 
@@ -278,7 +293,7 @@ harder.
 
 ### Try It
 
-** Via codespaces **
+**Via codespaces**
 
 See the vignette [Codespaces](https://eddelbuettel.github.io/r2u/vignettes/Codespaces/) about how to
 launch a 'Codespace' directly in your browser, launched from the gitrepo within minutes.
@@ -288,7 +303,7 @@ codespace.
 
 The vignette has more details.
 
-** Via gitpod.io **
+**Via gitpod.io**
 
 Use this link below (after possibly signing up for
 [gitpod.io](https://gitpod.io/) first)
