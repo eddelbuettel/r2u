@@ -394,7 +394,9 @@ topNCompiled <- function(npkg, date=Sys.Date() - 1, from=1L) {
 
 #' @rdname buildPackage
 buildUpdatedPackages <- function(tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb=FALSE, bioc=FALSE, dryrun=FALSE) {
+    .addBlacklist(tgt)             		# add distro blacklist
     pkgs <- if (bioc) .getUpdatedBiocPackages(tgt) else .getUpdatedPackages(tgt)
+    pkgs <- pkgs[order(tolower(pkgs))]
     if (dryrun) print(pkgs) else buildAll(pkgs, tgt, debug=debug, verbose=verbose, force=force, xvfb=xvfb)
 }
 
