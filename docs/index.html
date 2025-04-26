@@ -902,8 +902,8 @@
   <a href="https://r2u.stat.illinois.edu">r2u.stat.illinois.edu</a> on the <a href="https://internet2.edu/">Internet2</a> </p>
 </li>
 <li>
-<p><strong>Complete coverage</strong> with (currently, using 22.04) ~ 24491 CRAN packages (and 435 from
-  BioConductor) using <strong>current versions</strong>: We use R 4.4.*, and BioConductor 3.20.</p>
+<p><strong>Complete coverage</strong> with (currently, using 22.04) ~ 25199 CRAN packages (and 439 from
+  BioConductor) using <strong>current versions</strong>: We support R 4.4.* and 4.5.0, and BioConductor 3.20.</p>
 </li>
 <li>
 <p>Complete support for <strong>Ubuntu 20.04 ("focal")</strong>, <strong>22.04 ("jammy")</strong> and <strong>24.04 ("noble")</strong> on
@@ -940,10 +940,11 @@ advantage of arm64-based runners at GitHub Actions. </p>
 (additional hardware) resources and time. Support for other distributions is possible but unlikely
 right now (due to a lack of resources and time). P3M/PPM/RSPM now appears to also support Debian which
 could be added at some later point.</p>
-<p>Current versions are based on R 4.4.<em>, and BioConductor release 3.20 packages are provided when
-required by CRAN packages.  Binaries are generally R 4.4.</em> based. Some older packages released when
-we used R 4.2.<em> or 4.3.</em> may have been built with R 4.2.<em> or R 4.3.</em>, they will still work the same
-with R 4.4.* as R is generally forward-compatible.</p>
+<p>Current versions are built under R 4.4.<em> and usable under 4.4.</em> and 4.5.0. BioConductor release 3.20
+packages are provided when required by CRAN packages (and we hope to update to 3.21 "soon", i.e. in
+a few weeks).  Binaries are generally R 4.4.<em> based. Some older packages released when we used R
+4.2.</em> or 4.3.<em> may have been built with R 4.2.</em> or R 4.3.<em>, they will still work the same with R
+4.4.</em> as R is generally forward-compatible.</p>
 <h3 id="what-is-selected">What is Selected ?</h3>
 <p>Everything :)</p>
 <p>Initially, we started from <a href="https://cran-logs.rstudio.com/">cran-logs</a> by picking the <em>N</em>
@@ -958,8 +959,8 @@ a very skewed distribution.) We iterated, and fairly soon arrived of full covera
     <a href="https://bioconductor.org/packages/stats/bioc/bioc_pkg_scores.tab">scoring</a> BioConductor
     packages (also covering <em>e.g.</em> all BioConductor packages in the Debian and Ubuntu distributions)</li>
 </ul>
-<p>This currently results in 24797, 24717, 22376 binary packages from CRAN in "focal", "jammy", and
-"noble", respectively, and 429, 437, and 451 BioConductor packages, respectively, from the 3.20 
+<p>This currently results in 25277, 25199, 27776 binary packages from CRAN in "focal", "jammy", and
+"noble", respectively, and 432, 439, and 453 BioConductor packages, respectively, from the 3.20 
 releases. (See this
 <a href="https://eddelbuettel.github.io/r2u/vignettes/FAQ/#why-does-it-have-more-packages-than-cran">FAQ</a>
 about why this number is higher than CRAN, and variable between releases.)</p>
@@ -1123,11 +1124,11 @@ just start R in the terminal window.</p>
 <a href="https://github.com/paul-buerkner/brms">brms</a> from binaries in a few seconds.  Using this requires
 only (free) <a href="https://github.com">GitHub</a> and <a href="https://gitpod.io">GitPod</a> accounts.</p>
 <h3 id="usage-statistics">Usage Statistics</h3>
-<p>Usage is vibrant.  As of March 2025, over 400,000 packages are shipped per week, with a total of
-now over thirty seven million packages shipped.  Early September 2023 also had the most recent and
+<p>Usage is vibrant.  As of late April 2025, over 500,000 packages are shipped per week, with a total of
+now over fourty one million packages shipped.  Early September 2023 also had the most recent and
 dramatic spike of <em>over three million packages in two days</em>.  The following chart gives a summary of
-cumulative and average weekly downloads (the latter one on a log scale) as of August.</p>
-<p><img alt="" src="https://eddelbuettel.github.io/images/2025-03-11/r2u_aggregated_and_weekly_2025-03-11.png" /></p>
+cumulative and average weekly downloads (the latter one on a log scale).</p>
+<p><img alt="" src="https://eddelbuettel.github.io/images/2025-04-25/r2u_aggregated_and_weekly_2025-04-25.png" /></p>
 <h3 id="support">Support</h3>
 <p>Please file issues at the <a href="https://github.com/eddelbuettel/r2u/issues">GitHub issues for r2u</a>.</p>
 <h3 id="frequently-asked-questions">Frequently Asked Questions</h3>

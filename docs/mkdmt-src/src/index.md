@@ -23,8 +23,8 @@ description: Easy, fast, reliable -- pick all three!
 - **Fast and well-connected mirror** at
   [r2u.stat.illinois.edu](https://r2u.stat.illinois.edu) on the [Internet2](https://internet2.edu/) 
 
-- **Complete coverage** with (currently, using 22.04) ~ 24491 CRAN packages (and 435 from
-  BioConductor) using **current versions**: We use R 4.4.*, and BioConductor 3.20.
+- **Complete coverage** with (currently, using 22.04) ~ 25199 CRAN packages (and 439 from
+  BioConductor) using **current versions**: We support R 4.4.* and 4.5.0, and BioConductor 3.20.
 
 - Complete support for **Ubuntu 20.04 ("focal")**, **22.04 ("jammy")** and **24.04 ("noble")** on
   amd64, as well as (initial) **24.04 ("noble")** support on arm64.
@@ -64,10 +64,11 @@ Support for additional cpu architectures is certainly possible but somewhat unli
 right now (due to a lack of resources and time). P3M/PPM/RSPM now appears to also support Debian which
 could be added at some later point.
 
-Current versions are based on R 4.4.*, and BioConductor release 3.20 packages are provided when
-required by CRAN packages.  Binaries are generally R 4.4.* based. Some older packages released when
-we used R 4.2.* or 4.3.* may have been built with R 4.2.* or R 4.3.*, they will still work the same
-with R 4.4.* as R is generally forward-compatible.
+Current versions are built under R 4.4.* and usable under 4.4.* and 4.5.0. BioConductor release 3.20
+packages are provided when required by CRAN packages (and we hope to update to 3.21 "soon", i.e. in
+a few weeks).  Binaries are generally R 4.4.* based. Some older packages released when we used R
+4.2.* or 4.3.* may have been built with R 4.2.* or R 4.3.*, they will still work the same with R
+4.4.* as R is generally forward-compatible.
 
 
 ### What is Selected ?
@@ -87,8 +88,8 @@ So we now cover
     [scoring](https://bioconductor.org/packages/stats/bioc/bioc_pkg_scores.tab) BioConductor
     packages (also covering _e.g._ all BioConductor packages in the Debian and Ubuntu distributions)
 
-This currently results in 24797, 24717, 22376 binary packages from CRAN in "focal", "jammy", and
-"noble", respectively, and 429, 437, and 451 BioConductor packages, respectively, from the 3.20 
+This currently results in 25277, 25199, 27776 binary packages from CRAN in "focal", "jammy", and
+"noble", respectively, and 432, 439, and 453 BioConductor packages, respectively, from the 3.20 
 releases. (See this
 [FAQ](https://eddelbuettel.github.io/r2u/vignettes/FAQ/#why-does-it-have-more-packages-than-cran)
 about why this number is higher than CRAN, and variable between releases.)
@@ -322,12 +323,12 @@ only (free) [GitHub](https://github.com) and [GitPod](https://gitpod.io) account
 
 ### Usage Statistics
 
-Usage is vibrant.  As of March 2025, over 400,000 packages are shipped per week, with a total of
-now over thirty seven million packages shipped.  Early September 2023 also had the most recent and
+Usage is vibrant.  As of late April 2025, over 500,000 packages are shipped per week, with a total of
+now over fourty one million packages shipped.  Early September 2023 also had the most recent and
 dramatic spike of _over three million packages in two days_.  The following chart gives a summary of
-cumulative and average weekly downloads (the latter one on a log scale) as of August.
+cumulative and average weekly downloads (the latter one on a log scale).
 
-![](https://eddelbuettel.github.io/images/2025-03-11/r2u_aggregated_and_weekly_2025-03-11.png)
+![](https://eddelbuettel.github.io/images/2025-04-25/r2u_aggregated_and_weekly_2025-04-25.png)
 
 ### Support
 
