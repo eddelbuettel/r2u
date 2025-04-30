@@ -903,7 +903,8 @@
 </li>
 <li>
 <p><strong>Complete coverage</strong> with (currently, using 22.04) ~ 25199 CRAN packages (and 439 from
-  BioConductor) using <strong>current versions</strong>: We support R 4.4.* and 4.5.0, and BioConductor 3.20.</p>
+  BioConductor) using <strong>current versions</strong>: We support R 4.4.* and 4.5.0, and
+  BioConductor 3.20 (on focal and jammy) and BioConductor 3.21 (on noble).</p>
 </li>
 <li>
 <p>Complete support for <strong>Ubuntu 20.04 ("focal")</strong>, <strong>22.04 ("jammy")</strong> and <strong>24.04 ("noble")</strong> on
@@ -940,11 +941,12 @@ advantage of arm64-based runners at GitHub Actions. </p>
 (additional hardware) resources and time. Support for other distributions is possible but unlikely
 right now (due to a lack of resources and time). P3M/PPM/RSPM now appears to also support Debian which
 could be added at some later point.</p>
-<p>Current versions are built under R 4.4.<em> and usable under 4.4.</em> and 4.5.0. BioConductor release 3.20
-packages are provided when required by CRAN packages (and we hope to update to 3.21 "soon", i.e. in
-a few weeks).  Binaries are generally R 4.4.<em> based. Some older packages released when we used R
-4.2.</em> or 4.3.<em> may have been built with R 4.2.</em> or R 4.3.<em>, they will still work the same with R
-4.4.</em> as R is generally forward-compatible.</p>
+<p>Current versions are built under R 4.4.<em> and R 4.5.0 and are usable under 4.4.</em> and
+4.5.0. BioConductor release 3.20 packages are provided when required by CRAN packages for focal and
+jammy, and BioConductor 3.21 is used for noble.  Binaries were initially R 4.4.<em> based and are now
+built under R 4.5.0are generally. Some older packages released when we used R 4.2.</em> or 4.3.<em> may
+have been built with R 4.2.</em> or R 4.3.<em>, they will still work the same with R 4.4.</em> as R is
+generally forward-compatible.(</p>
 <h3 id="what-is-selected">What is Selected ?</h3>
 <p>Everything :)</p>
 <p>Initially, we started from <a href="https://cran-logs.rstudio.com/">cran-logs</a> by picking the <em>N</em>
@@ -960,8 +962,8 @@ a very skewed distribution.) We iterated, and fairly soon arrived of full covera
     packages (also covering <em>e.g.</em> all BioConductor packages in the Debian and Ubuntu distributions)</li>
 </ul>
 <p>This currently results in 25277, 25199, 27776 binary packages from CRAN in "focal", "jammy", and
-"noble", respectively, and 432, 439, and 453 BioConductor packages, respectively, from the 3.20 
-releases. (See this
+"noble", respectively, and 432, 439, and 453 BioConductor packages, respectively, from the 3.20
+(focal, jammy) or 3.21 (noble) releases. (See this
 <a href="https://eddelbuettel.github.io/r2u/vignettes/FAQ/#why-does-it-have-more-packages-than-cran">FAQ</a>
 about why this number is higher than CRAN, and variable between releases.)</p>
 <p>The sole exception are packages we cannot build (as we do not have the required commercial software

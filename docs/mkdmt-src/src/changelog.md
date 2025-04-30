@@ -1,5 +1,24 @@
 ###  2025 
 
+2025-04-30  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * README.md: Note BioConductor 3.21 support for noble 
+ 
+2025-03-24  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * R/package.R (buildUpdatedPackages): Reflect per-architecture 
+        blacklist too, and reorder case insenstively 
+ 
+2025-03-02  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * README.md: Document arm64 support 
+ 
+        * inst/scripts/add_cranapt_noble.sh: Add arm64 as architecture 
+ 
+2025-02-16  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * docker/noble/build/debBuild.sh: Enhancements to noble debBuild.sh 
+ 
 2025-02-10  Dirk Eddelbuettel  <edd@debian.org> 
  
         * R/init.R: Robustify build when no config directory present 

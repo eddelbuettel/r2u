@@ -20,7 +20,8 @@
   [r2u.stat.illinois.edu](https://r2u.stat.illinois.edu) on the [Internet2](https://internet2.edu/) 
 
 - **Complete coverage** with (currently, using 22.04) ~ 25199 CRAN packages (and 439 from
-  BioConductor) using **current versions**: We support R 4.4.* and 4.5.0, and BioConductor 3.20.
+  BioConductor) using **current versions**: We support R 4.4.* and 4.5.0, and
+  BioConductor 3.20 (on focal and jammy) and BioConductor 3.21 (on noble).
 
 - Complete support for **Ubuntu 20.04 ("focal")**, **22.04 ("jammy")** and **24.04 ("noble")** on
   amd64, as well as (initial) **24.04 ("noble")** support on arm64.
@@ -60,11 +61,12 @@ Support for additional cpu architectures is certainly possible but somewhat unli
 right now (due to a lack of resources and time). P3M/PPM/RSPM now appears to also support Debian which
 could be added at some later point.
 
-Current versions are built under R 4.4.* and usable under 4.4.* and 4.5.0. BioConductor release 3.20
-packages are provided when required by CRAN packages (and we hope to update to 3.21 "soon", i.e. in
-a few weeks).  Binaries are generally R 4.4.* based. Some older packages released when we used R
-4.2.* or 4.3.* may have been built with R 4.2.* or R 4.3.*, they will still work the same with R
-4.4.* as R is generally forward-compatible.
+Current versions are built under R 4.4.* and R 4.5.0 and are usable under 4.4.* and
+4.5.0. BioConductor release 3.20 packages are provided when required by CRAN packages for focal and
+jammy, and BioConductor 3.21 is used for noble.  Binaries were initially R 4.4.* based and are now
+built under R 4.5.0are generally. Some older packages released when we used R 4.2.* or 4.3.* may
+have been built with R 4.2.* or R 4.3.*, they will still work the same with R 4.4.* as R is
+generally forward-compatible.(
 
 
 ### What is Selected ?
@@ -85,8 +87,8 @@ So we now cover
     packages (also covering _e.g._ all BioConductor packages in the Debian and Ubuntu distributions)
 
 This currently results in 25277, 25199, 27776 binary packages from CRAN in "focal", "jammy", and
-"noble", respectively, and 432, 439, and 453 BioConductor packages, respectively, from the 3.20 
-releases. (See this
+"noble", respectively, and 432, 439, and 453 BioConductor packages, respectively, from the 3.20
+(focal, jammy) or 3.21 (noble) releases. (See this
 [FAQ](https://eddelbuettel.github.io/r2u/vignettes/FAQ/#why-does-it-have-more-packages-than-cran)
 about why this number is higher than CRAN, and variable between releases.)
 

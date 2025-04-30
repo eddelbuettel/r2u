@@ -402,6 +402,8 @@ buildUpdatedPackages <- function(tgt, debug=FALSE, verbose=FALSE, force=FALSE, x
 
 # no longer in rd @rdname buildPackage
 .toTargets <- function(pkgs, filename="") {
+    ## this version is used for amd64 where the stdout is redirected
+    ##
     ## this corresponds to the `jq` based snippet to turn a vector of packages into a JSON expression
     ## which is suitable as input to a GitHub Actions 'matrix' to control parallel work
     ## ie
@@ -417,6 +419,61 @@ buildUpdatedPackages <- function(tgt, debug=FALSE, verbose=FALSE, force=FALSE, x
         if (p != lastpkgs) cat(',', sep="", file=filename, append=TRUE)
     }
     cat("]}\n", file=filename, append=TRUE)
+}
+
+# no longer in rd @rdname buildPackage
+.toTargetsString <- function(pkgs) {
+    ## like preceding function but returns a string
+    txt <- '{"target":['
+    lastpkgs <- tail(pkgs,1)
+    for (p in pkgs) {
+        txt <- paste0(txt, '"', p, '"')
+        if (p != lastpkgs) txt <- paste0(txt, ',')
+    }
+    txt <- paste0(txt, "]}")
+}
+
+# no longer in rd @rdname buildPackage
+.toTargetsArrayString <- function(pkgs) {
+    ## this is used for bioc where we do not pretend the '{"targets":' bit (and final '}')
+    ## this corresponds to the `jq` based snippet to turn a vector of packages into a JSON expression
+    ## which is suitable as input to a GitHub Actions 'matrix' to control parallel work
+    ## ie
+    ## > vec
+    ## [1] "microbenchmark" "parallelly"     "bitops"         "matrixStats"
+    ## > toTargets(vec)
+    ## ["microbenchmark","parallelly","bitops","matrixStats"]
+    ## >
+    txt <- '['
+    lastpkgs <- tail(pkgs,1)
+    for (p in pkgs) {
+        txt <- paste0(txt, '"', p, '"')
+        if (p != lastpkgs) txt <- paste0(txt, ',')
+    }
+    txt <- paste0(txt, "]")
+}
+
+.toSerializedArrayString <- function(pkgs) {
+    rawToChar(serialize(.toTargetsArrayString(pkgs), connection=NULL, ascii=TRUE))
+}
+
+.toCollapsedPackageString <- function(pkgs) {
+    #paste0(paste0(sapply(pkgs, \(x) paste0("\"", x, "\""))), collapse=",")
+    paste(pkgs, collapse=",")
+}
+
+.triggerBiocBuild <- function(pkgs, dist="noble") {
+    url <- "https://api.github.com/repos/eddelbuettel/r2u-bioc-builder/actions/workflows/158741339/dispatches"
+    #rawtxt <- gsub("\\", "\\\\", .toSerializedArrayString(pkgs))
+    txt <- .toCollapsedPackageString(pkgs)
+    body <- paste0('{"ref":"main","inputs":{"targets":"', txt, '","dist":"', dist, '"}}')
+    cat("Preparing:", txt, "on", dist, "\n")
+    #return(invisible(NULL))
+    response <- httr::POST(url = url, config = httr::add_headers(Accept = "application/vnd.github+json", Authorization = paste("Bearer", Sys.getenv("GITHUB_PAT"))), body = body)
+    text <- httr::content(response, "text", encoding = "UTF-8")
+    if (text != "") cat(text, "\n")
+    cat("Triggered bioc action\n")
+    invisible(NULL)
 }
 
 # To not require R.utils for reading a compressed gz
