@@ -462,17 +462,17 @@ buildUpdatedPackages <- function(tgt, debug=FALSE, verbose=FALSE, force=FALSE, x
     paste(pkgs, collapse=",")
 }
 
-.triggerBiocBuild <- function(pkgs, dist="noble") {
+.triggerBiocBuild <- function(pkgs, dist) {
     url <- "https://api.github.com/repos/eddelbuettel/r2u-bioc-builder/actions/workflows/158741339/dispatches"
     #rawtxt <- gsub("\\", "\\\\", .toSerializedArrayString(pkgs))
     txt <- .toCollapsedPackageString(pkgs)
     body <- paste0('{"ref":"main","inputs":{"targets":"', txt, '","dist":"', dist, '"}}')
-    cat("Preparing:", txt, "on", dist, "\n")
+    cat("Preparing", length(pkgs), "pkgs:", txt, "on", dist)
     #return(invisible(NULL))
     response <- httr::POST(url = url, config = httr::add_headers(Accept = "application/vnd.github+json", Authorization = paste("Bearer", Sys.getenv("GITHUB_PAT"))), body = body)
     text <- httr::content(response, "text", encoding = "UTF-8")
     if (text != "") cat(text, "\n")
-    cat("Triggered bioc action\n")
+    cat(" [triggered]\n")
     invisible(NULL)
 }
 

@@ -1,3 +1,7 @@
+2025-05-01  Dirk Eddelbuettel  <edd@debian.org>
+
+	* README.md: Note BioConductor 3.21 support for jammy and focal
+
 2025-04-30  Dirk Eddelbuettel  <edd@debian.org>
 
 	* README.md: Note BioConductor 3.21 support for noble
