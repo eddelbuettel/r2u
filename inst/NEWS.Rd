@@ -3,6 +3,18 @@
 \newcommand{\ghpr}{\href{https://github.com/eddelbuettel/drat/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/eddelbuettel/drat/issues/#1}{##1}}
 
+\section{Changes in r2u version 0.0.10 (2025-05-01)}{
+  \itemize{
+    \item Switch to BioConductor 3.21 and rebuild all r-bioc-* packages
+  }
+}
+
+\section{Changes in r2u version 0.0.9 (2025-03-02)}{
+  \itemize{
+    \item The arm64 platform is now supported for 'noble'
+  }
+}
+
 \section{Changes in r2u version 0.0.8 (2024-11-04)}{
   \itemize{
     \item Switch to BioConductor 3.20 and rebuild all r-bioc-* packages 

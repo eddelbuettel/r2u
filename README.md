@@ -19,12 +19,12 @@
 - **Fast and well-connected mirror** at
   [r2u.stat.illinois.edu](https://r2u.stat.illinois.edu) on the [Internet2](https://internet2.edu/) 
 
-- **Complete coverage** with (currently, using 22.04) ~ 25199 CRAN packages (and 439 from
+- **Complete coverage** with (using 22.04 for amd64) about 25239 CRAN packages (and 516 from
   BioConductor) using **current versions**: We support R 4.4.* and 4.5.0, and
   BioConductor 3.21 (on focal, jammy and noble).
 
 - Complete support for **Ubuntu 20.04 ("focal")**, **22.04 ("jammy")** and **24.04 ("noble")** on
-  amd64, as well as (initial) **24.04 ("noble")** support on arm64.
+  amd64, as well as **24.04 ("noble")** support on arm64.
 
 - Optional (but recommended) [bspm](https://cloud.r-project.org/package=bspm) use
   **automagically connects R functions like `install.packages()` to `apt`** for access to binaries 
