@@ -1,0 +1,59 @@
+# do not build on focal
+gastempt
+rolog
+rswipl
+# does not build on focal (sf needs newer gdal)
+sf
+#gdalraster
+# because of gdalraster
+#FIESTA
+#FIESTAutils
+# old library for QL
+RQuantLib
+# no C++20 on focal
+triptych
+glmmrBase
+glmmrOptim
+treestats
+# the protobuf is too old
+bigrquerystorage
+# requires glmmrBase (>= 0.7.1)
+rts2
+# dwarf debug info issue (possibly from adbcodbc coming in)
+adbcpostgresql
+# no C++20 on focal
+spaths
+# dwarf debug info issue
+gpboost
+# because treestats is a no
+secsse
+# because compilation fails (g++-9 ?) even right libgdal-dev=3.0.4+dfsg-1build3
+gdalraster
+# CMake too old (3.19 needed)
+MPCR
+# dwarf debug issue
+speakeasyR
+# dwarf debug issue
+arrow
+# ructc too old (needs >= 1.67)
+arcgisgeocode
+# libgit2 too old (needs >= 1.0)
+git2r
+# use dynamic library too new for focal
+minired
+redatamx
+# wants <ranges> header (C++20), won't compile under g++ 9.4.0
+SensIAT
+# wants C++20
+cppcontainers
+# cmake too old
+sundialr
+# wants newer sf for stars
+alcyon
+# does not build (openmpt error)
+openmpt
+# wants C++20
+rayrender
+# barks on 'false' not declared under g++ 9 (now fixed)
+#parseLatex
+
