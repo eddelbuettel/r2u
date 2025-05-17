@@ -125,7 +125,7 @@ supported and you could swap "focal" or "noble" in below (or use one of the scri
 
 Here, we show the setup step by step for 'jammy' aka Ubuntu 22.04 (as it is still the most-widely
 used distribution per our logs, though we may update this to 24.04 soon). You should run all these
-commands as `root` to carefully review each one. If you prefer the newer Ubuntu 24.04, please see
+commands as `root` so carefully review each one. If you prefer the newer Ubuntu 24.04, please see
 the
 [`add_cranapt_noble.sh`](https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/add_cranapt_noble.sh)
 script which also avoids the now-deprecated `apt-key` command).
