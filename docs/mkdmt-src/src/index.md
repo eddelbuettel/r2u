@@ -335,12 +335,19 @@ cumulative and average weekly downloads (the latter one on a log scale).
 
 Please file issues at the [GitHub issues for r2u](https://github.com/eddelbuettel/r2u/issues).
 
+### Background
+
+The (re-)recorded invited plenary talk from the [11eme Rencontres R at
+Mons](https://rr2025.sciencesconf.org/)
+([slides](https://dirk.eddelbuettel.com/papers/recontres_r_r2u_may2025.pdf)) gives some background,
+context and scope.
+
+[![r2u plenary talk](https://img.youtube.com/vi/IxMx7v0BJGw/0.jpg)](https://www.youtube.com/watch?v=IxMx7v0BJGw)
 
 ### Frequently Asked Questions
 
 Please also see the [FAQ](https://eddelbuettel.github.io/r2u/vignettes/FAQ/) for answers to
 _Frequently Asked Questions_.
-
 
 ### Known Issues
 
