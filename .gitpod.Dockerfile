@@ -1,4 +1,4 @@
-FROM rocker/r2u:jammy
+FROM rocker/r2u
 RUN apt update -qq \
     && apt install --yes --no-install-recommends git sudo \
     && useradd -l -u 33333 -G sudo -md /home/gitpod -s /bin/bash -p gitpod gitpod \
