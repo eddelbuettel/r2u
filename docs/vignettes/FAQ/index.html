@@ -956,13 +956,14 @@ anymore given the changes described in the first. All good!)</p>
 you keep the <code>sources.list</code> entry on the LTS release you have as we (just
 like many other repositories) only provide LTS releases and no interim
 releases. </p>
-<p>When running 22.10 / 23.04 / 23.10 / 24.10 on a laptop with r2u, we are aware of one
+<p>When running 22.10 / 23.04 / 23.10 / 24.10 / 25.04 on a laptop with r2u, we are aware of one
 binary for the <a href="https://cloud.r-project.org/package=av">av</a> which ends up
 with a library dependency no longer satisified by the distribution. So we
 built ourselves an ad-hoc new binary of <code>r-cran-av</code> for the distro we ran. We
 will keep an eye on this to see if it affects other packages. If you find
 one, please file an issue. We think we can address this with a supplementary
-repo on an 'as-needed' basis.</p>
+repo on an 'as-needed' basis. It may also help to keep the preceding LTS
+sources entry along with the newer non-LTS entry.</p>
 <h3 id="why-does-it-have-more-packages-than-cran">Why does it have more packages than CRAN ?</h3>
 <p>We (at least currently) do not purge packages from r2u that have been
 archived at CRAN.  Hence the set of packages at r2u grows faster and further
@@ -982,7 +983,7 @@ thanks to expanded support at GitHub Actions we can also support arm64.</p>
 product manager at a large cloud provider, get in touch. I have the infrastructure here, and nearly
 three decades of experience creating <code>.deb</code> packages. This <em>can be done</em> and on some platforms it
 makes a ton of sense to add support and the beginning of arm64 support shows.  Otherwise the focus
-will remain in a <code>x86_64</code> world.</p>
+will remain in a <code>x86_64</code> world though we now also provide full arm64 support.</p>
 <h3 id="why-can-i-not-uninstall-packages-with-removepackages">Why can I not uninstall packages with <code>remove.packages()</code> ?</h3>
 <p>This issue is known and documented, for example under <a href="https://github.com/eddelbuettel/r2u?tab=readme-ov-file#known-issues">known issues in the main GitHub
 README</a> shadowed in <a href="https://eddelbuettel.github.io/r2u/#known-issues">the main
