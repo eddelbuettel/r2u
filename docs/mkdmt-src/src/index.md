@@ -331,6 +331,12 @@ cumulative and average weekly downloads (the latter one on a log scale).
 
 ![](https://eddelbuettel.github.io/images/2025-06-24/r2u_aggregated_and_weekly_2025-06-24.png)
 
+### GitHub Stars
+
+Stars are accruing at a regular pace as shown on the [star history](https://www.star-history.com/) chart below.
+
+[![Star History Chart](https://api.star-history.com/svg?repos=eddelbuettel/r2u&type=Date)](https://www.star-history.com/#eddelbuettel/r2u&Date)
+
 ### Support
 
 Please file issues at the [GitHub issues for r2u](https://github.com/eddelbuettel/r2u/issues).

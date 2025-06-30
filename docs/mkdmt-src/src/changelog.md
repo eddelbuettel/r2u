@@ -1,5 +1,12 @@
 ###  2025 
 
+2025-06-19  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * .devcontainer/devcontainer.json: Set container to 'base:ubuntu' for 
+        a rolling designation (as opposed to specific one) 
+ 
+        * .gitpod.Dockerfile: Set container to (default) latest 
+ 
 2025-05-01  Dirk Eddelbuettel  <edd@debian.org> 
  
         * README.md: Note BioConductor 3.21 support for jammy and focal 
