@@ -52,9 +52,11 @@ the five easy setup steps detailed here.
 We generally support amd64 (_i.e._ standard 64-bit Intel/AMD cpus, sometimes also called x86_64) for
 the current Ubuntu LTS release and its predecessor release (more on this
 [here](https://eddelbuettel.github.io/r2u/vignettes/FAQ/#what-about-other-architectures-besides-x86_64)).
-We use 'r-release' just like CRAN. So currently the 'focal' 20.04 LTS, 'jammy' 22.04 LTS and 'noble'
-24.04 releases are fully supported.  We are now also starting to support arm64 on 'noble' 24.04 taking
-advantage of arm64-based runners at GitHub Actions. 
+We use 'r-release' just like CRAN. So generally support the two most current LTS releases: currently
+'jammy' 22.04 LTS and 'noble' 24.04 releases are fully supported. The 'focal' 20.04 LTS release was
+the first one supported, and remains avaialble but (as of July 2025) no longer receives new
+updates. We also support arm64 on 'noble' 24.04 taking advantage of arm64-based runners at GitHub
+Actions.
 
 Support for additional cpu architectures is certainly possible but somewhat unlikely due to a lack of
 (additional hardware) resources and time. Support for other distributions is possible but unlikely
@@ -66,6 +68,7 @@ Current versions are built under R 4.4.* and R 4.5.0 and are usable under 4.4.* 
 jammy, and noble.  Binaries were initially R 4.4.* based and are now built under R 4.5.0. Some older
 packages released when we used R 4.2.* or 4.3.* may have been built with R 4.2.* or R 4.3.*, they
 will still work the same with R 4.4.* as R is generally forward-compatible.
+
 
 
 ### What is Selected ?
