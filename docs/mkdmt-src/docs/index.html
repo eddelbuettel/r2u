@@ -931,12 +931,17 @@
 </li>
 <li>
 <p><strong>Complete coverage</strong> with (using 22.04 for amd64) about 25239 CRAN packages (and 516 from
-  BioConductor) using <strong>current versions</strong>: We support R 4.4.* and 4.5.0, and
+  BioConductor) using <strong>current versions</strong>: We support R 4.4.<em> and 4.5.</em>, and
   BioConductor 3.21 (on focal, jammy and noble).</p>
 </li>
 <li>
 <p>Complete support for <strong>Ubuntu 20.04 ("focal")</strong>, <strong>22.04 ("jammy")</strong> and <strong>24.04 ("noble")</strong> on
-  amd64, as well as <strong>24.04 ("noble")</strong> support on arm64.</p>
+  amd64, as well as <strong>24.04 ("noble")</strong> support on arm64. </p>
+</li>
+<li>
+<p>We update and extend the two most-current LTS releases (now 24.04 "noble" and 22.04 "jammy")
+  daily; the previous release (20.04 "focal") has been updated up until July 2025 and remains
+  available as is. </p>
 </li>
 <li>
 <p>Optional (but recommended) <a href="https://cloud.r-project.org/package=bspm">bspm</a> use
@@ -944,7 +949,7 @@
   <em>and</em> dependencies.</p>
 </li>
 <li>
-<p><strong>Docker containers</strong> <code>rocker/r2u</code> from the <a href="https://rocker-project.org/">Rocker Project</a> for both 
+<p><strong>Docker containers</strong> <code>rocker/r2u</code> from the <a href="https://rocker-project.org/">Rocker Project</a> for 
   'focal', 'jammy' and 'noble'.</p>
 </li>
 <li>
@@ -962,15 +967,17 @@ the five easy setup steps detailed here.</p>
 <p>We generally support amd64 (<em>i.e.</em> standard 64-bit Intel/AMD cpus, sometimes also called x86_64) for
 the current Ubuntu LTS release and its predecessor release (more on this
 <a href="https://eddelbuettel.github.io/r2u/vignettes/FAQ/#what-about-other-architectures-besides-x86_64">here</a>).
-We use 'r-release' just like CRAN. So currently the 'focal' 20.04 LTS, 'jammy' 22.04 LTS and 'noble'
-24.04 releases are fully supported.  We are now also starting to support arm64 on 'noble' 24.04 taking
-advantage of arm64-based runners at GitHub Actions. </p>
+We use 'r-release' just like CRAN. So generally support the two most current LTS releases: currently
+'jammy' 22.04 LTS and 'noble' 24.04 releases are fully supported. The 'focal' 20.04 LTS release was
+the first one supported, and remains avaialble but (as of July 2025) no longer receives new
+updates. We also support arm64 on 'noble' 24.04 taking advantage of arm64-based runners at GitHub
+Actions.</p>
 <p>Support for additional cpu architectures is certainly possible but somewhat unlikely due to a lack of
 (additional hardware) resources and time. Support for other distributions is possible but unlikely
 right now (due to a lack of resources and time). P3M/PPM/RSPM now appears to also support Debian which
 could be added at some later point.</p>
-<p>Current versions are built under R 4.4.<em> and R 4.5.0 and are usable under 4.4.</em> and
-4.5.0. BioConductor release 3.21 packages are provided when required by CRAN packages for focal,
+<p>Current versions are built under R 4.4.<em> and R 4.5.</em> and are usable under 4.4.<em> and
+4.5.</em>. BioConductor release 3.21 packages are provided when required by CRAN packages for focal,
 jammy, and noble.  Binaries were initially R 4.4.<em> based and are now built under R 4.5.0. Some older
 packages released when we used R 4.2.</em> or 4.3.<em> may have been built with R 4.2.</em> or R 4.3.<em>, they
 will still work the same with R 4.4.</em> as R is generally forward-compatible.</p>

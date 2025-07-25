@@ -20,17 +20,21 @@
   [r2u.stat.illinois.edu](https://r2u.stat.illinois.edu) on the [Internet2](https://internet2.edu/) 
 
 - **Complete coverage** with (using 22.04 for amd64) about 25239 CRAN packages (and 516 from
-  BioConductor) using **current versions**: We support R 4.4.* and 4.5.0, and
+  BioConductor) using **current versions**: We support R 4.4.* and 4.5.*, and
   BioConductor 3.21 (on focal, jammy and noble).
 
 - Complete support for **Ubuntu 20.04 ("focal")**, **22.04 ("jammy")** and **24.04 ("noble")** on
-  amd64, as well as **24.04 ("noble")** support on arm64.
+  amd64, as well as **24.04 ("noble")** support on arm64. 
+  
+- We update and extend the two most-current LTS releases (now 24.04 "noble" and 22.04 "jammy")
+  daily; the previous release (20.04 "focal") has been updated up until July 2025 and remains
+  available as is. 
 
 - Optional (but recommended) [bspm](https://cloud.r-project.org/package=bspm) use
   **automagically connects R functions like `install.packages()` to `apt`** for access to binaries 
   _and_ dependencies.
   
-- **Docker containers** `rocker/r2u` from the [Rocker Project](https://rocker-project.org/) for both 
+- **Docker containers** `rocker/r2u` from the [Rocker Project](https://rocker-project.org/) for 
   'focal', 'jammy' and 'noble'.
   
 - **GitHub Actions support** to set up on Ubuntu 'latest' or via container.
@@ -63,8 +67,8 @@ Support for additional cpu architectures is certainly possible but somewhat unli
 right now (due to a lack of resources and time). P3M/PPM/RSPM now appears to also support Debian which
 could be added at some later point.
 
-Current versions are built under R 4.4.* and R 4.5.0 and are usable under 4.4.* and
-4.5.0. BioConductor release 3.21 packages are provided when required by CRAN packages for focal,
+Current versions are built under R 4.4.* and R 4.5.* and are usable under 4.4.* and
+4.5.*. BioConductor release 3.21 packages are provided when required by CRAN packages for focal,
 jammy, and noble.  Binaries were initially R 4.4.* based and are now built under R 4.5.0. Some older
 packages released when we used R 4.2.* or 4.3.* may have been built with R 4.2.* or R 4.3.*, they
 will still work the same with R 4.4.* as R is generally forward-compatible.
