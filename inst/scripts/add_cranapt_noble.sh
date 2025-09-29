@@ -18,7 +18,7 @@ apt update -qq && apt install --yes --no-install-recommends ca-certificates gnup
 gpg --homedir /tmp --no-default-keyring --keyring /usr/share/keyrings/r2u.gpg --keyserver keyserver.ubuntu.com --recv-keys A1489FE2AB99A21A 67C2D66C4B1D4339 51716619E084DAB9
 
 ## Second: add the repo -- here we use the well-connected mirror
-echo > /etc/apt/sources.list.d/r2u.sources <<EOF
+cat > /etc/apt/sources.list.d/r2u.sources <<EOF
 Types: deb
 URIs: https://r2u.stat.illinois.edu/ubuntu
 Suites: noble
@@ -28,7 +28,7 @@ Signed-By: /usr/share/keyrings/r2u.gpg
 EOF
 
 ## Third: ensure current R is used
-echo > /etc/apt/sources.list.d/cran.sources <<EOF
+cat > /etc/apt/sources.list.d/cran.sources <<EOF
 Types: deb
 URIs: https://cloud.r-project.org/bin/linux/ubuntu
 Suites: noble-cran40/
@@ -40,7 +40,7 @@ apt update -qq
 DEBIAN_FRONTEND=noninteractive apt install --yes --no-install-recommends r-base-core
 
 ## Fourth: add pinning to ensure package sorting
-echo > /etc/apt/preferences.d/99cranapt <<EOF
+cat > /etc/apt/preferences.d/99cranapt <<EOF
 Package: *
 Pin: release o=CRAN-Apt Project
 Pin: release l=CRAN-Apt Packages
@@ -52,7 +52,7 @@ EOF
 apt install --yes --no-install-recommends python3-{dbus,gi,apt} make
 ## Then install bspm (as root) and enable it, and enable a speed optimization
 Rscript -e 'install.packages("bspm")'
-echo >> /etc/R/Rprofile.site <<EOF
+cat >> /etc/R/Rprofile.site <<EOF
 suppressMessages(bspm::enable())
 options(bspm.version.check=FALSE)
 EOF
