@@ -280,7 +280,7 @@ is to switch to using the Docker container (see previous section). This is as si
 ```
     runs-on: ubuntu-latest
     container:
-      image: rocker/r2u:22.04
+      image: rocker/r2u:latest
 ```
 
 A complete example is provided in [this R package
@@ -298,7 +298,7 @@ Action](https://github.com/eddelbuettel/github-actions):
 A complete example is provided [in this
 repo](https://github.com/eddelbuettel/spotifytop50us/blob/master/.github/workflows/update.yaml)
 where we use it because using the Docker container approach makes committing back via `git` a little
-harder.
+harder. Note that is also already integrated in the [r-ci](https://eddelbuettel.github.io/r-ci) setup.
 
 ### Try It
 
@@ -331,12 +331,12 @@ only (free) [GitHub](https://github.com) and [GitPod](https://gitpod.io) account
 
 ### Usage Statistics
 
-Usage is vibrant.  As of September 2025, well over 500,000 packages are deliverd per week, with a total of
-now over fifty million packages shipped.  Early September 2023 also had the most recent and
+Usage is vibrant.  As of October 2025, well over 500,000 packages are deliverd per week, with a total of
+now over fifty four million packages shipped.  Early September 2023 also had the most recent and
 dramatic spike of _over three million packages in two days_.  The following chart gives a summary of
 cumulative and average weekly downloads (the latter one on a log scale).
 
-![](https://eddelbuettel.github.io/images/2025-09-01/r2u_aggregated_and_weekly_2025-09-01.png)
+![](https://eddelbuettel.github.io/images/2025-10-01/r2u_aggregated_and_weekly_2025-10-01.png)
 
 ### GitHub Stars
 
