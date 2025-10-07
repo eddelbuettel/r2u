@@ -538,7 +538,12 @@ buildUpdatedPackages <- function(tgt, debug=FALSE, verbose=FALSE, force=FALSE, x
 ## Helper function for GitHub Actions builds and specific to arm64
 ## N is now obsolete
 #  no longer in rd @rdname buildPackage
-.getBuildTargets <- function(filename="", N=200, nbatch=40, platform=.platform(), verbose=TRUE) {
+.getBuildTargets <- function(filename="",
+                             N=200,         		# unused, to be removed one day...
+                             nbatch=40,			# builds in one batch given GitHub Action limits
+                             platform=.platform(),	# architecture ie arm64 or amd64
+                             verbose=TRUE,		# show progression details if true
+                             prefix="") {		# used on output (ie to env.var named prefix)
     .addBlacklist(.pkgenv[["distribution"]])            # add distro-release blacklist
     .addBlacklist(platform)             		# add arch blacklist (for arm64)
 
@@ -589,9 +594,9 @@ buildUpdatedPackages <- function(tgt, debug=FALSE, verbose=FALSE, force=FALSE, x
     P <- head(P, min(nbatch, nrow(P)))
     if (verbose) {
         print(P)
-        .toTargets(P[,Package])
+        .toTargets(P[,Package], prefix=prefix)
     }
 
-    .toTargets(P[, Package], filename) 	   # actual effect of writing out
-    invisible(P)                           # available for debug print if needed
+    .toTargets(P[, Package], filename, , prefix=prefix)    	# actual effect of writing out
+    invisible(P)                           			# available for debug print if needed
 }
