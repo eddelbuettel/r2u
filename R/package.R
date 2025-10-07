@@ -401,7 +401,7 @@ buildUpdatedPackages <- function(tgt, debug=FALSE, verbose=FALSE, force=FALSE, x
 }
 
 # no longer in rd @rdname buildPackage
-.toTargets <- function(pkgs, filename="") {
+.toTargets <- function(pkgs, filename="", prefix="") {
     ## this version is used for amd64 where the stdout is redirected
     ##
     ## this corresponds to the `jq` based snippet to turn a vector of packages into a JSON expression
@@ -412,7 +412,11 @@ buildUpdatedPackages <- function(tgt, debug=FALSE, verbose=FALSE, force=FALSE, x
     ## > toTargets(vec)
     ## {"target":["microbenchmark","parallelly","bitops","matrixStats"]}
     ## >
-    cat('{"target":[', sep="", file=filename)
+    ## the prefix can be used to create something we can used for an env.var assignment
+    ## > .toTargets(vec, prefix="TARGET")
+    ## TARGET={"target":["microbenchmark","parallelly","bitops","matrixStats"]}
+    ## >
+    cat(ifelse(nzchar(prefix), paste0(prefix,"=")),'{"target":[', sep="", file=filename)
     lastpkgs <- tail(pkgs,1)
     for (p in pkgs) {
         cat('"', p, '"', sep="", file=filename, append=TRUE)
