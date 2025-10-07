@@ -416,7 +416,7 @@ buildUpdatedPackages <- function(tgt, debug=FALSE, verbose=FALSE, force=FALSE, x
     ## > .toTargets(vec, prefix="TARGET")
     ## TARGET={"target":["microbenchmark","parallelly","bitops","matrixStats"]}
     ## >
-    cat(ifelse(nzchar(prefix), paste0(prefix,"=")),'{"target":[', sep="", file=filename)
+    cat(ifelse(nzchar(prefix), paste0(prefix,"=")),'{"target":[', sep="", file=filename, append=nzchar(prefix))
     lastpkgs <- tail(pkgs,1)
     for (p in pkgs) {
         cat('"', p, '"', sep="", file=filename, append=TRUE)
