@@ -416,7 +416,11 @@ buildUpdatedPackages <- function(tgt, debug=FALSE, verbose=FALSE, force=FALSE, x
     ## > .toTargets(vec, prefix="TARGET")
     ## TARGET={"target":["microbenchmark","parallelly","bitops","matrixStats"]}
     ## >
-    cat(ifelse(nzchar(prefix), paste0(prefix,"=")),'{"target":[', sep="", file=filename, append=nzchar(prefix))
+    if (nzchar(prefix)) { # if we have a prefix, use it at beginning and apped
+        cat(paste0(prefix,"="),'{"target":[', sep="", file=filename, append=TRUE)
+    } else {
+        cat('{"target":[', sep="", file=filename)
+    }
     lastpkgs <- tail(pkgs,1)
     for (p in pkgs) {
         cat('"', p, '"', sep="", file=filename, append=TRUE)
@@ -597,6 +601,6 @@ buildUpdatedPackages <- function(tgt, debug=FALSE, verbose=FALSE, force=FALSE, x
         .toTargets(P[,Package], prefix=prefix)
     }
 
-    .toTargets(P[, Package], filename, , prefix=prefix)    	# actual effect of writing out
+    .toTargets(P[, Package], filename, prefix=prefix)    	# actual effect of writing out
     invisible(P)                           			# available for debug print if needed
 }
