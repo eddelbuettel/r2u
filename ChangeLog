@@ -1,3 +1,11 @@
+2025-10-31  Dirk Eddelbuettel  <edd@debian.org>
+
+	* README.md: Note BioConductor 3.22 support for jammy
+
+2025-10-30  Dirk Eddelbuettel  <edd@debian.org>
+
+	* README.md: Note BioConductor 3.22 support for noble
+
 2025-06-19  Dirk Eddelbuettel  <edd@debian.org>
 
 	* .devcontainer/devcontainer.json: Set container to 'base:ubuntu' for
