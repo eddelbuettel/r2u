@@ -332,7 +332,7 @@ now over fifty four million packages shipped.  Early September 2023 also had the
 dramatic spike of _over three million packages in two days_.  The following chart gives a summary of
 cumulative and average weekly downloads (the latter one on a log scale).
 
-![](https://eddelbuettel.github.io/images/2025-10-01/r2u_aggregated_and_weekly_2025-10-01.png)
+![](https://eddelbuettel.github.io/images/2025-11-01/r2u_aggregated_and_weekly_2025-11-01.png)
 
 ### GitHub Stars
 
