@@ -19,7 +19,7 @@
 - **Fast and well-connected mirror** at
   [r2u.stat.illinois.edu](https://r2u.stat.illinois.edu) on the [Internet2](https://internet2.edu/) 
 
-- **Complete coverage** with (using 22.04 for amd64) about 29323 CRAN packages (and 617 from
+- **Complete coverage** with (using 24.04 for amd64 and arm64) about 29348 CRAN packages (and 617 from
   BioConductor) using **current versions**: We support R 4.4.* and 4.5.*, and BioConductor 3.22 (on
   noble and jammy; focal is in archived mode and remains at 3.21); for 24.04 aka noble BioConductor
   is available for both amd64 and arm64.
@@ -92,7 +92,7 @@ So we now cover
     [scoring](https://bioconductor.org/packages/stats/bioc/bioc_pkg_scores.tab) BioConductor
     packages (also covering _e.g._ all BioConductor packages in the Debian and Ubuntu distributions)
 
-This currently results in 25706, 26466, 29323 binary packages from CRAN in "focal", "jammy", and
+This currently results in 25706, 26466, 29348 binary packages from CRAN in "focal", "jammy", and
 "noble", respectively, and 431, 526, and 617 BioConductor packages, respectively, from the 3.22
 (noble, jammy) and 3.21 (focal) releases. (See this
 [FAQ](https://eddelbuettel.github.io/r2u/vignettes/FAQ/#why-does-it-have-more-packages-than-cran)
