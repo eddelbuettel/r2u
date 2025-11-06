@@ -1,3 +1,7 @@
+2025-11-06  Dirk Eddelbuettel  <edd@debian.org>
+
+	* README.md: Note BioConductor 3.22 support for arm64 on noble
+
 2025-10-31  Dirk Eddelbuettel  <edd@debian.org>
 
 	* README.md: Note BioConductor 3.22 support for jammy
