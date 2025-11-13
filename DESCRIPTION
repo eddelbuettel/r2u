@@ -8,7 +8,7 @@ Authors@R: person("Dirk", "Eddelbuettel", role = c("aut", "cre"), email = "edd@d
 Description: P3M/PPM/RSPM binary packages are turned into Ubuntu packages containing
  proper system dependency information.
 License: GPL (>= 2)
-Depends: R (>= 4.0.0)
-Imports: data.table, crayon, utils
+Depends: R (>= 4.1.0)
+Imports: data.table, crayon, utils, httr
 Suggests: whoami
 RoxygenNote: 6.0.1
