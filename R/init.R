@@ -184,8 +184,9 @@
         } else {
             .debug_message("No config file\n")
             .pkgenv[["config_file"]] <- ""
-            .pkgenv[["bioc_version"]] <- "3.20"
+            .pkgenv[["bioc_version"]] <- "3.22"
             .pkgenv[["package_cache"]] <- "/var/local/r2u/cache"
+            .pkgenv[["package_repo_preference"]] <- "p3m"
         }
         ## fallbacks, overriden when 'tgt' specified
         .pkgenv[["distribution"]] <- "24.04"
@@ -276,6 +277,7 @@
 .loadAP <- function(hrs = .pkgenv[["cache_age_hours_cran_db"]],
                     repo = .pkgenv[["package_repo_preference"]],
                     force = FALSE) {
+    if (missing(repo)) repo <- "p3m"
     match.arg(repo, c("p3m", "cran"))
     if (is.na(match("ap", names(.pkgenv))) || isTRUE(force)) {
         .debug_message("Getting ap\n")
