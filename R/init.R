@@ -34,6 +34,7 @@
     cat("bioc_version: 3.22\n",             file = fname, append = TRUE)
     cat("debian_policy_version: 4.7.0\n",   file = fname, append = TRUE)
     cat("cache_age_hours_cran_db: 3\n",     file = fname, append = TRUE)
+    cat("package_repo_preference: p3m\n",   file = fname, append = TRUE)
     cat("r2u_directory: /var/local/r2u/\n", file = fname, append = TRUE)
     cat("package_cache: /var/local/r2u/cache\n", file = fname, append = TRUE)
     cat("build_directory: /var/local/r2u/build\n",file = fname, append = TRUE)
@@ -174,6 +175,7 @@
             .pkgenv[["bioc_version"]] <- cfg[1, "bioc_version"]
             .pkgenv[["debian_policy_version"]] <- cfg[1, "debian_policy_version"]
             .pkgenv[["cache_age_hours_cran_db"]] <- as.integer(cfg[1, "cache_age_hours_cran_db"])
+            .pkgenv[["package_repo_preference"]] <- if (is.finite(match("package_repo_preference", colnames(cfg)))) cfg[1, "package_repo_preference"] else "p3m"
             .pkgenv[["package_cache"]] <- cfg[1, "package_cache"]
             .pkgenv[["r2u_directory"]] <- cfg[1, "r2u_directory"]
             .pkgenv[["build_directory"]] <- cfg[1, "build_directory"]
@@ -271,8 +273,11 @@
     db
 }
 
-.loadAP <- function(hrs = .pkgenv[["cache_age_hours_cran_db"]]) {
-    if (is.na(match("ap", names(.pkgenv)))) {
+.loadAP <- function(hrs = .pkgenv[["cache_age_hours_cran_db"]],
+                    repo = .pkgenv[["package_repo_preference"]],
+                    force = FALSE) {
+    match.arg(repo, c("p3m", "cran"))
+    if (is.na(match("ap", names(.pkgenv))) || isTRUE(force)) {
         .debug_message("Getting ap\n")
         apfile <- .defaultAPFile()
         ap <- NULL
@@ -282,7 +287,7 @@
                 .debug_message("Cached ap\n")
             }
         }
-        if (is.null(ap)) {
+        if (is.null(ap) || isTRUE(force)) {
             .debug_message("Fresh ap\n")
 
             ## also:
@@ -305,10 +310,11 @@
 
             ## the returned set is tools::CRAN_package_db() and _not_ dependent on the distribution name
             ## when we run at GH we do not want / need ppm as it lags a day so switch to CRAN there
-            ppmrepo <- "https://packagemanager.posit.co/all/__linux__/jammy/latest"
-            ##cranrepo <- "https://cloud.r-project.org"
+            ppmrepo <- "https://packagemanager.posit.co/all/__linux__/noble/latest"
+            cranrepo <- "https://cloud.r-project.org"
             ##aprepo <- if (nzchar(Sys.getenv("CI", ""))) ppmrepo else cranrepo
-            aprepo <- ppmrepo
+            ##aprepo <- cranrepo
+            aprepo <- if (repo == "p3m") ppmrepo else cranrepo
             apPPM <- data.table(ap="CRAN", as.data.frame(available.packages(repos=aprepo)))
             ap <- merge(apPPM, apBIOC, all=TRUE)
 
