@@ -196,6 +196,20 @@
     }
 }
 
+.updateConfig <- function(cfg, key, value) {
+    if (is.na(match(key, colnames(cfg)))) {
+        ## key does not yet exist so append with 1x1 matrix
+        cfg <- cbind(cfg, matrix(value, 1, 1, dimnames=list("", key)))
+    } else {
+        cfg[1, key] <- value
+    }
+    cfg
+}
+
+.writeConfigFile <- function(cfg, file) {
+    write.dcf(cfg[1, , drop = FALSE], file = file)
+}
+
 .checkTarget <- function(tgt) {
     if (tgt == "20.04" || tgt == "focal") {
         .pkgenv[["distribution"]] <- "20.04"
@@ -463,3 +477,4 @@ t}
     .loadRuntimedepends()
     .setOptions()
 }
+
