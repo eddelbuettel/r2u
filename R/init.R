@@ -313,7 +313,7 @@
             ## the returned set is tools::CRAN_package_db() and _not_ dependent on the distribution name
             ## when we run at GH we do not want / need ppm as it lags a day so switch to CRAN there
             ppmrepo <- "https://packagemanager.posit.co/all/__linux__/noble/latest"
-            cranrepo <- "https://cloud.r-project.org"
+            cranrepo <- "https://cran.r-project.org"
             ##aprepo <- if (nzchar(Sys.getenv("CI", ""))) ppmrepo else cranrepo
             ##aprepo <- cranrepo
             aprepo <- if (repo == "p3m") ppmrepo else cranrepo
