@@ -104,13 +104,18 @@ it accessess, or do not have the required more recent toolchain component) plus 
 
 ### What is it Based On?
 
-For the CRAN binaries we either repackage
+Initially, for the CRAN binaries we repackaged
 [P3M/RSPM/PPM](https://packagemanager.rstudio.com/client/#/repos/2/packages/) builds (where
 available) or build natively. All selected BioConductor packages are built natively.  For all of
-these, full dependency resolution and integration with the system is a key feature.
+these, full dependency resolution and integration with the system is a key feature.  For arm64 we
+started to build from source as we did for BioConductor.  Initially we build BioConductor packages
+locally too; this was moved to GitHub Actions in 2025. The experience of building via GitHub Action
+for both arm64 and BioConductor has been generally positive so now _everything_ is built from source
+at GitHub Actions in the [r2u-builder](https://github.com/eddelbuettel/r2u-builder) repository
+(which used to be the r2u-bioc-builder repository).
 
-Everything is provided as `.deb` binary files with proper dependency
-resolution by using a proper `apt` repo which also has a signed Release file.
+Everything is provided as `.deb` binary files with proper dependency resolution by using a proper
+`apt` repo which also has a signed Release file.
 
 
 ### Usage and Setup

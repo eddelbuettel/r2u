@@ -1004,12 +1004,17 @@ about why this number is higher than CRAN, and variable between releases.)</p>
 it accessess, or do not have the required more recent toolchain component) plus a handful or so of
 'odd builds' that fail and are skipped.</p>
 <h3 id="what-is-it-based-on">What is it Based On?</h3>
-<p>For the CRAN binaries we either repackage
+<p>Initially, for the CRAN binaries we repackaged
 <a href="https://packagemanager.rstudio.com/client/#/repos/2/packages/">P3M/RSPM/PPM</a> builds (where
 available) or build natively. All selected BioConductor packages are built natively.  For all of
-these, full dependency resolution and integration with the system is a key feature.</p>
-<p>Everything is provided as <code>.deb</code> binary files with proper dependency
-resolution by using a proper <code>apt</code> repo which also has a signed Release file.</p>
+these, full dependency resolution and integration with the system is a key feature.  For arm64 we
+started to build from source as we did for BioConductor.  Initially we build BioConductor packages
+locally too; this was moved to GitHub Actions in 2025. The experience of building via GitHub Action
+for both arm64 and BioConductor has been generally positive so now <em>everything</em> is built from source
+at GitHub Actions in the <a href="https://github.com/eddelbuettel/r2u-builder">r2u-builder</a> repository
+(which used to be the r2u-bioc-builder repository).</p>
+<p>Everything is provided as <code>.deb</code> binary files with proper dependency resolution by using a proper
+<code>apt</code> repo which also has a signed Release file.</p>
 <h3 id="usage-and-setup">Usage and Setup</h3>
 <p>(Note that you could use one of the scripts
 <a href="https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/add_cranapt_noble.sh"><code>add_cranapt_noble.sh</code></a>
