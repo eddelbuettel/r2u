@@ -350,12 +350,31 @@
     }
 }
 
+.retrying.downloader <- function(url, tfile) {
+    max_retries <- 5
+    sleep_time <- 1
+    for (i in 1:max_retries) {
+        result <- tryCatch({
+            download.file(url, destfile, quiet=TRUE)
+            TRUE # mark success
+        }, error = function(e) {
+            warning("Download attempt ", i, " failed: ", e$message)
+            FALSE # mark failure
+        })
+        if (result)
+            break # Exit loop on success
+        if (i < max_retries)
+            Sys.sleep(1 + i*2) # Wait 5 seconds before retrying
+    }
+    file.exists(tfile)
+}
+
 .allBuilds <- function(tgt, pltfrm) {
     if (missing(tgt)) tgt <- .pkgenv[["distribution_name"]]
     if (missing(pltfrm)) pltfrm <- .platform()
     tfile <- tempfile(fileext=".rds")
     url <- file.path("https://r2u.stat.illinois.edu/ubuntu/pool/dists", tgt, "main/builds.rds")
-    download.file(url, tfile, quiet=TRUE)
+    .retrying.downloader(url, tfile)
     B <- readRDS(tfile)
     unlink(tfile)
     B <- B[arch %in% c("all", pltfrm), ]
