@@ -355,7 +355,7 @@
     sleep_time <- 1
     for (i in 1:max_retries) {
         result <- tryCatch({
-            download.file(url, destfile, quiet=TRUE)
+            download.file(url, tfile, quiet=TRUE)
             TRUE # mark success
         }, error = function(e) {
             warning("Download attempt ", i, " failed: ", e$message)
