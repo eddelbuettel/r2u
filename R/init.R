@@ -34,7 +34,7 @@
     cat("bioc_version: 3.22\n",             file = fname, append = TRUE)
     cat("debian_policy_version: 4.7.0\n",   file = fname, append = TRUE)
     cat("cache_age_hours_cran_db: 3\n",     file = fname, append = TRUE)
-    cat("package_repo_preference: p3m\n",   file = fname, append = TRUE)
+    cat("package_repo_preference: cran\n",   file = fname, append = TRUE)
     cat("r2u_directory: /var/local/r2u/\n", file = fname, append = TRUE)
     cat("package_cache: /var/local/r2u/cache\n", file = fname, append = TRUE)
     cat("build_directory: /var/local/r2u/build\n",file = fname, append = TRUE)
@@ -175,7 +175,7 @@
             .pkgenv[["bioc_version"]] <- cfg[1, "bioc_version"]
             .pkgenv[["debian_policy_version"]] <- cfg[1, "debian_policy_version"]
             .pkgenv[["cache_age_hours_cran_db"]] <- as.integer(cfg[1, "cache_age_hours_cran_db"])
-            .pkgenv[["package_repo_preference"]] <- if (is.finite(match("package_repo_preference", colnames(cfg)))) cfg[1, "package_repo_preference"] else "p3m"
+            .pkgenv[["package_repo_preference"]] <- if (is.finite(match("package_repo_preference", colnames(cfg)))) cfg[1, "package_repo_preference"] else "cran"
             .pkgenv[["package_cache"]] <- cfg[1, "package_cache"]
             .pkgenv[["r2u_directory"]] <- cfg[1, "r2u_directory"]
             .pkgenv[["build_directory"]] <- cfg[1, "build_directory"]
@@ -186,7 +186,7 @@
             .pkgenv[["config_file"]] <- ""
             .pkgenv[["bioc_version"]] <- "3.22"
             .pkgenv[["package_cache"]] <- "/var/local/r2u/cache"
-            .pkgenv[["package_repo_preference"]] <- "p3m"
+            .pkgenv[["package_repo_preference"]] <- "cran"
         }
         ## fallbacks, overriden when 'tgt' specified
         .pkgenv[["distribution"]] <- "24.04"
