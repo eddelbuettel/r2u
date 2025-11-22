@@ -458,7 +458,7 @@
         skipped <- Filter(\(x) !grepl("^#", x),  readLines(runtimedepsfile))
         .pkgenv[["runtimedeps"]] <- skipped
     }
-t}
+}
 
 .addRuntimedepends <- function(dist) {
     runtimedepsfile <- .defaultRunTimeDependsFile(dist)
