@@ -351,7 +351,7 @@
 }
 
 .retrying.downloader <- function(url, tfile) {
-    max_retries <- 5
+    max_retries <- 3
     sleep_time <- 1
     for (i in 1:max_retries) {
         result <- tryCatch({
@@ -364,7 +364,7 @@
         if (result)
             break # Exit loop on success
         if (i < max_retries)
-            Sys.sleep(1 + i*2) # Wait 5 seconds before retrying
+            Sys.sleep(1 + i) # Wait increasing amounts before retrying
     }
     file.exists(tfile)
 }
@@ -474,6 +474,7 @@ t}
 }
 
 .onLoad <- function(libname, pkgname) {
+    .setOptions()
     .loadConfig()
     .checkSystem()
     .loadDB()
@@ -482,10 +483,10 @@ t}
     .loadBuildDepends()
     .loadBlacklist()
     .loadRuntimedepends()
-    .setOptions()
 }
 
 .onAttach <- function(libname, pkgname) {
+    .setOptions()
     .loadConfig()
     .checkSystem()
     .loadDB()
@@ -494,6 +495,4 @@ t}
     .loadBuildDepends()
     .loadBlacklist()
     .loadRuntimedepends()
-    .setOptions()
 }
-
