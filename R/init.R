@@ -175,7 +175,7 @@
             .pkgenv[["bioc_version"]] <- cfg[1, "bioc_version"]
             .pkgenv[["debian_policy_version"]] <- cfg[1, "debian_policy_version"]
             .pkgenv[["cache_age_hours_cran_db"]] <- as.integer(cfg[1, "cache_age_hours_cran_db"])
-            .pkgenv[["package_repo_preference"]] <- if (is.finite(match("package_repo_preference", colnames(cfg)))) cfg[1, "package_repo_preference"] else "cran"
+            .pkgenv[["package_repo_preference"]] <- if (is.finite(match("package_repo_preference", colnames(cfg)))) cfg[1, "package_repo_preference"][[1]] else "cran"
             .pkgenv[["package_cache"]] <- cfg[1, "package_cache"]
             .pkgenv[["r2u_directory"]] <- cfg[1, "r2u_directory"]
             .pkgenv[["build_directory"]] <- cfg[1, "build_directory"]
@@ -291,7 +291,7 @@
 .loadAP <- function(hrs = .pkgenv[["cache_age_hours_cran_db"]],
                     repo = .pkgenv[["package_repo_preference"]],
                     force = FALSE) {
-    if (missing(repo)) repo <- "p3m"
+    if (missing(repo)) repo <- "cran"
     match.arg(repo, c("p3m", "cran"))
     if (is.na(match("ap", names(.pkgenv))) || isTRUE(force)) {
         .debug_message("Getting ap\n")
