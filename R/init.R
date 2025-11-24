@@ -470,7 +470,8 @@
 
 
 .setOptions <- function() {
-    options(timeout = 180) 		# up from default of 60
+    options(timeout = 180, 					# up from default of 60
+            repos = c(CRAN="https://cran.r-project.org"))       # instead of cloud.r-p.o
 }
 
 .onLoad <- function(libname, pkgname) {
