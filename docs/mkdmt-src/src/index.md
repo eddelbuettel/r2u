@@ -267,20 +267,19 @@ This is also documented in the [FAQ](https://eddelbuettel.github.io/r2u/vignette
 
 We are now starting to see derived containers:
 
-- [BioConductor](https://www.bioconductor.org/) has an (alpha release) project
-[bioc2u](https://github.com/Bioconductor/bioc2u) providing (internal ?) BioConductor builds
-- [Jeffrey Girard](https://github.com/jmgirard) created
-[rstudio2u](https://github.com/jmgirard/rstudio2u) which adds RStudio to the
-base layer provided by r2u.
+- [BioConductor](https://www.bioconductor.org/) has an (alpha release) project [bioc2u](https://github.com/Bioconductor/bioc2u) providing (internal ?) BioConductor builds.
+- [Jeffrey Girard](https://github.com/jmgirard) created [rstudio2u](https://github.com/jmgirard/rstudio2u) which adds RStudio to the base layer provided by r2u.
+- [Dirk Eddelbuettel](https://github.com/eddelbuettel) created the [r2u4ci](https://github.com/rocker-org/r2u/blob/master/noble_ci/Dockerfile) variant for CI use (see also next section).
 
 It is encouraging to see such specialisations based off r2u itself.
 
 
 ### GitHub Actions
 
-There are two basic ways to take advantage of *r2u* in a GitHub Actions.  The first, and simplest,
-is to switch to using the Docker container (see previous section). This is as simple as adding the
-`container:` statement after `runs-on:` in `jobs:` section:
+There are a number of ways to take advantage of *r2u* in GitHub Actions. The first, oldest, and
+conceptually possibly simplest, is to switch to using the Docker container (see previous
+section). This can be as easy as adding the `container:` statement after `runs-on:` in `jobs:`
+section:
 
 ```
     runs-on: ubuntu-latest
@@ -288,12 +287,21 @@ is to switch to using the Docker container (see previous section). This is as si
       image: rocker/r2u:latest
 ```
 
-A complete example is provided in [this R package
-repo](https://github.com/eddelbuettel/RcppInt64/blob/master/.github/workflows/r2u.yaml). The key
-advantage of this approach is that everything is already set up.
+A complete example is provided in [this action
+file](https://github.com/eddelbuettel/RcppInt64/blob/master/.github/workflows/r2u.yaml) from R
+package [RcppInt64](https://github.com/eddelbuettel/RcppInt64). The key advantage of this approach
+is that everything for *r2u* is already set up (but some tools you may want CI are missing, so
+please read on). This can even be used in a [Matrix
+setup](https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/run-job-variations)
+if one makes the container specification an argument present with, say, `ubuntu-latest`, but not the
+others. An example is provided [in this alternate actions
+file](https://github.com/eddelbuettel/RcppInt64/blob/master/.github/workflows/ci.yaml) which uses
+the *r2u4ci* container variant described in the previous section. This alternate container can be
+used in the preceding example, it has the advantage of bringing a handful of additional binaries
+(including `sudo`) to the container.
 
-A second approach consists of adding *r2u* as a step via [the `r2u-setup` GitHub
-Action](https://github.com/eddelbuettel/github-actions):
+An alternative approach consists of adding *r2u* as a step via [the `r2u-setup` GitHub
+Action](https://github.com/eddelbuettel/github-actions/tree/master/r2u-setup):
 
 ```
       - name: Setup r2u
@@ -303,7 +311,21 @@ Action](https://github.com/eddelbuettel/github-actions):
 A complete example is provided [in this
 repo](https://github.com/eddelbuettel/spotifytop50us/blob/master/.github/workflows/update.yaml)
 where we use it because using the Docker container approach makes committing back via `git` a little
-harder. Note that is also already integrated in the [r-ci](https://eddelbuettel.github.io/r-ci) setup.
+harder. 
+
+But given that *r2u* has also been integrated in the [r-ci](https://eddelbuettel.github.io/r-ci)
+setup, by far the most common use likely to enable [r-ci](https://eddelbuettel.github.io/r-ci) via
+its [setup action](https://github.com/eddelbuettel/github-actions/tree/master/r-ci). This is used in
+dozens of packages, one example is provided [in this yaml
+file](https://github.com/eddelbuettel/zigg/blob/master/.github/workflows/ci.yaml) which is in fact
+used unchanged in many different packages.
+
+Using [r-ci](https://eddelbuettel.github.io/r-ci) via its setup action also gives the ability to
+deploy the new `ubuntu-slim` images at GitHub which are especially useful for lighterweight task
+running in under fifteen minutes (which *r2u* of course enables by providing binaries fast, easy and
+reliably). However, initial experiments suggest that the run-time can be a little worse. This may
+improve at which point this may be become more attractive. Also note that containers cannot be
+launched inside `ubuntu-slim` so one is limited to the setup action.
 
 ### Try It
 

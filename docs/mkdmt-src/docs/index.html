@@ -1119,25 +1119,33 @@ This is also documented in the <a href="https://eddelbuettel.github.io/r2u/vigne
 <p><strong>Contributed Containers</strong></p>
 <p>We are now starting to see derived containers:</p>
 <ul>
-<li><a href="https://www.bioconductor.org/">BioConductor</a> has an (alpha release) project
-<a href="https://github.com/Bioconductor/bioc2u">bioc2u</a> providing (internal ?) BioConductor builds</li>
-<li><a href="https://github.com/jmgirard">Jeffrey Girard</a> created
-<a href="https://github.com/jmgirard/rstudio2u">rstudio2u</a> which adds RStudio to the
-base layer provided by r2u.</li>
+<li><a href="https://www.bioconductor.org/">BioConductor</a> has an (alpha release) project <a href="https://github.com/Bioconductor/bioc2u">bioc2u</a> providing (internal ?) BioConductor builds.</li>
+<li><a href="https://github.com/jmgirard">Jeffrey Girard</a> created <a href="https://github.com/jmgirard/rstudio2u">rstudio2u</a> which adds RStudio to the base layer provided by r2u.</li>
+<li><a href="https://github.com/eddelbuettel">Dirk Eddelbuettel</a> created the <a href="https://github.com/rocker-org/r2u/blob/master/noble_ci/Dockerfile">r2u4ci</a> variant for CI use (see also next section).</li>
 </ul>
 <p>It is encouraging to see such specialisations based off r2u itself.</p>
 <h3 id="github-actions">GitHub Actions</h3>
-<p>There are two basic ways to take advantage of <em>r2u</em> in a GitHub Actions.  The first, and simplest,
-is to switch to using the Docker container (see previous section). This is as simple as adding the
-<code>container:</code> statement after <code>runs-on:</code> in <code>jobs:</code> section:</p>
+<p>There are a number of ways to take advantage of <em>r2u</em> in GitHub Actions. The first, oldest, and
+conceptually possibly simplest, is to switch to using the Docker container (see previous
+section). This can be as easy as adding the <code>container:</code> statement after <code>runs-on:</code> in <code>jobs:</code>
+section:</p>
 <pre><code>    runs-on: ubuntu-latest
     container:
       image: rocker/r2u:latest
 </code></pre>
-<p>A complete example is provided in <a href="https://github.com/eddelbuettel/RcppInt64/blob/master/.github/workflows/r2u.yaml">this R package
-repo</a>. The key
-advantage of this approach is that everything is already set up.</p>
-<p>A second approach consists of adding <em>r2u</em> as a step via <a href="https://github.com/eddelbuettel/github-actions">the <code>r2u-setup</code> GitHub
+<p>A complete example is provided in <a href="https://github.com/eddelbuettel/RcppInt64/blob/master/.github/workflows/r2u.yaml">this action
+file</a> from R
+package <a href="https://github.com/eddelbuettel/RcppInt64">RcppInt64</a>. The key advantage of this approach
+is that everything for <em>r2u</em> is already set up (but some tools you may want CI are missing, so
+please read on). This can even be used in a <a href="https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/run-job-variations">Matrix
+setup</a>
+if one makes the container specification an argument present with, say, <code>ubuntu-latest</code>, but not the
+others. An example is provided <a href="https://github.com/eddelbuettel/RcppInt64/blob/master/.github/workflows/ci.yaml">in this alternate actions
+file</a> which uses
+the <em>r2u4ci</em> container variant described in the previous section. This alternate container can be
+used in the preceding example, it has the advantage of bringing a handful of additional binaries
+(including <code>sudo</code>) to the container.</p>
+<p>An alternative approach consists of adding <em>r2u</em> as a step via <a href="https://github.com/eddelbuettel/github-actions/tree/master/r2u-setup">the <code>r2u-setup</code> GitHub
 Action</a>:</p>
 <pre><code>      - name: Setup r2u
         uses: eddelbuettel/github-actions/r2u-setup@master
@@ -1145,7 +1153,19 @@ Action</a>:</p>
 <p>A complete example is provided <a href="https://github.com/eddelbuettel/spotifytop50us/blob/master/.github/workflows/update.yaml">in this
 repo</a>
 where we use it because using the Docker container approach makes committing back via <code>git</code> a little
-harder. Note that is also already integrated in the <a href="https://eddelbuettel.github.io/r-ci">r-ci</a> setup.</p>
+harder. </p>
+<p>But given that <em>r2u</em> has also been integrated in the <a href="https://eddelbuettel.github.io/r-ci">r-ci</a>
+setup, by far the most common use likely to enable <a href="https://eddelbuettel.github.io/r-ci">r-ci</a> via
+its <a href="https://github.com/eddelbuettel/github-actions/tree/master/r-ci">setup action</a>. This is used in
+dozens of packages, one example is provided <a href="https://github.com/eddelbuettel/zigg/blob/master/.github/workflows/ci.yaml">in this yaml
+file</a> which is in fact
+used unchanged in many different packages.</p>
+<p>Using <a href="https://eddelbuettel.github.io/r-ci">r-ci</a> via its setup action also gives the ability to
+deploy the new <code>ubuntu-slim</code> images at GitHub which are especially useful for lighterweight task
+running in under fifteen minutes (which <em>r2u</em> of course enables by providing binaries fast, easy and
+reliably). However, initial experiments suggest that the run-time can be a little worse. This may
+improve at which point this may be become more attractive. Also note that containers cannot be
+launched inside <code>ubuntu-slim</code> so one is limited to the setup action.</p>
 <h3 id="try-it">Try It</h3>
 <p><strong>Via codespaces</strong></p>
 <p>See the vignette <a href="https://eddelbuettel.github.io/r2u/vignettes/Codespaces/">Codespaces</a> about how to

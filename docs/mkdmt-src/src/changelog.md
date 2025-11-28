@@ -1,5 +1,9 @@
 ###  2025 
 
+2025-11-19  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * README.md: Update section on build strategy noting all GHA now 
+ 
 2025-11-06  Dirk Eddelbuettel  <edd@debian.org> 
  
         * README.md: Note BioConductor 3.22 support for arm64 on noble 
