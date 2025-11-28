@@ -275,20 +275,7 @@ It is encouraging to see such specialisations based off r2u itself.
 ### GitHub Actions
 
 There are two basic ways to take advantage of *r2u* in a GitHub Actions.  The first, and simplest,
-is to switch to using the Docker container (see previous section). This is as simple as adding the
-`container:` statement after `runs-on:` in `jobs:` section:
-
-```
-    runs-on: ubuntu-latest
-    container:
-      image: rocker/r2u:latest
-```
-
-A complete example is provided in [this R package
-repo](https://github.com/eddelbuettel/RcppInt64/blob/master/.github/workflows/r2u.yaml). The key
-advantage of this approach is that everything is already set up.
-
-A second approach consists of adding *r2u* as a step via [the `r2u-setup` GitHub
+consists of adding *r2u* as a step via [the `r2u-setup` GitHub
 Action](https://github.com/eddelbuettel/github-actions):
 
 ```
@@ -300,6 +287,19 @@ A complete example is provided [in this
 repo](https://github.com/eddelbuettel/spotifytop50us/blob/master/.github/workflows/update.yaml)
 where we use it because using the Docker container approach makes committing back via `git` a little
 harder. Note that is also already integrated in the [r-ci](https://eddelbuettel.github.io/r-ci) setup.
+
+A second approach is to switch to using the Docker container (see previous section). This is as simple as adding the
+`container:` statement after `runs-on:` in `jobs:` section:
+
+```
+    runs-on: ubuntu-latest
+    container:
+      image: rocker/r2u:latest
+```
+
+A complete example is provided in [this R package
+repo](https://github.com/eddelbuettel/RcppInt64/blob/master/.github/workflows/r2u.yaml). The key
+advantage of this approach is that everything is already set up.
 
 ### Try It
 
