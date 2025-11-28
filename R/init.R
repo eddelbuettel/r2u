@@ -159,6 +159,19 @@
     return("")
 }
 
+.defaultBuildsFile <- function(tgt, force=FALSE) {
+    pkgdir <- tools::R_user_dir(packageName()) 	# ~/.local/share/R/ + package
+    if (dir.exists(pkgdir)) {
+        fname <- file.path(pkgdir, paste0("builds.", tgt, ".rds"))
+        if (file.exists(fname) || force) {
+            return(fname)
+        }
+    } else {
+        .debug_message("No builds file for ", tgt, "\n")
+    }
+    return("")
+}
+
 
 .loadConfig <- function() {
     if (is.na(match("config_file", names(.pkgenv)))) {
@@ -369,24 +382,39 @@
     file.exists(tfile)
 }
 
-.allBuilds <- function(tgt, pltfrm) {
+## The caching layer helps with the build matrix and avoids a possible (if rare) error
+## when downloading it in each build run
+.allBuilds <- function(tgt, pltfrm, hrs = .pkgenv[["cache_age_hours_cran_db"]]) {
     if (missing(tgt)) tgt <- .pkgenv[["distribution_name"]]
     if (missing(pltfrm)) pltfrm <- .platform()
-    tfile <- tempfile(fileext=".rds")
-    url <- file.path("https://r2u.stat.illinois.edu/ubuntu/pool/dists", tgt, "main/builds.rds")
-    .retrying.downloader(url, tfile)
-    B <- readRDS(tfile)
-    unlink(tfile)
+    B <- NULL
+    bfile <- .defaultBuildsFile(tgt)
+    if (file.exists(bfile) && !is.null(hrs)) {
+        age <- as.numeric(difftime(Sys.time(), file.info(bfile)$ctime, units="hours"))
+        if (age < hrs) {
+            B <- readRDS(bfile)
+            .debug_message("Cached all builds\n")
+        }
+    }
+    if (is.null(B)) {
+        .debug_message("Fresh builds file for ", tgt, "\n")
+        url <- file.path("https://r2u.stat.illinois.edu/ubuntu/pool/dists", tgt, "main/builds.rds")
+        bfile <- .defaultBuildsFile(tgt, force=TRUE)
+        download.file(url, bfile, quiet=TRUE)
+        B <- readRDS(bfile)
+        .debug_message("Fresh all builds\n")
+    }
     B <- B[arch %in% c("all", pltfrm), ]
     B
 }
 
-.loadBuilds <- function(tgt, pltfrm) {
+.loadBuilds <- function(tgt, pltfrm, force=TRUE) {
     if (missing(tgt)) tgt <- .pkgenv[["distribution_name"]]
     if (missing(pltfrm)) pltfrm <- .platform()
     dd <- file.path(.pkgenv[["deb_directory"]], "dists", tgt, "main")
     if (isFALSE(.pkgenv[["in_docker"]]) && isTRUE(nzchar(dd)) && dir.exists(dd)) {	## this is specific to local build with the local pool of builds
         ## cannot read builds.rds which only exists for noble
+        .debug_message("Read build files\n")
         cwd <- getwd()
         setwd(dd)
         fls <- list.files(".", pattern="\\.deb$", full.names=FALSE)
@@ -398,13 +426,14 @@
         B <- B[arch %in% c("all", pltfrm), ]
         .pkgenv[["builds"]] <- B
         setwd(cwd)
-    } else if (nzchar(Sys.getenv("CI", ""))) { 						## this is specific to the arm64 build at GH
+    } else if (nzchar(Sys.getenv("CI", "")) && isTRUE(force)) { # this is specific to the builds at GH
         ## get packages already Built
         #B <- data.table::fread(cmd=r"(links -dump https://r2u.stat.illinois.edu/ubuntu/pool/dists/noble/main/| awk '/r-.*arm64.deb/ { print $1 "," $2 " "$3 "," $4 }')", col.names=c("file","date","size"))
         #B[, version := gsub(".*_(.*)_arm64.deb", "\\1", file), by=file]
         #B[, r2u := grepl("ca2404", version), by=file]  # needed ?
         #B[, ver := gsub("(.*)-(\\d\\.ca\\d{4}\\.\\d)$", "\\1", version)][] # upstream
         #B[, pkgver := gsub("(.*)-(\\d\\.ca\\d{4}\\.\\d)_(arm64|amd64|all).deb$", "\\1", file)]
+        .debug_message("Fetching builds.rds\n")
         B <- .allBuilds(tgt)
         B <- B[arch == pltfrm, ]
         .pkgenv[["builds"]] <- B
@@ -474,25 +503,27 @@
             repos = c(CRAN="https://cran.r-project.org"))       # instead of cloud.r-p.o
 }
 
+## execute when r2u functions executed via :: or :::
 .onLoad <- function(libname, pkgname) {
     .setOptions()
     .loadConfig()
     .checkSystem()
     .loadDB()
     .loadAP()
-    .loadBuilds()
+    .loadBuilds(force=FALSE)
     .loadBuildDepends()
     .loadBlacklist()
     .loadRuntimedepends()
 }
 
+## executed when library(r2u) is called
 .onAttach <- function(libname, pkgname) {
     .setOptions()
     .loadConfig()
     .checkSystem()
     .loadDB()
     .loadAP()
-    .loadBuilds()
+    .loadBuilds(force=FALSE)
     .loadBuildDepends()
     .loadBlacklist()
     .loadRuntimedepends()
