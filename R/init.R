@@ -503,9 +503,21 @@
             repos = c(CRAN="https://cran.r-project.org"))       # instead of cloud.r-p.o
 }
 
+.setEnvVars <- function() {
+    fname <- "~/.Renviron"
+    ## safety check: only do this in Docker and when the file does NOT exist
+    if (!.in.docker() || file.exists(fname))
+        return(NULL)
+
+    cat("NOT_CRAN=true\n", file = fname, append = TRUE)
+    cat("MAKEFLAGS='--jobs=4'\n", file = fname, append = TRUE)
+    # no others so far
+}
+
 ## execute when r2u functions executed via :: or :::
 .onLoad <- function(libname, pkgname) {
     .setOptions()
+    .setEnvVars()
     .loadConfig()
     .checkSystem()
     .loadDB()
@@ -519,6 +531,7 @@
 ## executed when library(r2u) is called
 .onAttach <- function(libname, pkgname) {
     .setOptions()
+    .setEnvVars()
     .loadConfig()
     .checkSystem()
     .loadDB()
