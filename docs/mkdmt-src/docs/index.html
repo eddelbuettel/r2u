@@ -930,7 +930,7 @@
   <a href="https://r2u.stat.illinois.edu">r2u.stat.illinois.edu</a> on the <a href="https://internet2.edu/">Internet2</a> </p>
 </li>
 <li>
-<p><strong>Complete coverage</strong> with (using 24.04 for amd64 and arm64) about 29348 CRAN packages (and 617 from
+<p><strong>Complete coverage</strong> with (using 24.04 for amd64 and arm64) about 30085 CRAN packages (and 620 from
   BioConductor) using <strong>current versions</strong>: We support R 4.4.<em> and 4.5.</em>, and BioConductor 3.22 (on
   noble and jammy; focal is in archived mode and remains at 3.21); for 24.04 aka noble BioConductor
   is available for both amd64 and arm64.</p>
@@ -995,14 +995,15 @@ a very skewed distribution.) We iterated, and fairly soon arrived of full covera
     <a href="https://bioconductor.org/packages/stats/bioc/bioc_pkg_scores.tab">scoring</a> BioConductor
     packages (also covering <em>e.g.</em> all BioConductor packages in the Debian and Ubuntu distributions)</li>
 </ul>
-<p>This currently results in 25706, 26466, 29348 binary packages from CRAN in "focal", "jammy", and
-"noble", respectively, and 431, 526, and 617 BioConductor packages, respectively, from the 3.22
+<p>This currently results in 25706, 27032, 30085 binary packages from CRAN in "focal", "jammy", and
+"noble", respectively, and 431, 526, and 620 BioConductor packages, respectively, from the 3.22
 (noble, jammy) and 3.21 (focal) releases. (See this
 <a href="https://eddelbuettel.github.io/r2u/vignettes/FAQ/#why-does-it-have-more-packages-than-cran">FAQ</a>
 about why this number is higher than CRAN, and variable between releases.)</p>
 <p>The sole exception are packages we cannot build (as we do not have the required commercial software
 it accessess, or do not have the required more recent toolchain component) plus a handful or so of
-'odd builds' that fail and are skipped.</p>
+'odd builds' that fail and are skipped. For rust-based packages we ensure the toolchain is more
+recent than what the Ubuntu distribution provides so that we can build whatever is at CRAN.</p>
 <h3 id="what-is-it-based-on">What is it Based On?</h3>
 <p>Initially, for the CRAN binaries we repackaged
 <a href="https://packagemanager.rstudio.com/client/#/repos/2/packages/">P3M/RSPM/PPM</a> builds (where
