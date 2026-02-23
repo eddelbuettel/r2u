@@ -1,3 +1,8 @@
+2026-02-22  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/init.R: Start preparing for 26.04 aka 'resolute'
+	* R/package.R: Idem
+
 2025-11-19  Dirk Eddelbuettel  <edd@debian.org>
 
 	* README.md: Update section on build strategy noting all GHA now

@@ -49,7 +49,8 @@
         if (!file.exists("/mnt/build"))  file.symlink("/var/local/r2u/build", "/mnt")
         if (!file.exists("/mnt/ubuntu")) file.symlink("/var/local/r2u/ubuntu", "/mnt")
     }
-    for (file in c("blacklist.txt", "depends.dcf", "depends.noble.dcf", "runtimedepends.dcf")) {
+    for (file in c("blacklist.txt", "depends.dcf", "depends.noble.dcf", "depends.resolute.dcf",
+                   "runtimedepends.dcf")) {
         dstfile <- file.path(pkgdir, file)
         if (!file.exists(dstfile)) {
             srcfile <- file.path(system.file("configs", file, package="r2u"))
@@ -202,7 +203,7 @@
             .pkgenv[["package_repo_preference"]] <- "cran"
         }
         ## fallbacks, overriden when 'tgt' specified
-        .pkgenv[["distribution"]] <- "24.04"
+        .pkgenv[["distribution"]] <- "24.04"  # TODO switch to resolute
         .pkgenv[["distribution_name"]] <- "noble"
     } else {
         .debug_message("Already have config\n")
@@ -233,6 +234,9 @@
     } else if (tgt == "24.04" || tgt == "noble") {
         .pkgenv[["distribution"]] <- "24.04"
         .pkgenv[["distribution_name"]] <- "noble"
+    } else if (tgt == "26.04" || tgt == "resolute") {
+        .pkgenv[["distribution"]] <- "26.04"
+        .pkgenv[["distribution_name"]] <- "resolute"
     } else {
         stop("Unknown build target: ", tgt, call. = FALSE)
     }

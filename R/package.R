@@ -77,8 +77,8 @@
 ##' @title Build a Package
 ##' @param pkg character Name of the CRAN or BioConductor package to build
 ##' @param tgt character Name (or version) of the build target distribution, this is restricted
-##' to either \dQuote{20.04}, \dQuote{22.04} or \dQuote{24.04} (or their names \dQuote{focal},
-##' \dQuote{jammy} or \dQuote{noble}_
+##' to either \dQuote{20.04}, \dQuote{22.04}, \dQuote{24.04} or \dQuote{26.04} (or their names
+##' \dQuote{focal}, \dQuote{jammy} \dQuote{noble}, or \dQuote{resolute}.
 ##' @param debug logical Optional value to show more debugging output, default is \sQuote{FALSE}
 ##' @param verbose logical Optional value show more verbose progress output, default is \sQuote{FALSE}
 ##' @param force logical Optional value to force package build from source, default is \sQuote{FALSE}
@@ -556,7 +556,7 @@ buildUpdatedPackages <- function(tgt, debug=FALSE, verbose=FALSE, force=FALSE, x
     #url <- "https://r2u.stat.illinois.edu/ubuntu/pool/dists/noble/main/"
     #awk <- r"(awk '/r-.*_ar/ { print $1 "," $2 " "$3 "," $4 }')"  # not arm64.deb as cols get chopped
     #cmd <- paste(cmd, url, "|", awk)
-    B <- .allBuilds("noble", platform)
+    B <- .allBuilds("noble", platform)  ## TODO switch to resolute once completely built
     restr <- paste0(platform, ".deb$")
     B <- B[grepl(restr, file), ]
 
