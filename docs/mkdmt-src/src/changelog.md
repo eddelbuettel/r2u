@@ -1,3 +1,10 @@
+###  2026 
+
+2026-02-22  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * R/init.R: Start preparing for 26.04 aka 'resolute' 
+        * R/package.R: Idem 
+ 
 ###  2025 
 
 2025-11-19  Dirk Eddelbuettel  <edd@debian.org> 

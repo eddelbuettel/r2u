@@ -17,7 +17,7 @@ Dirk Eddelbuettel \<edd@debian.org\>
 
 ### Author(s)
 
-Dirk Eddelbuettel \[aut, cre\]
-(\<https://orcid.org/0000-0001-6419-907X\>)
+Dirk Eddelbuettel \[aut, cre\] (ORCID:
+\<https://orcid.org/0000-0001-6419-907X\>)
 
 

@@ -455,6 +455,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    See Also
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -721,6 +728,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    See Also
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -750,7 +764,7 @@ and already built packages.</p>
 <h3 id="usage">Usage</h3>
 <pre><code class="language-R">buildPackage(pkg, tgt, debug = FALSE, verbose = FALSE, force = FALSE,
   xvfb = FALSE, suffix = &quot;.1&quot;, debver = &quot;1.&quot;, plusdfsg = FALSE,
-  dryrun = FALSE)
+  dryrun = FALSE, compile = FALSE)
 
 buildAll(pkg, tgt, debug = FALSE, verbose = FALSE, force = FALSE,
   xvfb = FALSE)
@@ -759,10 +773,8 @@ topN(npkg, date = Sys.Date() - 1, from = 1L)
 
 topNCompiled(npkg, date = Sys.Date() - 1, from = 1L)
 
-nDeps(ndeps)
-
 buildUpdatedPackages(tgt, debug = FALSE, verbose = FALSE, force = FALSE,
-  xvfb = FALSE, bioc = FALSE)
+  xvfb = FALSE, bioc = FALSE, dryrun = FALSE)
 </code></pre>
 <h3 id="arguments">Arguments</h3>
 <table>
@@ -779,7 +791,7 @@ buildUpdatedPackages(tgt, debug = FALSE, verbose = FALSE, force = FALSE,
 </tr>
 <tr>
 <td><code>tgt</code></td>
-<td>character Name (or version) of the build target distribution, this is restricted to either “20.04” or “22.04” (or their names “focal” or “jammy”)</td>
+<td>character Name (or version) of the build target distribution, this is restricted to either “20.04”, “22.04” or “24.04” (or their names “focal”, “jammy” or “noble”_</td>
 </tr>
 <tr>
 <td><code>debug</code></td>
@@ -814,6 +826,10 @@ buildUpdatedPackages(tgt, debug = FALSE, verbose = FALSE, force = FALSE,
 <td>logical Optional value to skip actual package build step, default is ‘FALSE’</td>
 </tr>
 <tr>
+<td><code>compile</code></td>
+<td>logical Optional value to ensure compilation from source, default is ‘FALSE’</td>
+</tr>
+<tr>
 <td><code>npkg</code></td>
 <td>integer Number of packages to build</td>
 </tr>
@@ -825,6 +841,10 @@ buildUpdatedPackages(tgt, debug = FALSE, verbose = FALSE, force = FALSE,
 <td><code>from</code></td>
 <td>integer Optional applied as offset to <code>npkg</code> to shift the selection</td>
 </tr>
+<tr>
+<td><code>bioc</code></td>
+<td>logical Optional switch for BioConductor build</td>
+</tr>
 </tbody>
 </table>
 <h3 id="details">Details</h3>
@@ -832,8 +852,8 @@ buildUpdatedPackages(tgt, debug = FALSE, verbose = FALSE, force = FALSE,
 package applies to all elements in the supplied vector of packages. The
 <code>topN</code> and <code>topNCompiled</code> helpers select ‘N’ among all (or all compiled)
 packages. The <code>nDeps</code> function builds packages with a given (adjusted)
-build-dependency count. The <code>updatedPackages</code> function finds a set of
-available packages that are not yet built.</p>
+build-dependency count. The <code>buildUpdatedPackages</code> function finds a set
+of available packages that are not yet built.</p>
 <p>Note that this build process is still somewhat tailored to the build
 setup use by the author and is not (yet ?) meant to be universally
 transferable. It should be with a little care and possible examination
@@ -843,6 +863,8 @@ of the code. If interested, please get in touch.</p>
 binary packages</p>
 <h3 id="authors">Author(s)</h3>
 <p>Dirk Eddelbuettel</p>
+<h3 id="see-also">See Also</h3>
+<p><code>buildUpdatedPackages</code></p>
 
 
 
