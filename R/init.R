@@ -424,7 +424,7 @@
         fls <- list.files(".", pattern="\\.deb$", full.names=FALSE)
         flsse <- tools::file_path_sans_ext(fls)
         arch <-   gsub(".*_(all|arm64|amd64)$", "\\1", flsse)
-        pkgver <- gsub("-\\d+.ca(20|22|24)04.\\d+_(all|arm64|amd64)$", "", flsse)
+        pkgver <- gsub("-\\d+.ca(20|22|24|26)04.\\d+_(all|arm64|amd64)$", "", flsse)
         tgt <- gsub(".*-\\d+.ca(\\d{4}).\\d+_.*", "\\1", flsse)
         B <- data.table(name=fls, pkgver=pkgver, arch=arch, file.info(fls), tgt=tgt)
         B <- B[arch %in% c("all", pltfrm), ]

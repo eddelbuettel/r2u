@@ -6,9 +6,9 @@
     path <- file.path(cachedir, paste0(pkg, "_", ver, ".tar.gz"))
     if (!file.exists(path)) {
         ppmrepo <- paste0("https://packagemanager.posit.co/all/__linux__/", .getConfig("distribution_name"), "/latest")
-        #cranrepo <- "https://cloud.r-project.org"
+        cranrepo <- "https://cloud.r-project.org"
         #repo <- if (nzchar(Sys.getenv("CI", ""))) ppmrepo else cranrepo
-        repo <- ppmrepo
+        repo <- cranrepo ## ppmrepo
         rv <- R.version
         ## agent <- sprintf("R/%s R (%s)", getRversion(), paste(getRversion(), rv$platform, rv$arch, rv$os))
         rversion <- .getConfig("minimum_r_version")  # e.g. "4.2.2"
@@ -78,7 +78,7 @@
 ##' @param pkg character Name of the CRAN or BioConductor package to build
 ##' @param tgt character Name (or version) of the build target distribution, this is restricted
 ##' to either \dQuote{20.04}, \dQuote{22.04}, \dQuote{24.04} or \dQuote{26.04} (or their names
-##' \dQuote{focal}, \dQuote{jammy} \dQuote{noble}, or \dQuote{resolute}.
+##' \dQuote{focal}, \dQuote{jammy} \dQuote{noble}, or \dQuote{resolute}).
 ##' @param debug logical Optional value to show more debugging output, default is \sQuote{FALSE}
 ##' @param verbose logical Optional value show more verbose progress output, default is \sQuote{FALSE}
 ##' @param force logical Optional value to force package build from source, default is \sQuote{FALSE}
@@ -222,7 +222,7 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
         untar(file, exdir=instdir)
         if (!file.exists(file.path(instdir, pkg, "Meta", "package.rds"))) {
             cat("[forcing source build]\n")
-            buildPackage(pkg, tgt, debug, version, force=TRUE, xvfb, suffix,
+            buildPackage(pkg, tgt, debug, verbose, force=TRUE, xvfb, suffix,
                          debver, plusdfsg, dryrun, compile)
             return(invisible())
         }
@@ -268,6 +268,7 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
                       depstr,
                       pkg)
     }
+
     if (debug) print(cmd)
     if (dryrun) {
         cat(blue("[dry-run so not building]\n"))
