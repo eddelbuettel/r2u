@@ -31,6 +31,11 @@
   daily; the previous release (20.04 "focal") has been updated up until July 2025 and remains
   available as is. 
 
+- Fully transparent and completely open source build setup using two helper repositories
+  [r2u-builder](https://github.com/eddelbuettel/r2u-builder) (containing the build actions and
+  containers) and [r2u-config](https://github.com/eddelbuettel/r2u-config) (with simple
+  configuration setup).
+  
 - Optional (but recommended) [bspm](https://cloud.r-project.org/package=bspm) use
   **automagically connects R functions like `install.packages()` to `apt`** for access to binaries 
   _and_ dependencies.

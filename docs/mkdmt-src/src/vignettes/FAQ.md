@@ -91,14 +91,14 @@ you keep the `sources.list` entry on the LTS release you have as we (just
 like many other repositories) only provide LTS releases and no interim
 releases. 
 
-When running 22.10 / 23.04 / 23.10 / 24.10 / 25.04 on a laptop with r2u, we are aware of one
-binary for the [av](https://cloud.r-project.org/package=av) which ends up
-with a library dependency no longer satisified by the distribution. So we
-built ourselves an ad-hoc new binary of `r-cran-av` for the distro we ran. We
-will keep an eye on this to see if it affects other packages. If you find
-one, please file an issue. We think we can address this with a supplementary
-repo on an 'as-needed' basis. It may also help to keep the preceding LTS
-sources entry along with the newer non-LTS entry.
+When running 22.10 / 23.04 / 23.10 / 24.10 / 25.04 / 25.10 on a laptop with r2u,
+we are aware of one binary for the [av](https://cloud.r-project.org/package=av)
+which ends up with a library dependency no longer satisified by the
+distribution. So we built ourselves an ad-hoc new binary of `r-cran-av` for the
+distro we ran. We will keep an eye on this to see if it affects other
+packages. If you find one, please file an issue. We think we can address this
+with a supplementary repo on an 'as-needed' basis. It may also help to keep the
+preceding LTS sources entry along with the newer non-LTS entry.
 
 ### Why does it have more packages than CRAN ?
 
