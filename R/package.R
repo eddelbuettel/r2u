@@ -472,6 +472,7 @@ buildUpdatedPackages <- function(tgt, debug=FALSE, verbose=FALSE, force=FALSE, x
 }
 
 .triggerBiocBuild <- function(pkgs, dist) {
+    ## 'r2u-bioc-builder' is now 'r2u-builder'
     url <- "https://api.github.com/repos/eddelbuettel/r2u-bioc-builder/actions/workflows/158741339/dispatches"
     #rawtxt <- gsub("\\", "\\\\", .toSerializedArrayString(pkgs))
     txt <- .toCollapsedPackageString(pkgs)
