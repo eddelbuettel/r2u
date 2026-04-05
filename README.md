@@ -19,7 +19,7 @@
 - **Fast and well-connected mirror** at
   [r2u.stat.illinois.edu](https://r2u.stat.illinois.edu) on the [Internet2](https://internet2.edu/) 
 
-- **Complete coverage** with (using 24.04 for amd64 and arm64) about 30085 CRAN packages (and 620
+- **Complete coverage** with (using 24.04 for amd64 and arm64) about 31039 CRAN packages (and 623
   from BioConductor) using **current versions**: We support R 4.4.* and 4.5.*, and BioConductor 3.22
   (on resolute, noble and jammy; focal is in archived mode and remains at 3.21); for 24.04 (aka
   'noble') and 26.04 (aka 'resolute') BioConductor is available for both amd64 and arm64.

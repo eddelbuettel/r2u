@@ -930,19 +930,21 @@
   <a href="https://r2u.stat.illinois.edu">r2u.stat.illinois.edu</a> on the <a href="https://internet2.edu/">Internet2</a> </p>
 </li>
 <li>
-<p><strong>Complete coverage</strong> with (using 24.04 for amd64 and arm64) about 30085 CRAN packages (and 620 from
-  BioConductor) using <strong>current versions</strong>: We support R 4.4.<em> and 4.5.</em>, and BioConductor 3.22 (on
-  noble and jammy; focal is in archived mode and remains at 3.21); for 24.04 aka noble BioConductor
-  is available for both amd64 and arm64.</p>
+<p><strong>Complete coverage</strong> with (using 24.04 for amd64 and arm64) about 31039 CRAN packages (and 623
+  from BioConductor) using <strong>current versions</strong>: We support R 4.4.<em> and 4.5.</em>, and BioConductor 3.22
+  (on resolute, noble and jammy; focal is in archived mode and remains at 3.21); for 24.04 (aka
+  'noble') and 26.04 (aka 'resolute') BioConductor is available for both amd64 and arm64.</p>
 </li>
 <li>
-<p>Complete support for <strong>Ubuntu 20.04 ("focal")</strong>, <strong>22.04 ("jammy")</strong> and <strong>24.04 ("noble")</strong> on
-  amd64, as well as <strong>24.04 ("noble")</strong> support on arm64. </p>
+<p>Complete support for <strong>Ubuntu 20.04 ("focal")</strong>, <strong>22.04 ("jammy")</strong>, <strong>24.04 ("noble")</strong> and
+  <strong>26.04 ("resolute")</strong> on amd64, as well as <strong>24.04 ("noble")</strong> and <strong>26.04 ("resolute")</strong> support
+  on arm64.</p>
 </li>
 <li>
-<p>We update and extend the two most-current LTS releases (now 24.04 "noble" and 22.04 "jammy")
-  daily; the previous release (20.04 "focal") has been updated up until July 2025 and remains
-  available as is. </p>
+<p>We update and extend (at least) the two most-current LTS releases (now 24.04 "noble" and 22.04
+  "jammy") daily; the previous release (20.04 "focal") has been updated up until July 2025 and
+  remains available as is. We are currently having the 'soon-to-be released' 26.04 "resolute" in
+  preview. </p>
 </li>
 <li>
 <p>Fully transparent and completely open source build setup using two helper repositories
@@ -957,7 +959,7 @@
 </li>
 <li>
 <p><strong>Docker containers</strong> <code>rocker/r2u</code> from the <a href="https://rocker-project.org/">Rocker Project</a> for 
-  'focal', 'jammy' and 'noble'.</p>
+  'focal', 'jammy', 'noble', and 'resolute'.</p>
 </li>
 <li>
 <p><strong>GitHub Actions support</strong> to set up on Ubuntu 'latest' or via container.</p>
@@ -975,16 +977,17 @@ the five easy setup steps detailed here.</p>
 the current Ubuntu LTS release and its predecessor release, and support arm64 on the current release
 (more on this
 <a href="https://eddelbuettel.github.io/r2u/vignettes/FAQ/#what-about-other-architectures-besides-x86_64">here</a>).
-We use 'r-release' just like CRAN. So generally support the two most current LTS releases: currently
-'jammy' 22.04 LTS and 'noble' 24.04 releases are fully supported. The 'focal' 20.04 LTS release was
-the first one supported, and remains avaialble but (as of July 2025) no longer receives new updates.</p>
+We use 'r-release' just like CRAN. So generally support (at least) the two most current LTS
+releases: currently 'jammy' 22.04 LTS and 'noble' 24.04 releases are fully supported with 'resolute'
+26.04 ready for its upcoming release. The 'focal' 20.04 LTS release was the first one supported, and
+remains avaialble but (as of July 2025) no longer receives new updates.</p>
 <p>Support for additional cpu architectures is certainly possible but somewhat unlikely due to a lack of
 (additional hardware) resources and time. Support for other distributions is possible but unlikely
 right now (due to a lack of resources and time). P3M/PPM/RSPM now appears to also support Debian which
 could be added at some later point.</p>
 <p>Current versions are built under R 4.4.x and R 4.5.<em> and are usable under 4.4.x and
-4.5.x. BioConductor release 3.22 packages are provided when required by CRAN packages for noble and
-jammy; focal is at 3.21.  Binaries were initially R 4.4.</em> based and are now built under R
+4.5.x. BioConductor release 3.22 packages are provided when required by CRAN packages for resolute,
+noble and jammy; focal is at 3.21.  Binaries were initially R 4.4.</em> based and are now built under R
 4.5.0. Some older packages released when we used R 4.2.<em> or 4.3.</em> may have been built with R 4.2.<em>
 or R 4.3.</em>, they will still work the same with R 4.4.* as R is generally forward-compatible.</p>
 <h3 id="what-is-selected">What is Selected ?</h3>
@@ -998,12 +1001,12 @@ a very skewed distribution.) We iterated, and fairly soon arrived of full covera
 <li><em>all CRAN packages</em> (modulo at best a handful of blacklisted ones) including all packages needing
   compilation</li>
 <li>all BioConductor packages implied by these plus a 'healthy subset' of the highest
-    <a href="https://bioconductor.org/packages/stats/bioc/bioc_pkg_scores.tab">scoring</a> BioConductor
-    packages (also covering <em>e.g.</em> all BioConductor packages in the Debian and Ubuntu distributions)</li>
+  <a href="https://bioconductor.org/packages/stats/bioc/bioc_pkg_scores.tab">scoring</a> BioConductor packages
+  (also covering <em>e.g.</em> all BioConductor packages in the Debian and Ubuntu distributions)</li>
 </ul>
-<p>This currently results in 25706, 27106, 30175 binary packages from CRAN in "focal", "jammy", and
-"noble", respectively. It also contains 431, 526, and 620 BioConductor packages, respectively, from 
-their 3.22 (noble, jammy) and 3.21 (focal) releases. (See this
+<p>This currently results in 25706, 27816, 31039, 28599 binary packages from CRAN in "focal", "jammy",
+"noble", and "resolute", respectively. It also contains 431, 527, 623, and 609 BioConductor
+packages, respectively, from their 3.22 (noble, jammy) and 3.21 (focal) releases. (See this
 <a href="https://eddelbuettel.github.io/r2u/vignettes/FAQ/#why-does-it-have-more-packages-than-cran">FAQ</a>
 about why this number is higher than CRAN, and variable between releases.)</p>
 <p>The sole exception are packages we cannot build (as we do not have the required commercial software
@@ -1111,14 +1114,14 @@ give the r2u / cranapt repo a weight of 700 which is higher than the package def
 500.</p>
 <h3 id="docker">Docker</h3>
 <p><strong>Core r2u Containers</strong></p>
-<p>There are also Docker containers for Ubuntu 20.04 'focal', 22.04 'jammy', and 24.04 'noble',
-respectively.  Initially published as
+<p>There are also Docker containers for Ubuntu 20.04 'focal', 22.04 'jammy', 24.04 'noble', and 26.04
+'resolute', respectively.  Initially published as
 <a href="https://hub.docker.com/repository/docker/eddelbuettel/r2u">eddelbuettel/r2u</a>, these are now also
 available also as <a href="https://github.com/rocker-org/r2u">rocker/r2u</a>. They all have the features
 detailed above, including pinning and <a href="https://cran.r-project.org/package=bspm">bspm</a> support,
 already set up.</p>
 <p>Each of the Ubuntu LTS flavors, <em>i.e.</em>, 'focal' and 'jammy' is also available as an identical image
-using the release version, <em>i.e.</em>, '20.04', '22.04', and '24.04', respectively.</p>
+using the release version, <em>i.e.</em>, '20.04', '22.04', '24.04', and '26.04', respectively.</p>
 <p>Note that with some builds of Docker (and possibly related to Ubuntu hosts) you may have to add
 the <code>--security-opt seccomp=unconfined</code> option to your Docker invocation to take advantage of bspm
 and the full system integration inside the container.

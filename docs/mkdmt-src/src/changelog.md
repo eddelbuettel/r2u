@@ -1,5 +1,13 @@
 ###  2026 
 
+2026-04-05  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * README.md: Announce 'resolute' aka 26.04 
+ 
+2026-03-16  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Date, Version): Roll micro version and date 
+ 
 2026-02-22  Dirk Eddelbuettel  <edd@debian.org> 
  
         * R/init.R: Start preparing for 26.04 aka 'resolute' 
