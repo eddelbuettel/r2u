@@ -351,6 +351,9 @@
             apPPM <- data.table(ap="CRAN", as.data.frame(available.packages(repos=aprepo)))
             ap <- merge(apPPM, apBIOC, all=TRUE)
 
+            ## 2026-04-15:  exclude newly added src/contrib/Transit subdir
+            ap <- ap[ !endsWith(Repository, "src/contrib/Transit"),]
+
             ap[, deb := paste0("r-", tolower(ap), "-", tolower(Package))]
 
             apfile <- .defaultAPFile(TRUE)
