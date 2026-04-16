@@ -507,7 +507,8 @@
 
 .setOptions <- function() {
     options(timeout = 180, 					# up from default of 60
-            repos = c(CRAN="https://cran.r-project.org"))       # instead of cloud.r-p.o
+            repos = c(CRAN="https://cran.r-project.org"),       # instead of cloud.r-p.o
+            available_packages_filters = c("R_version", "OS_type", "subarch"))
 }
 
 .setEnvVars <- function() {
