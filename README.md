@@ -19,10 +19,11 @@
 - **Fast and well-connected mirror** at
   [r2u.stat.illinois.edu](https://r2u.stat.illinois.edu) on the [Internet2](https://internet2.edu/) 
 
-- **Complete coverage** with (using 24.04 for amd64 and arm64) about 31039 CRAN packages (and 623
-  from BioConductor) using **current versions**: We support R 4.4.* and 4.5.*, and BioConductor 3.22
-  (on resolute, noble and jammy; focal is in archived mode and remains at 3.21); for 24.04 (aka
-  'noble') and 26.04 (aka 'resolute') BioConductor is available for both amd64 and arm64.
+- **Complete coverage** with (using 24.04 for both amd64 and arm64) about 31485 CRAN
+  packages (and 633 from BioConductor) using **current versions**: We support R 4.6.0, and
+  BioConductor 3.23 (on resolute, noble and jammy; focal is in archived mode and remains at 3.21);
+  for 24.04 (aka 'noble') and 26.04 (aka 'resolute') BioConductor is available for both amd64 and
+  arm64.
 
 - Complete support for **Ubuntu 20.04 ("focal")**, **22.04 ("jammy")**, **24.04 ("noble")** and
   **26.04 ("resolute")** on amd64, as well as **24.04 ("noble")** and **26.04 ("resolute")** support
@@ -61,7 +62,7 @@ the five easy setup steps detailed here.
 
 ### What is Covered ?
 
-We generally support amd64 (_i.e._ standard 64-bit Intel/AMD cpus, sometimes also called x86_64) for
+We generally support amd64 (_i.e._ standard 64-bit Intel/AMD cpus, sometimes also called x86\_64) for
 the current Ubuntu LTS release and its predecessor release, and support arm64 on the current release
 (more on this
 [here](https://eddelbuettel.github.io/r2u/vignettes/FAQ/#what-about-other-architectures-besides-x86_64)).
@@ -75,11 +76,12 @@ Support for additional cpu architectures is certainly possible but somewhat unli
 right now (due to a lack of resources and time). P3M/PPM/RSPM now appears to also support Debian which
 could be added at some later point.
 
-Current versions are built under R 4.4.x and R 4.5.* and are usable under 4.4.x and
-4.5.x. BioConductor release 3.22 packages are provided when required by CRAN packages for resolute,
-noble and jammy; focal is at 3.21.  Binaries were initially R 4.4.* based and are now built under R
-4.5.0. Some older packages released when we used R 4.2.* or 4.3.* may have been built with R 4.2.*
-or R 4.3.*, they will still work the same with R 4.4.* as R is generally forward-compatible.
+Current versions are built under R 4.6.0 and are usable under the current R 4.6.0. BioConductor
+release 3.23 packages are provided when required by CRAN packages for resolute, noble and jammy;
+focal is at 3.21.  Binaries were initially R 4.4.x based and are now built under R 4.6.0. Some older
+packages released when we used R 4.2.x or 4.3.x may have been built with R 4.2.x or R 4.3.x, they
+will still work the same with R 4.4.x as R is generally forward-compatible. There are exceptions
+(due to how R Core changes this) so if you notice an older package not loading please file an issue.
 
 
 
@@ -100,9 +102,10 @@ So we now cover
   [scoring](https://bioconductor.org/packages/stats/bioc/bioc_pkg_scores.tab) BioConductor packages
   (also covering _e.g._ all BioConductor packages in the Debian and Ubuntu distributions)
 
-This currently results in 25706, 28053, 31326, 28920 binary packages from CRAN in "focal", "jammy",
-"noble", and "resolute", respectively. It also contains 431, 527, 623, and 609 BioConductor
-packages, respectively, from their 3.22 (noble, jammy) and 3.21 (focal) releases. (See this
+This currently results in 25706, 28188, 31485, 29106 binary packages from CRAN in "focal", "jammy",
+"noble", and "resolute", respectively. It also contains 431, 534, 633, and 620 BioConductor
+packages, respectively, from their 3.23 (resolute, noble, jammy) and 3.21 (focal) releases. (See
+this
 [FAQ](https://eddelbuettel.github.io/r2u/vignettes/FAQ/#why-does-it-have-more-packages-than-cran)
 about why this number is higher than CRAN, and variable between releases.)
 

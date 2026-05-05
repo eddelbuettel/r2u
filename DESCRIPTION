@@ -1,8 +1,8 @@
 Package: r2u
 Type: Package
 Title: Turn CRAN Source Packages into Binary Ubuntu Packages
-Version: 0.0.9.3
-Date: 2025-03-16
+Version: 0.0.9.4
+Date: 2026-05-03
 Authors@R: person("Dirk", "Eddelbuettel", role = c("aut", "cre"), email = "edd@debian.org",
                   comment = c(ORCID = "0000-0001-6419-907X"))
 Description: CRAN source packages are turned into Ubuntu packages containing

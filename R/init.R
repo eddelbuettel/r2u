@@ -29,10 +29,10 @@
     }
     cat("in_docker:", .in.docker(), "\n",   file = fname, append = TRUE)
     cat("debhelper_compat: 13\n",           file = fname, append = TRUE)
-    cat("minimum_r_version: 4.4.0\n",       file = fname, append = TRUE)
+    cat("minimum_r_version: 4.6.0\n",       file = fname, append = TRUE)
     cat("r_api_version: 4.0\n",             file = fname, append = TRUE)
-    cat("bioc_version: 3.22\n",             file = fname, append = TRUE)
-    cat("debian_policy_version: 4.7.0\n",   file = fname, append = TRUE)
+    cat("bioc_version: 3.23\n",             file = fname, append = TRUE)
+    cat("debian_policy_version: 4.7.4\n",   file = fname, append = TRUE)
     cat("cache_age_hours_cran_db: 3\n",     file = fname, append = TRUE)
     cat("package_repo_preference: cran\n",   file = fname, append = TRUE)
     cat("r2u_directory: /var/local/r2u/\n", file = fname, append = TRUE)

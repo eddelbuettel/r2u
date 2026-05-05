@@ -1,5 +1,9 @@
 ###  2026 
 
+2026-05-03  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * R/init.R: Update defaults to R 4.6.0 and BioConductor 3.23 
+ 
 2026-04-05  Dirk Eddelbuettel  <edd@debian.org> 
  
         * README.md: Announce 'resolute' aka 26.04 
