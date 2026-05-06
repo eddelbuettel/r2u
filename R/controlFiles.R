@@ -14,7 +14,8 @@
     if (is.na(dt[,Depends])) return(invisible(NULL))
 
     dep <- gsub("\\n", "", dt[,Depends])
-    dep <- gsub("R \\(.*?\\)[, ]*", "", dep, perl=TRUE)
+    dep <- gsub("^R \\(.*?\\)[, ]*", "", dep, perl=TRUE)
+    dep <- gsub(" \\(.*?\\)[, ]*", "", dep, perl=TRUE)
 
     curpkg <- dt[1,Package]
     rtdeps <- .pkgenv[["runtimedeps"]]
