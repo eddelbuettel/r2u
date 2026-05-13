@@ -14,8 +14,10 @@
     if (is.na(dt[,Depends])) return(invisible(NULL))
 
     dep <- gsub("\\n", "", dt[,Depends])
-    dep <- gsub("^R \\(.*?\\)[, ]*", "", dep, perl=TRUE)
-    dep <- gsub(" \\(.*?\\)[, ]*", "", dep, perl=TRUE)
+    deps <- trimws(strsplit(dep, ",")[[1]])
+    deps <- sapply(deps, \(x) gsub("^R \\(.*?\\)", "", x, perl=TRUE), USE.NAMES=FALSE)
+    deps <- Filter(nzchar, deps)
+    deps <- sapply(deps, \(x) trimws(gsub("\\(.*?\\)", "", x, perl=TRUE)), USE.NAMES=FALSE)
 
     curpkg <- dt[1,Package]
     rtdeps <- .pkgenv[["runtimedeps"]]
@@ -23,12 +25,9 @@
     if (nchar(dep) == 0 && !has_rtdeps)
         return(invisible(NULL))
 
-    deps <- strsplit(dep, ",")[[1]]
-    for (i in deps) {
-        i <- gsub("^ ", "", i)
-        if (.isBasePackage(i)) next
-        j <- gsub(" ?\\(.*?\\)", "", i)
-        p <- ap[Package==j, deb]
+    for (d in deps) {
+        if (.isBasePackage(d)) next
+        p <- ap[Package==d, deb]
         cat(", ", p ,sep="", file=con, append=TRUE)
     }
 
