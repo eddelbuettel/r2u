@@ -1226,7 +1226,9 @@ context and scope.</p>
 </li>
 <li>
 <p>A small number of packages do not build for lack required components; examples are ROracle and
-  Rcplex.  They, and their reverse dependencies, are blacklisted and not built.</p>
+  Rcplex.  They, and their reverse dependencies, are
+  <a href="https://github.com/eddelbuettel/r2u-config">blacklisted</a> and not being built. Similarly,
+  occassionally packages just do not build on a different cpu platform, or an older compiler.</p>
 </li>
 <li>
 <p>r2u is an <code>apt</code> repo, which via <code>bspm</code> becomes used "automagically" via standard R calls of

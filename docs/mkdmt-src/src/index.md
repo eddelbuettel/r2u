@@ -408,7 +408,9 @@ _Frequently Asked Questions_.
   to the blacklist to always compiled.
 
 - A small number of packages do not build for lack required components; examples are ROracle and
-  Rcplex.  They, and their reverse dependencies, are blacklisted and not built.
+  Rcplex.  They, and their reverse dependencies, are
+  [blacklisted](https://github.com/eddelbuettel/r2u-config) and not being built. Similarly,
+  occassionally packages just do not build on a different cpu platform, or an older compiler.
 
 - r2u is an `apt` repo, which via `bspm` becomes used "automagically" via standard R calls of
   `install.packages()` and alike. That last part is important: package installations that do not use
