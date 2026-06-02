@@ -102,7 +102,7 @@ So we now cover
   [scoring](https://bioconductor.org/packages/stats/bioc/bioc_pkg_scores.tab) BioConductor packages
   (also covering _e.g._ all BioConductor packages in the Debian and Ubuntu distributions)
 
-This currently results in 25706, 28188, 31485, 29106 binary packages from CRAN in "focal", "jammy",
+This currently results in 25706, 28543, 31936, 29590 binary packages from CRAN in "focal", "jammy",
 "noble", and "resolute", respectively. It also contains 431, 534, 633, and 620 BioConductor
 packages, respectively, from their 3.23 (resolute, noble, jammy) and 3.21 (focal) releases. (See
 this
@@ -366,12 +366,12 @@ only (free) [GitHub](https://github.com) and [GitPod](https://gitpod.io) account
 
 ### Usage Statistics
 
-Usage is vibrant.  As of spring 2026, over 4,000,000 packages are deliverd per month, with a total of
-now over seventy six million packages shipped.  Early September 2023 also had the most recent and
+Usage is vibrant.  As of spring 2026, around 4,000,000 packages are deliverd per month, with a total of
+now over eighty million packages shipped.  Early September 2023 also had the most recent and
 dramatic spike of _over three million packages in two days_.  The following chart gives a summary of
 cumulative and average weekly downloads (the latter one on a log scale).
 
-![](https://eddelbuettel.github.io/images/2026-05-01/r2u_aggregated_and_weekly_2026-05-01.png)
+![](https://eddelbuettel.github.io/images/2026-06-01/r2u_aggregated_and_weekly_2026-06-01.png)
 
 ### GitHub Stars
 
