@@ -337,8 +337,6 @@ launched inside `ubuntu-slim` so one is limited to the setup action.
 
 ### Try It
 
-**Via codespaces**
-
 See the vignette [Codespaces](https://eddelbuettel.github.io/r2u/vignettes/Codespaces/) about how to
 launch a 'Codespace' directly in your browser, launched from the gitrepo within minutes.
 
@@ -346,23 +344,6 @@ This also works from your [vscode](https://code.visualstudio.com/) installation 
 codespace.
 
 The vignette has more details.
-
-**Via gitpod.io**
-
-Use this link below (after possibly signing up for
-[gitpod.io](https://gitpod.io/) first)
-
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/eddelbuettel/r2u)
-
-and run [one of the three example
-scripts](https://github.com/eddelbuettel/r2u/tree/master/inst/examples), or
-just start R in the terminal window.
-
-![](https://eddelbuettel.github.io/r2u/assets/gitpod_brms_2022-05-08_11-21.gif)
-
-The gif below display running one such example to install
-[brms](https://github.com/paul-buerkner/brms) from binaries in a few seconds.  Using this requires
-only (free) [GitHub](https://github.com) and [GitPod](https://gitpod.io) accounts.
 
 ### Usage Statistics
 
