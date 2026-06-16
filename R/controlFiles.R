@@ -26,7 +26,7 @@
         return(invisible(NULL))
 
     for (d in deps) {
-        if (.isBasePackage(d)) next
+        if (.isBasePackage(d) || d == "R") next
         p <- ap[Package==d, deb]
         cat(", ", p ,sep="", file=con, append=TRUE)
     }
@@ -42,10 +42,9 @@
     imp <- gsub("\\n", "", dt[,Imports])
     imps <- strsplit(imp, ",")[[1]]
     for (i in imps) {
-        i <- gsub("^ ", "", i)
+        i <- trimws(i)
         if (.isBasePackage(i)) next
-        j <- gsub(" ?\\(.*?\\)", "", i)
-        p <- ap[Package==j, deb]
+        p <- unique(ap[Package==i, deb])
         cat(", ", p ,sep="", file=con, append=TRUE)
     }
 }
