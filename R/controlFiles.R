@@ -26,7 +26,6 @@
         return(invisible(NULL))
 
     for (d in deps) {
-        if (debug) cat("DEPENDS ", d, "\n")
         if (.isBasePackage(d) || d == "R") next
         p <- unique(ap[Package==d, deb])
         cat(", ", p ,sep="", file=con, append=TRUE)
@@ -44,7 +43,6 @@
     imps <- strsplit(imp, ",")[[1]]
     for (i in imps) {
         i <- trimws(i)
-        if (debug) cat("IMPORTING ", i, "\n")
         if (.isBasePackage(i)) next
         p <- unique(ap[Package==i, deb])
         cat(", ", p ,sep="", file=con, append=TRUE)
@@ -103,7 +101,6 @@
 
     ## todo: check license and all that
     D <- if (repo == "CRAN") db[ind,] else ap[aind,]
-    if (debug) print(D)
     lp <- tolower(pkg)
 
     if (! "Title" %in% names(D)) {
@@ -159,7 +156,6 @@
     ## todo: check license and all that
     #D <- db[ind,]
     D <- ap[aind,]
-    if (debug) print(D)
 
     lp <- tolower(pkg)
     maint <- .getConfig("maintainer")
