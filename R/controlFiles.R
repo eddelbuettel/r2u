@@ -26,8 +26,9 @@
         return(invisible(NULL))
 
     for (d in deps) {
+        if (debug) cat("DEPENDS ", d, "\n")
         if (.isBasePackage(d) || d == "R") next
-        p <- ap[Package==d, deb]
+        p <- unique(ap[Package==d, deb])
         cat(", ", p ,sep="", file=con, append=TRUE)
     }
 
@@ -43,6 +44,7 @@
     imps <- strsplit(imp, ",")[[1]]
     for (i in imps) {
         i <- trimws(i)
+        if (debug) cat("IMPORTING ", i, "\n")
         if (.isBasePackage(i)) next
         p <- unique(ap[Package==i, deb])
         cat(", ", p ,sep="", file=con, append=TRUE)
