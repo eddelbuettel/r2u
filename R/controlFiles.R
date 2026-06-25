@@ -58,7 +58,7 @@
         i <- gsub("\\n", "", i)
         if ("Rcpp" == i && grepl("Rcpp", dt[,Imports])) next 	# already covered
         j <- gsub(" ?\\(.*?\\)", "", i)
-        p <- ap[Package==j, deb]
+        p <- unique(ap[Package==j, deb])
         cat(", ", p ,sep="", file=con, append=TRUE)
     }
 }
@@ -74,7 +74,7 @@
         i <- gsub("== ", "= ", i)
         if (!first) cat(", ", file=con, append=TRUE)
         j <- gsub(" ?\\(.*?\\)", "", i)
-        p <- ap[Package==j, deb]
+        p <- unique(ap[Package==j, deb])
         cat(p ,sep="", file=con, append=TRUE)
         first <- FALSE
     }
