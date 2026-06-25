@@ -137,22 +137,23 @@ Everything is provided as `.deb` binary files with proper dependency resolution 
 ### Usage and Setup
 
 (Note that you could use one of the scripts
+[`add_cranapt_resolute.sh`](https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/add_cranapt_resolute.sh)
+(for Ubuntu 26.04), or
 [`add_cranapt_noble.sh`](https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/add_cranapt_noble.sh)
 (for Ubuntu 24.04), or
 [`add_cranapt_jammy.sh`](https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/add_cranapt_jammy.sh)
 (for Ubuntu 22.04), or
 [`add_cranapt_focal.sh`](https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/add_cranapt_focal.sh)
-(for the older Ubuntu 20.04) to facilitate the setup. They are tested on 'empty' Ubuntu containers
-of the corresponding release. However, you may prefer to execute the steps outlined here by hand.)
-You can use `lsb_release -cs` to generate your release name: "focal", "jammy", and "noble" are
-supported and you could swap "focal" or "noble" in below (or use one of the scripts).
+(for the older Ubuntu 20.04 which is no longer updated) to facilitate the setup. They are tested on
+'empty' Ubuntu containers of the corresponding release. However, you may prefer to execute the steps
+outlined here by hand.)  You can use `lsb_release -cs` to generate your release name: "focal",
+"jammy", "noble", and "resolute" are supported and you could swap "jammy" or "noble" or "resolute"
+in below (or use one of the scripts).
 
-Here, we show the setup step by step for 'jammy' aka Ubuntu 22.04 (as it is still the most-widely
-used distribution per our logs, though we may update this to 24.04 soon). You should run all these
-commands as `root` so carefully review each one. If you prefer the newer Ubuntu 24.04, please see
-the
-[`add_cranapt_noble.sh`](https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/add_cranapt_noble.sh)
-script which also avoids the now-deprecated `apt-key` command).
+Here, we show the setup step by step for 'noble' aka Ubuntu 24.04 (as it is still the most-widely
+used distribution per our logs, though we will update this to 26.04 one 'resolute' becomes the
+default). You should run all these commands as `root` so carefully review each one. Note that the older
+releases still use the now now-deprecated `apt-key` command.
 
 
 **Step 1: Update apt, install tools, fetch key**
@@ -162,22 +163,32 @@ First add the repository key so that `apt` knows it (this is optional but recomm
 ```sh
 apt update -qq && apt install --yes --no-install-recommends wget \
     ca-certificates gnupg
-wget -q -O- https://eddelbuettel.github.io/r2u/assets/dirk_eddelbuettel_key.asc \
-    | tee -a /etc/apt/trusted.gpg.d/cranapt_key.asc
+## use gpg directly instead of the now-deprecated apt-key command
+gpg --homedir /tmp --no-default-keyring \
+    --keyring /usr/share/keyrings/r2u.gpg \
+    --keyserver keyserver.ubuntu.com \
+    --recv-keys A1489FE2AB99A21A 67C2D66C4B1D4339 51716619E084DAB9
 ```
 
 **Step 2: Add the apt repo**
 
 Second, add the repository to the `apt` registry. We recommend the well-connected main mirror
-provide at University of Illinois:
+provide at University of Illinois. We now use a `sources` file instead of the older `list` 
+format.
 
 ```sh
-echo "deb [arch=amd64] https://r2u.stat.illinois.edu/ubuntu jammy main" \
-     > /etc/apt/sources.list.d/cranapt.list
-apt update -qq
+cat > /etc/apt/sources.list.d/r2u.sources <<EOF
+Types: deb
+URIs: https://r2u.stat.illinois.edu/ubuntu
+Suites: noble
+Components: main
+Arch: amd64, arm64
+Signed-By: /usr/share/keyrings/r2u.gpg
+EOF
 ```
 
-Use `arch=arm64` for arm64 support (currently only available for noble).
+You can use `arch=arm64` for arm64 support (available for noble or resolute, but not focal or
+jammy). You can also use `$(lsb_release -cs)` instead of `noble` to compute the distribution.
 
 **Step 3: Ensure you have current R binaries (optional)**
 
@@ -185,19 +196,18 @@ Third, and optionally, if you do not yet have the current R version, run these t
 use the [standard CRAN repo setup](https://cloud.r-project.org/bin/linux/ubuntu/))
 
 ```sh
-wget -q -O- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc \
-    | tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
-echo "deb [arch=amd64] https://cloud.r-project.org/bin/linux/ubuntu jammy-cran40/" \
-    > /etc/apt/sources.list.d/cran_r.list
-apt-key adv --keyserver keyserver.ubuntu.com --recv-keys \
-    67C2D66C4B1D4339 51716619E084DAB9
+cat > /etc/apt/sources.list.d/cran.sources <<EOF
+Types: deb
+URIs: https://cloud.r-project.org/bin/linux/ubuntu
+Suites: noble-cran40/
+Components:
+Arch: amd64, arm64
+Signed-By: /usr/share/keyrings/r2u.gpg
+EOF
 apt update -qq
-DEBIAN_FRONTEND=noninteractive apt install --yes --no-install-recommends \
-    r-base-core
+DEBIAN_FRONTEND=noninteractive \
+    apt install --yes --no-install-recommends r-base-core
 ```
-
-Use `arch=arm64` for arm64 support (currently only available for noble).
-
 
 **Step 4: Use pinning for the r2u repo (optional)**
 
@@ -235,6 +245,10 @@ RHOME=$(R RHOME)
 echo "suppressMessages(bspm::enable())" >> ${RHOME}/etc/Rprofile.site
 echo "options(bspm.version.check=FALSE)" >> ${RHOME}/etc/Rprofile.site
 ```
+
+For this step, the [rapt](https://github.com/cornball-ai/rapt) package offers a lighterweight
+alternative that does not require Python. See its
+[documentation](https://github.com/cornball-ai/rapt) for more details.
 
 That's it! Now try it out!
 
