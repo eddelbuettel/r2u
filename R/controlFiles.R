@@ -6,6 +6,8 @@
 ## or just 'base' in sort(tools:::.get_standard_package_names()$base) which is almost the above
 ## (modulo 'translations')
 
+debug <- FALSE
+
 .isBasePackage <- function(pkg) {
     pkg %in% .basePkgs
 }
@@ -40,9 +42,11 @@
 .addImports <- function(dt, ap, con) {
     if (is.na(dt[,Imports])) return(invisible(NULL))
     imp <- gsub("\\n", "", dt[,Imports])
+    if (debug) print(imp)
     imps <- strsplit(imp, ",")[[1]]
     for (i in imps) {
         i <- trimws(i)
+        i <- gsub(" ?\\(.*?\\)", "", i)
         if (.isBasePackage(i)) next
         p <- unique(ap[Package==i, deb])
         cat(", ", p ,sep="", file=con, append=TRUE)
