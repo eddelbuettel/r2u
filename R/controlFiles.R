@@ -1,9 +1,9 @@
 
 .basePkgs <- c("base", "compiler", "datasets", "graphics", "grDevices", "grid", "methods", "parallel",
                "splines", "stats", "stats4", "tcltk", "tools", "translations", "utils")
-## also see tools:::.get_standard_package_names() or explicitly joining list elements 'base'
-## and 'recommended' in unname(do.call(c, tools:::.get_standard_package_names()))
-## or just 'base' in sort(tools:::.get_standard_package_names()$base) which is almost the above
+## also see tools:::standard_package_names() or explicitly joining list elements 'base'
+## and 'recommended' in unname(do.call(c, tools::standard_package_names()))
+## or just 'base' in sort(tools::standard_package_names()$base) which is almost the above
 ## (modulo 'translations')
 
 debug <- FALSE
