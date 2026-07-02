@@ -1030,50 +1030,62 @@ at GitHub Actions in the <a href="https://github.com/eddelbuettel/r2u-builder">r
 <code>apt</code> repo which also has a signed Release file.</p>
 <h3 id="usage-and-setup">Usage and Setup</h3>
 <p>(Note that you could use one of the scripts
+<a href="https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/add_cranapt_resolute.sh"><code>add_cranapt_resolute.sh</code></a>
+(for Ubuntu 26.04), or
 <a href="https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/add_cranapt_noble.sh"><code>add_cranapt_noble.sh</code></a>
 (for Ubuntu 24.04), or
 <a href="https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/add_cranapt_jammy.sh"><code>add_cranapt_jammy.sh</code></a>
 (for Ubuntu 22.04), or
 <a href="https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/add_cranapt_focal.sh"><code>add_cranapt_focal.sh</code></a>
-(for the older Ubuntu 20.04) to facilitate the setup. They are tested on 'empty' Ubuntu containers
-of the corresponding release. However, you may prefer to execute the steps outlined here by hand.)
-You can use <code>lsb_release -cs</code> to generate your release name: "focal", "jammy", and "noble" are
-supported and you could swap "focal" or "noble" in below (or use one of the scripts).</p>
-<p>Here, we show the setup step by step for 'jammy' aka Ubuntu 22.04 (as it is still the most-widely
-used distribution per our logs, though we may update this to 24.04 soon). You should run all these
-commands as <code>root</code> so carefully review each one. If you prefer the newer Ubuntu 24.04, please see
-the
-<a href="https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/add_cranapt_noble.sh"><code>add_cranapt_noble.sh</code></a>
-script which also avoids the now-deprecated <code>apt-key</code> command).</p>
+(for the older Ubuntu 20.04 which is no longer updated) to facilitate the setup. They are tested on
+'empty' Ubuntu containers of the corresponding release. However, you may prefer to execute the steps
+outlined here by hand.)  You can use <code>lsb_release -cs</code> to generate your release name: "focal",
+"jammy", "noble", and "resolute" are supported and you could swap "jammy" or "noble" or "resolute"
+in below (or use one of the scripts).</p>
+<p>Here, we show the setup step by step for 'noble' aka Ubuntu 24.04 (as it is still the most-widely
+used distribution per our logs, though we will update this to 26.04 one 'resolute' becomes the
+default). You should run all these commands as <code>root</code> so carefully review each one. Note that the older
+releases still use the now now-deprecated <code>apt-key</code> command.</p>
 <p><strong>Step 1: Update apt, install tools, fetch key</strong></p>
 <p>First add the repository key so that <code>apt</code> knows it (this is optional but recommended)</p>
 <pre><code class="language-sh">apt update -qq &amp;&amp; apt install --yes --no-install-recommends wget \
     ca-certificates gnupg
-wget -q -O- https://eddelbuettel.github.io/r2u/assets/dirk_eddelbuettel_key.asc \
-    | tee -a /etc/apt/trusted.gpg.d/cranapt_key.asc
+## use gpg directly instead of the now-deprecated apt-key command
+gpg --homedir /tmp --no-default-keyring \
+    --keyring /usr/share/keyrings/r2u.gpg \
+    --keyserver keyserver.ubuntu.com \
+    --recv-keys A1489FE2AB99A21A 67C2D66C4B1D4339 51716619E084DAB9
 </code></pre>
 <p><strong>Step 2: Add the apt repo</strong></p>
 <p>Second, add the repository to the <code>apt</code> registry. We recommend the well-connected main mirror
-provide at University of Illinois:</p>
-<pre><code class="language-sh">echo &quot;deb [arch=amd64] https://r2u.stat.illinois.edu/ubuntu jammy main&quot; \
-     &gt; /etc/apt/sources.list.d/cranapt.list
-apt update -qq
+provide at University of Illinois. We now use a <code>sources</code> file instead of the older <code>list</code> 
+format.</p>
+<pre><code class="language-sh">cat &gt; /etc/apt/sources.list.d/r2u.sources &lt;&lt;EOF
+Types: deb
+URIs: https://r2u.stat.illinois.edu/ubuntu
+Suites: noble
+Components: main
+Arch: amd64, arm64
+Signed-By: /usr/share/keyrings/r2u.gpg
+EOF
 </code></pre>
-<p>Use <code>arch=arm64</code> for arm64 support (currently only available for noble).</p>
+<p>You can use <code>arch=arm64</code> for arm64 support (available for noble or resolute, but not focal or
+jammy). You can also use <code>$(lsb_release -cs)</code> instead of <code>noble</code> to compute the distribution.</p>
 <p><strong>Step 3: Ensure you have current R binaries (optional)</strong></p>
 <p>Third, and optionally, if you do not yet have the current R version, run these two lines (or
 use the <a href="https://cloud.r-project.org/bin/linux/ubuntu/">standard CRAN repo setup</a>)</p>
-<pre><code class="language-sh">wget -q -O- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc \
-    | tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
-echo &quot;deb [arch=amd64] https://cloud.r-project.org/bin/linux/ubuntu jammy-cran40/&quot; \
-    &gt; /etc/apt/sources.list.d/cran_r.list
-apt-key adv --keyserver keyserver.ubuntu.com --recv-keys \
-    67C2D66C4B1D4339 51716619E084DAB9
+<pre><code class="language-sh">cat &gt; /etc/apt/sources.list.d/cran.sources &lt;&lt;EOF
+Types: deb
+URIs: https://cloud.r-project.org/bin/linux/ubuntu
+Suites: noble-cran40/
+Components:
+Arch: amd64, arm64
+Signed-By: /usr/share/keyrings/r2u.gpg
+EOF
 apt update -qq
-DEBIAN_FRONTEND=noninteractive apt install --yes --no-install-recommends \
-    r-base-core
+DEBIAN_FRONTEND=noninteractive \
+    apt install --yes --no-install-recommends r-base-core
 </code></pre>
-<p>Use <code>arch=arm64</code> for arm64 support (currently only available for noble).</p>
 <p><strong>Step 4: Use pinning for the r2u repo (optional)</strong></p>
 <p>Fourth, add repository 'pinning' as <code>apt</code> might get confused by some older
 packages (in the Ubuntu distro) which accidentally appear with a higher
@@ -1102,6 +1114,9 @@ RHOME=$(R RHOME)
 echo &quot;suppressMessages(bspm::enable())&quot; &gt;&gt; ${RHOME}/etc/Rprofile.site
 echo &quot;options(bspm.version.check=FALSE)&quot; &gt;&gt; ${RHOME}/etc/Rprofile.site
 </code></pre>
+<p>For this step, the <a href="https://github.com/cornball-ai/rapt">rapt</a> package offers a lighterweight
+alternative that does not require Python. See its
+<a href="https://github.com/cornball-ai/rapt">documentation</a> for more details.</p>
 <p>That's it! Now try it out!</p>
 <h3 id="about-pinning">About Pinning</h3>
 <p>Packages can be found in different repositories, and <em>generally</em> the highest available version is
@@ -1190,7 +1205,7 @@ codespace.</p>
 now over eighty million packages shipped.  Early September 2023 also had the most recent and
 dramatic spike of <em>over three million packages in two days</em>.  The following chart gives a summary of
 cumulative and average weekly downloads (the latter one on a log scale).</p>
-<p><img alt="" src="https://eddelbuettel.github.io/images/2026-06-01/r2u_aggregated_and_weekly_2026-06-01.png" /></p>
+<p><img alt="" src="https://eddelbuettel.github.io/images/2026-07-01/r2u_aggregated_and_weekly_2026-07-01.png" /></p>
 <h3 id="github-stars">GitHub Stars</h3>
 <p>Stars are accruing at a regular pace as shown on the <a href="https://www.star-history.com/">star history</a> chart below.</p>
 <p><a href="https://www.star-history.com/#eddelbuettel/r2u&amp;Date"><img alt="Star History Chart" src="https://api.star-history.com/svg?repos=eddelbuettel/r2u&amp;type=Date" /></a></p>
