@@ -1,5 +1,7 @@
 2026-07-09  Dirk Eddelbuettel  <edd@debian.org>
 
+	* DESCRIPTION (Version): Release 0.0.10
+
 	* src/package_dependency_scan.c: Borrowed with love from tools
 	* src/init.c: Registration
 	* NAMESPACE: Idem
