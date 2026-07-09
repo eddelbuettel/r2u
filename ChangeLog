@@ -1,3 +1,11 @@
+2026-07-09  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/package_dependency_scan.c: Borrowed with love from tools
+	* src/init.c: Registration
+	* NAMESPACE: Idem
+	* R/controlFiles.R: Use package dependency scanner from tools
+	* cleanup: Added
+
 2026-05-03  Dirk Eddelbuettel  <edd@debian.org>
 
 	* R/init.R: Update defaults to R 4.6.0 and BioConductor 3.23

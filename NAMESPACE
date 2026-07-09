@@ -6,3 +6,5 @@ import("data.table")
 importFrom("utils", "packageName", "available.packages", "download.file", "download.packages", "read.table", "untar", "head", "tail")
 importFrom("crayon", "red", "green", "blue")
 importFrom("httr", "POST", "add_headers", "content")
+
+useDynLib(r2u, .registration = TRUE, .fixes = "C_")

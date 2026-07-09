@@ -8,6 +8,11 @@
 
 debug <- FALSE
 
+## Imported with love and acknowledgements from base R and its tools package
+.extract_dependency_package_names <- function(x) {
+    .Call(C_package_dependencies_scan, x)
+}
+
 .isBasePackage <- function(pkg) {
     pkg %in% .basePkgs
 }
@@ -15,16 +20,12 @@ debug <- FALSE
 .addDepends <- function(dt, ap, con) {
     if (is.na(dt[,Depends])) return(invisible(NULL))
 
-    dep <- gsub("\\n", "", dt[,Depends])
-    deps <- trimws(strsplit(dep, ",")[[1]])
-    deps <- sapply(deps, \(x) gsub("^R \\(.*?\\)", "", x, perl=TRUE), USE.NAMES=FALSE)
-    deps <- Filter(nzchar, deps)
-    deps <- sapply(deps, \(x) trimws(gsub("\\(.*?\\)", "", x, perl=TRUE)), USE.NAMES=FALSE)
+    deps <- .extract_dependency_package_names(dt[,Depends])
 
     curpkg <- dt[1,Package]
     rtdeps <- .pkgenv[["runtimedeps"]]
     has_rtdeps <- any(grepl(paste0("^",curpkg,":"), rtdeps))
-    if (nchar(dep) == 0 && !has_rtdeps)
+    if (length(deps) == 0 && !has_rtdeps)
         return(invisible(NULL))
 
     for (d in deps) {
@@ -41,12 +42,9 @@ debug <- FALSE
 
 .addImports <- function(dt, ap, con) {
     if (is.na(dt[,Imports])) return(invisible(NULL))
-    imp <- gsub("\\n", "", dt[,Imports])
-    if (debug) print(imp)
-    imps <- strsplit(imp, ",")[[1]]
+
+    imps <- .extract_dependency_package_names(dt[,Imports])
     for (i in imps) {
-        i <- trimws(i)
-        i <- gsub(" ?\\(.*?\\)", "", i)
         if (.isBasePackage(i)) next
         p <- unique(ap[Package==i, deb])
         cat(", ", p ,sep="", file=con, append=TRUE)
@@ -55,30 +53,21 @@ debug <- FALSE
 
 .addLinkingTo <- function(dt, ap, con) {
     if (is.na(dt[,LinkingTo])) return(invisible(NULL))
-    lto <- gsub("\\n", "", dt[,LinkingTo])
-    ltos <- strsplit(lto, ",")[[1]]
+    imps <- .extract_dependency_package_names(dt[,LinkingTo])
     for (i in ltos) {
-        i <- gsub("^ ", "", i)
-        i <- gsub("\\n", "", i)
         if ("Rcpp" == i && grepl("Rcpp", dt[,Imports])) next 	# already covered
-        j <- gsub(" ?\\(.*?\\)", "", i)
-        p <- unique(ap[Package==j, deb])
+        p <- unique(ap[Package==i, deb])
         cat(", ", p ,sep="", file=con, append=TRUE)
     }
 }
 
 .addSuggests <- function(dt, ap, con) {
     if (is.na(dt[,Suggests])) return(invisible(NULL))
-    sgg <- gsub("\\n", "", dt[,Suggests])
-    sggs <- strsplit(sgg, ",")[[1]]
+    sggs <- .extract_dependency_package_names(dt[,Suggests])
     first <- TRUE
     for (i in sggs) {
-        i <- gsub("^ ", "", i)
-        i <- gsub("\\n", "", i)
-        i <- gsub("== ", "= ", i)
         if (!first) cat(", ", file=con, append=TRUE)
-        j <- gsub(" ?\\(.*?\\)", "", i)
-        p <- unique(ap[Package==j, deb])
+        p <- unique(ap[Package==i, deb])
         cat(p ,sep="", file=con, append=TRUE)
         first <- FALSE
     }

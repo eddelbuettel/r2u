@@ -45,3 +45,6 @@ docker/rebuildBuildContainers.sh
 calendar.md
 NOTES.md
 .devcontainer/examples/
+
+src/*.o
+src/*.so
