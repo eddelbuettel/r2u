@@ -53,7 +53,7 @@ debug <- FALSE
 
 .addLinkingTo <- function(dt, ap, con) {
     if (is.na(dt[,LinkingTo])) return(invisible(NULL))
-    imps <- .extract_dependency_package_names(dt[,LinkingTo])
+    ltos <- .extract_dependency_package_names(dt[,LinkingTo])
     for (i in ltos) {
         if ("Rcpp" == i && grepl("Rcpp", dt[,Imports])) next 	# already covered
         p <- unique(ap[Package==i, deb])
