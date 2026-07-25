@@ -332,12 +332,13 @@
             ##     [1] "https://bioconductor.org/packages/3.14/bioc/src/contrib"
             ##     [2] "https://bioconductor.org/packages/3.14/data/annotation/src/contrib"
             ##     [3] "https://bioconductor.org/packages/3.14/data/experiment/src/contrib"
-            biocrepo <- paste0("https://bioconductor.org/packages/", .getConfig("bioc_version"), "/bioc")
+            ## also: https://bioconductor.posit.co/packages/3.23/...
+            biocrepo <- paste0("https://bioconductor.posit.co/packages/", .getConfig("bioc_version"), "/bioc")
             apBIOC <- data.table(ap="Bioc", as.data.frame(available.packages(repos=biocrepo)))
-            biocdataannrepo <- paste0("https://bioconductor.org/packages/", .getConfig("bioc_version"), "/data/annotation")
+            biocdataannrepo <- paste0("https://bioconductor.posit.co/packages/", .getConfig("bioc_version"), "/data/annotation")
             apBIOCdataann <- data.table(ap="Bioc", as.data.frame(available.packages(repos=biocdataannrepo)))
             apBIOC <- merge(apBIOC, apBIOCdataann, all=TRUE)
-            biocdataexprepo <- paste0("https://bioconductor.org/packages/", .getConfig("bioc_version"), "/data/experiment")
+            biocdataexprepo <- paste0("https://bioconductor.posit.co/packages/", .getConfig("bioc_version"), "/data/experiment")
             apBIOCdataexp <- data.table(ap="Bioc", as.data.frame(available.packages(repos=biocdataexprepo)))
             apBIOC <- merge(apBIOC, apBIOCdataexp, all=TRUE)
 
