@@ -42,3 +42,7 @@ nav:
     - news.md
   - Changelog:
     - changelog.md
+
+markdown_extensions:
+  - toc:
+      toc_depth: 3

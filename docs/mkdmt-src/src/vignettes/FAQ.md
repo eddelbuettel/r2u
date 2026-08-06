@@ -1,7 +1,7 @@
 
 ## General
 
-### Why is it called both CRANapt and r2u?
+#### Why is it called both CRANapt and r2u?
 
 We started out with the hope to eventually provide CRAN binaries for multiple
 distributions (Debian, Ubuntu, ...), releases (testing/stable, LTS/current,
@@ -9,12 +9,12 @@ distributions (Debian, Ubuntu, ...), releases (testing/stable, LTS/current,
 Ubuntu LTS for amd64 is the first instance. And as we are effectively only on
 Ubuntu, at least for the time being, sp the shorter 'r2u' crept up, and stuck.
 
-### How is it pronounced?
+#### How is it pronounced?
 
 We think of the 'n' in CRANapt as silent so you can always say "oh I just
 crapted these packages onto my system".
 
-### A package reports that it is uninstallable
+#### A package reports that it is uninstallable
 
 Make sure you follow the 'Pinnning' section of the README.md and the [setup
 script](https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/add_cranapt.sh).
@@ -33,7 +33,7 @@ that was caused by this.)  In general we can not overcome this by pinning,
 and we continue to try to find a more comprehensive solution that is less
 invasive than changing many package version numbers.
 
-### What is the relationship with the c2d4u PPA ?
+#### What is the relationship with the c2d4u PPA ?
 
 tl;dr: r2u now replaces c2d4u.
 
@@ -49,7 +49,7 @@ additional packages
 As of 2024, that hope came to fruition: c2d4u is now taking a well-deserved
 hiatus, and recommends switching to r2u instead. 
 
-### How can one know when it was updated
+#### How can one know when it was updated
 
 We generally build multiple times per day now. But we currently have no 'lastBuilt' tag on the
 website but could add one if that helped.  As builds are happening in public, you can always look at
@@ -58,7 +58,7 @@ the [builder repository](https://github.com/eddelbuettel/r2u-builder).
 
 ## Deployment
 
-### Can I use (current) r2u with Debian?
+#### Can I use (current) r2u with Debian?
 
 In general, it is _not_ a good idea to mix packages from Debian and Ubuntu in the same
 installation. The package management system works so well for either because it generally can rely
@@ -67,13 +67,13 @@ work in small isolated cases, is really not suitable to such setups. So we recom
 (the current r2u setup which is Ubuntu-only) on Debian.  (This question was also asked in 
 [issue #8](https://github.com/eddelbuettel/r2u/issues/8).)
 
-### Can I use r2u with Ubuntu derivatives?
+#### Can I use r2u with Ubuntu derivatives?
 
 As long as the derivatives allow full use of Ubuntu repositories, they can be used with r2u as r2u
 coexists nicely with Ubuntu. We have heard from several users doing this and it appears to 'just
 work', we have not done so ourselves.
 
-### Can I install Bioconductor packages from Ubuntu not in r2u
+#### Can I install Bioconductor packages from Ubuntu not in r2u
 
 This used to be an issue in the earlier days. As of early 2024 and the BioConductor 3.18 release, we
 also ensure we had all packages covered by the (originall Debian and hence also in the) Ubuntu
@@ -93,7 +93,7 @@ jammy can proceed. For more details see
 second paragraph to the question is needed anymore given the changes described in the first. All
 good!)
 
-### Can I use it with other non-LTS Ubuntu releases?
+#### Can I use it with other non-LTS Ubuntu releases?
 
 Sure!  You can always forward-upgrade.  So for example the 22.04 ("jammy") release works perfectly
 fine with 22.10 ("kinetic"). Just make sure you keep the `sources.list` entry on the LTS release you
@@ -111,12 +111,12 @@ one, please file an issue. We think we can (if need be) address this with a supp
 'as-needed' basis. It may also help to keep the preceding LTS sources entry along with the newer
 non-LTS entry.
 
-### Why does it have more packages than CRAN ?
+#### Why does it have more packages than CRAN ?
 
 We (at least currently) do not purge packages from r2u that have been archived at CRAN.  Hence the
 set of packages at r2u grows faster and further leading to a growing difference relative to CRAN.
 
-### What about other architectures besides x86_64 ?
+#### What about other architectures besides x86_64 ?
 
 Excellent question. CRAN builds for at least three different OSs, Debian binaries are provided on
 maybe 15 hardware platforms so 'how hard can it be?' you may ask (and some have in issues
@@ -133,7 +133,7 @@ would have to be a Debian (or Ubuntu) platform.
 But now, thanks to expanded support at GitHub Actions we also support arm64.  So starting with 24.04
 both arm64 and amd64 are supported.
 
-### Can one use `r2u` with Singularity containers?
+#### Can one use `r2u` with Singularity containers?
 
 Yes, as discussed [in this GitHub issue](https://github.com/eddelbuettel/r2u/issues/9).
 The key is that Singularity does not allow `root` access, yet we need to install packages
@@ -155,7 +155,7 @@ a suitable `.sif` from it as discussed in the issue.
 
 ## Usage 
 
-### Why can I not uninstall packages with `remove.packages()` ?
+#### Why can I not uninstall packages with `remove.packages()` ?
 
 This issue is known and documented, for example under [known issues in the main GitHub
 README](https://github.com/eddelbuettel/r2u?tab=readme-ov-file#known-issues) shadowed in [the main
@@ -168,7 +168,7 @@ package.
 Also see isues [#75](https://github.com/eddelbuettel/r2u/issues/75) and
 [#35](https://github.com/eddelbuettel/r2u/issues/35).
 
-### Can I install and use older versions by choice ?
+#### Can I install and use older versions by choice ?
 
 Of course!  One key aspect of using R on Debian / Ubuntu is that the order the library path
 directories (shown by calling `.libPaths()`) such that the system libraries come last. This means
@@ -180,7 +180,7 @@ that you can always call `bspm::disable(); install.packages("some_package")` to 
 See issue [#75](https://github.com/eddelbuettel/r2u/issues/75) where this is discussed a little too
 and an example is provided.
 
-### Should I install bspm?
+#### Should I install bspm?
 
 We find it helpful. It allows you to use `install.packages()` in R, or script `install.r`, and refer
 to _CRAN and BioConductor packages by their names_ which is more natural. `bspm` will call `apt` for
@@ -188,11 +188,11 @@ you. Hence our default Docker image has `bspm` installed and enabled by default.
 
 (Also see below though for `docker build` and `bspm`.)
 
-### bspm is a little noisy
+#### bspm is a little noisy
 
 You can wrap `suppressMessages()` around `bspm::enable()`.  We now do so in the Docker image.
 
-### With the 22.04 "jammy" container I get 'Cannot connect' errors
+#### With the 22.04 "jammy" container I get 'Cannot connect' errors
 
 We found that adding `--security-opt seccomp=unconfined` to the `docker` invocation silenced those
 on AWS hosts and possibly other systems.  This may be related to Ubuntu hosts only.
@@ -201,4 +201,18 @@ A side-effect of this required security policy statement for `bspm` is that `bsp
 when building containers off `r2u`.  It appears that Docker rules this out during builds.  The only
 remedy is to use `bspm::disable()` and to rely on just `apt` to install the `r2u` packages in
 derived containers.
+
+## Errors
+
+#### GitHub Actions time out
+
+This sadly happens to us too when building packages, and it also affects continunous integration
+use.
+
+We have access to the server, and there is _never_ anything in its logs. This seems to be entirely
+on the (GitHub runners) client side.  This has also been discussed in 
+[discussion issue #159](https://github.com/eddelbuettel/r2u/discussions/159) where Jeffrey Girard made
+some astute observations. For example this appears to only ever happens on amd64 but not on
+arm64. It really appears to be a client issue on the GitHub side and outside of our control: A
+simple re-run most often fixes it.
 
