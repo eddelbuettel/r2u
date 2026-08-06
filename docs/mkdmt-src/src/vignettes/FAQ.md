@@ -49,6 +49,15 @@ additional packages
 As of 2024, that hope came to fruition: c2d4u is now taking a well-deserved
 hiatus, and recommends switching to r2u instead. 
 
+### How can one know when it was updated
+
+We generally build multiple times per day now. But we currently have no 'lastBuilt' tag on the
+website but could add one if that helped.  As builds are happening in public, you can always look at
+the [builder repository](https://github.com/eddelbuettel/r2u-builder).
+
+
+## Deployment
+
 ### Can I use (current) r2u with Debian?
 
 In general, it is _not_ a good idea to mix packages from Debian and Ubuntu in the same
@@ -121,8 +130,30 @@ and it only got as (amazingly !)  far as it is has gotten because I could build 
 hardware platforms, and recall that all this also works by plugging into and relying on `apt` so it
 would have to be a Debian (or Ubuntu) platform. 
 
-But now, thanks to expanded support at GitHub Actions we can also support arm64.  So starting with
-24.04 both arm64 and amd64 are supported.
+But now, thanks to expanded support at GitHub Actions we also support arm64.  So starting with 24.04
+both arm64 and amd64 are supported.
+
+### Can one use `r2u` with Singularity containers?
+
+Yes, as discussed [in this GitHub issue](https://github.com/eddelbuettel/r2u/issues/9).
+The key is that Singularity does not allow `root` access, yet we need to install packages
+via `bspm`.  The best answer is this to start from the base container, add packages as needed to
+create a new Docker container -- and transfer / transform that container for Singularity use.
+
+The running example in that issue is installing [Seurat](https://cloud.r-project.org/package=Seurat)
+and moderately complex and extended dependencies. Thanks to how `r2u` is set up a simpler Dockerfile
+such as
+
+    FROM rocker/r2u:22.04
+    RUN install.r Seurat
+
+which by using `install.r` (from [littler](https://github.com/eddelbuettel/littler) along with
+`bspm` turns this into a call to `apt`.  Call as, say, `docker build -t r2u_seurat:22.04 .`
+and enjoy the resulting container `r2u_seurat:22.04` (or give it any other suitable name) and build
+a suitable `.sif` from it as discussed in the issue.
+
+
+## Usage 
 
 ### Why can I not uninstall packages with `remove.packages()` ?
 
@@ -170,31 +201,4 @@ A side-effect of this required security policy statement for `bspm` is that `bsp
 when building containers off `r2u`.  It appears that Docker rules this out during builds.  The only
 remedy is to use `bspm::disable()` and to rely on just `apt` to install the `r2u` packages in
 derived containers.
-
-### Can one use `r2u` with Singularity containers?
-
-Yes, as discussed [in this GitHub issue](https://github.com/eddelbuettel/r2u/issues/9).
-The key is that Singularity does not allow `root` access, yet we need to install packages
-via `bspm`.  The best answer is this to start from the base container, add packages as needed to
-create a new Docker container -- and transfer / transform that container for Singularity use.
-
-The running example in that issue is installing [Seurat](https://cloud.r-project.org/package=Seurat)
-and moderately complex and extended dependencies. Thanks to how `r2u` is set up a simpler Dockerfile
-such as
-
-    FROM rocker/r2u:22.04
-    RUN install.r Seurat
-
-which by using `install.r` (from [littler](https://github.com/eddelbuettel/littler) along with
-`bspm` turns this into a call to `apt`.  Call as, say, `docker build -t r2u_seurat:22.04 .`
-and enjoy the resulting container `r2u_seurat:22.04` (or give it any other suitable name) and build
-a suitable `.sif` from it as discussed in the issue.
-
-
-### How can one know when it was updated
-
-We generally build multiple times per day now. But we currently have no 'lastBuilt' tag on the
-website but could add one if that helped.  As builds are happening in public, you can always look at
-the [builder repository](https://github.com/eddelbuettel/r2u-builder).
-
 
