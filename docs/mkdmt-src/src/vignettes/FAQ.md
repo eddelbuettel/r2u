@@ -55,8 +55,8 @@ In general, it is _not_ a good idea to mix packages from Debian and Ubuntu in th
 installation. The package management system works so well for either because it generally can rely
 on proper package versions, dependencies, and relationships between packages. Mixing, while it may
 work in small isolated cases, is really not suitable to such setups. So we recommend against using
-(the current r2u setup which is Ubuntu-only) on Debian.  (This question was also asked in [issue
-#8](https://github.com/eddelbuettel/r2u/issues/8).)
+(the current r2u setup which is Ubuntu-only) on Debian.  (This question was also asked in 
+[issue #8](https://github.com/eddelbuettel/r2u/issues/8).)
 
 ### Can I use r2u with Ubuntu derivatives?
 
@@ -79,8 +79,8 @@ package. To satisfy this with our r2u packages, which were then based on the new
 (and later upgraded to 3.16, 3.17, now 3.18), we added a small [virtual package
 `bioc-api-package`](https://github.com/eddelbuettel/bioc-api-package) that we added to the repo. So
 after `sudo apt install bioc-api-package` installation of the addional Bioconductor packages in
-jammy can proceed. For more details see [issue
-#11](https://github.com/eddelbuettel/r2u/issues/11). Note that none of what is described in this
+jammy can proceed. For more details see 
+[issue #11](https://github.com/eddelbuettel/r2u/issues/11). Note that none of what is described in this
 second paragraph to the question is needed anymore given the changes described in the first. All
 good!)
 

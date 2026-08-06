@@ -490,8 +490,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#a-package-reports-it-is-uninstallable" class="md-nav__link">
-    A package reports it is uninstallable
+  <a href="#a-package-reports-that-it-is-uninstallable" class="md-nav__link">
+    A package reports that it is uninstallable
   </a>
   
 </li>
@@ -510,12 +510,45 @@
   
 </li>
         
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8httpsgithubcomeddelbuettelr2uissues8" class="md-nav__link">
+    8](https://github.com/eddelbuettel/r2u/issues/8).)
+  </a>
+  
+    <nav class="md-nav" aria-label="8](https://github.com/eddelbuettel/r2u/issues/8).)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#can-i-use-r2u-with-ubuntu-derivatives" class="md-nav__link">
+    Can I use r2u with Ubuntu derivatives?
+  </a>
+  
+</li>
+        
           <li class="md-nav__item">
   <a href="#can-i-install-bioconductor-packages-from-ubuntu-not-in-r2u" class="md-nav__link">
     Can I install Bioconductor packages from Ubuntu not in r2u
   </a>
   
 </li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11httpsgithubcomeddelbuettelr2uissues11-note-that-none-of-what-is-described-in-this" class="md-nav__link">
+    11](https://github.com/eddelbuettel/r2u/issues/11). Note that none of what is described in this
+  </a>
+  
+    <nav class="md-nav" aria-label="11](https://github.com/eddelbuettel/r2u/issues/11). Note that none of what is described in this">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#can-i-use-it-with-other-non-lts-ubuntu-releases" class="md-nav__link">
@@ -764,8 +797,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#a-package-reports-it-is-uninstallable" class="md-nav__link">
-    A package reports it is uninstallable
+  <a href="#a-package-reports-that-it-is-uninstallable" class="md-nav__link">
+    A package reports that it is uninstallable
   </a>
   
 </li>
@@ -784,12 +817,45 @@
   
 </li>
         
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8httpsgithubcomeddelbuettelr2uissues8" class="md-nav__link">
+    8](https://github.com/eddelbuettel/r2u/issues/8).)
+  </a>
+  
+    <nav class="md-nav" aria-label="8](https://github.com/eddelbuettel/r2u/issues/8).)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#can-i-use-r2u-with-ubuntu-derivatives" class="md-nav__link">
+    Can I use r2u with Ubuntu derivatives?
+  </a>
+  
+</li>
+        
           <li class="md-nav__item">
   <a href="#can-i-install-bioconductor-packages-from-ubuntu-not-in-r2u" class="md-nav__link">
     Can I install Bioconductor packages from Ubuntu not in r2u
   </a>
   
 </li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11httpsgithubcomeddelbuettelr2uissues11-note-that-none-of-what-is-described-in-this" class="md-nav__link">
+    11](https://github.com/eddelbuettel/r2u/issues/11). Note that none of what is described in this
+  </a>
+  
+    <nav class="md-nav" aria-label="11](https://github.com/eddelbuettel/r2u/issues/11). Note that none of what is described in this">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#can-i-use-it-with-other-non-lts-ubuntu-releases" class="md-nav__link">
@@ -881,27 +947,25 @@
                   
 
 
-  <h1>FAQ</h1>
-
 <h2 id="general">General</h2>
 <h3 id="why-is-it-called-both-cranapt-and-r2u">Why is it called both CRANapt and r2u?</h3>
 <p>We started out with the hope to eventually provide CRAN binaries for multiple
 distributions (Debian, Ubuntu, ...), releases (testing/stable, LTS/current,
 ...), hardware platforms, and so on.  But we had to start somewhere, so
 Ubuntu LTS for amd64 is the first instance. And as we are effectively only on
-Ubuntu, at least for now, the shorter 'r2u' crept up, and stuck.</p>
+Ubuntu, at least for the time being, sp the shorter 'r2u' crept up, and stuck.</p>
 <h3 id="how-is-it-pronounced">How is it pronounced?</h3>
-<p>We think of the 'n' as silent so you can always say "oh I just crapted these
-packages onto my system".</p>
-<h3 id="a-package-reports-it-is-uninstallable">A package reports it is uninstallable</h3>
+<p>We think of the 'n' in CRANapt as silent so you can always say "oh I just
+crapted these packages onto my system".</p>
+<h3 id="a-package-reports-that-it-is-uninstallable">A package reports that it is uninstallable</h3>
 <p>Make sure you follow the 'Pinnning' section of the README.md and the <a href="https://github.com/eddelbuettel/r2u/blob/master/inst/scripts/add_cranapt.sh">setup
 script</a>.
-Some (older) builds in the (main) Ubuntu distribution appear to sort higher
+Sometimes (older) builds in the (main) Ubuntu distribution appear to sort higher
 and would block an installation of the freshly made binary (under a
 consistent naming scheme). The <code>apt</code> feature of 'pinning' is what we want
 here to have an entire repository sort higher.</p>
 <p>There can also be other issues related to CRAN allowing a hyphen in version
-(<em>e.g.</em> <a href="https://cran.r-project.org/package=nlme">nlme</a> is currently at
+(<em>e.g.</em> <a href="https://cran.r-project.org/package=nlme">nlme</a> was at some point at
 3.1-157. But Debian and Ubuntu use a hyphen to split off the build iteration
 count so version numbers are sometimes standardised to for example 3.1.157
 switching the hyphen to a dot. Sadly that leads to different sorting. (See
@@ -910,80 +974,75 @@ that was caused by this.)  In general we can not overcome this by pinning,
 and we continue to try to find a more comprehensive solution that is less
 invasive than changing many package version numbers.</p>
 <h3 id="what-is-the-relationship-with-the-c2d4u-ppa">What is the relationship with the c2d4u PPA ?</h3>
-<p>We are huge fans of the c2d4u repository and have used it for a decade or
-longer. It uses the proper build process, and sits on a very solid Launchpad
-infrastructure supported by Canonical.  However, this also makes it a little
-less nimble and precludes for example use of external build resources.
-Overall it also still at a fraction of CRAN packages. So we created this repo
-as an experiment to see if we could scale a simple and direct approach, and
-in the hopes it can complement the c2d4u PPA and offer additional packages</p>
-<p>As of 2024, that hope has come to fruition as c2d4u is now taken a
-well-deserved hiatus, and recommends switching to r2u instead.</p>
+<p>tl;dr: r2u now replaces c2d4u.</p>
+<p>We have been huge fans and supporters of the c2d4u repository and have used
+it for a decade or longer. It used the proper build process, and sat on a
+very solid Launchpad infrastructure supported by Canonical.  However, this
+also made it a little less nimble and precluded for example use of external
+build resources.  Overall it was always at a fraction of CRAN packages. So we
+created this repo as an experiment to see if we could scale a simple and
+direct approach, and in the hopes to complement the c2d4u PPA and offer
+additional packages</p>
+<p>As of 2024, that hope came to fruition: c2d4u is now taking a well-deserved
+hiatus, and recommends switching to r2u instead. </p>
 <h3 id="can-i-use-current-r2u-with-debian">Can I use (current) r2u with Debian?</h3>
-<p>In general, it is <em>not</em> a good idea to mix packages from Debian and Ubuntu in
-the same installation. The package management system works so well for either
-because it generally can rely on proper package versions, dependencies, and
-relationships between packages. Mixing, while it may work in small isolated
-cases, is really not suitable to such setups. So we recommend against using
-(the current r2u setup which is Ubuntu-only) on Debian.  (This question was
-also asked in <a href="https://github.com/eddelbuettel/r2u/issues/8">issue #8</a>.)</p>
+<p>In general, it is <em>not</em> a good idea to mix packages from Debian and Ubuntu in the same
+installation. The package management system works so well for either because it generally can rely
+on proper package versions, dependencies, and relationships between packages. Mixing, while it may
+work in small isolated cases, is really not suitable to such setups. So we recommend against using
+(the current r2u setup which is Ubuntu-only) on Debian.  (This question was also asked in [issue</p>
+<h1 id="8httpsgithubcomeddelbuettelr2uissues8">8](https://github.com/eddelbuettel/r2u/issues/8).)</h1>
+<h3 id="can-i-use-r2u-with-ubuntu-derivatives">Can I use r2u with Ubuntu derivatives?</h3>
+<p>As long as the derivatives allow full use of Ubuntu repositories, they can be used with r2u as r2u
+coexists nicely with Ubuntu. We have heard from several users doing this and it appears to 'just
+work', we have not done so ourselves.</p>
 <h3 id="can-i-install-bioconductor-packages-from-ubuntu-not-in-r2u">Can I install Bioconductor packages from Ubuntu not in r2u</h3>
-<p>This used to be an issue in the earlier days. As of early 2024 and the
-BioConductor 3.18 release, we also ensure we had all packages covered by the
-(originall Debian and hence also in the) Ubuntu distribution. At that time,
-the distribution had around 170 packages whereas the set of packages covered
-by r2u increased to just over 400. With the combination of r2u generally having
-a newer version along with the recommended pinning you should always get the
-r2u version without issues.  </p>
-<p>As of late 2024, and BioConductor 3.20, we have well over 400 packages from
-BioConductor for the (currently three) LTS releases we support.</p>
-<p>(And for historical context, back-then-when Ubuntu contained a number of
-Debian packages <code>r-bioc-*</code>. However, as the distribution cutoff for the
-'jammy' (22.04) cutoff was before Bioconductor 3.15 was released so these
-packages had a dependency on the 'r-api-bioc-3.14' (virtual) package. To
-satisfy this with our r2u packages, which were then based on the newer
-Bioconductor 3.15 (and later upgraded to 3.16, 3.17, now 3.18), we added a
-small <a href="https://github.com/eddelbuettel/bioc-api-package">virtual package
-<code>bioc-api-package</code></a> that we
-added to the repo. So after <code>sudo apt install bioc-api-package</code> installation
-of the addional Bioconductor packages in jammy can proceed. For more details
-see <a href="https://github.com/eddelbuettel/r2u/issues/11">issue #11</a>. Note that
-none of what is described in this second paragraph to the question is needed
-anymore given the changes described in the first. All good!)</p>
+<p>This used to be an issue in the earlier days. As of early 2024 and the BioConductor 3.18 release, we
+also ensure we had all packages covered by the (originall Debian and hence also in the) Ubuntu
+distribution. At that time, the distribution had around 170 packages whereas the set of packages
+covered by r2u increased to by now around 600. With the combination of r2u generally having a newer
+version along with the recommended pinning you should always get the r2u version without issues.</p>
+<p>(And for historical context, back-then-when Ubuntu contained a number of Debian packages
+<code>r-bioc-*</code>. However, as the distribution cutoff for the 'jammy' (22.04) cutoff was before
+Bioconductor 3.15 was released so these packages had a dependency on the 'r-api-bioc-3.14' (virtual)
+package. To satisfy this with our r2u packages, which were then based on the newer Bioconductor 3.15
+(and later upgraded to 3.16, 3.17, now 3.18), we added a small <a href="https://github.com/eddelbuettel/bioc-api-package">virtual package
+<code>bioc-api-package</code></a> that we added to the repo. So
+after <code>sudo apt install bioc-api-package</code> installation of the addional Bioconductor packages in
+jammy can proceed. For more details see [issue</p>
+<h1 id="11httpsgithubcomeddelbuettelr2uissues11-note-that-none-of-what-is-described-in-this">11](https://github.com/eddelbuettel/r2u/issues/11). Note that none of what is described in this</h1>
+<p>second paragraph to the question is needed anymore given the changes described in the first. All
+good!)</p>
 <h3 id="can-i-use-it-with-other-non-lts-ubuntu-releases">Can I use it with other non-LTS Ubuntu releases?</h3>
-<p>Of course!  You can always forward-upgrade.  So for example the 22.04
-("jammy") release works perfectly fine with 22.10 ("kinetic"). Just make sure
-you keep the <code>sources.list</code> entry on the LTS release you have as we (just
-like many other repositories) only provide LTS releases and no interim
-releases. </p>
-<p>When running 22.10 / 23.04 / 23.10 / 24.10 / 25.04 / 25.10 on a laptop with r2u,
-we are aware of one binary for the <a href="https://cloud.r-project.org/package=av">av</a>
-which ends up with a library dependency no longer satisified by the
-distribution. So we built ourselves an ad-hoc new binary of <code>r-cran-av</code> for the
-distro we ran. We will keep an eye on this to see if it affects other
-packages. If you find one, please file an issue. We think we can address this
-with a supplementary repo on an 'as-needed' basis. It may also help to keep the
-preceding LTS sources entry along with the newer non-LTS entry.</p>
+<p>Sure!  You can always forward-upgrade.  So for example the 22.04 ("jammy") release works perfectly
+fine with 22.10 ("kinetic"). Just make sure you keep the <code>sources.list</code> entry on the LTS release you
+have as we (just like many other repositories) only provide LTS releases and no interim releases.</p>
+<p>The worst that can happen is that a particular (versioned) shared library is newer in the
+newer-than-LTS release you run so you may have to either manually fetch and install it, or add the
+LTS release along with your current Ubuntu to the <code>apt</code> <code>sources</code> directory.</p>
+<p>When running 22.10 / 23.04 / 23.10 / 24.10 / 25.04 / 25.10 on a laptop with r2u, we are aware of one
+binary for the <a href="https://cloud.r-project.org/package=av">av</a> which ends up with a library dependency
+no longer satisified by the distribution. So we built ourselves an ad-hoc new binary of <code>r-cran-av</code>
+for the distro we ran. We will keep an eye on this to see if it affects other packages. If you find
+one, please file an issue. We think we can (if need be) address this with a supplementary repo on an
+'as-needed' basis. It may also help to keep the preceding LTS sources entry along with the newer
+non-LTS entry.</p>
 <h3 id="why-does-it-have-more-packages-than-cran">Why does it have more packages than CRAN ?</h3>
-<p>We (at least currently) do not purge packages from r2u that have been
-archived at CRAN.  Hence the set of packages at r2u grows faster and further
-leading to a (as of fall 2023) ten percent difference relative to CRAN.</p>
+<p>We (at least currently) do not purge packages from r2u that have been archived at CRAN.  Hence the
+set of packages at r2u grows faster and further leading to a growing difference relative to CRAN.</p>
 <h3 id="what-about-other-architectures-besides-x86_64">What about other architectures besides x86_64 ?</h3>
 <p>Excellent question. CRAN builds for at least three different OSs, Debian binaries are provided on
 maybe 15 hardware platforms so 'how hard can it be?' you may ask (and some have in issues
 <a href="https://github.com/eddelbuettel/r2u/issues/40">#40</a> and
 <a href="https://github.com/eddelbuettel/r2u/issues/55">#55</a>).</p>
-<p>Sadly, quite hard. This is essentially somewhere between the third or fourth time I tried to build
-something like this (some history is in <a href="https://arxiv.org/abs/2103.08069">this paper</a>), and it only
-got as (amazingly !)  far as it is has gotten because I could build on existing binaries.  None of
-that rich infrastructure exists for other hardware platforms, and recall that all this also works by
-plugging into and relying on <code>apt</code> so it would have to be a Debian (or Ubuntu) platform.  Now,
-thanks to expanded support at GitHub Actions we can also support arm64.</p>
-<p>But direct hardware access would of course be preferable. If you read this and happen to be, say, a
-product manager at a large cloud provider, get in touch. I have the infrastructure here, and nearly
-three decades of experience creating <code>.deb</code> packages. This <em>can be done</em> and on some platforms it
-makes a ton of sense to add support and the beginning of arm64 support shows.  Otherwise the focus
-will remain in a <code>x86_64</code> world though we now also provide full arm64 support.</p>
+<p>Sadly, it can be quite hard. This is essentially somewhere between the third or fourth time I tried
+to build something like this (some history is in <a href="https://arxiv.org/abs/2103.08069">this paper</a>),
+and it only got as (amazingly !)  far as it is has gotten because I could build on existing binaries
+(later replaced by build under GitHub Actions).  None of that rich infrastructure exists for other
+hardware platforms, and recall that all this also works by plugging into and relying on <code>apt</code> so it
+would have to be a Debian (or Ubuntu) platform. </p>
+<p>But now, thanks to expanded support at GitHub Actions we can also support arm64.  So starting with
+24.04 both arm64 and amd64 are supported.</p>
 <h3 id="why-can-i-not-uninstall-packages-with-removepackages">Why can I not uninstall packages with <code>remove.packages()</code> ?</h3>
 <p>This issue is known and documented, for example under <a href="https://github.com/eddelbuettel/r2u?tab=readme-ov-file#known-issues">known issues in the main GitHub
 README</a> shadowed in <a href="https://eddelbuettel.github.io/r2u/#known-issues">the main
@@ -1004,23 +1063,19 @@ that you can always call <code>bspm::disable(); install.packages("some_package")
 <p>See issue <a href="https://github.com/eddelbuettel/r2u/issues/75">#75</a> where this is discussed a little too
 and an example is provided.</p>
 <h3 id="should-i-install-bspm">Should I install bspm?</h3>
-<p>We find it helpful. It allows you to use <code>install.packages()</code> in R, or script
-<code>install.r</code>, and refer to <em>CRAN and BioConductor packages by their names</em>
-which is more natural. <code>bspm</code> will call <code>apt</code> for you. Hence our default
-Docker image has <code>bspm</code> installed and enabled by default.</p>
+<p>We find it helpful. It allows you to use <code>install.packages()</code> in R, or script <code>install.r</code>, and refer
+to <em>CRAN and BioConductor packages by their names</em> which is more natural. <code>bspm</code> will call <code>apt</code> for
+you. Hence our default Docker image has <code>bspm</code> installed and enabled by default.</p>
 <p>(Also see below though for <code>docker build</code> and <code>bspm</code>.)</p>
 <h3 id="bspm-is-a-little-noisy">bspm is a little noisy</h3>
-<p>You can wrap <code>suppressMessages()</code> around <code>bspm::enable()</code>.  We now do so in
-the Docker image.</p>
+<p>You can wrap <code>suppressMessages()</code> around <code>bspm::enable()</code>.  We now do so in the Docker image.</p>
 <h3 id="with-the-2204-jammy-container-i-get-cannot-connect-errors">With the 22.04 "jammy" container I get 'Cannot connect' errors</h3>
-<p>We found that adding <code>--security-opt seccomp=unconfined</code> to the <code>docker</code>
-invocation silenced those on AWS hosts and possibly other systems. 
-This may be related to Ubuntu hosts only.</p>
-<p>A side-effect of this required security policy statement for <code>bspm</code> is that
-<code>bspm</code> is not available when building containers off <code>r2u</code>. 
-It appears that Docker rules this out during builds.
-The only remedy is to use <code>bspm::disable()</code> and to rely on just <code>apt</code> to
-install the <code>r2u</code> packages in derived containers.</p>
+<p>We found that adding <code>--security-opt seccomp=unconfined</code> to the <code>docker</code> invocation silenced those
+on AWS hosts and possibly other systems.  This may be related to Ubuntu hosts only.</p>
+<p>A side-effect of this required security policy statement for <code>bspm</code> is that <code>bspm</code> is not available
+when building containers off <code>r2u</code>.  It appears that Docker rules this out during builds.  The only
+remedy is to use <code>bspm::disable()</code> and to rely on just <code>apt</code> to install the <code>r2u</code> packages in
+derived containers.</p>
 <h3 id="can-one-use-r2u-with-singularity-containers">Can one use <code>r2u</code> with Singularity containers?</h3>
 <p>Yes, as discussed <a href="https://github.com/eddelbuettel/r2u/issues/9">in this GitHub issue</a>.
 The key is that Singularity does not allow <code>root</code> access, yet we need to install packages
@@ -1037,9 +1092,9 @@ RUN install.r Seurat
 and enjoy the resulting container <code>r2u_seurat:22.04</code> (or give it any other suitable name) and build
 a suitable <code>.sif</code> from it as discussed in the issue.</p>
 <h3 id="how-can-one-know-when-it-was-updated">How can one know when it was updated</h3>
-<p>We follow P3M/PPM/RSPM builds so their <a href="https://p3m.dev/client/#/repos/cran/activity">update
-tracker</a> there can be helpful. We currently have no
-'lastBuilt' tag on the website but could add one if that helped.</p>
+<p>We generally build multiple times per day now. But we currently have no 'lastBuilt' tag on the
+website but could add one if that helped.  As builds are happening in public, you can always look at
+the <a href="https://github.com/eddelbuettel/r2u-builder">builder repository</a>.</p>
 
 
 
