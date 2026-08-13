@@ -7,4 +7,4 @@ importFrom("utils", "packageName", "available.packages", "download.file", "downl
 importFrom("crayon", "red", "green", "blue")
 importFrom("httr", "POST", "add_headers", "content")
 
-useDynLib(r2u, .registration = TRUE, .fixes = "C_")
+useDynLib(r2u, .registration = TRUE, .fixes = ".C_")

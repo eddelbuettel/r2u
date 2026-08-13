@@ -26,8 +26,8 @@ buildUpdatedPackages(tgt, debug = FALSE, verbose = FALSE, force = FALSE,
 \item{pkg}{character Name of the CRAN or BioConductor package to build}
 
 \item{tgt}{character Name (or version) of the build target distribution, this is restricted
-to either \dQuote{20.04}, \dQuote{22.04} or \dQuote{24.04} (or their names \dQuote{focal},
-\dQuote{jammy} or \dQuote{noble}_}
+to either \dQuote{20.04}, \dQuote{22.04}, \dQuote{24.04} or \dQuote{26.04} (or their names
+\dQuote{focal}, \dQuote{jammy} \dQuote{noble}, or \dQuote{resolute}).}
 
 \item{debug}{logical Optional value to show more debugging output, default is \sQuote{FALSE}}
 

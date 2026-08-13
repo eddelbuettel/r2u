@@ -6,11 +6,11 @@
 ## or just 'base' in sort(tools::standard_package_names()$base) which is almost the above
 ## (modulo 'translations')
 
-debug <- FALSE
+.debug <- FALSE
 
 ## Imported with love and acknowledgements from base R and its tools package
 .extract_dependency_package_names <- function(x) {
-    .Call(C_package_dependencies_scan, x)
+    .Call(.C_package_dependencies_scan, x)
 }
 
 .isBasePackage <- function(pkg) {
