@@ -509,7 +509,8 @@
 .setOptions <- function() {
     options(timeout = 180, 					# up from default of 60
             repos = c(CRAN="https://cran.r-project.org"),       # instead of cloud.r-p.o
-            available_packages_filters = c("R_version", "OS_type", "subarch"))
+            available_packages_filters = c("R_version", "OS_type", "subarch"),
+            rapt.verbose = TRUE) 				# to see a little more what rapt does
 }
 
 .setEnvVars <- function() {
