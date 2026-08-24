@@ -182,7 +182,7 @@ Types: deb
 URIs: https://r2u.stat.illinois.edu/ubuntu
 Suites: noble
 Components: main
-Arch: amd64, arm64
+Architectures: amd64 arm64
 Signed-By: /usr/share/keyrings/r2u.gpg
 EOF
 ```
@@ -201,7 +201,7 @@ Types: deb
 URIs: https://cloud.r-project.org/bin/linux/ubuntu
 Suites: noble-cran40/
 Components:
-Arch: amd64, arm64
+Architectures: amd64 arm64
 Signed-By: /usr/share/keyrings/r2u.gpg
 EOF
 apt update -qq

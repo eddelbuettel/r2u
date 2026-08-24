@@ -17,35 +17,35 @@ apt update -qq && apt install --yes --no-install-recommends ca-certificates gnup
 ## use gpg directly instead of the now-deprecated apt-key command
 gpg --homedir /tmp --no-default-keyring --keyring /usr/share/keyrings/r2u.gpg --keyserver keyserver.ubuntu.com --recv-keys A1489FE2AB99A21A 67C2D66C4B1D4339 51716619E084DAB9 F2B6E89C389782D0 5E25F516B04C661B
 gpg --homedir /tmp --no-default-keyring --keyring /usr/share/keyrings/r2u.gpg --export --armor A1489FE2AB99A21A > /etc/apt/trusted.gpg.d/eddelbuettel.asc
-gpg --homedir /tmp --no-default-keyring --keyring /usr/share/keyrings/r2u.gpg --export --armor F2B6E89C389782D0 5E25F516B04C661B > /etc/apt/trusted.gpg.d/rutter.asc
+gpg --homedir /tmp --no-default-keyring --keyring /usr/share/keyrings/r2u.gpg --export --armor F2B6E89C389782D0 5E25F516B04C661B 51716619E084DAB9 > /etc/apt/trusted.gpg.d/rutter.asc
 ## Second: add the repo -- here we use the well-connected mirror
 cat > /etc/apt/sources.list.d/r2u.sources <<EOF
 Types: deb
 URIs: http://r2u.stat.illinois.edu/ubuntu
 Suites: resolute
 Components: main
-Arch: amd64, arm64
+Architectures: amd64 arm64
 Signed-By: /etc/apt/trusted.gpg.d/eddelbuettel.asc
 EOF
 
 ## Third: ensure current R is used
-## For now use launchpad
-#cat > /etc/apt/sources.list.d/cran.sources <<EOF
-#Types: deb
-#URIs: https://cloud.r-project.org/bin/linux/ubuntu
-#Suites: noble-cran40/
-#Components:
-#Arch: amd64, arm64
-#Signed-By: /usr/share/keyrings/r2u.gpg
-#EOF
-cat > /etc/apt/sources.list.d/rrutter.sources <<EOF
+cat > /etc/apt/sources.list.d/cran.sources <<EOF
 Types: deb
-URIs: https://ppa.launchpadcontent.net/marutter/rrutter4.0/ubuntu/
-Suites: resolute
-Components: main
-Enabled: yes
+URIs: https://cloud.r-project.org/bin/linux/ubuntu
+Suites: resolute-cran40/
+Components:
+Architectures: amd64 arm64
 Signed-By: /etc/apt/trusted.gpg.d/rutter.asc
 EOF
+## Easrlier fallback
+#cat > /etc/apt/sources.list.d/rrutter.sources <<EOF
+#Types: deb
+#URIs: https://ppa.launchpadcontent.net/marutter/rrutter4.0/ubuntu/
+#Suites: resolute
+#Components: main
+#Enabled: yes
+#Signed-By: /etc/apt/trusted.gpg.d/rutter.asc
+#EOF
 
 apt update -qq
 DEBIAN_FRONTEND=noninteractive apt install --yes --no-install-recommends r-base-core
