@@ -205,6 +205,8 @@
         ## fallbacks, overriden when 'tgt' specified
         .pkgenv[["distribution"]] <- "24.04"  # TODO switch to resolute
         .pkgenv[["distribution_name"]] <- "noble"
+        ## default repository, needed as illinois.edu can unreachable from GitHub Actions
+        .pkgenv[["r2u_repository"]] <- .setDefaultRepository()
     } else {
         .debug_message("Already have config\n")
     }
@@ -406,7 +408,8 @@
     }
     if (is.null(B)) {
         .debug_message("Fresh builds file for ", tgt, "\n")
-        url <- file.path("https://r2u.stat.illinois.edu/ubuntu/pool/dists", tgt, "main/builds.rds")
+        url <- file.path(.pkgenv[["r2u_repository"]], "pool/dists", tgt, "main/builds.rds")
+        .debug_message("Accesing builds via ", url, "\n")
         bfile <- .defaultBuildsFile(tgt, force=TRUE)
         download.file(url, bfile, quiet=TRUE)
         B <- readRDS(bfile)
@@ -522,6 +525,28 @@
     cat("NOT_CRAN=true\n", file = fname, append = TRUE)
     cat("MAKEFLAGS='--jobs=4'\n", file = fname, append = TRUE)
     # no others so far
+}
+
+.is_connected <- function(site) { 	 # this is borrowed from dang::isConnected()
+    uoc <- function(site) {
+        con <- url(site)        	 # need to assign so that we can close
+        open(con)                        # in case of success we have a connection
+        close(con)                       # ... so we need to clean up
+    }
+    suppressWarnings(isFALSE(inherits(try(uoc(site), silent=TRUE), "try-error")))
+}
+
+.setDefaultRepository <- function() {
+    urls <- c("https://r2u.stat.illinois.edu/ubuntu",
+              "http://r2u.eddelbuettel.com/")
+    for (url in urls) {
+        if (.is_connected(url)) {
+            if (.debug) cat("Connectivity with", url, "\n")
+            return(url)
+        }
+    }
+    warning("Neither repository accessible")
+    character()
 }
 
 ## execute when r2u functions executed via :: or :::

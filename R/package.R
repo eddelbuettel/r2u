@@ -543,7 +543,8 @@ buildUpdatedPackages <- function(tgt, debug=FALSE, verbose=FALSE, force=FALSE, x
 
 ## Helper function for GitHub Actions builds and specific to arm64
 ## N is now obsolete
-#  no longer in rd @rdname buildPackage
+## no longer in rd @rdname buildPackage
+## may no longer be used
 .getBuildTargets <- function(filename="",
                              N=200,         		# unused, to be removed one day...
                              nbatch=40,			# builds in one batch given GitHub Action limits
@@ -558,7 +559,7 @@ buildUpdatedPackages <- function(tgt, debug=FALSE, verbose=FALSE, force=FALSE, x
     #url <- "https://r2u.stat.illinois.edu/ubuntu/pool/dists/noble/main/"
     #awk <- r"(awk '/r-.*_ar/ { print $1 "," $2 " "$3 "," $4 }')"  # not arm64.deb as cols get chopped
     #cmd <- paste(cmd, url, "|", awk)
-    B <- .allBuilds("noble", platform)  ## TODO switch to resolute once completely built
+    B <- .allBuilds("resolute", platform)
     restr <- paste0(platform, ".deb$")
     B <- B[grepl(restr, file), ]
 
