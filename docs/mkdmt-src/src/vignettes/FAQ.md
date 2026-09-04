@@ -207,12 +207,12 @@ derived containers.
 #### GitHub Actions time out
 
 This sadly happens to us too when building packages, and it also affects continunous integration
-use.
+use. We initially (mis)took this to be GitHub Actions client issue. It turns out is a defensive
+measure by the U of Illinois network reflecting port scanning attacks. We describe this as well as
+two fixes we both when building packages for r2u and in our [r-ci][r-ci] CI setup in a [detailed
+blog post][blog post]. Until the null-router tables are updated, your best bet is probably a simple
+re-run. Annoying, but as the [blog post says 'a tragedy of the commons'][blog post]. 
 
-We have access to the server, and there is _never_ anything in its logs. This seems to be entirely
-on the (GitHub runners) client side.  This has also been discussed in 
-[discussion issue #159](https://github.com/eddelbuettel/r2u/discussions/159) where Jeffrey Girard made
-some astute observations. For example this appears to only ever happens on amd64 but not on
-arm64. It really appears to be a client issue on the GitHub side and outside of our control: A
-simple re-run most often fixes it.
 
+[r-ci]: https://eddelbuettel.github.io/r-ci
+[blog post]: http://dirk.eddelbuettel.com/blog/2026/09/04#059_r2u_gha_tragedy_of_the_commons_a_fix
