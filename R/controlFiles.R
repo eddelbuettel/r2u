@@ -107,7 +107,8 @@
     rdevver <- .getConfig("minimum_r_version")
     stdver <- .getConfig("debian_policy_version")
 
-    binary <- D[,NeedsCompilation] == "yes"
+    ## cf #162: at least renv needs a binary build but does not say so
+    binary <- D[,NeedsCompilation] == "yes" || pkg %in% c("renv")
 
     con <- file("control", "wt")
     cat("Source: r-", repol, "-", lp, "\n",
