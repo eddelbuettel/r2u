@@ -258,6 +258,7 @@ buildPackage <- function(pkg, tgt, debug=FALSE, verbose=FALSE, force=FALSE, xvfb
                       pkg)
     } else {
         cmd <- paste0("docker run --rm -ti ",
+                      "--add-host \"cran.r-project.org:137.208.57.37\" ",
                       "-v ", getwd(), ":/mnt ",
                       "-w /mnt/build/", distname, "/", pkg, " ",
                       container, " debBuild.sh -r /mnt ",
