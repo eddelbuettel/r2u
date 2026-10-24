@@ -209,6 +209,13 @@
             "\n",
             sep="", file=con)
     }
+    if (pkg %in% c("duckdb")) {
+        ## duckdb 2.0.0 errors running 'dh_dwz'; binary may be too large
+        cat("override_dh_dwz:\n",
+	    "\t@echo \"Skipping dh_dwz\"\n",
+            "\n",
+            sep="", file=con)
+    }
     cat("%:\n",
         "\tdh $@ --buildsystem R\n",
         sep="", file=con)
